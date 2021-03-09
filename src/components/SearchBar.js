@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import * as api from '../services/api';
 import Product from './Product';
 
@@ -62,6 +63,7 @@ export default class SearchBar extends Component {
               Digite algum termo de pesquisa ou escolha uma categoria.
             </p>
           )}
+        <Link to="/shopping-cart" data-testid="shopping-cart-button">CARRINHO</Link>
       </div>
     );
   }
