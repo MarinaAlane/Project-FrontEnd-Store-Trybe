@@ -6,9 +6,9 @@ class Home extends React.Component {
   render() {
     return (
       <section>
-        <p data-testid="home-initial-message">
+        <input data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
-        </p>
+        </input>
         <button data-testid="shopping-cart-button" type="button">
           <Link to="/carrinho" component={ Carrinho } />
         </button>
