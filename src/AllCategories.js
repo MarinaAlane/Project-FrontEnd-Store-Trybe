@@ -5,12 +5,12 @@ class AllCategories extends React.Component {
   constructor() {
     super();
     this.state = {
-      allCategories: []
-    }
+      allCategories: [],
+    };
   }
-    
-  componentDidMount() { 
-    this.fetchCategory(); 
+
+  componentDidMount() {
+    this.fetchCategory();
   }
 
   async fetchCategory() {
@@ -18,13 +18,13 @@ class AllCategories extends React.Component {
     this.setState({
       allCategories: gCategories,
     });
-  };
+  }
 
   render() {
     return (
       <ul>
-        {this.state.allCategories.map(({ id , name }) =>
-          <li key={id} data-testid="category" >{name}</li>
+        {this.state.allCategories.map(({ id, name }) =>
+          <li key={id} data-testid="category">{ name }</li>
         )}
       </ul>
     );
