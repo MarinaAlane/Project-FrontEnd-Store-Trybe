@@ -3,11 +3,11 @@ import { bool, string, oneOfType, element } from 'prop-types';
 
 export default class Button extends Component {
   render() {
-    const { submit, id, children } = this.props;
+    const { submit, id, children, dataTestId } = this.props;
 
     return (
       <button
-        data-testid={ id }
+        data-testid={ dataTestId ? id : '' }
         type={ submit ? 'submit' : 'button' }
         id={ id }
       >
@@ -20,6 +20,7 @@ export default class Button extends Component {
 Button.propTypes = {
   submit: bool.isRequired,
   id: string.isRequired,
+  dataTestId: bool.isRequired,
   children: oneOfType([string, element]),
 };
 
