@@ -1,4 +1,5 @@
 import React from 'react';
+import * as api from './services/api';
 
 class SearchBar extends React.Component {
   constructor(props) {
@@ -6,13 +7,14 @@ class SearchBar extends React.Component {
     this.state = {};
   }
 
-  // async function fetchItems({ target }) {}
+  handleClick({ target }) {
+  }
 
   render() {
     return (
       <nav>
         <input type="text" />
-        <button type="button">Buscar</button>
+        <button type="button" onClick={ this.handleClick }>Buscar</button>
       </nav>
     );
   }
