@@ -11,7 +11,7 @@ class Home extends React.Component {
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>
         <button data-testid="shopping-cart-button" >
-          <Link to="/carrinho" component={ Carrinho } />
+          <Link to="/components/carrinho" component={ Carrinho } />
         </button>
       </section>
     );
