@@ -1,4 +1,5 @@
 import React from 'react';
+import Search from './Search';
 import * as api from './services/api';
 import './App.css';
 
@@ -9,8 +10,9 @@ class App extends React.Component {
         console.log(categories);
       });
     return (
-      <div>
+      <div className="App-header">
         <h1>Hello world!</h1>
+        <Search />
       </div>
     );
   }
