@@ -44,7 +44,8 @@ class SearchBar extends React.Component {
         <button
           data-testid="query-button"
           type="button"
-          onClick={ this.handleClick }>
+          onClick={ this.handleClick }
+        >
             Buscar
         </button>
       </nav>
@@ -55,6 +56,6 @@ class SearchBar extends React.Component {
 SearchBar.propTypes = {
   sentProducts: PropTypes.func.isRequired,
 
-}.isRequired
+}.isRequired;
 
 export default SearchBar;

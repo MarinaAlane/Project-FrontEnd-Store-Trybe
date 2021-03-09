@@ -9,7 +9,8 @@ class Home extends React.Component {
     this.state = {
       products: {},
       productsArrive: false,
-    }
+    },
+
     this.getProducts = this.getProducts.bind(this);
   }
 
@@ -28,8 +29,7 @@ class Home extends React.Component {
         <SearchBar sentProducts={ this.getProducts } />
         { productsArrive
           ? <ProductsList productsList={ products } />
-          : <MainPage />
-        }
+          : <MainPage /> }
       </>
     );
   }
