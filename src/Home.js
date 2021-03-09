@@ -2,6 +2,8 @@ import React from 'react';
 import SearchBar from './SearchBar';
 import MainPage from './MainPage';
 import ProductsList from './services/ProductsList';
+import AllCategories from './AllCategories';
+import ShoppingCartBtn from './ShoppingCartBtn';
 
 class Home extends React.Component {
   constructor(props) {
@@ -26,10 +28,12 @@ class Home extends React.Component {
     return (
       <>
         <SearchBar sentProducts={ this.getProducts } />
+        <ShoppingCartBtn />
         { productsArrive
           ? <ProductsList productsList={ products } /> 
           : <MainPage />
         }
+        <AllCategories />
       </>
     );
   }
