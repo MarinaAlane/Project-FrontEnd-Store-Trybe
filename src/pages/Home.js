@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import ProductList from '../components/ProductsList';
 import * as api from '../services/api';
 
@@ -56,6 +57,10 @@ class Home extends Component {
             { this.mapCategory() }
           </div>
         </aside>
+        <Link to="/shoppingCart">
+          <button type="button" data-testid="shopping-cart-button">ShoppingCart</button>
+        </Link>
+
         <input
           type="text"
           placeholder="Digite aqui"
