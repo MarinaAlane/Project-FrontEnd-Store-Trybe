@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Home from './Home';
-import * as api from './services/api';
+// import * as api from './services/api';
 
 function App() {
   return (
