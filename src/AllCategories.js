@@ -21,11 +21,11 @@ class AllCategories extends React.Component {
   }
 
   render() {
+    const { allCategories } = this.state;
     return (
       <ul>
-        {this.state.allCategories.map(({ id, name }) =>
-          <li key={ id } data-testid="category">{ name }</li>,
-        )}
+        { allCategories.map(({ id, nm }) => (
+          <li key={ id } data-testid="category">{ nm }</li>))}
       </ul>
     );
   }
