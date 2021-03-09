@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 class ShoppingCart extends React.Component {
   render() {
-    return(
+    return (
       <section>
         <Link to="/">
           <button type="button">VOLTAR</button>

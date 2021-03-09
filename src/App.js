@@ -7,7 +7,7 @@ function App() {
   return (
     <BrowserRouter>
       <Route exact path="/" component={ SearchBar } />
-      <Route path='/shopping-cart' component={ ShoppingCart } />
+      <Route path="/shopping-cart" component={ ShoppingCart } />
     </BrowserRouter>
   );
 }
