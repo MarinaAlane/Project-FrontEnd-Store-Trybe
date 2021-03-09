@@ -9,7 +9,8 @@ class Home extends React.Component {
     this.state = {
       products: {},
       productsArrive: false,
-    },
+
+    };
 
     this.getProducts = this.getProducts.bind(this);
   }

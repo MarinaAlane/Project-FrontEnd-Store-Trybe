@@ -46,7 +46,7 @@ class SearchBar extends React.Component {
           type="button"
           onClick={ this.handleClick }
         >
-            Buscar
+          Buscar
         </button>
       </nav>
     );
