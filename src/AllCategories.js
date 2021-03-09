@@ -14,7 +14,7 @@ class AllCategories extends React.Component {
   }
 
   async fetchCategory() {
-    const gCategories = await api.getCategories().then(item => item);
+    const gCategories = await api.getCategories();
     this.setState({
       allCategories: gCategories,
     });
@@ -24,7 +24,7 @@ class AllCategories extends React.Component {
     return (
       <ul>
         {this.state.allCategories.map(({ id, name }) =>
-          <li key={id} data-testid="category">{ name }</li>
+          <li key={ id } data-testid="category">{ name }</li>,
         )}
       </ul>
     );
