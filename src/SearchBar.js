@@ -1,5 +1,5 @@
 import React from 'react';
-import * as api from './services/api';
+// import * as api from './services/api';
 
 class SearchBar extends React.Component {
   constructor(props) {
@@ -7,8 +7,8 @@ class SearchBar extends React.Component {
     this.state = {};
   }
 
-  handleClick({ target }) {
-  }
+  // handleClick({ target }) {
+  // }
 
   render() {
     return (
