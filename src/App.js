@@ -3,7 +3,6 @@ import './App.css';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Home from './Home';
 import ShoppingCart from './ShoppingCart';
-import * as api from './services/api';
 
 function App() {
   return (
