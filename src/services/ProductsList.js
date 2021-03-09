@@ -2,7 +2,6 @@ import React from 'react';
 import ProductCard from './ProductCard';
 import PropTypes from 'prop-types';
 
-
 class ProductsList extends React.Component {
     render() {
         const { productsList: { results} } = this.props

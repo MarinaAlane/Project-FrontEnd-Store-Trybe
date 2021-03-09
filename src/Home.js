@@ -2,6 +2,7 @@ import React from 'react';
 import SearchBar from './SearchBar';
 import MainPage from './MainPage';
 import ProductsList from './services/ProductsList';
+
 class Home extends React.Component {
   constructor(props) {
     super(props);
