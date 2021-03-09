@@ -23,6 +23,11 @@ class Categories extends Component {
 
   render() {
     const { categories } = this.state;
+
+    if (categories.length < 1) {
+      return <h4>Loading</h4>;
+    }
+
     return (
       <div>
         <h1>Categorias</h1>
