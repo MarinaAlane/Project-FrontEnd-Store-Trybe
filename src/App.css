@@ -40,3 +40,9 @@
     transform: rotate(360deg);
   }
 }
+
+.search-bar {
+  border-radius: 15px;
+  height: 20px;
+  width: 80%;
+}
