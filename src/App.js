@@ -2,6 +2,8 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+import * as api from './services/api';
+
 function App() {
   return (
     <div className="App">
@@ -16,6 +18,11 @@ function App() {
         >
           Learn React
         </a>
+        { api.getCategories().then((categories) => console.log(categories)) }
+
+        { api.getProductsFromCategoryAndQuery(null, 'cinta').then((search) => console.log(search)) }
+        { api.getProductsFromCategoryAndQuery('MLB1071').then((categoryID) => console.log(categoryID)) }
+        { api.getProductsFromCategoryAndQuery("MLB1540", 'cinta').then((categories) => console.log(categories)) }
       </header>
     </div>
   );
