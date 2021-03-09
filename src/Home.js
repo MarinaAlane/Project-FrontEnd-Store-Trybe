@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Categorias from './Categorias';
 import ProductList from './ProductList';
 import * as api from './services/api';
 
@@ -7,15 +8,24 @@ class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      queryInput: '',
+      categories: [],
       products: [],
+      queryInput: '',
     };
     this.handleChange = this.handleChange.bind(this);
     this.fetchSearch = this.fetchSearch.bind(this);
+    this.categoriesFetch = this.categoriesFetch.bind(this);
   }
 
   componentDidMount() {
+    this.categoriesFetch();
     this.fetchSearch();
+  }
+
+  async categoriesFetch() {
+    const results = await api.getCategories();
+    this.setState({
+      categories: results,
   }
 
   handleChange({ target }) {
@@ -34,7 +44,7 @@ class Home extends React.Component {
   }
 
   render() {
-    const { queryInput, products } = this.state;
+    const { queryInput, products, categories } = this.state;
     return (
       <section>
         <label htmlFor="Digite" data-testid="home-initial-message">
@@ -46,6 +56,7 @@ class Home extends React.Component {
           />
           Digite algum termo de pesquisa ou escolha uma categoria.
         </label>
+        <Categorias categories={ categories } />
         <button
           type="button"
           data-testid="query-button"
