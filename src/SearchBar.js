@@ -9,9 +9,7 @@ class SearchBar extends React.Component {
     };
   }
 
-  async function fetchItems({ target }) {
-    const retrievedItems = await 
-  }
+  // async function fetchItems({ target }) {}
 
   render() {
     return (
