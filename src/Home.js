@@ -1,6 +1,7 @@
 import React from 'react';
 import ProductList from './ProductList';
 import * as api from './services/api';
+import { Link } from 'react-router-dom';
 
 class Home extends React.Component {
   constructor(props) {
@@ -54,6 +55,7 @@ class Home extends React.Component {
         </button>
         {(products.length > 0) ? <ProductList products={ products } />
           : <p>Nenhum produto foi encontrado</p>}
+        <Link to="/shoppingcart" data-testid="shopping-cart-button">CARRINHO</Link>
       </section>
     );
   }
