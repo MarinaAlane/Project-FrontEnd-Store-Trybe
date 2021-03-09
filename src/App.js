@@ -5,7 +5,7 @@ import './App.css';
 function App() {
   api.getCategories();
   return (
-    <div>INICIO!</div>
+    <div>INICIO!!!</div>
   );
 }
 
