@@ -1,6 +1,6 @@
 import React from 'react';
 
-class Home extends React.Component {
+class ProductList extends React.Component {
   render() {
     return (
       <div>
@@ -14,4 +14,4 @@ class Home extends React.Component {
   }
 }
 
-export default Home;
+export default ProductList;
