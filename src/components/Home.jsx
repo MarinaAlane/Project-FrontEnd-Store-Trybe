@@ -34,7 +34,6 @@ class Home extends React.Component {
   }
 
   renderElements() {
-    const { categories } = this.state;
     return (
       <div>
         <input type="text" />
@@ -46,20 +45,24 @@ class Home extends React.Component {
             Cart
           </Link>
         </button>
-        <div>
-          <ListCategories categories={ categories } />
-        </div>
       </div>
     );
   }
 
   render() {
-    const { promisse } = this.state;
+    const { promisse, categories } = this.state;
     if (promisse === true) {
-      return this.renderElements();
+      return (
+        <div>
+          {this.renderElements()}
+          <div>
+          <ListCategories categories={ categories } />
+          </div>
+        </div>
+      );
     }
     return (
-      <div>Loading...</div>
+      this.renderElements()
     );
   }
 }
