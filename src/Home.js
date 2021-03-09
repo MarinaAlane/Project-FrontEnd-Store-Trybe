@@ -26,7 +26,7 @@ class Home extends React.Component {
     const results = await api.getCategories();
     this.setState({
       categories: results,
-  }
+    })}
 
   handleChange({ target }) {
     const { value } = target;
