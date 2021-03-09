@@ -19,11 +19,11 @@ export default class Categories extends Component {
 
   render() {
     const { categories, loading } = this.state;
-    return loading ? (
-      <div>Carregando...</div>
-    ) : (
-      <div className="wrapper-category">
 
+    if (loading) return (<div>Carregando...</div>);
+
+    return (
+      <div className="wrapper-category">
         {categories.map((category) => (
           <div key={ category.id }>
             <label data-testid="category" htmlFor="category">
