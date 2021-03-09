@@ -3,8 +3,6 @@ export async function getCategories() {
   return response;
 }
 
-getCategories();
-
 export async function getProductsFromCategoryAndQuery(categorieId, query) {
   const endpoint = `https://api.mercadolibre.com/sites/MLB/search?category=${categorieId}&q=${query}`;
   const response = await fetch(endpoint);
