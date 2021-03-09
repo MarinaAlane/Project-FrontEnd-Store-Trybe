@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import ProductTermPage from './ProductTermPage';
-import * as api from '../services/api';
+import ProductTermPage from '../../pages/ProductTermPage/ProductTermPage';
+import * as api from '../../services/api';
+import SearchBar from '../SearchBar/SearchBar';
 
 class SearchForTerms extends Component {
   constructor(props) {
@@ -8,6 +9,7 @@ class SearchForTerms extends Component {
     this.state = {
       product: [],
       loading: true,
+      value: '',
     };
   }
 
@@ -16,16 +18,23 @@ class SearchForTerms extends Component {
       .then((term) => this.setState({ product: term, loading: false }));
   }
 
+  handleInputChange() {
+    this.setState({ value: 'teste' });
+  }
+
   render() {
     const { product, loading } = this.state;
     if (loading) return <p>loading</p>;
 
     return (
-      product.results.map((term) => (<ProductTermPage
-        data-testid="product"
-        key={ term.id }
-        product={ term }
-      />))
+      <>
+        {product.results.map((term) => (<ProductTermPage
+          data-testid="product"
+          key={ term.id }
+          product={ term }
+        />))}
+        <SearchBar onInputChange={ this.handleInputChange } />
+      </>
     );
   }
 }

@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
-import SearchForTerms from './SearchForTerms';
+import SearchForTerms from '../SearchBarForTerms/SearchForTerms';
 
 class SearchBar extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      inputValue: '',
-    };
     this.getInputState = this.getInputState.bind(this);
   }
 
   getInputState({ target }) {
-    this.setState({ inputValue: target.value });
+    const { onInputChange } = this.props;
+    onInputChange(target.value);
   }
 
   render() {
