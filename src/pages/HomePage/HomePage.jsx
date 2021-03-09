@@ -1,11 +1,11 @@
 import React from 'react';
-import SearchBar from '../../components/SearchBar';
+import Header from '../../components/Header';
 
 class HomePage extends React.Component {
   render() {
     return (
       <>
-        <SearchBar />
+        <Header />
         <p data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>
@@ -13,4 +13,5 @@ class HomePage extends React.Component {
     );
   }
 }
+
 export default HomePage;

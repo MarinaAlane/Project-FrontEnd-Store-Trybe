@@ -1,17 +1,28 @@
 import React, { Component } from 'react';
+import { bool, string, oneOfType, element } from 'prop-types';
 
 export default class Button extends Component {
   render() {
-    const { type, id } = this.props;
+    const { submit, id, children } = this.props;
 
     return (
       <button
         data-testid={ id }
-        type={ type }
+        type={ submit ? 'submit' : 'button' }
         id={ id }
       >
-        { innerText }
+        { children }
       </button>
     );
   }
 }
+
+Button.propTypes = {
+  submit: bool.isRequired,
+  id: string.isRequired,
+  children: oneOfType([string, element]),
+};
+
+Button.defaultProps = {
+  children: '',
+};
