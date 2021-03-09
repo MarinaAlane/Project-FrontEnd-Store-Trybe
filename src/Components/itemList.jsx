@@ -20,8 +20,8 @@ class ItemList extends Component {
       .then((list) => this.setState({ itemList: list }));
   }
 
-  async render() {
-    const { results } = await this.state.itemList;
+  render() {
+    const { results } = this.state.itemList;
     return (
     <div>
       {console.log(results)}
