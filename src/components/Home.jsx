@@ -56,7 +56,7 @@ class Home extends React.Component {
         <div>
           {this.renderElements()}
           <div>
-          <ListCategories categories={ categories } />
+            <ListCategories categories={ categories } />
           </div>
         </div>
       );
