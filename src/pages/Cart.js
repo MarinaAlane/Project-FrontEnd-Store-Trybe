@@ -1,9 +1,9 @@
-import React, { Comment } from 'react';
+import React, { Component } from 'react';
 
-class Cart extends Comment {
+class Cart extends Component {
   render() {
     return (
-      <p className="shopping-cart-empty-message">Seu carrinho está vazio</p>
+      <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
     );
   }
 }
