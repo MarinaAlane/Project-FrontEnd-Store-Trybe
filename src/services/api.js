@@ -6,11 +6,10 @@ export async function getCategories() {
 }
 
 export async function getProductsFromCategoryAndQuery(categoryId, query) {
-  const key = categoryId || query;
-  if (key === categoryId) {
-    const result = await fetch(`${baseURL}search?category=${categoryId}`);
-    return result.json();
+  let result = await (await fetch(`${baseURL}search?category=${categoryId}`)).json();
+  if ( result.results.length === 0 ) {
+    result = await (await fetch(`${baseURL}search?q=${query}`)).json();
   }
-  const result = await fetch(`${baseURL}search?q=${categoryId}`);
-  return result.json();
+  
+  return result;
 }
