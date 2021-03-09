@@ -1,23 +1,61 @@
 import React from 'react';
-// import * as api from './services/api';
+import PropTypes from 'prop-types';
+
+import * as api from './services/api';
 
 class SearchBar extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      inputValue: '',
+
+    };
+
+    this.handleOnChange = this.handleOnChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
-  // handleClick({ target }) {
-  // }
+  async handleClick() {
+    const { sentProducts } = this.props;
+    const { inputValue } = this.state;
+    const productsFromApi = await api.getProductsFromCategoryAndQuery('', inputValue);
+    sentProducts(productsFromApi);
+  }
+
+  handleOnChange({ target }) {
+    const { value } = target;
+    this.setState({
+      inputValue: value,
+
+    });
+  }
 
   render() {
+    const { inputValue } = this.state;
     return (
       <nav>
-        <input type="text" />
-        <button type="button" onClick={ this.handleClick }>Buscar</button>
+        <input
+          data-testid="query-input"
+          type="text"
+          value={ inputValue }
+          name="searchBar"
+          onChange={ this.handleOnChange }
+        />
+        <button
+          data-testid="query-button"
+          type="button"
+          onClick={ this.handleClick }
+        >
+          Buscar
+        </button>
       </nav>
     );
   }
 }
+
+SearchBar.propTypes = {
+  sentProducts: PropTypes.func.isRequired,
+
+}.isRequired;
 
 export default SearchBar;
