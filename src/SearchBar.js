@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import * as api from './services/api';
 
@@ -12,14 +13,13 @@ class SearchBar extends React.Component {
 
     this.handleOnChange = this.handleOnChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
- }
+  }
 
   async handleClick() {
     const { sentProducts } = this.props;
     const { inputValue } = this.state;
-    const productsFromApi = await api.getProductsFromCategoryAndQuery('',inputValue);
+    const productsFromApi = await api.getProductsFromCategoryAndQuery('', inputValue);
     sentProducts(productsFromApi);
-
   }
 
   handleOnChange({ target }) {
@@ -44,10 +44,17 @@ class SearchBar extends React.Component {
         <button
           data-testid="query-button"
           type="button"
-          onClick={ this.handleClick }>Buscar</button>
+          onClick={ this.handleClick }>
+            Buscar
+        </button>
       </nav>
     );
   }
 }
+
+SearchBar.propTypes = {
+  sentProducts: PropTypes.func.isRequired,
+
+}.isRequired
 
 export default SearchBar;
