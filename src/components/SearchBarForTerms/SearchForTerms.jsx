@@ -33,7 +33,6 @@ class SearchForTerms extends Component {
           key={ term.id }
           product={ term }
         />))}
-        <SearchBar onInputChange={ this.handleInputChange } />
       </>
     );
   }
