@@ -10,7 +10,7 @@ class Home extends React.Component {
       productsArrive: false,
     }
     this.getProducts = this.getProducts.bind(this);
-  };
+  }
 
   getProducts(productsFromApi) {
     this.setState({
