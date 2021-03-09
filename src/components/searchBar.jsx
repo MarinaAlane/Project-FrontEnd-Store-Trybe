@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import FilterCategories from './filterCategories';
 import CartButton from './CartButton';
 
 class SearchBar extends Component {
@@ -14,6 +15,7 @@ class SearchBar extends Component {
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>
         <CartButton />
+        <FilterCategories />
 
       </>
     );
