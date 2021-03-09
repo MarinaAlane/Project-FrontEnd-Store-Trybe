@@ -6,7 +6,7 @@ class ProductsCard extends React.Component {
     const { product } = this.props;
     return (
       <div data-testid="product">
-        <img src={ product.thumbnail } alt={ `Imagem da ${product.title }` }/>
+        <img src={ product.thumbnail } alt={ `Imagem da ${product.title}` } />
         <p>{ product.title }</p>
         <p>{ product.price }</p>
         <button type="button">ADICIONAR AO CARRINHO</button>
