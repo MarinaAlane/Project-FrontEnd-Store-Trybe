@@ -1,27 +1,21 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import './App.css';
 
 import Home from './pages/Home';
+import Cart from './pages/Cart';
 
-import * as api from './services/api';
+import './App.css';
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
         <Switch>
-          {/* <Route path="/" component={Home} /> */}
+          <Route path="/cart" component={ Cart } />
           {/* <Route path="/" component={Home} /> */}
           <Route exact path="/" component={ Home } />
         </Switch>
       </BrowserRouter>
-
-      {/* { api.getCategories().then((categories) => console.log(categories)) } */}
-
-      {/* { api.getProductsFromCategoryAndQuery(null, 'cinta').then((search) => console.log(search)) } */}
-      {/* { api.getProductsFromCategoryAndQuery('MLB1071').then((categoryID) => console.log(categoryID)) } */}
-      {/* { api.getProductsFromCategoryAndQuery("MLB1540", 'cinta').then((categories) => console.log(categories)) } */}
     </div>
   );
 }
