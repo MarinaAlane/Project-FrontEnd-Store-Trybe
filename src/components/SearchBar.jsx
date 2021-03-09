@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import { getProductsFromCategoryAndQuery } from '../services/api';
-import ItemCard from '../components/ItemCard';
+import ItemCard from './ItemCard';
 
 class SearchBar extends Component {
   constructor(props) {
