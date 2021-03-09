@@ -3,10 +3,7 @@ import React from 'react';
 class SearchBar extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      category: "",
-      searchItem: "",
-    };
+    this.state = {};
   }
 
   // async function fetchItems({ target }) {}
