@@ -4,7 +4,7 @@ import CardProduct from './CardProduct';
 
 class ProductList extends Component {
 
-  constructor( props ) {
+  constructor(props) {
     super(props);
     this.state = {
       products: [],
@@ -16,15 +16,14 @@ class ProductList extends Component {
   getProducts(query) {
     const result = getProductsFromCategoryAndQuery(query, query);
     result.then(
-      res => {
-        this.setState( (props) => {
-          console.log(this.state.query);
+      (res) => {
+        this.setState((props) => {
           return {
             ...props,
             products: res.results,
           }
-        })
-      }
+        });
+      },
     );
   }
 
@@ -34,9 +33,8 @@ class ProductList extends Component {
       return {
         ...props,
         query: value,
-      }
+      };
     });
-    // this.getProducts(value);
   }
 
   render() {
@@ -45,11 +43,22 @@ class ProductList extends Component {
       <main>
         <header>
           <input value={ query } onChange={ this.onInputUpdate } data-testid="query-input" type="text" />
-          <button data-testid="query-button" onClick={ () => this.getProducts(this.state.query) } >Buscar</button>
+          <button
+            data-testid="query-button"
+            onClick={ () => this.getProducts(this.state.query) } >
+              Buscar
+          </button>
         </header>
         {
           products.length !== 0 ? products.map( (product) => {
-            return <CardProduct key={ product.id } title={ product.title } price={ product.price } image={ product.thumbnail }/>
+            return (
+              <CardProduct
+                key={ product.id }
+                title={ product.title }
+                price={ product.price }
+                image={ product.thumbnail }
+              />
+            )
           }) : (
             <p data-testid="home-initial-message">
               Digite algum termo de pesquisa ou escolha uma categoria.
