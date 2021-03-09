@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import ProductList from './components/ProductList';
 
-class App extends React.component {
+class App extends React.Component {
   render() {
     return (
       <Router>
