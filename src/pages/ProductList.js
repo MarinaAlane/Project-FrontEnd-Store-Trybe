@@ -5,10 +5,10 @@ class ProductList extends Component {
     return (
       <main>
         <header>
-          <input type="text"></input>
+          <input type="text" />
         </header>
         <p data-testid="home-initial-message">
-          "Digite algum termo de pesquisa ou escolha uma categoria."
+          Digite algum termo de pesquisa ou escolha uma categoria.
         </p>
       </main>
     );
