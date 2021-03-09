@@ -1,12 +1,15 @@
 import React from 'react';
+import { BrowserRouter, Route } from 'react-router-dom';
 // import * as api from './services/api';
-import Input from './Components/input';
+import Home from './Components/homePage';
+import EmptyCart from './Components/emptyCart';
 
 function App() {
   return (
-    <div>
-      <Input />
-    </div>
+    <BrowserRouter>
+      <Route exact path="/" component={ Home } />
+      <Route path="/emptyCart" component={ EmptyCart } />
+    </BrowserRouter>
   );
 }
 

@@ -1,8 +1,8 @@
 import React from 'react';
 
 const EmptyCart = () => (
-  <div>
-    cart_eligible
+  <div data-testid="shopping-cart-empty-message">
+    Seu carrinho está vazio
   </div>
 );
 
