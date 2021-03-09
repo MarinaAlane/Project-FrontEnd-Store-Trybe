@@ -1,9 +1,11 @@
 import React from 'react';
+import * as api from './services/api';
 
 function App() {
   return (
     <div className="App">
-      <h1>Olá React</h1>
+      <h1>blabal</h1>
+      {api.getCategories().then(categories => { console.log(categories) })}
     </div>
   );
 }
