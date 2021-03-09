@@ -1,15 +1,19 @@
 import React, { Component } from 'react';
+import './Home.css';
 
 class Home extends Component {
   render() {
     const message = (
-      <span data-testid="home-initial-message">
+      <h5
+        data-testid="home-initial-message"
+        className="defaultMessage"
+      >
         Digite algum termo de pesquisa ou escolha uma categoria.
-      </span>
+      </h5>
     );
     return (
       <div>
-        <input type="text" />
+        <input type="text" className="searchInput" />
         { message }
       </div>
     );
