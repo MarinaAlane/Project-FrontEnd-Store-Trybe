@@ -1,13 +1,14 @@
 import React from 'react';
-import FilterCategories from './components/filterCategories';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import SearchBar from './components/searchBar';
+import ShoppingCart from './components/ShoppingCart';
 
 function App() {
   return (
-    <div className="App">
-      <SearchBar />
-      <FilterCategories />
-    </div>
+    <Router>
+      <Route exact path="/" component={ SearchBar } />
+      <Route path="/shopping-cart" component={ ShoppingCart } />
+    </Router>  
   );
 }
 

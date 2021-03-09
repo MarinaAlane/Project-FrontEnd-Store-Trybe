@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import CartButton from './CartButton';
 
 class SearchBar extends Component {
   render() {
@@ -12,6 +13,8 @@ class SearchBar extends Component {
         <p data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>
+        <CartButton />
+
       </>
     );
   }
