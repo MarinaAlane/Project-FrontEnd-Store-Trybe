@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import * as Api from '../services/api';
+import CardProduct from './CardProduct';
 
 class ProductList extends Component {
   constructor(props) {
@@ -14,13 +15,15 @@ class ProductList extends Component {
 
     this.fetchCategories = this.fetchCategories.bind(this);
     this.onInputUpdate = this.onInputUpdate.bind(this);
+    this.getProducts = this.getProducts.bind(this);
   }
 
   componentDidMount() {
     this.fetchCategories();
   }
 
-  getProducts(query) {
+  getProducts() {
+    const { query } = this.state;
     const result = Api.getProductsFromCategoryAndQuery(query, query);
     result.then(
       (res) => {
@@ -40,12 +43,12 @@ class ProductList extends Component {
 
   onInputUpdate({ target }) {
     const { value } = target;
-    this.setState((props) => {
-      return {
+    this.setState((props) => (
+      {
         ...props,
         query: value,
-      };
-    });
+      }
+    ));
   }
 
   render() {
@@ -60,7 +63,7 @@ class ProductList extends Component {
             data-testid="query-input"
             type="text"
           />
-          <button data-testid="query-button" onClick={ () => this.getProducts(query) }>
+          <button data-testid="query-button" onClick={ this.getProducts } type="button">
             Buscar
           </button>
           <Link data-testid="shopping-cart-button" to="/cart">Carrinho</Link>
@@ -80,24 +83,20 @@ class ProductList extends Component {
             </div>
           ))}
         </aside>
-        
         {
-          products.length !== 0 ? products.map( (product) => {
-            return (
-              <CardProduct
-                key={ product.id }
-                title={ product.title }
-                price={ product.price }
-                image={ product.thumbnail }
-              />
-            )
-          }) : (
+          products.length !== 0 ? products.map((product) => (
+            <CardProduct
+              key={ product.id }
+              title={ product.title }
+              price={ product.price }
+              image={ product.thumbnail }
+            />
+          )) : (
             <p data-testid="home-initial-message">
               Digite algum termo de pesquisa ou escolha uma categoria.
             </p>
           )
         }
-        
       </main>
     );
   }
