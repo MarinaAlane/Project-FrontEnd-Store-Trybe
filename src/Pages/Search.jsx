@@ -1,9 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import * as api from '../services/api';
 import CardList from '../Components/CardList';
 import ListCategories from '../Components/ListCategories';
-import { Link } from 'react-router-dom';
-import botaoCarrinhoVazio from './botaocarrinho.jpg';
+import botaoCarrinho from '../Images/botaoCarrinho.jpg';
 import './Search.css';
 
 class Search extends React.Component {
@@ -67,32 +67,34 @@ class Search extends React.Component {
       <div className="main" data-testid="home-initial-message">
         <section className="section-category">
           Categorias:
-          { categories.map((category) => <ListCategories key={ category.id } category={ category } /> ) }
+          { categories.map((category) => (
+            <ListCategories key={ category.id } category={ category } />))}
+
         </section>
         <section>
-        <div>
-          <label htmlFor="searchtext">
+          <div>
+            <label htmlFor="searchtext">
+              <input
+                type="text"
+                id="searchText"
+                name="searchText"
+                value={ searchText }
+                onChange={ this.searchTextChange }
+                data-testid="query-input"
+              />
+            </label>
             <input
-              type="text"
-              id="searchText"
-              name="searchText"
-              value={ searchText }
-              onChange={ this.searchTextChange }
-              data-testid="query-input"
+              type="button"
+              data-testid="query-button"
+              value="Buscar"
+              onClick={ this.renderCard }
             />
-          </label>
-          <input
-            type="button"
-            data-testid="query-button"
-            value="Buscar"
-            onClick={ this.renderCard }
-          />
-          <Link data-testid="shopping-cart-button" to="/carrinho">
-            <img src={ botaoCarrinhoVazio } alt="botãoCarrinhoVazio" />
-          </Link>
-        </div>
-        { digite && <p>Digite algum termo de pesquisa ou escolha uma categoria.</p> }
-        { cardList && <CardList products={ products } /> }
+            <Link data-testid="shopping-cart-button" to="/carrinho">
+              <img src={ botaoCarrinho } alt="botãoCarrinhoVazio" />
+            </Link>
+          </div>
+          { digite && <p>Digite algum termo de pesquisa ou escolha uma categoria.</p> }
+          { cardList && <CardList products={ products } /> }
         </section>
       </div>
     );
