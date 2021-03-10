@@ -1,7 +1,20 @@
 export async function getCategories() {
-  // Implemente aqui
+  try {
+    const response = await fetch('https://api.mercadolibre.com/sites/MLB/categories', 'no-cors');
+    const categories = await response.json();
+    return categories;
+  } catch (error) {
+    throw new Error('Failed to fetch API and get categories');
+  }
 }
 
-export async function getProductsFromCategoryAndQuery(/* categoryId, query */) {
-  // Implemente aqui! Quando o fizer, descomente os parâmetros que essa função recebe
+export async function getProductsFromCategoryAndQuery(categorieId, query) {
+  try {
+    const endpoint = `https://api.mercadolibre.com/sites/MLB/search?category=${categorieId}&q=${query}`;
+    const response = await fetch(endpoint, 'no-cors');
+    const products = await response.json();
+    return products;
+  } catch (error) {
+    throw new Error('Failed to fetch API and get products');
+  }
 }

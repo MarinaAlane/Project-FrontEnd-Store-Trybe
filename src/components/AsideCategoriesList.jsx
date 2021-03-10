@@ -16,8 +16,7 @@ class AsideCategoriesList extends Component {
   }
 
   loadCategories() {
-    const categories = marketAPI.getCategories();
-    this.setState({ categories });
+    marketAPI.getCategories().then((categories) => this.setState({ categories }));
   }
 
   render() {
