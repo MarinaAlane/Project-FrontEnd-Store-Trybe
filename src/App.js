@@ -1,18 +1,12 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import SearchBar from './components/SearchBar';
-import ShopCart from './components/ShopCart';
+import { BrowserRouter } from 'react-router-dom';
+import Content from './components/Content';
 import './App.css';
 
 function App() {
   return (
     <BrowserRouter>
-      <Switch>
-        <div className="App">
-          <Route path="/" component={ SearchBar } />
-          <Route path="/shopping-cart" component={ ShopCart } />
-        </div>
-      </Switch>
+      <Content />
     </BrowserRouter>
   );
 }
