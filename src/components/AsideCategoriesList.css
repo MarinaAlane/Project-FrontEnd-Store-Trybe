@@ -1,12 +1,12 @@
-.d-flex{
-    display: flex;
+.d-flex {
+  display: flex;
 }
 .aside {
-    align-self: flex-start;
-    margin: 10px;
+  align-self: flex-start;
+  margin: 10px;
 }
-.categories-list{
-    border: 1px solid black;
-    border-radius: 10px;
-    padding: 50px; 
+.categories-list {
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 50px;
 }
