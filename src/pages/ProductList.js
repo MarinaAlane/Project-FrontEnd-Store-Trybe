@@ -1,55 +1,43 @@
 import React from 'react';
-import * as mlbAPI from '../services/api';
 import { Link } from 'react-router-dom';
+import * as mlbAPI from '../services/api';
 import Categories from '../components/Categories';
+import Products from '../components/Products';
 
 class ProductsList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       searchText: '',
-      products: undefined,
+      products: [],
     };
     this.changeHandler = this.changeHandler.bind(this);
     this.handleClick = this.handleClick.bind(this);
-    this.toBeShown = this.toBeShown.bind(this);
+    this.fetchProductQuery = this.fetchProductQuery.bind(this);
   }
 
-  async handleClick() {
-    const { searchText } = this.state;
-    const { results } = await mlbAPI.getProductsFromCategoryAndQuery('', searchText);
-
-    this.setState({
-      products: results,
-    });
+  handleClick() {
+    this.fetchProductQuery();
   }
 
   changeHandler(event) {
     this.setState({ searchText: event.target.value });
   }
 
-  toBeShown() {
-    const { products } = this.state;
-
-    if (products === []) return 'Nenhum produto foi encontrado.';
-
-    if (products) {
-      const productList = products.map((product) => (
-        <div data-testid="product" key={ product.id }>
-          <div>{ product.title }</div>
-          <img src={ product.thumbnail } alt="product" />
-          <div>{product.price}</div>
-        </div>
-      ));
-      return productList;
-    }
+  async fetchProductQuery() {
+    const { searchText } = this.state;
+    const { results } = await mlbAPI.getProductsFromCategoryAndQuery('', searchText);
+    this.setState({
+      products: results,
+    });
   }
 
   render() {
-    const { searchText } = this.state;
+    const { searchText, products } = this.state;
 
     return (
       <div>
+        <Link data-testid="shopping-cart-button" to="/meucarrinho">carrinho</Link>
         <input
           data-testid="query-input"
           value={ searchText }
@@ -65,14 +53,7 @@ class ProductsList extends React.Component {
         <h3 data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </h3>
-        <div>
-          { this.toBeShown() }
-        </div>
-        <Link data-testid="shopping-cart-button" to="/meucarrinho">carrinho</Link>
-        <input value={ searchText } onChange={ (event) => this.changeHandler(event) } />
-        <h3 data-testid="home-initial-message">
-          Digite algum termo de pesquisa ou escolha uma categoria.
-        </h3>
+        <Products products={ products } />
         <Categories />
       </div>
     );

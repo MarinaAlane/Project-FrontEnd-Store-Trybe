@@ -23,7 +23,6 @@ class Categories extends React.Component {
 
   render() {
     const { allCategories, loading } = this.state;
-    console.log(allCategories);
     if (loading) {
       return <p>Loading paragrafo</p>;
     }
