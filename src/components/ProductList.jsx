@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 // import * as api from '../services/api';
 import ProductCard from './ProductCard';
 
@@ -8,7 +9,7 @@ class ProductList extends React.Component {
     console.log(products);
     return (
       <div>
-        { [products].map((product) => (
+        { products.map((product) => (
           <ProductCard key={ product.id } product={ product } />
         ))}
       </div>
@@ -17,7 +18,7 @@ class ProductList extends React.Component {
 }
 
 ProductList.propTypes = {
-  products: PropTypes.shape({}).isRequired,
+  products: PropTypes.arrayOf().isRequired,
 };
 
 export default ProductList;
