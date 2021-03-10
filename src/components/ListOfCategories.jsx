@@ -21,14 +21,8 @@ class ListOfCategories extends React.Component {
     return (
       <div>
         <p>Categorias:</p>
-        {categories.map(
-          ((elem) => <p
-            data-testid="category"
-            key={ elem.id }
-          >
-            { elem.name }
-          </p>))
-        }
+        {categories
+          .map((elem) => <p data-testid="category" key={ elem.id }>{ elem.name }</p>)}
       </div>
     );
   }
