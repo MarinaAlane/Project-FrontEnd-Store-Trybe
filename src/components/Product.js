@@ -1,5 +1,6 @@
 import React from 'react';
 import { string, number, shape } from 'prop-types';
+import AddToCartButton from './AddToCartButton';
 
 class Products extends React.Component {
   render() {
@@ -10,6 +11,7 @@ class Products extends React.Component {
         <img src={ thumbnail } alt={ `${title}` } />
         <p>{ title }</p>
         <p>{ `R$ ${price}` }</p>
+        <AddToCartButton datatestid="product-add-to-cart" productName={ title } />
       </div>
     );
   }
