@@ -22,16 +22,17 @@ class Home extends React.Component {
     this.fetchSearch();
   }
 
-  async categoriesFetch() {
-    const results = await api.getCategories();
-    this.setState({
-      categories: results,
-    })}
-
   handleChange({ target }) {
     const { value } = target;
     this.setState({
       queryInput: value,
+    });
+  }
+
+  async categoriesFetch() {
+    const results = await api.getCategories();
+    this.setState({
+      categories: results,
     });
   }
 
