@@ -6,10 +6,12 @@ class ListCategories extends React.Component {
     const { categories } = this.props;
     return (
       <div>
-        <ul>
-          {categories.map(({ name, id }) => (
-            <li key={ id } data-testid="category">{name}</li>))}
-        </ul>
+        {categories.map(({ name, id }) => (
+          <div>
+            <label htmlFor={ id }>
+                <input key={ id } data-testid="category" type="checkbox"/>{ name }
+            </label>
+          </div>))}
       </div>);
   }
 }
