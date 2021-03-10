@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import ProductCard from '../Components/ProductCard';
+import ProductCard from '../Components/ProductCard/ProductCard';
 import * as api from '../services/api';
 import Categories from '../Components/Categories';
 
@@ -61,10 +61,12 @@ export default class Home extends Component {
         <p data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>
-        {productList
-          .map((product) => (
-            <ProductCard key={ product.id } product={ product } />
-          ))}
+        <ul>
+          {productList
+            .map((product) => (
+              <ProductCard key={ product.id } product={ product } />
+            ))}
+        </ul>
       </div>
     );
   }
