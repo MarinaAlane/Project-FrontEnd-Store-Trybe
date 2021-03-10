@@ -22,7 +22,7 @@ class Home extends React.Component {
             to="/shopping-cart"
             data-testid="shopping-cart-button"
           >
-          Carrinho
+            Carrinho
           </Link>
         </button>
       </div>
