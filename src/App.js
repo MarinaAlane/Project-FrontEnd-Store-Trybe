@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import ShoppingCart from './components/shopping_cart/ShoppingCart';
 import ButtonCart from './components/shopping_cart/ButtonCart';
 import ProductList from './ProductList';
@@ -8,9 +8,10 @@ import ProductList from './ProductList';
 function App() {
   return (
     <BrowserRouter>
-      <ProductList />
-      <ButtonCart />
-      <Route path="/ShoppingCart" component={ ShoppingCart } />
+      <Switch>
+        <Route exact path="/" component={ ProductList } />
+        <Route path="/ShoppingCart" component={ ShoppingCart } />
+      </Switch>
     </BrowserRouter>
   );
 }
