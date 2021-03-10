@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 class CategoriesCheckBox extends Component {
   render() {
-    const { category: { name, id } } = this.props;
+    const { category: { name, id }, change } = this.props;
     return (
       <li>
         <label htmlFor={ name }>
@@ -13,6 +13,7 @@ class CategoriesCheckBox extends Component {
             name="category"
             id={ name }
             value={ id }
+            onClick={ change }
           />
           { name }
         </label>
@@ -25,6 +26,7 @@ CategoriesCheckBox.propTypes = {
     name: PropTypes.string,
     id: PropTypes.string,
   }),
+  change: PropTypes.func,
 }.isRequired;
 
 export default CategoriesCheckBox;

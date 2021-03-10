@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import * as api from '../services/api';
 import CategoriesCheckBox from './categoriesCheckBox';
 
@@ -18,17 +19,26 @@ class CategoriesList extends Component {
 
   render() {
     const { productsCategories } = this.state;
+    const { handleCat } = this.props;
 
     return (
       <div>
         <ul>
           {productsCategories.map((category) => (
-            <CategoriesCheckBox key={ category.name } category={ category } />
+            <CategoriesCheckBox
+              key={ category.name }
+              category={ category }
+              change={ handleCat }
+            />
           ))}
         </ul>
       </div>
     );
   }
 }
+
+CategoriesList.propTypes = {
+  handleCat: PropTypes.func,
+}.isRequired;
 
 export default CategoriesList;
