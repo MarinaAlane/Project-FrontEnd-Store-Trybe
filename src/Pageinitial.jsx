@@ -14,7 +14,7 @@ class Pageinitial extends React.Component {
   }
 
   handleSubmit(event) {
-    alert('Um nome foi enviado: ' + this.state.value);
+    alert(`Um nome foi enviado: {` this.state.value ` } `);
     event.preventDefault();
   }
 
