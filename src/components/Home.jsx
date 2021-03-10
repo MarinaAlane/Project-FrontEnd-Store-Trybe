@@ -1,19 +1,25 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import * as api from '../services/api';
-import ProductList from './ProductList';
+import ListCategories from './ListCategories';
+import RenderElements from './RenderElements';
 
 class Home extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
+      promisse: false,
+      categories: '',
       query: '',
       products: [],
     };
+    this.getCategories = this.getCategories.bind(this);
     this.getProducts = this.getProducts.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+  }
+
+  componentDidMount() {
+    this.getCategories();
   }
 
   async handleClick() {
@@ -30,33 +36,42 @@ class Home extends React.Component {
     });
   }
 
+  async getCategories() {
+    const categories = await api.getCategories().then((data) => this.setState({
+      categories: data,
+      promisse: true,
+    }));
+    return categories;
+  }
+
   async getProducts({ categoryId, query }) {
     const products = await api.getProductsFromCategoryAndQuery(categoryId, query);
     return products;
   }
 
   render() {
-    const { products } = this.state;
+    const { promisse, categories, products } = this.state;
+    console.log(categories);
+    if (promisse === true) {
+      return (
+        <div>
+          <RenderElements
+            products={ products }
+            handleClick={ this.handleClick }
+            handleInputChange={ this.handleInputChange }
+          />
+          <div>
+            <ListCategories categories={ categories } />
+          </div>
+        </div>
+      );
+    }
     return (
-      <div>
-        <input
-          type="text"
-          data-testid="query-input"
-          onChange={ this.handleInputChange }
-        />
-        <button type="button" data-testid="query-button" onClick={ this.handleClick }>
-          PESQUISAR
-        </button>
-        <h4 data-testid="home-initial-message">
-          Digite algum termo de pesquisa ou escolha uma categoria.
-        </h4>
-        <ProductList products={ products } />
-        <button type="button">
-          <Link to="/cart" data-testid="shopping-cart-button">
-            Cart
-          </Link>
-        </button>
-      </div>
+      <RenderElements
+        products={ products }
+        handleClick={ this.handleClick }
+        handleInputChange={ this.handleInputChange }
+      />
     );
   }
 }
