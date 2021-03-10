@@ -38,7 +38,7 @@ class SearchBar extends React.Component {
         <button
           type="button"
           data-testid="query-button"
-          onClick={ console.log("olá") }
+          onClick={ () => this.apiSearch }
         >
           Buscar
         </button>
