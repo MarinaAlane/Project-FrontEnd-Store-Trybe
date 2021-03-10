@@ -11,12 +11,14 @@ class Home extends Component {
       categories: [],
       productsInput: '',
       categoriesInput: '',
+      shoppingCart: [],
       loaded: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.checkSearchResult = this.checkSearchResult.bind(this);
+    this.addOnCart = this.addOnCart.bind(this);
   }
 
   componentDidMount() { this.fetchCategories(); }
@@ -35,6 +37,15 @@ class Home extends Component {
         productList: products.results,
         loaded: true,
       }));
+  }
+
+  addOnCart(id) {
+    this.setState((state) => ({
+      shoppingCart: [...state.shoppingCart, { id, quantity: 1 }],
+    }), () => {
+      const { shoppingCart } = this.state;
+      sessionStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
+    });
   }
 
   checkSearchResult() {
@@ -84,6 +95,13 @@ class Home extends Component {
           <Link data-testid="product-detail-link" to={ `/productdetails/${id}` }>
             Detalhes do Produto
           </Link>
+          <button
+            type="button"
+            data-testid="product-add-to-cart"
+            onClick={ () => this.addOnCart(id) }
+          >
+            Adicionar ao Carrinho
+          </button>
 
         </div>
       ))
