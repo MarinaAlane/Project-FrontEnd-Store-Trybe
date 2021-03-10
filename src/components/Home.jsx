@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import ListOfCategories from './ListOfCategories';
 
 class Home extends React.Component {
   render() {
@@ -13,6 +14,9 @@ class Home extends React.Component {
         >
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>
+
+        <ListOfCategories />
+
         <button type="button">
           <Link
             to="/shopping-cart"
@@ -25,5 +29,5 @@ class Home extends React.Component {
     );
   }
 }
-/// CRIAR O PULL REQUEST
+
 export default Home;
