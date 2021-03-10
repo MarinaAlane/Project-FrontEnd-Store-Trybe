@@ -4,6 +4,12 @@ class ProductList extends React.Component {
   render() {
     return (
       <div>
+        <input 
+          type="text"
+        />
+        <Link to="/Cart" data-testid="shopping-cart-button">
+          <button type="button">cart</button>
+        </Link>
         <span
           data-testid="home-initial-message"
         >
