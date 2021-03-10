@@ -1,10 +1,11 @@
 import React from 'react';
+import { string } from 'prop-types';
 
-class ShoppingCartButton extends React.Component {
+class AddToCartButton extends React.Component {
   constructor() {
     super();
     this.addItemToCart = this.addItemToCart.bind(this);
-  };
+  }
 
   addItemToCart({ target }) {
     localStorage.setItem('item', target.value);
@@ -15,10 +16,10 @@ class ShoppingCartButton extends React.Component {
     return (
       <div>
         <button
-        data-testid={ datatestid }
-        type="button"
-        value={ productName }
-        onClick={ this.addItemToCart }
+          data-testid={ datatestid }
+          type="button"
+          value={ productName }
+          onClick={ this.addItemToCart }
         >
           Adicionar ao carrinho
         </button>
@@ -28,4 +29,9 @@ class ShoppingCartButton extends React.Component {
   }
 }
 
-export default ShoppingCartButton;
+AddToCartButton.propTypes = {
+  productName: string.isRequired,
+  datatestid: string.isRequired,
+};
+
+export default AddToCartButton;
