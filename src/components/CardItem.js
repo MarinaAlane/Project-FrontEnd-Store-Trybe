@@ -4,22 +4,29 @@ import { Link } from 'react-router-dom';
 
 class CardItem extends Component {
   render() {
-    const { item } = this.props;
+    const { item, handleCart } = this.props;
     const { title, price, thumbnail, id } = item;
     return (
-      <Link
-        to={ {
-          pathname: `/details/${id}`,
-          state: { item },
-        } }
-        data-testid="product-detail-link "
-      >
-        <div data-testid="product">
+      <div data-testid="product">
+        <Link
+          to={ {
+            pathname: `/details/${id}`,
+            state: { item },
+          } }
+          data-testid="product-detail-link "
+        >
           <h4>{ title }</h4>
           <p>{ price }</p>
           <img src={ thumbnail } alt={ title } />
-        </div>
-      </Link>
+        </Link>
+        <button
+          type="button"
+          onClick={ () => handleCart(item) }
+          data-testid="product-add-to-cart"
+        >
+          Adicionar ao Carrinho
+        </button>
+      </div>
     );
   }
 }
@@ -30,7 +37,8 @@ CardItem.propTypes = {
     price: PropTypes.number,
     thumbnail: PropTypes.string,
     id: PropTypes.string,
-  }).isRequired,
-};
+  }),
+  handleCart: PropTypes.func,
+}.isRequired;
 
 export default CardItem;

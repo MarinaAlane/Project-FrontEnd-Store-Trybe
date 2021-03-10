@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Categories from './Categories';
+import PropTypes from 'prop-types';
+
 import { getProductsFromCategoryAndQuery } from '../services/api';
+import Categories from './Categories';
+import CardItem from './CardItem';
 
 import shoppingCartIcon from '../images/shopping_cart_black.svg';
-import CardItem from './CardItem';
 
 class MainPage extends Component {
   constructor(props) {
@@ -41,6 +43,7 @@ class MainPage extends Component {
 
   render() {
     const { searchBar, items } = this.state;
+    const { handleCart } = this.props;
     return (
       <div>
         <div>
@@ -72,11 +75,21 @@ class MainPage extends Component {
         <div>
           {items.length < 1
             ? <h3>Nenhum produto foi encontrado</h3>
-            : items.map((obj) => <CardItem item={ obj } key={ obj.id } />)}
+            : items.map((obj) => (
+              <CardItem
+                item={ obj }
+                key={ obj.id }
+                handleCart={ handleCart }
+              />
+            ))}
         </div>
       </div>
     );
   }
 }
+
+MainPage.propTypes = {
+  handleCart: PropTypes.func,
+}.isRequired;
 
 export default MainPage;
