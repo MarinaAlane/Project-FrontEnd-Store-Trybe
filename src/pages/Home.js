@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import ProductList from '../components/ProductsList';
 import * as api from '../services/api';
 
 class Home extends Component {
@@ -8,15 +7,16 @@ class Home extends Component {
     super(props);
 
     this.state = {
+      productList: [],
       categories: [],
       productsInput: '',
       categoriesInput: '',
-      products: [],
-      loading: true,
+      loaded: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.checkSearchResult = this.checkSearchResult.bind(this);
   }
 
   componentDidMount() { this.fetchCategories(); }
@@ -28,13 +28,22 @@ class Home extends Component {
     });
   }
 
-  handleClick(id) {
-    fetch(`https://api.mercadolibre.com/sites/MLB/search?category=${id}`)
-      .then((response) => response.json())
-      .then((response) => this.setState({
-        products: response.results,
-        loading: false,
+  handleClick() {
+    const { productsInput, categoriesInput } = this.state;
+    api.getProductsFromCategoryAndQuery(categoriesInput, productsInput)
+      .then((products) => this.setState({
+        productList: products.results,
+        loaded: true,
       }));
+  }
+
+  checkSearchResult() {
+    const { productList, loaded } = this.state;
+    if (productList <= 0 && loaded) {
+      return (
+        <h3>Nenhum produto foi encontrado</h3>
+      );
+    }
   }
 
   async fetchCategories() {
@@ -51,7 +60,7 @@ class Home extends Component {
             name="categoriesInput"
             id={ id }
             onChange={ this.handleChange }
-            onClick={ () => this.handleClick(id) }
+            onClick={ this.handleClick }
             value={ name }
             checked={ categoriesInput === name }
           />
@@ -61,8 +70,28 @@ class Home extends Component {
     );
   }
 
+  renderProductList() {
+    const { productList } = this.state;
+    return (
+      productList.map(({ id, title, price, thumbnail }) => (
+        <div key={ id } data-testid="product">
+          <h3>{ title }</h3>
+          <img src={ thumbnail } alt={ title } />
+          <p>
+            R$
+            { price }
+          </p>
+          <Link data-testid="product-detail-link" to={ `/productdetails/${id}` }>
+            Detalhes do Produto
+          </Link>
+
+        </div>
+      ))
+    );
+  }
+
   render() {
-    const { productsInput, categoriesInput, products, loading } = this.state;
+    const { productsInput, productList } = this.state;
     return (
       <div>
         <aside>
@@ -87,12 +116,18 @@ class Home extends Component {
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>
 
-        <ProductList
-          query={ productsInput }
-          categories={ categoriesInput }
-          products={ products }
-          loading={ loading }
-        />
+        <button
+          type="button"
+          onClick={ this.handleClick }
+          data-testid="query-button"
+        >
+          Pesquise o Produto
+        </button>
+
+        {
+          (productList.length > 0)
+            ? this.renderProductList() : this.checkSearchResult()
+        }
 
       </div>
     );
