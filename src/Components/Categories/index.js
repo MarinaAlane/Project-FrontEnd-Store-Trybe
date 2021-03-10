@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import * as api from '../../services/api';
 import './styles.css';
 
@@ -19,6 +20,7 @@ export default class Categories extends Component {
 
   render() {
     const { categories, loading } = this.state;
+    const { handleCategory } = this.props;
 
     if (loading) return (<div>Carregando...</div>);
 
@@ -28,6 +30,7 @@ export default class Categories extends Component {
           <div key={ category.id }>
             <label data-testid="category" htmlFor="category">
               <input
+                onClick={ handleCategory }
                 type="checkbox"
                 id="category"
                 name={ category.id }
@@ -42,3 +45,7 @@ export default class Categories extends Component {
     );
   }
 }
+
+Categories.propTypes = {
+  handleCategory: PropTypes.func.isRequired,
+};
