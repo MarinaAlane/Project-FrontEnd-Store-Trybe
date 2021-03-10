@@ -12,10 +12,7 @@ class App extends Component {
         <Switch>
           <Route exact path="/" component={ MainPage } />
           <Route path="/shopping-cart" component={ ShoppingCart } />
-          <Route
-            path="/details/:id"
-            render={ ({ match }) => <ItemDetails params={ match.params } /> }
-          />
+          <Route path="/details/:id" component={ ItemDetails } />
         </Switch>
       </BrowserRouter>
     );

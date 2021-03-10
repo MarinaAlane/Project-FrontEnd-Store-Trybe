@@ -4,9 +4,16 @@ import { Link } from 'react-router-dom';
 
 class CardItem extends Component {
   render() {
-    const { item: { title, price, thumbnail, id } } = this.props;
+    const { item } = this.props;
+    const { title, price, thumbnail, id } = item;
     return (
-      <Link to={ `/details/${id}` } data-testid="product-detail-link ">
+      <Link
+        to={ {
+          pathname: `/details/${id}`,
+          state: { item },
+        } }
+        data-testid="product-detail-link "
+      >
         <div data-testid="product">
           <h4>{ title }</h4>
           <p>{ price }</p>
