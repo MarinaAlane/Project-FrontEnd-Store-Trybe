@@ -2,14 +2,13 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import ProductCard from '../Components/ProductCard/ProductCard';
 import * as api from '../services/api';
-import Categories from '../Components/Categories';
+import Categories from '../Components/Categories/Categories';
 
 export default class Home extends Component {
   constructor(state) {
     super(state);
 
     this.setSearchText = this.setSearchText.bind(this);
-    this.searchProducts = this.searchProducts.bind(this);
     this.handleCategory = this.handleCategory.bind(this);
 
     this.state = {
@@ -18,8 +17,9 @@ export default class Home extends Component {
     };
   }
 
-  async handleCategory(e) {
-    await api.getProductsFromCategoryAndQuery(e.target.value, '')
+  async handleCategory({ target }) {
+    const { searchText } = this.state;
+    await api.getProductsFromCategoryAndQuery(target.value, searchText)
       .then((response) => {
         const list = response.results;
         this.setState({ productList: list });
@@ -28,14 +28,6 @@ export default class Home extends Component {
 
   setSearchText({ target }) {
     this.setState({ searchText: target.value });
-  }
-
-  async searchProducts() {
-    const { searchText } = this.state;
-    const text = searchText;
-    const response = await api.getProductsFromCategoryAndQuery('', text);
-    const list = await response.results;
-    this.setState({ productList: list });
   }
 
   render() {
@@ -47,7 +39,7 @@ export default class Home extends Component {
           data-testid="query-input"
           onChange={ this.setSearchText }
         />
-        <button type="button" onClick={ this.searchProducts } data-testid="query-button">
+        <button type="button" onClick={ this.handleCategory } data-testid="query-button">
           Pesquisar
         </button>
         <button type="button">

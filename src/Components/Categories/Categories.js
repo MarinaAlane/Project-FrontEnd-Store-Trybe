@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import * as api from '../../services/api';
-import './styles.css';
+import './Categories.css';
 
 export default class Categories extends Component {
   constructor(state) {
@@ -31,9 +31,9 @@ export default class Categories extends Component {
             <label data-testid="category" htmlFor="category">
               <input
                 onClick={ handleCategory }
-                type="checkbox"
+                type="radio"
                 id="category"
-                name={ category.id }
+                name="selectedCategory"
                 value={ category.id }
               />
               {category.name}
