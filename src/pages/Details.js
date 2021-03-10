@@ -33,13 +33,16 @@ class Details extends React.Component {
   render() {
     const { product } = this.state;
     const { title, price, thumbnail } = product;
+    const { match } = this.props;
+    const { params } = match;
+    const { idCategory, idProduct } = params;
     return (
       <section>
         <img src={ thumbnail } alt={ title } />
         <p data-testid="product-detail-name">{title}</p>
         <p>{price}</p>
         <Link to="/">Home</Link>
-        <ShoppingCartButton />
+        <ShoppingCartButton idProduct={ idProduct } idCategory={ idCategory } />
       </section>
     );
   }

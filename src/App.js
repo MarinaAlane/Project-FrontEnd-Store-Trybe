@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import SearchBar from './components/SearchBar';
 import ShoppingCart from './components/ShoppingCart';
-import Details from './pages/Datails';
+import Details from './pages/Details';
 
 class App extends React.Component {
   render() {
