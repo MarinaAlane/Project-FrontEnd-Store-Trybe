@@ -1,0 +1,10 @@
+.main {
+  display: flex;
+  margin: 5px;
+}
+
+.section-category {
+  border: 2px solid black;
+  margin: 15px;
+  padding: 10px;
+}
