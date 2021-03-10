@@ -1,7 +1,4 @@
-.App {
-  text-align: center;
-}
-
+/* Arquivo SearchBar */
 .header {
   align-items: center;
   display: flex;
@@ -9,23 +6,70 @@
   margin-top: 20px;
 }
 
-.search-bar {
+.message {
+  text-align: center;
+}
+
+.search-bar-main {
   border-radius: 15px;
   height: 20px;
+  outline: none;
   width: 80%;
 }
 
-.shop-cart {
+.shop-cart-main {
   display: inline;
   margin-left: 30px;
   max-width: 35px;
   transition: 150ms;
 }
 
-.shop-cart:hover {
-  transform: scale(1.1);
+.shop-cart-main:hover {
+  transform: scale(1.05);
 }
 
-.shop-cart:active {
-  transform: scale(0.9);
+.shop-cart-main:active {
+  transform: scale(0.95);
+}
+
+/* Arquivo ShopCart */
+.content-cart {
+  align-items: center;
+  display: flex;
+  margin: 40px 0 0 40px;
+}
+
+.previous-shop, .shop-cart-shop {
+  max-width: 50px;
+}
+
+.previous-shop {
+  display: block;
+  margin: 40px 0 0 40px;
+  transition: 150ms;
+}
+
+.previous-shop:hover {
+  transform: scale(1.05);
+}
+
+.cart-description {
+  font-weight: 800;
+  margin-left: 30px;
+}
+
+.content-empty {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  text-align: center;
+}
+
+.box-shop {
+  margin: 0 auto;
+  max-width: 200px;
+}
+
+.empty-message {
+  text-align: center;
 }

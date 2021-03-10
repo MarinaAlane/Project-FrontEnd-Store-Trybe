@@ -7,14 +7,18 @@ class SearchBar extends React.Component {
     return (
       <>
         <div className="header">
-          <input type="text" className="search-bar" />
+          <input type="text" className="search-bar-main" />
 
           <Link to="/shopping-cart" data-testid="shopping-cart-button">
-            <img src={ shopCart } alt="Imagem do carrinho de compras" className="shop-cart" />
+            <img
+              src={ shopCart }
+              alt="Imagem do carrinho de compras"
+              className="shop-cart-main"
+            />
           </Link>
         </div>
 
-        <h4 data-testid="home-initial-message">
+        <h4 data-testid="home-initial-message" className="message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </h4>
       </>
