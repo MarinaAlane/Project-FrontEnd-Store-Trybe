@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import * as api from '../../services/api';
 import './Categories.css';
+import Loading from '../Loading/Loading';
 
 export default class Categories extends Component {
   constructor(state) {
@@ -22,7 +23,7 @@ export default class Categories extends Component {
     const { categories, loading } = this.state;
     const { handleCategory } = this.props;
 
-    if (loading) return (<div>Carregando...</div>);
+    if (loading) return <Loading />;
 
     return (
       <div className="wrapper-category">
