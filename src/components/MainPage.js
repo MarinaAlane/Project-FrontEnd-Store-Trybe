@@ -28,12 +28,12 @@ class MainPage extends Component {
   handleCategory({ target }) {
     this.setState({
       searchCategory: target.value,
-    });
-    this.handleButton();
+    }, () => this.handleButton());
   }
 
   async handleButton() {
     const { searchBar, searchCategory } = this.state;
+    console.log(searchCategory);
     const response = await getProductsFromCategoryAndQuery(searchCategory, searchBar);
     this.setState({
       items: response.results,
