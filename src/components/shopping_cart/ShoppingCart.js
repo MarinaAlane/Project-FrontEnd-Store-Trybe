@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import ButtonCart from './ButtonCart';
 import ArrowBack from './logo_arrow_back.svg';
 import './ShoppingCart.css';
 
