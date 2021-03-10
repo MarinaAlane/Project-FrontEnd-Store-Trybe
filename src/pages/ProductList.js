@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import * as Api from '../services/api';
 
-
 class ProductList extends Component {
   constructor(props) {
     super(props);
