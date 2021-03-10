@@ -1,0 +1,36 @@
+.empty-message-container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 80%;
+  justify-content: center;
+  position: absolute;
+  width: 100%;
+}
+
+.empty-message-container > img {
+  height: 100px;
+  width: 100px;
+}
+
+.cart-header-container {
+  display: flex;
+  height: 10%;
+}
+
+.cart-header-container > :nth-child(1) {
+  width: 40px;
+}
+
+.cart-header-container > :nth-child(1) > button {
+  margin: 30px;
+  background: url(/images/icons8-undo-52.png) no-repeat;
+  background-size: contain;
+  border: none;
+  height: 30px;
+  width: 30px;
+}
+
+.cart-header-container > * > button:hover {
+  cursor: pointer;
+}
