@@ -22,7 +22,7 @@ class SearchBar extends React.Component {
 
   apiSearch() {
     const { search } = this.state;
-    api.getProductsFromQuery(search).then(console.log);
+    api.getProductsFromQuery(search).then((response) => this.setState({ result: response.results }));
   }
 
   render() {
@@ -38,7 +38,7 @@ class SearchBar extends React.Component {
         <button
           type="button"
           data-testid="query-button"
-          onClick={ () => this.apiSearch }
+          onClick={ () => this.apiSearch() }
         >
           Buscar
         </button>
