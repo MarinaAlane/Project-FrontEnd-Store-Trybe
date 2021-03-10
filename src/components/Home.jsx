@@ -18,6 +18,10 @@ class Home extends React.Component {
     this.handleInputChange = this.handleInputChange.bind(this);
   }
 
+  componentDidMount() {
+    this.getCategories();
+  }
+
   async handleClick() {
     const { query } = this.state;
     const selectedProducts = await this.getProducts({ query });
@@ -25,11 +29,7 @@ class Home extends React.Component {
       products: selectedProducts.results,
     });
   }
-
-  componentDidMount() {
-    this.getCategories();
-  }
-
+  
   handleInputChange({ target }) {
     this.setState({
       query: target.value,
