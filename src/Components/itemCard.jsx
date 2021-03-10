@@ -6,13 +6,20 @@ import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 
 class ItemCard extends Component {
   render() {
-    const { products: { title, price, thumbnail } } = this.props;
+    const { products } = this.props;
+    const { title, price, thumbnail, id } = products;
     return (
       <div data-testid="product">
         <h2>{ title }</h2>
         <img src={ thumbnail } alt="img" />
         <p>{ price }</p>
-        <Link to="/details" data-testid="product-detail-link">
+        <Link
+          to={ {
+            pathname: `/details/${id}`,
+            state: { products },
+          } }
+          data-testid="product-detail-link "
+        >
           <FontAwesomeIcon icon={ faInfoCircle } />
         </Link>
       </div>
@@ -27,6 +34,7 @@ ItemCard.propTypes = {
     title: PropTypes.string,
     price: PropTypes.number,
     thumbnail: PropTypes.string,
+    id: PropTypes.string,
   }).isRequired,
 };
 

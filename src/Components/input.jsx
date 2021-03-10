@@ -25,6 +25,7 @@ class Input extends Component {
     const { id, inputValue } = this.state;
     api.getProductsFromCategoryAndQuery(id, inputValue)
       .then((queryValue) => {
+        console.log(queryValue);
         this.setState({ products: queryValue });
       });
   }
