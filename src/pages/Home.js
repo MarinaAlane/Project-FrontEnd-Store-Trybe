@@ -11,9 +11,12 @@ class Home extends Component {
       categories: [],
       productsInput: '',
       categoriesInput: '',
+      products: [],
+      loading: true,
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() { this.fetchCategories(); }
@@ -23,6 +26,15 @@ class Home extends Component {
     this.setState({
       [name]: value,
     });
+  }
+
+  handleClick(id) {
+    fetch(`https://api.mercadolibre.com/sites/MLB/search?category=${id}`)
+      .then((response) => response.json())
+      .then((response) => this.setState({
+        products: response.results,
+        loading: false,
+      }));
   }
 
   async fetchCategories() {
@@ -39,6 +51,7 @@ class Home extends Component {
             name="categoriesInput"
             id={ id }
             onChange={ this.handleChange }
+            onClick={ () => this.handleClick(id) }
             value={ name }
             checked={ categoriesInput === name }
           />
@@ -49,7 +62,7 @@ class Home extends Component {
   }
 
   render() {
-    const { productsInput, categoriesInput } = this.state;
+    const { productsInput, categoriesInput, products, loading } = this.state;
     return (
       <div>
         <aside>
@@ -74,7 +87,12 @@ class Home extends Component {
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>
 
-        <ProductList query={ productsInput } categories={ categoriesInput } />
+        <ProductList
+          query={ productsInput }
+          categories={ categoriesInput }
+          products={ products }
+          loading={ loading }
+        />
 
       </div>
     );

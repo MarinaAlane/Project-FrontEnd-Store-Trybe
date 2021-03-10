@@ -9,9 +9,11 @@ class ProductList extends Component {
 
     this.state = {
       productList: [],
+      loaded: false,
     };
 
     this.handleClick = this.handleClick.bind(this);
+    this.checkSearchResult = this.checkSearchResult.bind(this);
   }
 
   handleClick() {
@@ -19,7 +21,17 @@ class ProductList extends Component {
     api.getProductsFromCategoryAndQuery(categories, query)
       .then((products) => this.setState({
         productList: products.results,
+        loaded: true,
       }));
+  }
+
+  checkSearchResult() {
+    const { productList, loaded } = this.state;
+    if (productList <= 0 && loaded) {
+      return (
+        <h3>Nenhum produto foi encontrado</h3>
+      );
+    }
   }
 
   renderProductList() {
@@ -55,7 +67,7 @@ class ProductList extends Component {
         </button>
         {
           (productList.length > 0)
-            ? this.renderProductList() : <h3>Nenhum produto foi encontrado</h3>
+            ? this.renderProductList() : this.checkSearchResult()
         }
       </div>
     );
