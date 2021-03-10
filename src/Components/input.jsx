@@ -11,6 +11,7 @@ class Input extends Component {
     this.state = {
       products: [],
       inputValue: '',
+      id: '',
     };
     this.handleInput = this.handleInput.bind(this);
     this.handleButton = this.handleButton.bind(this);
@@ -21,8 +22,8 @@ class Input extends Component {
   }
 
   handleButton() {
-    const { inputValue } = this.state;
-    api.getProductsFromCategoryAndQuery('', inputValue)
+    const { id, inputValue } = this.state;
+    api.getProductsFromCategoryAndQuery(id, inputValue)
       .then((queryValue) => {
         this.setState({ products: queryValue });
       });

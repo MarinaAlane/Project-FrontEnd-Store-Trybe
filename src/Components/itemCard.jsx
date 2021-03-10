@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 
 class ItemCard extends Component {
   render() {
@@ -9,6 +12,9 @@ class ItemCard extends Component {
         <h2>{ title }</h2>
         <img src={ thumbnail } alt="img" />
         <p>{ price }</p>
+        <Link to="/details" data-testid="product-detail-link">
+          <FontAwesomeIcon icon={ faInfoCircle } />
+        </Link>
       </div>
     );
   }
