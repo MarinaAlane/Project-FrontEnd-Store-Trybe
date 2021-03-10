@@ -1,4 +1,5 @@
 import React from 'react';
+// requisito2
 
 class InitialPage extends React.Component {
   render() {
