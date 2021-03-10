@@ -35,10 +35,11 @@ export default class Home extends Component {
   }
 
   render() {
-    const { productList, loading } = this.state;
+    const { productList, loading, searchText } = this.state;
     return (
       <div className="App">
         <input
+          id="searchInput"
           type="text"
           data-testid="query-input"
           onChange={ this.setSearchText }
@@ -61,7 +62,7 @@ export default class Home extends Component {
           { (loading) ? <Loading /> : null }
           {productList
             .map((product) => (
-              <ProductCard key={ product.id } product={ product } />
+              <ProductCard key={ product.id } product={ product } text={ searchText } />
             ))}
         </ul>
       </div>

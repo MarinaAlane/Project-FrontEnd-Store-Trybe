@@ -15,14 +15,15 @@ export default class ProductDetails extends Component {
 
   async componentDidMount() {
     const { match } = this.props;
-    await api.getProductsFromCategoryAndQuery(match.params.category, '')
-      .then((data) => {
-        const filtredProduct = data
-          .results
-          .filter((result) => result.id === match.params.id);
+    const { category, id, text } = match.params;
+    const product = await api.getProductsFromCategoryAndQuery(category, text);
+    const selectedProduct = product.results
+      .find((value) => value.id === id);
+    this.addProductOnState(selectedProduct);
+  }
 
-        this.setState({ product: filtredProduct, loading: false });
-      });
+  addProductOnState(selectedProduct) {
+    this.setState({ product: selectedProduct, loading: false });
   }
 
   render() {
@@ -40,9 +41,9 @@ export default class ProductDetails extends Component {
         </div>
         <div data-testid="product-detail-name">
           <div data-testid="product">
-            <h1>{ product[0].title }</h1>
-            <img src={ product[0].thumbnail } alt={ `foto-${product[0].title}` } />
-            <p>{ product[0].price }</p>
+            <h1>{ product.title }</h1>
+            <img src={ product.thumbnail } alt={ `foto-${product.title}` } />
+            <p>{ product.price }</p>
           </div>
         </div>
       </div>

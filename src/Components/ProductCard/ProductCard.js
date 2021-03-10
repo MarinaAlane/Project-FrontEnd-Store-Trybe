@@ -5,12 +5,12 @@ import './ProductCard.css';
 
 class ProductCard extends Component {
   render() {
-    const { product } = this.props;
+    const { product, text } = this.props;
     const { title, thumbnail, price, category_id: CategoryId, id } = product;
     return (
       <Link
         data-testid="product-detail-link"
-        to={ `/${CategoryId}/${id}` }
+        to={ `/${CategoryId}/${id}/${text}` }
         className="linkProductCard"
       >
         <li data-testid="product" className="productCardContainer">
@@ -25,6 +25,7 @@ class ProductCard extends Component {
 
 ProductCard.propTypes = {
   product: PropTypes.objectOf().isRequired,
+  text: PropTypes.string.isRequired,
 };
 
 export default ProductCard;
