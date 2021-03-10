@@ -29,7 +29,7 @@ class Home extends React.Component {
       products: selectedProducts.results,
     });
   }
-  
+
   handleInputChange({ target }) {
     this.setState({
       query: target.value,
