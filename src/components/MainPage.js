@@ -33,7 +33,6 @@ class MainPage extends Component {
 
   async handleButton() {
     const { searchBar, searchCategory } = this.state;
-    console.log(searchCategory);
     const response = await getProductsFromCategoryAndQuery(searchCategory, searchBar);
     this.setState({
       items: response.results,
