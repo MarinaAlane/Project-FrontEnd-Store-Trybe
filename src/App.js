@@ -1,9 +1,10 @@
 import React from 'react';
 import './App.css';
+import ButtonCart from './Components/buttonCart';
 
 function App() {
   return (
-    <div>INICIO!</div>
+    < ButtonCart />
   );
 }
 
