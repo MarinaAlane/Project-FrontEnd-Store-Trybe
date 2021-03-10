@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import * as api from '../services/api';
 
 class ProductList extends Component {
@@ -8,9 +9,11 @@ class ProductList extends Component {
 
     this.state = {
       productList: [],
+      loaded: false,
     };
 
     this.handleClick = this.handleClick.bind(this);
+    this.checkSearchResult = this.checkSearchResult.bind(this);
   }
 
   handleClick() {
@@ -18,7 +21,17 @@ class ProductList extends Component {
     api.getProductsFromCategoryAndQuery(categories, query)
       .then((products) => this.setState({
         productList: products.results,
+        loaded: true,
       }));
+  }
+
+  checkSearchResult() {
+    const { productList, loaded } = this.state;
+    if (productList <= 0 && loaded) {
+      return (
+        <h3>Nenhum produto foi encontrado</h3>
+      );
+    }
   }
 
   renderProductList() {
@@ -28,7 +41,14 @@ class ProductList extends Component {
         <div key={ id } data-testid="product">
           <h3>{ title }</h3>
           <img src={ thumbnail } alt={ title } />
-          <p>{ price }</p>
+          <p>
+            R$
+            { price }
+          </p>
+          <Link data-testid="product-detail-link" to={ `/productdetails/${id}` }>
+            Detalhes do Produto
+          </Link>
+
         </div>
       ))
     );
@@ -47,7 +67,7 @@ class ProductList extends Component {
         </button>
         {
           (productList.length > 0)
-            ? this.renderProductList() : <h3>Nenhum produto foi encontrado</h3>
+            ? this.renderProductList() : this.checkSearchResult()
         }
       </div>
     );
