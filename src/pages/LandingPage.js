@@ -3,7 +3,6 @@ import { getProductsFromCategoryAndQuery } from '../services/api';
 import Card from '../components/Card';
 
 class LandingPage extends React.Component {
-
   constructor(props) {
     super(props);
 
