@@ -27,7 +27,12 @@ class Categories extends React.Component {
       <aside className="categories-list">
         {categories
           .map((element) => (
-            <button type="button" key={ element.id } data-testid="category" className="category">
+            <button
+              type="button"
+              key={ element.id }
+              data-testid="category"
+              className="category"
+            >
               {element.name}
             </button>
           ))}
