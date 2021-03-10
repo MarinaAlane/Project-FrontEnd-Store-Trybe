@@ -11,11 +11,11 @@ class SearchBar extends Component {
           name="search-bar"
           id=""
         />
+        <CartButton />
+        <FilterCategories />
         <p data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>
-        <CartButton />
-        <FilterCategories />
 
       </>
     );
