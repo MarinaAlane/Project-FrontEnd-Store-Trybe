@@ -2,8 +2,6 @@ import React from 'react';
 import * as api from '../services/api';
 import ListCategories from './ListCategories';
 import RenderElements from './RenderElements';
-import ProductList from './ProductList';
-
 
 class Home extends React.Component {
   constructor(props) {
@@ -34,6 +32,7 @@ class Home extends React.Component {
       promisse: true,
     }));
     return categories;
+  }
 
   handleInputChange({ target }) {
     this.setState({
@@ -46,12 +45,21 @@ class Home extends React.Component {
     return products;
   }
 
+  componentDidMount() {
+    this.getCategories();
+  }
+
   render() {
-    const { promisse, categories } = this.state;
+    const { promisse, categories, products } = this.state;
+    console.log(categories);
     if (promisse === true) {
       return (
         <div>
-          <RenderElements />
+          <RenderElements
+            products={ products }
+            handleClick={this.handleClick}
+            handleInputChange={this.handleInputChange}
+          />
           <div>
             <ListCategories categories={ categories } />
           </div>
@@ -59,29 +67,11 @@ class Home extends React.Component {
       );
     }
     return (
-      <RenderElements />
-    const { products } = this.state;
-    return (
-      <div>
-        <input
-          type="text"
-          data-testid="query-input"
-          onChange={ this.handleInputChange }
-        />
-        <button type="button" data-testid="query-button" onClick={ this.handleClick }>
-          PESQUISAR
-        </button>
-        <h4 data-testid="home-initial-message">
-          Digite algum termo de pesquisa ou escolha uma categoria.
-        </h4>
-        <ProductList products={ products } />
-        <button type="button">
-          <Link to="/cart" data-testid="shopping-cart-button">
-            Cart
-          </Link>
-        </button>
-      </div>
-    );
+      <RenderElements
+      products={ products }
+      handleClick={this.handleClick}
+      handleInputChange={this.handleInputChange}
+    />)
   }
 }
 

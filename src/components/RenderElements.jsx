@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import ProductList from './ProductList';
 
 class RenderElements extends React.Component {
   render() {
+    const { products, handleClick, handleInputChange } = this.props;
     return (
       <div>
         <input type="text" />
@@ -14,6 +16,15 @@ class RenderElements extends React.Component {
             Cart
           </Link>
         </button>
+        <input
+          type="text"
+          data-testid="query-input"
+          onChange={ handleInputChange }
+        />
+        <button type="button" data-testid="query-button" onClick={ handleClick }>
+          PESQUISAR
+        </button>
+        <ProductList products={ products } />
       </div>
     );
   }
