@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import CategoriesList from './CategoriesList';
 import Button from './Button';
 import Card from './Card';
+import * as api from '../services/api';
 
 class Home extends Component {
   constructor() {
@@ -13,22 +14,23 @@ class Home extends Component {
     this.state = {
       productsContent: [],
       inputValue: '',
+      status: false,
     };
   }
 
   async activateButton() {
     const { inputValue } = this.state;
-    const response = await fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${inputValue}`);
-    const json = await response.json();
-    const jsonResults = json.results;
+    const response = await api.getProductsFromCategoryAndQuery('', inputValue);
+    const jsonResults = response.results;
     this.setState({
       productsContent: jsonResults,
+      status: true,
     });
-    return json;
+    return response;
   }
 
   render() {
-    const { productsContent } = this.state;
+    const { productsContent, status } = this.state;
     return (
       <div>
         <form>
@@ -49,7 +51,7 @@ class Home extends Component {
         </form>
         <Link to="/shopping-cart" data-testid="shopping-cart-button"> Cart </Link>
         <CategoriesList />
-        <Card productsContent={ productsContent } />
+        <Card productsContent={ productsContent } status={ status } />
       </div>
     );
   }

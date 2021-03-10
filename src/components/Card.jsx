@@ -4,15 +4,15 @@ import NothingFound from './NothingFound';
 
 class Card extends Component {
   render() {
-    const { productsContent } = this.props;
-    if (productsContent.length === 0) {
+    const { productsContent, status } = this.props;
+    if (productsContent.length === 0 && status === true) {
       return <NothingFound />;
     }
     const map = productsContent.map((currentValue) => (
-      <div key={ currentValue.id }>
-        <p data-testid="product">{currentValue.title}</p>
-        <img data-testid="product" src={ currentValue.thumbnail } alt="product-sample" />
-        <p data-testid="product">{currentValue.price}</p>
+      <div key={ currentValue.id } data-testid="product">
+        <p>{currentValue.title}</p>
+        <img src={ currentValue.thumbnail } alt="product-sample" />
+        <p>{currentValue.price}</p>
       </div>
     ));
     return (<div>{map}</div>);
