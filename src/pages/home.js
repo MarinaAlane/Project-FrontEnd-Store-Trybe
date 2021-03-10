@@ -3,7 +3,7 @@ import React from 'react';
 // requisito 2
 
 class Home extends React.Component {
-  render () {
+  render() {
     return (
       <div>
         <input className='App' type='text' />
