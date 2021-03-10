@@ -26,12 +26,8 @@ class Home extends React.Component {
     });
   }
 
-  async getCategories() {
-    const categories = await api.getCategories().then((data) => this.setState({
-      categories: data,
-      promisse: true,
-    }));
-    return categories;
+  componentDidMount() {
+    this.getCategories();
   }
 
   handleInputChange({ target }) {
@@ -40,13 +36,17 @@ class Home extends React.Component {
     });
   }
 
+  async getCategories() {
+    const categories = await api.getCategories().then((data) => this.setState({
+      categories: data,
+      promisse: true,
+    }));
+    return categories;
+  }
+
   async getProducts({ categoryId, query }) {
     const products = await api.getProductsFromCategoryAndQuery(categoryId, query);
     return products;
-  }
-
-  componentDidMount() {
-    this.getCategories();
   }
 
   render() {
@@ -57,8 +57,8 @@ class Home extends React.Component {
         <div>
           <RenderElements
             products={ products }
-            handleClick={this.handleClick}
-            handleInputChange={this.handleInputChange}
+            handleClick={ this.handleClick }
+            handleInputChange={ this.handleInputChange }
           />
           <div>
             <ListCategories categories={ categories } />
@@ -68,10 +68,11 @@ class Home extends React.Component {
     }
     return (
       <RenderElements
-      products={ products }
-      handleClick={this.handleClick}
-      handleInputChange={this.handleInputChange}
-    />)
+        products={ products }
+        handleClick={ this.handleClick }
+        handleInputChange={ this.handleInputChange }
+      />
+    );
   }
 }
 

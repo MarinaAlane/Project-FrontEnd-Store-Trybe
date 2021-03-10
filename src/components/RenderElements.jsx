@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import ProductList from './ProductList';
+import PropTypes from 'prop-types';
 
 class RenderElements extends React.Component {
   render() {
@@ -28,6 +29,12 @@ class RenderElements extends React.Component {
       </div>
     );
   }
+}
+
+RenderElements.propTypes = {
+  products: PropTypes.array,
+  handleInputChange: PropTypes.func,
+  handleClick: PropTypes.func,
 }
 
 export default RenderElements;
