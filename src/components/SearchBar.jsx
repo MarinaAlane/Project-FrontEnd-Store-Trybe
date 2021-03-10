@@ -13,11 +13,7 @@ class SearchBar extends React.Component {
     };
   }
 
-  componentDidMount() {
-  }
-
   handleChange({ target }) {
-    // função para colocar no onChange do input e alterar o search do state
     const { name, value } = target;
     this.setState({
       [name]: value,
@@ -25,10 +21,8 @@ class SearchBar extends React.Component {
   }
 
   apiSearch() {
-    // verificar o que está no search
-    // insere na requisição
-    api.getProductsFromQuery().then();
-    // atualizar o state
+    const { search } = this.state;
+    api.getProductsFromQuery(search).then(console.log);
   }
 
   render() {
@@ -37,14 +31,14 @@ class SearchBar extends React.Component {
         <input
           type="text"
           data-testid="query-input"
-          onChange={ handleChange() }
+          onChange={ this.handleChange }
           name="search"
         />
 
         <button
           type="button"
           data-testid="query-button"
-          onClick={ console.log('xablauuuu') }
+          onClick={ console.log("olá") }
         >
           Buscar
         </button>
