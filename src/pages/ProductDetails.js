@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import * as api from '../services/api';
+import Loading from '../Components/Loading/Loading';
 
 export default class ProductDetails extends Component {
   constructor(state) {
@@ -26,7 +27,7 @@ export default class ProductDetails extends Component {
 
   render() {
     const { product, loading } = this.state;
-    if (loading) return (<div>Carregando...</div>);
+    if (loading) return <Loading />;
     return (
       <div>
         <div>

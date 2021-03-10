@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import ProductCard from '../Components/ProductCard/ProductCard';
 import * as api from '../services/api';
 import Categories from '../Components/Categories/Categories';
+import Loading from '../Components/Loading/Loading';
 
 export default class Home extends Component {
   constructor(state) {
@@ -14,16 +15,19 @@ export default class Home extends Component {
     this.state = {
       searchText: '',
       productList: [],
+      loading: false,
     };
   }
 
   async handleCategory({ target }) {
+    this.setState({ loading: true });
     const { searchText } = this.state;
     await api.getProductsFromCategoryAndQuery(target.value, searchText)
       .then((response) => {
         const list = response.results;
         this.setState({ productList: list });
       });
+    this.setState({ loading: false });
   }
 
   setSearchText({ target }) {
@@ -31,7 +35,7 @@ export default class Home extends Component {
   }
 
   render() {
-    const { productList } = this.state;
+    const { productList, loading } = this.state;
     return (
       <div className="App">
         <input
@@ -54,6 +58,7 @@ export default class Home extends Component {
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>
         <ul>
+          { (loading) ? <Loading /> : null }
           {productList
             .map((product) => (
               <ProductCard key={ product.id } product={ product } />
