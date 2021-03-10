@@ -6,9 +6,9 @@ export default class CardProduct extends Component {
     super(props);
     const { title, image, price } = this.props;
     this.state = {
-      title: title,
-      image: image,
-      price: price,
+      title,
+      image,
+      price,
     };
   }
 
@@ -17,7 +17,7 @@ export default class CardProduct extends Component {
     return (
       <div data-testid="product">
         <p>{ title }</p>
-        <img src={ image } alt="product"/>
+        <img src={ image } alt="product" />
         <p>{ price }</p>
       </div>
     );
@@ -25,7 +25,7 @@ export default class CardProduct extends Component {
 }
 
 CardProduct.propTypes = {
-  title: PropTypes.string,
-  image: PropTypes.string,
-  price: PropTypes.number,
-}
+  title: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+};

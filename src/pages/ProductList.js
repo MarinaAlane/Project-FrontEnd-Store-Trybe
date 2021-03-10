@@ -30,12 +30,10 @@ class ProductList extends Component {
     const result = Api.getProductsFromCategoryAndQuery(query, query);
     result.then(
       (res) => {
-        this.setState((props) => {
-          return {
-            ...props,
-            products: res.results,
-          }
-        });
+        this.setState((props) => ({
+          ...props,
+          products: res.results,
+        }));
       },
     );
   }
@@ -56,7 +54,12 @@ class ProductList extends Component {
     return (
       <main>
         <header>
-        <input value={ query } onChange={ this.onInputUpdate } data-testid="query-input" type="text" />
+        <input
+          value={ query }
+          onChange={ this.onInputUpdate }
+          data-testid="query-input"
+          type="text"
+        />
           <button
             data-testid="query-button"
             onClick={ () => this.getProducts(this.state.query) } >

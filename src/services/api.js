@@ -5,7 +5,7 @@ export async function getCategories() {
   return result.json();
 }
 
-export async function getProductsFromCategoryAndQuery(categoryId, query){
+export async function getProductsFromCategoryAndQuery(categoryId, query) {
   let result = await (await fetch(`${baseURL}search?category=${categoryId}`)).json();
   if (result.results.length === 0) {
     result = await (await fetch(`${baseURL}search?q=${query}`)).json();
