@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
-import * as api from './services/api'
+import Home from './components/Home';
 
 function App() {
-  api.getCategories();
   return (
     <div className="App">
+      <Home />
     </div>
   );
 }
