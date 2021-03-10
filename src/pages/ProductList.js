@@ -1,20 +1,33 @@
 import React, { Component } from 'react';
-import { getProductsFromCategoryAndQuery } from '../services/api';
-import CardProduct from './CardProduct';
+import { Link } from 'react-router-dom';
+import * as Api from '../services/api';
 
 class ProductList extends Component {
-
   constructor(props) {
     super(props);
+
     this.state = {
+      categories: [],
       products: [],
       query: '',
     };
+
+    this.fetchCategories = this.fetchCategories.bind(this);
     this.onInputUpdate = this.onInputUpdate.bind(this);
   }
 
+  componentDidMount() {
+    this.fetchCategories();
+  }
+
+  async fetchCategories() {
+    const categoriesResponse = await Api.getCategories();
+
+    this.setState({ categories: categoriesResponse });
+  }
+
   getProducts(query) {
-    const result = getProductsFromCategoryAndQuery(query, query);
+    const result = Api.getProductsFromCategoryAndQuery(query, query);
     result.then(
       (res) => {
         this.setState((props) => {
@@ -38,17 +51,35 @@ class ProductList extends Component {
   }
 
   render() {
-    const { query, products } = this.state;
+    const { query, products, categories } = this.state;
+
     return (
       <main>
         <header>
-          <input value={ query } onChange={ this.onInputUpdate } data-testid="query-input" type="text" />
+        <input value={ query } onChange={ this.onInputUpdate } data-testid="query-input" type="text" />
           <button
             data-testid="query-button"
             onClick={ () => this.getProducts(this.state.query) } >
               Buscar
           </button>
+          <Link data-testid="shopping-cart-button" to="/cart">Carrinho</Link>
         </header>
+
+        <aside>
+          <span>Categorias:</span>
+          {categories.map((category) => (
+            <div key={ category.id }>
+              <label
+                data-testid="category"
+                htmlFor={ `${category.name}-checkbox` }
+              >
+                <input id={ `${category.name}-checkbox` } type="checkbox" />
+                { category.name }
+              </label>
+            </div>
+          ))}
+        </aside>
+        
         {
           products.length !== 0 ? products.map( (product) => {
             return (
@@ -66,9 +97,6 @@ class ProductList extends Component {
           )
         }
         
-        <div>
-        
-        </div>
       </main>
     );
   }
