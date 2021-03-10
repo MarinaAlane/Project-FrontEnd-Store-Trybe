@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-import { getProductsFromCategoryAndQuery } from '../services/api';
 import ItemCard from './ItemCard';
 
 class SearchBar extends Component {
@@ -8,30 +8,12 @@ class SearchBar extends Component {
     super(props);
 
     this.state = {
-      searchText: '',
-      result: [],
+
     };
-
-    this.searchProducts = this.searchProducts.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleChange(event) {
-    const { name, value } = event.target;
-    this.setState({ [name]: value });
-  }
-
-  async searchProducts() {
-    const { searchText } = this.state;
-    const result = await getProductsFromCategoryAndQuery('', searchText);
-    const searchedItem = result.results;
-    this.setState({
-      result: searchedItem,
-    });
   }
 
   render() {
-    const { searchText, result } = this.state;
+    const { searchText, result, search, textChange } = this.props;
     return (
       <>
         <form action="">
@@ -40,13 +22,13 @@ class SearchBar extends Component {
             type="text"
             name="searchText"
             value={ searchText }
-            onChange={ this.handleChange }
+            onChange={ textChange }
             id=""
           />
           <button
             data-testid="query-button"
             type="button"
-            onClick={ this.searchProducts }
+            onClick={ search }
           >
             Pesquisar!
           </button>
@@ -61,5 +43,12 @@ class SearchBar extends Component {
     );
   }
 }
+
+SearchBar.propTypes = {
+  result: PropTypes.arrayOf(Object).isRequired,
+  searchText: PropTypes.string.isRequired,
+  search: PropTypes.func.isRequired,
+  textChange: PropTypes.func.isRequired,
+};
 
 export default SearchBar;
