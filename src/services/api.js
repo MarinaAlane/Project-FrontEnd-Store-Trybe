@@ -1,6 +1,6 @@
 export async function getCategories() {
   try {
-    const response = await fetch('https://api.mercadolibre.com/sites/MLB/categories', 'no-cors');
+    const response = await fetch('https://api.mercadolibre.com/sites/MLB/categories');
     const categories = await response.json();
     return categories;
   } catch (error) {
@@ -11,7 +11,7 @@ export async function getCategories() {
 export async function getProductsFromCategoryAndQuery(categorieId, query) {
   try {
     const endpoint = `https://api.mercadolibre.com/sites/MLB/search?category=${categorieId}&q=${query}`;
-    const response = await fetch(endpoint, 'no-cors');
+    const response = await fetch(endpoint);
     const products = await response.json();
     return products;
   } catch (error) {
