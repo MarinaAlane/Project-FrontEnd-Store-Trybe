@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { func } from 'prop-types';
 import * as Api from '../services/api';
 
 export default class CategoriesList extends Component {
@@ -23,19 +25,30 @@ export default class CategoriesList extends Component {
 
   render() {
     const { categories } = this.state;
+    const { handlerQueryByCategory } = this.props;
     return (
       <div>
         <ul>
           { categories.map((category) => (
-            <li
+            <Link
+              to="/"
               key={ category.id }
-              data-testid="category"
+              onClick={ () => handlerQueryByCategory(category.id) }
             >
-              { category.name }
-            </li>
+              <li
+                key={ category.id }
+                data-testid="category"
+              >
+                { category.name }
+              </li>
+            </Link>
           ))}
         </ul>
       </div>
     );
   }
 }
+
+CategoriesList.propTypes = {
+  handlerQueryByCategory: func.isRequired,
+};
