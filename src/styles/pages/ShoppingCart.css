@@ -18,16 +18,16 @@
   height: 10%;
 }
 
-.cart-header-container > :nth-child(1) {
+.cart-header-container > :nth-child( 1 ) {
   width: 40px;
 }
 
-.cart-header-container > :nth-child(1) > button {
-  margin: 30px;
-  background: url(/images/icons8-undo-52.png) no-repeat;
+.cart-header-container > :nth-child( 1 ) > button {
+  background: url('/images/icons8-undo-52.png') no-repeat;
   background-size: contain;
   border: none;
   height: 30px;
+  margin: 30px;
   width: 30px;
 }
 

@@ -12,8 +12,8 @@
 }
 
 .search-bar-container > input {
-  width: 500px;
   margin-top: 20px;
+  width: 500px;
 }
 
 .home-header-container > :nth-child( 2 ) {
@@ -21,7 +21,7 @@
 }
 
 .home-header-container > :nth-child( 2 ) > button {
-  background: url(https://image.flaticon.com/icons/png/512/126/126083.png) no-repeat;
+  background: url('https://image.flaticon.com/icons/png/512/126/126083.png') no-repeat;
   background-size: contain;
   border: none;
   height: 40px;
