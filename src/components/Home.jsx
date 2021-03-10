@@ -11,7 +11,6 @@ class Home extends Component {
     this.activateButton = this.activateButton.bind(this);
 
     this.state = {
-      loading: true,
       productsContent: [],
       inputValue: '',
     };
@@ -21,15 +20,15 @@ class Home extends Component {
     const { inputValue } = this.state;
     const response = await fetch(`https://api.mercadolibre.com/sites/MLB/search?q=${inputValue}`);
     const json = await response.json();
+    const jsonResults = json.results;
     this.setState({
-      productsContent: json,
-      loading: false,
+      productsContent: jsonResults,
     });
     return json;
   }
 
   render() {
-    const { inputValue, productsContent, loading } = this.state;
+    const { productsContent } = this.state;
     return (
       <div>
         <form>
@@ -50,7 +49,7 @@ class Home extends Component {
         </form>
         <Link to="/shopping-cart" data-testid="shopping-cart-button"> Cart </Link>
         <CategoriesList />
-        <Card productsContent={ productsContent } loading={ loading } />
+        <Card productsContent={ productsContent } />
       </div>
     );
   }
