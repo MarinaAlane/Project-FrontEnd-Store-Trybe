@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import ButtonShoppingCart from '../components/ButtonShoppingCart';
-import CategoriesList from '../components/CategoriesList';
 import * as api from '../services/api';
+import CategoriesList from '../components/CategoriesList';
+import ButtonShoppingCart from '../components/ButtonShoppingCart';
 
 class ProductsShowcase extends React.Component {
   constructor() {
