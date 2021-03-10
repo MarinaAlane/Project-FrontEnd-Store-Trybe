@@ -1,12 +1,11 @@
 import React from 'react';
 import './App.css';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import * as api from './services/api';
+
 import ProductsShowcase from './Pages/ProductsShowcase';
 import ShoppingCart from './Pages/ShoppingCart';
 
 function App() {
-  api.getCategories().then((categories) => { console.log(categories); });
   return (
     <BrowserRouter>
       <Switch>
