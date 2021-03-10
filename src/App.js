@@ -1,8 +1,8 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 import ProductList from './components/ProductList';
 import './App.css';
-import Cart from './components/Cart';
+// import Cart from './components/Cart';
 import * as api from './services/api';
 
 class App extends React.Component {
@@ -26,7 +26,7 @@ class App extends React.Component {
       <BrowserRouter>
         <Route
           path="/"
-          render={ () => <ProductList categories={ categories }/> }
+          render={ () => <ProductList categories={ categories } /> }
         />
       </BrowserRouter>
     );
