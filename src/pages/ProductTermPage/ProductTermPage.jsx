@@ -6,7 +6,7 @@ class ProductTermPage extends Component {
     const { product } = this.props;
     const { title, price, thumbnail } = product;
     return (
-      <section>
+      <section data-testid="product">
         <p>{ title }</p>
         <img src={ thumbnail } alt={ title } />
         <p>{ price }</p>

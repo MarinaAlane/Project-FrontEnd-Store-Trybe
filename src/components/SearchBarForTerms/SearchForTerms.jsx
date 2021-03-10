@@ -9,27 +9,30 @@ class SearchForTerms extends Component {
     this.state = {
       product: [],
       loading: true,
-      value: '',
+      inputValue: '',
     };
+    this.getInputValue = this.getInputValue.bind(this);
   }
 
-  componentDidMount() {
-    api.getProductsFromCategoryAndQuery('', 'carro')
+  componentDidMount(state) {
+    api.getProductsFromCategoryAndQuery('', state)
       .then((term) => this.setState({ product: term, loading: false }));
   }
 
-  handleInputChange() {
-    this.setState({ value: 'teste' });
+  getInputValue({ target }) {
+    this.setState({ inputValue: target.value });
   }
 
   render() {
-    const { product, loading } = this.state;
+    const { product, loading, inputValue } = this.state;
     if (loading) return <p>loading</p>;
-
     return (
       <>
+        <SearchBar
+          getInputValue={ this.getInputValue }
+          handleClick={ () => this.componentDidMount(inputValue) }
+        />
         {product.results.map((term) => (<ProductTermPage
-          data-testid="product"
           key={ term.id }
           product={ term }
         />))}
