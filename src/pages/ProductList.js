@@ -22,6 +22,16 @@ class ProductList extends Component {
     this.fetchCategories();
   }
 
+  onInputUpdate({ target }) {
+    const { value } = target;
+    this.setState((props) => (
+      {
+        ...props,
+        query: value,
+      }
+    ));
+  }
+
   getProducts() {
     const { query } = this.state;
     const result = Api.getProductsFromCategoryAndQuery(query, query);
@@ -39,16 +49,6 @@ class ProductList extends Component {
     const categoriesResponse = await Api.getCategories();
 
     this.setState({ categories: categoriesResponse });
-  }
-
-  onInputUpdate({ target }) {
-    const { value } = target;
-    this.setState((props) => (
-      {
-        ...props,
-        query: value,
-      }
-    ));
   }
 
   render() {
