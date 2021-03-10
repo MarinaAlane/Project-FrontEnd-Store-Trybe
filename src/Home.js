@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { getCategories } from './services/api';
+import { getCategories, getProductsFromCategoryAndQuery } from './services/api';
 import Categories from './Categories';
 
 import './Home.css';
@@ -10,8 +10,10 @@ class Home extends Component {
     super(props);
     this.state = {
       categories: [],
+      selectedProducts: [],
     };
     this.getCategoriesApi = this.getCategoriesApi.bind(this);
+    this.getProducts = this.getProducts.bind(this);
   }
 
   componentDidMount() {
@@ -22,6 +24,18 @@ class Home extends Component {
     const arrayCategories = await getCategories();
     this.setState({
       categories: arrayCategories,
+    });
+  }
+
+  async getProducts() {
+    const searchInput = document.querySelector('.searchInput').value;
+    const radioAll = document.querySelectorAll('.cat-radio');
+    const radioArray = radioAll.entries();
+    console.log(radioArray);
+    const idCategory = (radioArray.find((radio) => radio.checked === true)).id;
+    const productsArray = await getProductsFromCategoryAndQuery(idCategory, searchInput);
+    this.setState({
+      selectedProducts: productsArray,
     });
   }
 
@@ -38,8 +52,11 @@ class Home extends Component {
     const { categories } = this.state;
     return (
       <div>
-        <input type="text" className="searchInput" />
+        <input type="text" className="searchInput" data-testid="query-input" />
         { message }
+        <button data-testid="query-button" type="button" onClick={ this.getProducts }>
+          Pesquisar
+        </button>
         <Link
           to="/shopping-cart"
           data-testid="shopping-cart-button"

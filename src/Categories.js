@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 class Categories extends React.Component {
   render() {
-    const { id, name, key } = this.props;
+    const { id, name } = this.props;
     return (
       <label
         htmlFor={ id }
@@ -14,6 +14,7 @@ class Categories extends React.Component {
           type="radio"
           id={ id }
           key={ id }
+          className="cat-radio"
         />
       </label>
     );
