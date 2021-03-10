@@ -7,6 +7,7 @@ class ShoppingCart extends React.Component {
     const { location } = this.props;
     const { state } = location;
     const { idProduct, idCategory } = state;
+    const cartItem = localStorage.getItem('item');
     const path = idProduct === '' || idCategory === ''
       ? '/'
       : `/details/${idCategory}/${idProduct}`;
@@ -16,6 +17,12 @@ class ShoppingCart extends React.Component {
           <button type="button">VOLTAR</button>
         </Link>
         <h1>Carrinho de Compras</h1>
+        <p data-testid="shopping-cart-product-name">{ cartItem }</p>
+        <span
+          data-testid="shopping-cart-product-quantity"
+        >
+          Quantidade: 1
+        </span>
         <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
       </section>
     );

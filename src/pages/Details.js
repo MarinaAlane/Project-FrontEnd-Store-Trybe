@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { shape, string } from 'prop-types';
 import * as api from '../services/api';
 import ShoppingCartButton from '../components/ShoppingCartButton';
+import AddToCartButton from '../components/AddToCartButton';
 
 class Details extends React.Component {
   constructor(props) {
@@ -43,6 +44,10 @@ class Details extends React.Component {
         <p>{price}</p>
         <Link to="/">Home</Link>
         <ShoppingCartButton idProduct={ idProduct } idCategory={ idCategory } />
+        <AddToCartButton
+          datatestid="product-detail-add-to-cart"
+          productName={ title }
+        />
       </section>
     );
   }
