@@ -2,13 +2,12 @@ import React, { Component } from 'react';
 import { getCategories } from '../services/api';
 
 class FilterCategories extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       categories: [],
     };
-
     this.categoriesList = this.categoriesList.bind(this);
   }
 
@@ -17,11 +16,20 @@ class FilterCategories extends Component {
   }
 
   async categoriesList() {
+    const { filter } = this.props;
     const cat = await getCategories();
     const list = cat.map((data) => (
-      <li key={ data.id } data-testid="category">
+      <button
+        key={ data.id }
+        data-testid="category"
+        onClick={ filter }
+        id={ data.id }
+        type="button"
+        className="category-button"
+      >
         {data.name}
-      </li>
+      </button>
+
     ));
     this.setState({
       categories: list,
@@ -33,9 +41,9 @@ class FilterCategories extends Component {
     return (
       <div>
         <h3>Categorias</h3>
-        <ul>
+        <section>
           {categories}
-        </ul>
+        </section>
       </div>
     );
   }
