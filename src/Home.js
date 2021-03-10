@@ -19,13 +19,6 @@ class Home extends React.Component {
 
   componentDidMount() {
     this.categoriesFetch();
-    this.fetchSearch();
-  }
-
-  async categoriesFetch() {
-    const results = await api.getCategories();
-    this.setState({
-      categories: results,
   }
 
   handleChange({ target }) {
@@ -35,11 +28,31 @@ class Home extends React.Component {
     });
   }
 
-  async fetchSearch() {
-    const { queryInput } = this.state;
-    const data = await api.getProductsFromCategoryAndQuery('', queryInput);
+  categoriesFilter({ target }) {
+    const { id } = target;
     this.setState({
-      products: data.results,
+      categorySelector: id,
+    }, () => this.fetchSearch());
+  }
+
+  async categoriesFetch() {
+    const results = await api.getCategories();
+    this.setState({
+      categories: results,
+    });
+  }
+
+  fetchSearch() {
+    const { queryInput, categorySelector } = this.state;
+    this.setState({}, async () => {
+      const results = await api.getProductsFromCategoryAndQuery(
+        categorySelector,
+        queryInput,
+      );
+      const listProducts = results.results;
+      this.setState({
+        products: listProducts,
+      });
     });
   }
 
@@ -60,7 +73,7 @@ class Home extends React.Component {
         <button
           type="button"
           data-testid="query-button"
-          onChange={ this.fetchSearch }
+          onClick={ this.fetchSearch }
         >
           Procurar
         </button>
