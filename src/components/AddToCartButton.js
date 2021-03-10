@@ -30,8 +30,12 @@ class AddToCartButton extends React.Component {
 }
 
 AddToCartButton.propTypes = {
-  productName: string.isRequired,
+  productName: string,
   datatestid: string.isRequired,
+};
+
+AddToCartButton.defaultProps = {
+  productName: '',
 };
 
 export default AddToCartButton;
