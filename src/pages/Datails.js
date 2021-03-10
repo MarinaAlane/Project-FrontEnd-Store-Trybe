@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { shape, string } from 'prop-types';
 import * as api from '../services/api';
+import ShoppingCartButton from '../components/ShoppingCartButton';
 
 class Details extends React.Component {
   constructor(props) {
@@ -38,6 +39,7 @@ class Details extends React.Component {
         <p data-testid="product-detail-name">{title}</p>
         <p>{price}</p>
         <Link to="/">Home</Link>
+        <ShoppingCartButton />
       </section>
     );
   }
