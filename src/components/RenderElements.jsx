@@ -32,7 +32,7 @@ class RenderElements extends React.Component {
 }
 
 RenderElements.propTypes = {
-  products: PropTypes.arrayOf({}).isRequired,
+  products: PropTypes.arrayOf(PropTypes.object).isRequired,
   handleInputChange: PropTypes.func.isRequired,
   handleClick: PropTypes.func.isRequired,
 };
