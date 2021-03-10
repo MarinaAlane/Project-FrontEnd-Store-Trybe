@@ -9,6 +9,7 @@ export default class SearchBar extends Component {
     super(props);
     this.handlerChange = this.handlerChange.bind(this);
     this.handlerClick = this.handlerClick.bind(this);
+    this.handlerQueryByCategory = this.handlerQueryByCategory.bind(this);
 
     this.state = {
       query: '',
@@ -28,6 +29,13 @@ export default class SearchBar extends Component {
     const fechProducts = await api.getProductsFromCategoryAndQuery('', query);
     this.setState({
       products: fechProducts.results,
+    });
+  }
+
+  async handlerQueryByCategory(categoryId) {
+    const fetchProducts = await api.getProductsFromCategoryAndQuery(categoryId, '');
+    this.setState({
+      products: fetchProducts.results,
     });
   }
 
@@ -65,7 +73,7 @@ export default class SearchBar extends Component {
             </p>
           )}
         <Link to="/shopping-cart" data-testid="shopping-cart-button">CARRINHO</Link>
-        <CategoriesList />
+        <CategoriesList handlerQueryByCategory={ this.handlerQueryByCategory } />
       </div>
     );
   }
