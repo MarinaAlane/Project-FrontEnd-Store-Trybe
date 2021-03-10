@@ -1,6 +1,6 @@
 import React from 'react';
 
-//requisito 2
+// requisito 2
 
 class Home extends React.Component {
   render () {
