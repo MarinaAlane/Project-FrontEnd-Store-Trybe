@@ -26,7 +26,7 @@ class CartButton extends Component {
         data-testid="shopping-cart-button"
         onClick={ this.handleClick }
       >
-        Button
+        Carrinho de compras
       </button>
     );
   }
