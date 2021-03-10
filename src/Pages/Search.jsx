@@ -2,6 +2,8 @@ import React from 'react';
 import * as api from '../services/api';
 import CardList from '../Components/CardList';
 import ListCategories from '../Components/ListCategories';
+import { Link } from 'react-router-dom';
+import botaoCarrinhoVazio from './botaocarrinho.jpg';
 import './Search.css';
 
 class Search extends React.Component {
@@ -85,6 +87,9 @@ class Search extends React.Component {
             value="Buscar"
             onClick={ this.renderCard }
           />
+          <Link data-testid="shopping-cart-button" to="/carrinho">
+            <img src={ botaoCarrinhoVazio } alt="botãoCarrinhoVazio" />
+          </Link>
         </div>
         { digite && <p>Digite algum termo de pesquisa ou escolha uma categoria.</p> }
         { cardList && <CardList products={ products } /> }
