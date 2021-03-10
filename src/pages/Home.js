@@ -2,19 +2,28 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import ProductCard from '../Components/ProductCard';
 import * as api from '../services/api';
-import Categories from '../components/Categories';
+import Categories from '../Components/Categories';
 
 export default class Home extends Component {
-  constructor(props) {
-    super(props);
+  constructor(state) {
+    super(state);
 
     this.setSearchText = this.setSearchText.bind(this);
     this.searchProducts = this.searchProducts.bind(this);
+    this.handleCategory = this.handleCategory.bind(this);
 
     this.state = {
       searchText: '',
       productList: [],
     };
+  }
+
+  async handleCategory(e) {
+    await api.getProductsFromCategoryAndQuery(e.target.value, '')
+      .then((response) => {
+        const list = response.results;
+        this.setState({ productList: list });
+      });
   }
 
   setSearchText({ target }) {
@@ -47,14 +56,14 @@ export default class Home extends Component {
           </Link>
         </button>
         <div className="left-side">
-          <Categories />
+          <Categories handleCategory={ this.handleCategory } />
         </div>
         <p data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>
         {productList
           .map((product) => (
-            <ProductCard product={ product } key={ product.id } />
+            <ProductCard key={ product.id } product={ product } />
           ))}
       </div>
     );
