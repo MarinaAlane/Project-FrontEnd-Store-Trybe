@@ -33,6 +33,7 @@ class Details extends Component {
             <li>lorem ipsum dolor sit amet, consectetur adipis</li>
             <li>lorem ipsum dolor sit amet, consectetur adipis</li>
             <li>lorem ipsum dolor sit amet, consectetur adipis</li>
+            <li>lorem ipsum dolor sit amet, consectetur adipis</li>
           </ul>
         </main>
       </div>
