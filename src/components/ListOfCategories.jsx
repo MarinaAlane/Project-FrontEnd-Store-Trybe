@@ -12,7 +12,7 @@ class ListOfCategories extends React.Component {
   }
 
   componentDidMount() {
-    api.getCategories().then((response) => this.setState({ categories: response }));
+    api.r.then((response) => this.setState({ categories: response }));
   }
 
   render() {
