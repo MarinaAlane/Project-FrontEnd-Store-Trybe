@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class ItemDetails extends Component {
   render() {
@@ -10,5 +11,13 @@ class ItemDetails extends Component {
     );
   }
 }
+
+ItemDetails.propTypes = {
+  location: PropTypes.shape({
+    state: PropTypes.shape({
+      item: PropTypes.string,
+    }),
+  }).isRequired,
+};
 
 export default ItemDetails;
