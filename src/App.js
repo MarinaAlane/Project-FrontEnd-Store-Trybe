@@ -2,7 +2,6 @@ import React from 'react';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
 import LandingPage from './pages/LandingPage';
 import Cart from './pages/Cart';
-import ListCategories from './pages/ListCategories';
 
 function App() {
   return (
