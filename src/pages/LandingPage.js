@@ -1,7 +1,28 @@
 import React from 'react';
+import { getProductsFromCategoryAndQuery } from '../services/api';
 
 class LandingPage extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      products: [],
+    };
+
+    this.fetchProductsByQuery = this.fetchProductsByQuery.bind(this);
+  }
+
+  async fetchProductsByQuery(query) {
+    const items = await getProductsFromCategoryAndQuery(false, query);
+    // console.log(items);
+    this.setState({
+      products: items.results,
+    });
+  }
+
   render() {
+    this.fetchProductsByQuery('computador');
     return (
       <div>
         <input type="text" />
