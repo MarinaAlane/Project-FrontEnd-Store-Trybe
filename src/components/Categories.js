@@ -1,22 +1,29 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import * as api from '../services/api';
+import Category from './Category';
 
 class Categories extends React.Component {
   constructor(props) {
     super(props);
     this.state = { allCategories: '', loading: true };
-
-    this.fetchCategories = this.fetchCategories.bind(this);
+    this.fetchAllCategories = this.fetchAllCategories.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
-    this.fetchCategories();
+    this.fetchAllCategories();
   }
 
-  async fetchCategories() {
-    const categoriesData = await api.getCategories();
+  handleChange(event) {
+    const { getCategory } = this.props;
+    getCategory(event.target.id);
+  }
+
+  async fetchAllCategories() {
+    const allCategoriesData = await api.getCategories();
     this.setState({
-      allCategories: [...categoriesData],
+      allCategories: allCategoriesData,
       loading: false,
     });
   }
@@ -26,12 +33,15 @@ class Categories extends React.Component {
     if (loading) {
       return <p>Loading paragrafo</p>;
     }
+
     const categories = allCategories
-      .map((category, index) => (
-        <p key={ index } data-testid="category">
-          {category.name}
-        </p>));
-    return categories;
+      .map((categoryMap) => (
+        <Category key={ categoryMap.id } category={ categoryMap } />
+      ));
+    return <ul onChange={ this.handleChange }>{ categories }</ul>;
   }
 }
+
+Categories.propTypes = { getCategory: PropTypes.func }.isRequired;
+
 export default Categories;

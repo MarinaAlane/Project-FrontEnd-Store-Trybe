@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import * as mlbAPI from '../services/api';
+import * as api from '../services/api';
 import Categories from '../components/Categories';
 import Products from '../components/Products';
 
@@ -8,28 +8,40 @@ class ProductsList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      categoryId: '',
       searchText: '',
       products: [],
     };
     this.changeHandler = this.changeHandler.bind(this);
     this.handleClick = this.handleClick.bind(this);
-    this.fetchProductQuery = this.fetchProductQuery.bind(this);
+    this.fetchProductIdAndQuery = this.fetchProductIdAndQuery.bind(this);
+    this.getCategory = this.getCategory.bind(this);
   }
 
   handleClick() {
-    this.fetchProductQuery();
+    this.fetchProductIdAndQuery();
+  }
+
+  async getCategory(category) {
+    const productsList = await this.fetchProductId(category);
+    this.setState({ categoryId: category, products: productsList });
+    // adicionada linha 27 onde
+  }
+
+  async fetchProductId(productId) {
+    const { results } = await api.getProductsFromCategory(productId);
+    return results;
+  }
+
+  async fetchProductIdAndQuery() {
+    const { searchText, categoryId } = this.state;
+    const { results } = await api.getProductsFromCategoryAndQuery(categoryId, searchText);
+    console.log('fetchProductIdAndQuery');
+    this.setState({ products: results });
   }
 
   changeHandler(event) {
     this.setState({ searchText: event.target.value });
-  }
-
-  async fetchProductQuery() {
-    const { searchText } = this.state;
-    const { results } = await mlbAPI.getProductsFromCategoryAndQuery('', searchText);
-    this.setState({
-      products: results,
-    });
   }
 
   render() {
@@ -54,7 +66,7 @@ class ProductsList extends React.Component {
           Digite algum termo de pesquisa ou escolha uma categoria.
         </h3>
         <Products products={ products } />
-        <Categories />
+        <Categories getCategory={ this.getCategory } />
       </div>
     );
   }
