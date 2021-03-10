@@ -1,6 +1,6 @@
 import React from 'react';
-import ListOfCategories from './ListOfCategories';
 import { Link } from 'react-router-dom';
+import ListOfCategories from './ListOfCategories';
 
 class Home extends React.Component {
   render() {
@@ -17,12 +17,12 @@ class Home extends React.Component {
 
         <ListOfCategories />
 
-      <button type="button">
+        <button type="button">
           <Link
             to="/shopping-cart"
             data-testid="shopping-cart-button"
           >
-            Carrinho
+          Carrinho
           </Link>
         </button>
       </div>
