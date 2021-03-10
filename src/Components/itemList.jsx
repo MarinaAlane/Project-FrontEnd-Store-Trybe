@@ -14,21 +14,27 @@ class ItemList extends Component {
   }
 
   componentDidMount() {
-    const { category, searchText } = this.props;
-    api
-      .getProductsFromCategoryAndQuery(category, searchText)
+    const { searchText } = this.props;
+    api.getProductsFromCategoryAndQuery('', searchText)
       .then((list) => this.setState({ itemList: list }));
   }
+  // as duas requisições da api estão funcionando, problema esta na passagem de props ou key pro map
+  // alterado para somente 1 requisição conforme requisito
 
   render() {
-    const { results } = this.state.itemList;
+    const { itemList } = this.state;
+    console.log(itemList);
     return (
-    <div>
-      {console.log(results)}
-      {/* {results.map((item) => <ItemCard title={ item.title } price={ item.price } thumbnail={ item.thumbnail } />)} */}
-    </div>
+      <div>
+        {itemList.length < 1 ? <p>Nenhum produto foi encontrado</p>
+          : itemList.map((item) => (
+            <ItemCard key={ item.id } itemList={ item } />))}
+      </div>
     );
   }
 }
 
 export default ItemList;
+
+//  retirado console.log
+// map não tem key e sim valores das props, definir key para o map

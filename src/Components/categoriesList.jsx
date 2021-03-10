@@ -12,11 +12,8 @@ class CategoriesList extends Component {
   }
 
   componentDidMount() {
-    api
-      .getCategories()
-      .then((categoriesValue) =>
-        this.setState({ productsCategories: categoriesValue })
-      );
+    api.getCategories()
+      .then((categoriesValue) => this.setState({ productsCategories: categoriesValue }));
   }
 
   render() {
@@ -26,7 +23,7 @@ class CategoriesList extends Component {
       <div>
         <ul>
           {productsCategories.map((category) => (
-            <CategoriesCheckBox key={category.name} category={category} />
+            <CategoriesCheckBox key={ category.name } category={ category } />
           ))}
         </ul>
       </div>

@@ -3,21 +3,27 @@ import PropTypes from 'prop-types';
 
 class ItemCard extends Component {
   render() {
-    const { title, price, thumbnail } = this.props;
+    const { products: { title, price, thumbnail } } = this.props;
     return (
       <div data-testid="product">
         <h2>{ title }</h2>
-        <img src={ thumbnail } />
-        <p>R$ { price }</p>
+        <img src={ thumbnail } alt="img" />
+        <p>{ price }</p>
       </div>
     );
   }
 }
 
+// estrutura do card ok!
+
 ItemCard.propTypes = {
-  title: PropTypes.string,
-  price: PropTypes.number,
-  thumbnail: PropTypes.string,
+  products: PropTypes.shape({
+    title: PropTypes.string,
+    price: PropTypes.number,
+    thumbnail: PropTypes.string,
+  }).isRequired,
 };
+
+// corrigido propTypes
 
 export default ItemCard;

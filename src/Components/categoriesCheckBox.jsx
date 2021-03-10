@@ -3,18 +3,18 @@ import PropTypes from 'prop-types';
 
 class CategoriesCheckBox extends Component {
   render() {
-    const { name, id } = this.props.category;
+    const { category: { name, id } } = this.props;
     return (
       <li>
-        <label htmlFor={name}>
+        <label htmlFor={ name }>
           <input
             type="checkbox"
             data-testid="category"
             name="category"
-            id={name}
-            value={id}
+            id={ name }
+            value={ id }
           />
-          {name}
+          { name }
         </label>
       </li>
     );
