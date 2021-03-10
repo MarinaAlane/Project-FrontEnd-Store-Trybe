@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-class ProductTermPage extends Component {
+class Product extends Component {
   render() {
     const { product } = this.props;
     const { title, price, thumbnail } = product;
@@ -17,7 +17,7 @@ class ProductTermPage extends Component {
 
 const { shape, string, number } = PropTypes;
 
-ProductTermPage.propTypes = {
+Product.propTypes = {
   product: shape({
     title: string,
     price: number,
@@ -25,4 +25,4 @@ ProductTermPage.propTypes = {
   }),
 }.isRequired;
 
-export default ProductTermPage;
+export default Product;

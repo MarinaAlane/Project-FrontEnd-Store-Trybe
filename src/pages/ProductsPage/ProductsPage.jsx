@@ -1,47 +1,52 @@
-import React, { Component, useContext } from 'react';
-import CartProduct from '../../components/Product/Product';
+import React, { Component } from 'react';
+import Product from '../../components/Product/Product';
 import * as api from '../../services/api';
 import InputContext from '../../components/InputContext';
 
 class ProductsPage extends Component {
   constructor(props) {
     super(props);
-    const { inputValue } = useContext;
     this.state = {
       product: [],
       loading: true,
-      inputValue,
+      inputValue: '',
     };
     this.fetchAds = this.fetchAds.bind(this);
   }
 
-  componentDidMount() {
-    this.fetchAds();
+  componentDidUpdate() {
+    const { inputValue: stateInput } = this.state;
+    const { inputValue: contextInput } = this.context;
+    if (stateInput !== contextInput) this.fetchAds(contextInput);
   }
 
-  fetchAds() {
-    const { inputValue } = this.state;
-    api.getProductsFromCategoryAndQuery('', inputValue)
-      .then((term) => this.setState({ product: term, loading: false }));
+  fetchAds(inputValue) {
+    api.getProductsFromCategoryAndQuery(null, inputValue)
+      .then((term) => this.setState({ product: term, loading: false, inputValue }));
   }
 
   render() {
     const { product, loading } = this.state;
-    return loading ? <p>loading</p> : (
-      <InputContext.Consumer>
-        {({ inputValue }) => (
-          <div>
-            <p>{ inputValue }</p>
-            {product.results.map((term) => (<CartProduct
-              key={ term.id }
-              product={ term }
-            />))}
-          </div>
-        )}
 
+    return (
+      <InputContext.Consumer>
+        {
+          () => (
+            loading
+              ? <p>loading</p>
+              : (
+                product.results.map((term) => (<Product
+                  key={ term.id }
+                  product={ term }
+                />))
+              )
+          )
+        }
       </InputContext.Consumer>
     );
   }
 }
+
+ProductsPage.contextType = InputContext;
 
 export default ProductsPage;
