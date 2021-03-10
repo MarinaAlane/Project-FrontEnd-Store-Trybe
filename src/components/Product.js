@@ -18,7 +18,10 @@ class Products extends React.Component {
         >
           Detalhe
         </Link>
-        <AddToCartButton datatestid="product-add-to-cart" productName={ title } />
+        <AddToCartButton
+          datatestid="product-add-to-cart"
+          productData={ { id, title, price } }
+        />
       </div>
 
     );

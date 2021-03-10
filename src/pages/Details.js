@@ -46,7 +46,7 @@ class Details extends React.Component {
         <ShoppingCartButton idProduct={ idProduct } idCategory={ idCategory } />
         <AddToCartButton
           datatestid="product-detail-add-to-cart"
-          productName={ title }
+          productData={ product }
         />
       </section>
     );

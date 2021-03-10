@@ -1,5 +1,5 @@
 import React from 'react';
-import { string } from 'prop-types';
+import { string, number, shape } from 'prop-types';
 
 class AddToCartButton extends React.Component {
   constructor() {
@@ -7,19 +7,20 @@ class AddToCartButton extends React.Component {
     this.addItemToCart = this.addItemToCart.bind(this);
   }
 
-  addItemToCart({ target }) {
-    localStorage.setItem('item', target.value);
+  addItemToCart(productData) {
+    const itensCarts = JSON.parse(localStorage.getItem('itens'));
+    const addNewProduct = [...itensCarts, productData];
+    localStorage.setItem('itens', JSON.stringify(addNewProduct));
   }
 
   render() {
-    const { productName, datatestid } = this.props;
+    const { productData, datatestid } = this.props;
     return (
       <div>
         <button
           data-testid={ datatestid }
           type="button"
-          value={ productName }
-          onClick={ this.addItemToCart }
+          onClick={ () => this.addItemToCart(productData) }
         >
           Adicionar ao carrinho
         </button>
@@ -30,12 +31,16 @@ class AddToCartButton extends React.Component {
 }
 
 AddToCartButton.propTypes = {
-  productName: string,
+  productData: shape({
+    title: string,
+    price: number,
+    id: string,
+  }),
   datatestid: string.isRequired,
 };
 
 AddToCartButton.defaultProps = {
-  productName: '',
+  productData: {},
 };
 
 export default AddToCartButton;
