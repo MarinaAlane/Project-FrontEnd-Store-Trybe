@@ -11,21 +11,16 @@ class Home extends React.Component {
       categories: [],
       products: [],
       queryInput: '',
+      categorySelector: '',
     };
     this.handleChange = this.handleChange.bind(this);
     this.fetchSearch = this.fetchSearch.bind(this);
     this.categoriesFetch = this.categoriesFetch.bind(this);
+    this.categoriesFilter = this.categoriesFilter.bind(this);
   }
 
   componentDidMount() {
     this.categoriesFetch();
-    this.fetchSearch();
-  }
-
-  async categoriesFetch() {
-    const results = await api.getCategories();
-    this.setState({
-      categories: results,
   }
 
   handleChange({ target }) {
@@ -35,11 +30,31 @@ class Home extends React.Component {
     });
   }
 
-  async fetchSearch() {
-    const { queryInput } = this.state;
-    const data = await api.getProductsFromCategoryAndQuery('', queryInput);
+  categoriesFilter({ target }) {
+    const categoryId = target.id;
     this.setState({
-      products: data.results,
+      categorySelector: categoryId,
+    }, () => this.fetchSearch());
+  }
+
+  async categoriesFetch() {
+    const results = await api.getCategories();
+    this.setState({
+      categories: results,
+    });
+  }
+
+  fetchSearch() {
+    const { queryInput, categorySelector } = this.state;
+    this.setState({}, async () => {
+      const results = await api.getProductsFromCategoryAndQuery(
+        categorySelector,
+        queryInput,
+      );
+      const listProducts = results.results;
+      this.setState({
+        products: listProducts,
+      });
     });
   }
 
@@ -56,11 +71,11 @@ class Home extends React.Component {
           />
           Digite algum termo de pesquisa ou escolha uma categoria.
         </label>
-        <Categorias categories={ categories } />
+        <Categorias categories={ categories } onClick={ this.categoriesFilter } />
         <button
           type="button"
           data-testid="query-button"
-          onChange={ this.fetchSearch }
+          onClick={ this.fetchSearch }
         >
           Procurar
         </button>
