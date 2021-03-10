@@ -11,18 +11,22 @@ class Home extends Component {
     this.state = {
       categories: [],
     };
+    this.getCategoriesApi = this.getCategoriesApi.bind(this);
   }
 
   componentDidMount() {
-    getCategories().then((res) => {
-      console.log(res);
-      this.setState = {
-        categories: res,
-      };
+    this.getCategoriesApi();
+  }
+
+  async getCategoriesApi() {
+    const arrayCategories = await getCategories();
+    this.setState({
+      categories: arrayCategories,
     });
   }
 
   render() {
+    console.log(this.state);
     const message = (
       <h5
         data-testid="home-initial-message"
@@ -44,19 +48,8 @@ class Home extends Component {
           Botão
         </Link>
         {
-          categories.map((category) => (
-            <label
-              htmlFor={ category.id }
-              data-testid="category"
-              key={ category.id }
-            >
-              { category.name }
-              <input
-                type="radio"
-                id={ category.id }
-                key={ category.id }
-              />
-            </label>))
+          categories.map(({ id, name }) => (
+            <Categories key={ id } name={ name } id={ id } />))
         }
       </div>
     );
