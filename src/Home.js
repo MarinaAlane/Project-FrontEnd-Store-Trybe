@@ -11,10 +11,12 @@ class Home extends React.Component {
       categories: [],
       products: [],
       queryInput: '',
+      categorySelector: '',
     };
     this.handleChange = this.handleChange.bind(this);
     this.fetchSearch = this.fetchSearch.bind(this);
     this.categoriesFetch = this.categoriesFetch.bind(this);
+    this.categoriesFilter = this.categoriesFilter.bind(this);
   }
 
   componentDidMount() {
@@ -29,9 +31,9 @@ class Home extends React.Component {
   }
 
   categoriesFilter({ target }) {
-    const { id } = target;
+    const categoryId = target.id;
     this.setState({
-      categorySelector: id,
+      categorySelector: categoryId,
     }, () => this.fetchSearch());
   }
 
@@ -69,7 +71,7 @@ class Home extends React.Component {
           />
           Digite algum termo de pesquisa ou escolha uma categoria.
         </label>
-        <Categorias categories={ categories } />
+        <Categorias categories={ categories } onClick={ this.categoriesFilter } />
         <button
           type="button"
           data-testid="query-button"
