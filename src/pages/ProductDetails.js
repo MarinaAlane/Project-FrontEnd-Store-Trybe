@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import RatingForm from '../components/RatingForm';
 
 export default class ProductDetails extends Component {
   constructor() {
@@ -36,20 +37,23 @@ export default class ProductDetails extends Component {
     }
     const { title, attributes, thumbnail, price } = this.state;
     return (
-      <div className="productContainer">
-        <h2 data-testid="product-detail-name">{ title }</h2>
-        <img src={ thumbnail } alt={ title } />
-        <p>
-          R$
-          { price }
-        </p>
-        <ul>
-          {attributes.map((attribute) => (
-            <li key={ attribute.id }>
-              { `${attribute.name} -> ${attribute.value_name}` }
-            </li>
-          ))}
-        </ul>
+      <div>
+        <div className="productContainer">
+          <h2 data-testid="product-detail-name">{ title }</h2>
+          <img src={ thumbnail } alt={ title } />
+          <p>
+            R$
+            { price }
+          </p>
+          <ul>
+            {attributes.map((attribute) => (
+              <li key={ attribute.id }>
+                { `${attribute.name} -> ${attribute.value_name}` }
+              </li>
+            ))}
+          </ul>
+        </div>
+        <RatingForm />
       </div>
     );
   }
