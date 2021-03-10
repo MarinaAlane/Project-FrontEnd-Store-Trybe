@@ -1,21 +1,24 @@
 import React from 'react';
-import { BrowserRouter, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Route, Link, Switch } from 'react-router-dom';
 import LandingPage from './pages/LandingPage';
 import Cart from './pages/Cart';
-import ListCategories from './pages/ListCategories';
+import ProductDetais from './pages/ProductDetais';
 
 function App() {
   return (
-    <>
-      <BrowserRouter>
-        <Link to="/cart" data-testid="shopping-cart-button">
-          Cart
-        </Link>
-        <Route exact path="/" component={ LandingPage } />
+    <BrowserRouter>
+      <Link to="/cart" data-testid="shopping-cart-button">
+        Cart
+      </Link>
+      <Switch>
+        <Route
+          path="/product/:id"
+          render={ (props) => <ProductDetais { ...props } /> }
+        />
         <Route path="/cart" component={ Cart } />
-      </BrowserRouter>
-      <ListCategories />
-    </>
+        <Route exact path="/" component={ LandingPage } />
+      </Switch>
+    </BrowserRouter>
   );
 }
 

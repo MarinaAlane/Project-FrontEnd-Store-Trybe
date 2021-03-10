@@ -1,5 +1,8 @@
 import React from 'react';
+import { Route, Link } from 'react-router-dom';
 import { getProductsFromCategoryAndQuery } from '../services/api';
+import ListCategories from './ListCategories';
+import ProductDetais from './ProductDetais';
 import Card from '../components/Card';
 
 class LandingPage extends React.Component {
@@ -56,6 +59,7 @@ class LandingPage extends React.Component {
           <h1 data-testid="home-initial-message">
             Digite algum termo de pesquisa ou escolha uma categoria.
           </h1>
+          <ListCategories />
         </>
       );
     }
@@ -63,7 +67,17 @@ class LandingPage extends React.Component {
     return (
       <div>
         { this.inputButton() }
-        {products.map((product) => <Card product={ product } key={ product.id } />)}
+        {products
+          .map((product) => (
+            <Link
+              data-testid="product-detail-link"
+              key={ product.id }
+              to={ { pathname: `/product/${product.id}`, state: { product } } }
+            >
+              <Card product={ product } key={ product.id } />
+            </Link>
+          ))}
+        <ListCategories />
       </div>
     );
   }
