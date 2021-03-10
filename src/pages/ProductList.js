@@ -20,12 +20,6 @@ class ProductList extends Component {
     this.fetchCategories();
   }
 
-  async fetchCategories() {
-    const categoriesResponse = await Api.getCategories();
-
-    this.setState({ categories: categoriesResponse });
-  }
-
   getProducts(query) {
     const result = Api.getProductsFromCategoryAndQuery(query, query);
     result.then(
@@ -36,6 +30,12 @@ class ProductList extends Component {
         }));
       },
     );
+  }
+
+  async fetchCategories() {
+    const categoriesResponse = await Api.getCategories();
+
+    this.setState({ categories: categoriesResponse });
   }
 
   onInputUpdate({ target }) {
@@ -54,16 +54,14 @@ class ProductList extends Component {
     return (
       <main>
         <header>
-        <input
-          value={ query }
-          onChange={ this.onInputUpdate }
-          data-testid="query-input"
-          type="text"
-        />
-          <button
-            data-testid="query-button"
-            onClick={ () => this.getProducts(this.state.query) } >
-              Buscar
+          <input
+            value={ query }
+            onChange={ this.onInputUpdate }
+            data-testid="query-input"
+            type="text"
+          />
+          <button data-testid="query-button" onClick={ () => this.getProducts(query) }>
+            Buscar
           </button>
           <Link data-testid="shopping-cart-button" to="/cart">Carrinho</Link>
         </header>
