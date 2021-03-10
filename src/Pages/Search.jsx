@@ -1,16 +1,22 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import * as api from '../services/api';
 import CardList from '../Components/CardList';
+import ListCategories from '../Components/ListCategories';
+import botaoCarrinho from '../Images/botaoCarrinho.jpg';
+import './Search.css';
 
 class Search extends React.Component {
   constructor(props) {
     super(props);
 
-    this.getCat = this.getCat.bind(this);
+    this.getCatAndQuery = this.getCatAndQuery.bind(this);
     this.searchTextChange = this.searchTextChange.bind(this);
     this.renderCard = this.renderCard.bind(this);
+    this.getCategoriesApi = this.getCategoriesApi.bind(this);
 
     this.state = {
+      categories: [],
       products: [],
       searchText: '',
       cardList: false,
@@ -18,7 +24,20 @@ class Search extends React.Component {
     };
   }
 
-  getCat(value) {
+  componentDidMount() {
+    this.getCategoriesApi();
+  }
+
+  getCategoriesApi() {
+    api.getCategories()
+      .then((categories) => {
+        this.setState({
+          categories,
+        });
+      });
+  }
+
+  getCatAndQuery(value) {
     api.getProductsFromCategoryAndQuery('MLB1403', value)
       .then(({ results }) => {
         this.setState({
@@ -35,37 +54,48 @@ class Search extends React.Component {
 
   renderCard() {
     const { searchText } = this.state;
-    this.getCat(searchText);
+    this.getCatAndQuery(searchText);
     this.setState({
       digite: false,
     });
   }
 
   render() {
-    const { searchText, products, cardList, digite } = this.state;
+    const { searchText, products, cardList, digite, categories } = this.state;
 
     return (
-      <div data-testid="home-initial-message">
-        <div>
-          <label htmlFor="searchtext">
+      <div className="main" data-testid="home-initial-message">
+        <section className="section-category">
+          Categorias:
+          { categories.map((category) => (
+            <ListCategories key={ category.id } category={ category } />))}
+
+        </section>
+        <section>
+          <div>
+            <label htmlFor="searchtext">
+              <input
+                type="text"
+                id="searchText"
+                name="searchText"
+                value={ searchText }
+                onChange={ this.searchTextChange }
+                data-testid="query-input"
+              />
+            </label>
             <input
-              type="text"
-              id="searchText"
-              name="searchText"
-              value={ searchText }
-              onChange={ this.searchTextChange }
-              data-testid="query-input"
+              type="button"
+              data-testid="query-button"
+              value="Buscar"
+              onClick={ this.renderCard }
             />
-          </label>
-          <input
-            type="button"
-            data-testid="query-button"
-            value="Buscar"
-            onClick={ this.renderCard }
-          />
-        </div>
-        { digite && <p>Digite algum termo de pesquisa ou escolha uma categoria.</p> }
-        { cardList && <CardList products={ products } /> }
+            <Link data-testid="shopping-cart-button" to="/carrinho">
+              <img src={ botaoCarrinho } alt="botãoCarrinhoVazio" />
+            </Link>
+          </div>
+          { digite && <p>Digite algum termo de pesquisa ou escolha uma categoria.</p> }
+          { cardList && <CardList products={ products } /> }
+        </section>
       </div>
     );
   }
