@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+
 import './Home.css';
 
 class Home extends Component {
@@ -15,6 +17,13 @@ class Home extends Component {
       <div>
         <input type="text" className="searchInput" />
         { message }
+        <Link
+          to="/shopping-cart"
+          data-testid="shopping-cart-button"
+          className="button-link"
+        >
+          Botão
+        </Link>
       </div>
     );
   }
