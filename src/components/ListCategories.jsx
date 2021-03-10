@@ -7,9 +7,10 @@ class ListCategories extends React.Component {
     return (
       <div>
         {categories.map(({ name, id }) => (
-          <div>
+          <div key={ id }>
             <label htmlFor={ id }>
-                <input key={ id } data-testid="category" type="checkbox"/>{ name }
+              <input data-testid="category" type="checkbox" />
+              { name }
             </label>
           </div>))}
       </div>);
