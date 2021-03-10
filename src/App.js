@@ -6,7 +6,7 @@ import ProductsShowcase from './Pages/ProductsShowcase';
 import ShoppingCart from './Pages/ShoppingCart';
 
 function App() {
-  api.getCategories().then((categories) => { console.log(categories); });
+  api.getProductsFromCategoryAndQuery('MLB923744806', 'livro').then((categories) => { console.log(categories); });
   return (
     <BrowserRouter>
       <Switch>
