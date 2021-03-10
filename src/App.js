@@ -6,14 +6,16 @@ import ListCategories from './pages/ListCategories';
 
 function App() {
   return (
-    <BrowserRouter>
-      <Link to="/cart" data-testid="shopping-cart-button">
-        Cart
-      </Link>
-      <Route exact path="/" component={ LandingPage } />
-      <Route path="/cart" component={ Cart } />
-    </BrowserRouter>
-    <ListCategories />
+    <>
+      <BrowserRouter>
+        <Link to="/cart" data-testid="shopping-cart-button">
+          Cart
+        </Link>
+        <Route exact path="/" component={ LandingPage } />
+        <Route path="/cart" component={ Cart } />
+      </BrowserRouter>
+      <ListCategories />
+    </>
   );
 }
 
