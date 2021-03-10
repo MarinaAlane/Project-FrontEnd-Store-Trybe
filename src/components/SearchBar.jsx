@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import ItemCard from './ItemCard';
 
@@ -42,5 +43,12 @@ class SearchBar extends Component {
     );
   }
 }
+
+SearchBar.propTypes = {
+  result: PropTypes.arrayOf(Object).isRequired,
+  searchText: PropTypes.string.isRequired,
+  search: PropTypes.func.isRequired,
+  textChange: PropTypes.func.isRequired,
+};
 
 export default SearchBar;
