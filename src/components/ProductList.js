@@ -5,7 +5,7 @@ class ProductList extends React.Component {
   render() {
     return (
       <div>
-        <input 
+        <input
           type="text"
         />
         <Link to="/Cart" data-testid="shopping-cart-button">
