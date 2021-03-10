@@ -20,6 +20,7 @@ class ListCategories extends React.Component {
     const { categories } = this.state;
     return (
       <div>
+        <p>Categorias:</p>
         {categories.map((category) => (
           <label htmlFor="category" key={ category.id }>
             <input
