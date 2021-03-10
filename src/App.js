@@ -6,7 +6,8 @@ class App extends React.Component {
     return (
       <div>
         <Pageinitial />
-        <p data-testid="home-initial-message"> Digite algum termo de pesquisa ou escolha uma categoria.
+        <p data-testid="home-initial-message">
+          Digite algum termo de pesquisa ou escolha uma categoria.
         </p>
       </div>
     );

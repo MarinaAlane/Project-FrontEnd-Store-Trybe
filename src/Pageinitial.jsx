@@ -3,14 +3,14 @@ import React from 'react';
 class Pageinitial extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {value: ''};
+    this.state = { value: '' };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(event) {
-    this.setState({value: event.target.value});
+    this.setState({ value: event.target.value });
   }
 
   handleSubmit(event) {
@@ -20,11 +20,9 @@ class Pageinitial extends React.Component {
 
   render() {
     return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          <input type="text" value={this.state.value}
-          onChange={this.handleChange} />
-        </label>
+      <form onSubmit={ this.handleSubmit }>
+        <input type="text" value={ this.state.value }
+        onChange={ this.handleChange } />
       </form>)
   }
 }
