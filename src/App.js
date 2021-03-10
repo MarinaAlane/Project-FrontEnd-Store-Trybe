@@ -5,16 +5,32 @@ import './App.css';
 import Cart from './components/Cart';
 import * as api from './services/api';
 
-function App() {
-  api.getProductsFromCategoryAndQuery();
-  return (
-    <BrowserRouter>
-      <Switch>
-        <Route exact path="/" component={ ProductList } />
-        <Route path="/cart" component={ Cart } />
-      </Switch>
-    </BrowserRouter>
-  );
+class App extends React.Component {
+  constructor() {
+    super();
+
+    this.state = {
+      categories: [],
+    };
+  }
+
+  async componentDidMount() {
+    await api.getCategories()
+      .then((response) => this.setState({
+        categories: response }));
+  }
+
+  render() {
+    const { categories } = this.state;
+    return (
+      <BrowserRouter>
+        <Route
+          path="/"
+          render={ () => <ProductList categories={ categories }/> }
+        />
+      </BrowserRouter>
+    );
+  }
 }
 
 export default App;
