@@ -22,10 +22,13 @@ class ListOfCategories extends React.Component {
       <div>
         <p>Categorias:</p>
         {categories.map(
-          (elem) => <p 
-            data-testid="category" 
-            key={ elem.id }>{ elem.name }
-          </p>) }
+          ((elem) => <p
+            data-testid="category"
+            key={ elem.id }
+          >
+            { elem.name }
+          </p>))
+        }
       </div>
     );
   }
