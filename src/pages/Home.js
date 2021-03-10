@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import ProductCard from '../Components/ProductCard';
 import * as api from '../services/api';
+import Categories from '../components/Categories';
 
 export default class Home extends Component {
   constructor(props) {
@@ -39,6 +41,14 @@ export default class Home extends Component {
         <button type="button" onClick={ this.searchProducts } data-testid="query-button">
           Pesquisar
         </button>
+        <button type="button">
+          <Link to="/ShoppingCart" data-testid="shopping-cart-button">
+            Carrinho de Compras
+          </Link>
+        </button>
+        <div className="left-side">
+          <Categories />
+        </div>
         <p data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>
