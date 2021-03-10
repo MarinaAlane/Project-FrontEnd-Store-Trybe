@@ -1,0 +1,43 @@
+/* * {
+  margin: 0;
+} */
+
+.container-card {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-top: 2rem;
+}
+
+.card {
+  display: flex;
+  border: 2px solid black;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  height: 360px;
+  width: 200px;
+  margin: 2rem;
+}
+
+.card-title {
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid black;
+  height: 80px;
+  margin: 0;
+  padding: 5px;
+}
+
+.card-img {
+  max-height: 250px;
+}
+
+.card-price {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-top: 2px solid black;
+  height: 30px;
+  margin: 0; 
+}
