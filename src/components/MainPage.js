@@ -11,9 +11,11 @@ class MainPage extends Component {
     super(props);
     this.state = {
       searchBar: '',
+      searchCategory: '',
       items: [],
     };
     this.handleInput = this.handleInput.bind(this);
+    this.handleCategory = this.handleCategory.bind(this);
     this.handleButton = this.handleButton.bind(this);
   }
 
@@ -23,9 +25,16 @@ class MainPage extends Component {
     });
   }
 
+  handleCategory({ target }) {
+    this.setState({
+      searchCategory: target.value,
+    }, () => this.handleButton());
+  }
+
   async handleButton() {
-    const { searchBar } = this.state;
-    const response = await getProductsFromCategoryAndQuery('', searchBar);
+    const { searchBar, searchCategory } = this.state;
+    console.log(searchCategory);
+    const response = await getProductsFromCategoryAndQuery(searchCategory, searchBar);
     this.setState({
       items: response.results,
     });
@@ -59,7 +68,7 @@ class MainPage extends Component {
           <img src={ shoppingCartIcon } alt="Icone do Carrinho de Compras" />
         </Link>
         <div>
-          <Categories />
+          <Categories onClick={ this.handleCategory } />
         </div>
         <div>
           {items.length < 1
