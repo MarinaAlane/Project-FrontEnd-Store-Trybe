@@ -29,7 +29,15 @@ export default class ListCategories extends Component {
     // this.getCategories();
     const { categories } = this.state;
     return (
-      <div style={ { border: 'solid 1px #000', padding: '10px', margin: '10px', borderRadius: '8px', display: 'inline-block', float: 'left' } }>
+      <div
+        style={ {
+          border: 'solid 1px #000',
+          padding: '10px',
+          margin: '10px',
+          borderRadius: '8px',
+          display: 'inline-block',
+          float: 'left' } }
+      >
         <h1>Categorias:</h1>
         {categories.map((catItem) => (
           <p data-testid="category" key={ catItem.id }>{catItem.name}</p>
