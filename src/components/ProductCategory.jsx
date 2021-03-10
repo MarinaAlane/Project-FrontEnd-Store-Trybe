@@ -5,7 +5,12 @@ class ProductCategory extends Component {
   render() {
     const { category: { name } } = this.props;
     return (
-      <p data-testid="category">{name}</p>
+      <div className="category">
+        <label htmlFor="category">
+          <input type="radio" name="category" id="category" data-testid="category" />
+          { name }
+        </label>
+      </div>
     );
   }
 }

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { getCategories } from '../services/api';
-// import PropTypes from 'prop-types';
 import ProductCategory from './ProductCategory';
 
 class ProductList extends Component {
@@ -36,30 +35,26 @@ class ProductList extends Component {
   }
 
   render() {
-    const { categories } = this.state;
-    console.log(categories);
     return (
-      <div>
-        <aside>
+      <div className="main-page">
+        <aside className="categories-list">
           { this.renderCategory() }
         </aside>
-        <input type="text" />
-        <Link
-          data-testid="shopping-cart-button"
-          to="/shopping-cart"
-        >
-          Carrinho de compras
-        </Link>
-        <h1 data-testid="home-initial-message">
-          Digite algum termo de pesquisa ou escolha uma categoria.
-        </h1>
+        <div className="product-list">
+          <input className="main-search" type="text" />
+          <Link
+            data-testid="shopping-cart-button"
+            to="/shopping-cart"
+          >
+            Carrinho de compras<img src="https://image.flaticon.com/icons/png/512/34/34562.png" alt="shopping cart" ></img>
+          </Link>
+          <h1 data-testid="home-initial-message">
+            Digite algum termo de pesquisa ou escolha uma categoria.
+          </h1>
+        </div>
       </div>
     );
   }
 }
 
 export default ProductList;
-
-// ProductList.PropTypes = {
-//   categories: PropTypes.
-// }
