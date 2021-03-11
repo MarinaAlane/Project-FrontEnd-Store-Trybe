@@ -18,8 +18,8 @@ class ProductList extends Component {
     };
   }
 
-  handleClick(id) {
-    this.setState({
+  async handleClick(id) {
+    await this.setState({
       productId: id,
     });
     this.buttonClick();
@@ -32,7 +32,6 @@ class ProductList extends Component {
   }
 
   async buttonClick() {
-    console.log(this.state);
     const { productId, productQuery } = this.state;
     const promise = await api.getProductsFromCategoryAndQuery(productId, productQuery);
     this.setState({
