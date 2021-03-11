@@ -4,6 +4,7 @@ import { getProductsFromCategoryAndQuery } from '../services/api';
 import FilterCategories from '../components/FilterCategories';
 import CartButton from '../components/CartButton';
 import SearchBar from '../components/SearchBar';
+import SearchResult from '../components/SearchResult';
 
 class HomePage extends Component {
   constructor(props) {
@@ -39,16 +40,20 @@ class HomePage extends Component {
   render() {
     const { result, searchText } = this.state;
     return (
-      <>
-        <SearchBar
-          search={ this.searchProducts }
-          result={ result }
-          textChange={ this.handleChange }
-          searchText={ searchText }
-        />
-        <CartButton />
-        <FilterCategories filter={ this.addCategoryAndSearch } />
-      </>
+      <main>
+        <div className="search-area">
+          <SearchBar
+            search={ this.searchProducts }
+            textChange={ this.handleChange }
+            searchText={ searchText }
+          />
+          <CartButton />
+        </div>
+        <section className="search--results">
+          <FilterCategories filter={ this.addCategoryAndSearch } />
+          <SearchResult result={ result } />
+        </section>
+      </main>
     );
   }
 }
