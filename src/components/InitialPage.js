@@ -38,15 +38,12 @@ class InitialPage extends React.Component {
         });
       },
     );
-
   }
 
   buttonClick() {
     this.setState({
       butttonClicked: true,
     });
-
-
   }
 
   render() {
@@ -75,9 +72,7 @@ class InitialPage extends React.Component {
         <div>
           Categorias:
           { categories.map((category, index) => (
-
             <ListOfCategories key={ index } category={ category } />
-
           ))}
         </div>
       </div>
