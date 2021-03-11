@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import ListOfCategories from './ListOfCategories';
 import { getCategories } from '../services/api';
 
@@ -36,10 +37,13 @@ class InitialPage extends React.Component {
         </p>
         <div>
           Categorias:
-          { categories.map((category, index) => (
+          {categories.map((category, index) => (
             <ListOfCategories key={ index } category={ category } />
           ))}
         </div>
+        <Link data-testid="shopping-cart-button" to="/cart">
+          <button type="button">Carrinho de compras</button>
+        </Link>
       </div>
     );
   }
