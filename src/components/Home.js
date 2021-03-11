@@ -13,13 +13,15 @@ class Home extends React.Component {
       searchbar: '',
       response: [],
       emptyResponse: false,
+      filterId: '',
     };
     this.handleClick = this.handleClick.bind(this);
+    this.filterById = this.filterById.bind(this);
   }
 
   async handleClick() {
-    const { searchbar } = this.state;
-    getProductsFromCategoryAndQuery(undefined, searchbar).then(({ results }) => {
+    const { searchbar, filterId } = this.state;
+    getProductsFromCategoryAndQuery(filterId, searchbar).then(({ results }) => {
       if (searchbar.length > 0 && results.length === 0) {
         this.setState({
           emptyResponse: true,
@@ -31,6 +33,10 @@ class Home extends React.Component {
         });
       }
     });
+  }
+
+  filterById(id) {
+    this.setState({ filterId: id }, () => this.handleClick());
   }
 
   render() {
@@ -61,7 +67,7 @@ class Home extends React.Component {
           </p>
         </section>
         <section>
-          <Categories />
+          <Categories filterId={ this.filterById } />
         </section>
         <section>
           <SearchCard result={ response } response={ emptyResponse } />

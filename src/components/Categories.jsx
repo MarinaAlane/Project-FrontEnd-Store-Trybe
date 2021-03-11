@@ -19,15 +19,21 @@ class Categories extends Component {
   }
 
   render() {
+    const { filterId } = this.props;
     const { categories, status } = this.state;
     if (status === 'loading') return <div>Loading ...</div>;
     return (
       <div>
         Categorias:
         { categories.map(({ id, name }) => (
-          <div data-testid="category" key={ id }>
+          <div key={ id }>
             <label htmlFor={ name }>
-              <input type="radio" name={ name } />
+              <input
+                data-testid="category"
+                type="radio"
+                name="filters"
+                onClick={ () => filterId(id) }
+              />
               { name }
             </label>
           </div>
