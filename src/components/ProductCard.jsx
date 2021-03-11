@@ -7,8 +7,8 @@ class ProductCard extends React.Component {
     const { product } = this.props;
     const { title, price, thumbnail } = product;
     return (
-      <div>
-        <h3 data-testid="product">{ title }</h3>
+      <div data-testid="product">
+        <h3>{ title }</h3>
         <img src={ thumbnail } alt={ title } />
         <h3>{ price }</h3>
       </div>
@@ -19,7 +19,7 @@ class ProductCard extends React.Component {
 ProductCard.propTypes = {
   product: PropTypes.shape({
     title: PropTypes.string,
-    price: PropTypes.string,
+    price: PropTypes.number,
     thumbnail: PropTypes.string,
   }).isRequired,
 };
