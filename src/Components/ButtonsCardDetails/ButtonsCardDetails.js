@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Cart from '../../services/Data';
 import './ButtonsCardDetails.css';
 
 class ButtonsCardDetails extends Component {
