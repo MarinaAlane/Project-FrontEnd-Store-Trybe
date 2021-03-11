@@ -1,10 +1,18 @@
 import React from 'react';
-
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import InitialPage from './components/InitialPage';
+import ShoppingCart from './components/ShoppingCart';
 
 function App() {
   return (
-    <InitialPage />
+    <div>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/" render={ () => <InitialPage /> } />
+          <Route exact path="/cart" render={ () => <ShoppingCart /> } />
+        </Switch>
+      </BrowserRouter>
+    </div>
   );
 }
 
