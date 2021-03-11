@@ -95,6 +95,9 @@ class ProductList extends React.Component {
 
     return (
       <main>
+        <p data-testid="home-initial-message">
+          Digite algum termo de pesquisa ou escolha uma categoria.
+        </p>
         <nav>
           <input type="text" />
           <Link data-testid="shopping-cart-button" to="/cart">Carrinho</Link>
@@ -113,9 +116,6 @@ class ProductList extends React.Component {
             </div>
           ))}
         </aside>
-        <p data-testid="home-initial-message">
-          Digite algum termo de pesquisa ou escolha uma categoria.
-        </p>
         <div className="search">
           { this.searchInput() }
           {this.searchButton() }
