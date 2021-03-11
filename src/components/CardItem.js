@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 class CardItem extends Component {
   render() {
     const { item, handleCart, sumToCart } = this.props;
-    const { title, price, thumbnail, id } = item;
+    const { title, price, thumbnail, id, shipping } = item;
     return (
       <div data-testid="product">
         <Link
@@ -16,6 +16,9 @@ class CardItem extends Component {
           data-testid="product-detail-link "
         >
           <h4>{ title }</h4>
+          {shipping.free_shipping
+            ? <h5 data-testid="free-shipping">Frete grátis</h5>
+            : ''}
           <p>{ price }</p>
           <img src={ thumbnail } alt={ title } />
         </Link>
