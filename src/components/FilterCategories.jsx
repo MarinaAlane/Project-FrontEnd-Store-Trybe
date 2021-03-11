@@ -40,12 +40,12 @@ class FilterCategories extends Component {
   render() {
     const { categories } = this.state;
     return (
-      <div>
+      <aside className="item-categories-filter">
         <h3>Categorias</h3>
         <section>
           {categories}
         </section>
-      </div>
+      </aside>
     );
   }
 }

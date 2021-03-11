@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import ItemCard from './ItemCard';
-
 class SearchBar extends Component {
   constructor(props) {
     super(props);
@@ -13,7 +11,7 @@ class SearchBar extends Component {
   }
 
   render() {
-    const { searchText, result, search, textChange } = this.props;
+    const { searchText, search, textChange } = this.props;
     return (
       <>
         <form action="">
@@ -33,15 +31,6 @@ class SearchBar extends Component {
             Pesquisar!
           </button>
         </form>
-        {result.map(({ id, title, thumbnail, price }) => (
-          <ItemCard
-            key={ id }
-            id={ id }
-            title={ title }
-            thumbnail={ thumbnail }
-            price={ price }
-          />
-        ))}
         <p data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>
@@ -51,7 +40,6 @@ class SearchBar extends Component {
 }
 
 SearchBar.propTypes = {
-  result: PropTypes.arrayOf(Object).isRequired,
   searchText: PropTypes.string.isRequired,
   search: PropTypes.func.isRequired,
   textChange: PropTypes.func.isRequired,
