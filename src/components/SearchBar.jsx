@@ -34,7 +34,13 @@ class SearchBar extends Component {
           </button>
         </form>
         {result.map(({ id, title, thumbnail, price }) => (
-          <ItemCard key={ id } title={ title } thumbnail={ thumbnail } price={ price } />
+          <ItemCard
+            key={ id }
+            id={ id }
+            title={ title }
+            thumbnail={ thumbnail }
+            price={ price }
+          />
         ))}
         <p data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
