@@ -14,7 +14,7 @@ class ProductsCard extends React.Component {
         <Link
           to={ {
             pathname: '/productdetails',
-            state: { product},
+            state: { product },
           } }
         >
           <button type="button">DETALHES</button>
