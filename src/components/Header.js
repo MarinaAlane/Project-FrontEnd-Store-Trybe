@@ -2,9 +2,9 @@ import React from 'react';
 
 class Header extends React.Component {
   render() {
-    return(
+    return (
       <header>
-        <input type="search" name="" id=""/>
+        <input type="search" name="" id="" />
       </header>
     );
   }
