@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { TiArrowBackOutline, TiShoppingCart } from 'react-icons/ti';
 import * as api from '../services/api';
 import Loading from '../Components/Loading/Loading';
 import Cart from '../services/Data';
+import './ProductDetails.css';
+import ButtonsCardDetails from '../Components/ButtonsCardDetails/ButtonsCardDetails';
+import AvaliationForm from '../Components/AvaliationForm/AvaliationForm';
 
 export default class ProductDetails extends Component {
   constructor(state) {
@@ -41,43 +45,57 @@ export default class ProductDetails extends Component {
         }
       });
     } else {
+      const add = document.querySelector('.numberToAdd');
       const { title, thumbnail, price } = product;
       Cart.push({
         title,
         thumbnail,
         price,
-        quantity: 1,
+        quantity: add.value,
       });
     }
   }
 
   render() {
     const { product, loading } = this.state;
+    const { title, price } = product;
     if (loading) return <Loading />;
     return (
       <div>
-        <div>
-          <Link to="/">
-            <div>Voltar</div>
+        <div className="headerLinks">
+          <Link to="/" className="linkShoppingCart">
+            <div><TiArrowBackOutline /></div>
           </Link>
-          <Link to="/ShoppingCart" data-testid="shopping-cart-button">
-            <div>carrinho de compras</div>
+          <Link
+            className="linkShoppingCart"
+            to="/ShoppingCart"
+            data-testid="shopping-cart-button"
+          >
+            <div><TiShoppingCart /></div>
           </Link>
         </div>
         <div data-testid="product-detail-name">
           <div data-testid="product">
-            <h1>{ product.title }</h1>
-            <img src={ product.thumbnail } alt={ `foto-${product.title}` } />
-            <p>{ product.price }</p>
+            <div className="titleDetails">
+              { `${title} - ` }
+              { price.toLocaleString('pt-br', { style: 'currency', currency: 'BRL'}) }
+            </div>
+            <div className="productContanerDetail">
+              <img src={ product.thumbnail } alt={ `foto-${product.title}` } />
+            </div>
           </div>
         </div>
-        <button
-          type="button"
-          data-testid="product-detail-add-to-cart"
-          onClick={ () => this.addCartItem(product) }
-        >
-          Adicionar ao carinho
-        </button>
+        <div className="buttonsCardDetails">
+          <ButtonsCardDetails product={ product } />
+          <button
+            type="button"
+            data-testid="product-detail-add-to-cart"
+            onClick={ () => this.addCartItem(product) }
+          >
+            Adicionar ao carinho
+          </button>
+        </div>
+        <AvaliationForm />
       </div>
     );
   }
