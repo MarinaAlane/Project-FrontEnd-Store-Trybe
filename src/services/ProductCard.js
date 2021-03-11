@@ -12,9 +12,10 @@ class ProductsCard extends React.Component {
         <p>{ product.price }</p>
         <button type="button">ADICIONAR AO CARRINHO</button>
         <Link
+          data-testid="product-detail-link"
           to={ {
             pathname: '/productdetails',
-            state: { product},
+            state: { product },
           } }
         >
           <button type="button">DETALHES</button>

@@ -1,10 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-import Home from './Home';
-import ShoppingCart from './ShoppingCart';
-import ProductDetails from './services/ProductDetails'
 import Home from './services/Home';
 import ShoppingCart from './services/ShoppingCart';
+import ProductDetails from './services/ProductDetails';
 
 class App extends React.Component {
   render() {
