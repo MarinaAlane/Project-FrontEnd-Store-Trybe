@@ -6,7 +6,7 @@ class ShoppingCart extends React.Component {
     super();
     this.state = {
       objStorage: [],
-    }
+    };
     this.getLocalStorage = this.getLocalStorage.bind(this);
   }
 
@@ -15,17 +15,17 @@ class ShoppingCart extends React.Component {
   }
 
   getLocalStorage() {
-    let array = [];
-    for (var index = 0; index < localStorage.length; index++) {
+    const array = [];
+    for (let index = 0; index < localStorage.length; index += 1) {
       if (localStorage.key(index) !== 'query') {
-        let jsonProduct = window.localStorage.getItem(localStorage.key(index));
-        let productObj = JSON.parse(jsonProduct);
-        array.push({name: productObj.title, value: productObj.value});
+        const jsonProduct = window.localStorage.getItem(localStorage.key(index));
+        const productObj = JSON.parse(jsonProduct);
+        array.push({ name: productObj.title, value: productObj.value });
       }
     }
     this.setState({
       objStorage: array,
-    })
+    });
   }
 
   render() {
@@ -35,9 +35,13 @@ class ShoppingCart extends React.Component {
     }
     return (
       <div>
-         { objStorage.map((element) => (
-           <RenderCarts name={element.name} quantity={element.value}/>
-         ))}
+        { objStorage.map((element) => (
+          <RenderCarts
+            key={ element.name }
+            name={ element.name }
+            quantity={ element.value }
+          />
+        ))}
       </div>
     );
   }

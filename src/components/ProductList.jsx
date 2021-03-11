@@ -20,17 +20,26 @@ class ProductList extends React.Component {
     return (
       <div>
         { products.map((product) => (
-          <Link
-            to={ { pathname: `/details/${product.id}`, state: { product } } }
-            key={ product.id }
-            data-testid="product-detail-link"
-          >
-            <ProductCard
+          <div key={ product.id }>
+            <Link
+              to={ { pathname: `/details/${product.id}`, state: { product } } }
               key={ product.id }
-              product={ product }
-              click={ this.click }
-            />
-          </Link>
+              data-testid="product-detail-link"
+            >
+              <ProductCard
+                key={ product.id }
+                product={ product }
+              />
+            </Link>
+            <button
+              type="button"
+              value={ product.id }
+              onClick={ this.click }
+              data-testid="product-add-to-cart"
+            >
+              Adicionar
+            </button>
+          </div>
         ))}
       </div>
     );

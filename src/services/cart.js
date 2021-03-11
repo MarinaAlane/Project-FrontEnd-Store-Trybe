@@ -1,7 +1,6 @@
 import * as api from './api';
 
-async function cart(query, idCart) {
-  const data = await api.getProductsFromQuery(query);
+function handleResults(data, idCart) {
   data.results.forEach((product) => {
     if (product.id === idCart) {
       if (localStorage[idCart]) {
@@ -15,6 +14,16 @@ async function cart(query, idCart) {
       }
     }
   });
+}
+
+async function cart(query, idCart) {
+  if (!query) {
+    const data = await api.getProductsFromCategoryAndQuery(idCart);
+    handleResults(data, idCart);
+  } else {
+    const data = await api.getProductsFromQuery(query);
+    handleResults(data, idCart);
+  }
 }
 
 export default cart;
