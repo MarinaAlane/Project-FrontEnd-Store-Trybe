@@ -5,7 +5,7 @@ class CreateCard extends Component {
   render() {
     const { product: { title, thumbnail, price } } = this.props;
     return (
-      <div className="card" data-testid="product">
+      <div data-testid="product">
         <h3 className="card-title">{ title }</h3>
         <div className="image">
           <img src={ thumbnail } alt={ `Imagem de ${title}` } />

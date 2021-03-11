@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import shopCart from '../images/shopCart.png';
-import ListCategories from './ListCategories';
+import ListCategories from '../components/ListCategories';
 
 import { getProductsFromCategoryAndQuery } from '../services/api';
-import CreateCard from './CreateCard';
+import CreateCard from '../components/CreateCard';
+import AddButton from '../components/AddButton';
 
 class SearchBar extends React.Component {
   constructor() {
@@ -93,7 +94,10 @@ class SearchBar extends React.Component {
           <div>
             { !productList ? this.blankField()
               : productList.results.map((product) => (
-                <CreateCard key={ product.id } product={ product } />)) }
+                <div className="card">
+                  <CreateCard key={ product.id } product={ product } />
+                  <AddButton />
+                </div>)) }
           </div>
         </div>
       </>
