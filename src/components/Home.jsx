@@ -11,15 +11,31 @@ class Home extends React.Component {
     this.state = {
       searchText: '',
       productsList: [],
+      categories: [],
     };
     this.handleSearchTextChange = this.handleSearchTextChange.bind(this);
     this.fetchApiSearch = this.fetchApiSearch.bind(this);
+    this.fetchByCategoryId = this.fetchByCategoryId.bind(this);
+  }
+
+  componentDidMount() {
+    api.getCategories()
+      .then((response) => this.setState({ categories: response }));
   }
 
   handleSearchTextChange({ target }) {
     const { value } = target;
     this.setState({
       searchText: value,
+    });
+  }
+
+  async fetchByCategoryId(categoryId) {
+    // console.log(categoryId);
+    const fetchList = await api.getProductsFromCategoryAndQuery(categoryId, '');
+    // console.log(fetchList);
+    this.setState({
+      productsList: fetchList.results,
     });
   }
 
@@ -40,7 +56,7 @@ class Home extends React.Component {
   }
 
   render() {
-    const { productsList, showMessage } = this.state;
+    const { productsList, showMessage, categories } = this.state;
     const emptySearchMessage = <p>Nenhum produto foi encontrado</p>;
 
     return (
@@ -56,7 +72,10 @@ class Home extends React.Component {
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>
 
-        <ListOfCategories />
+        <ListOfCategories
+          categories={ categories }
+          onClickSelectedCategory={ this.fetchByCategoryId }
+        />
 
         {
           showMessage ? emptySearchMessage : <ProductCard
