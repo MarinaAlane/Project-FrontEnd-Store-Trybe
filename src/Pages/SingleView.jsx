@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import imgKart from '../Images/botaoCarrinho.jpg';
-import './SingleView.css';
 
 class SingleView extends React.Component {
   render() {
