@@ -3,10 +3,12 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import * as api from '../services/api';
 import Loading from '../Components/Loading/Loading';
+import Cart from '../services/Data';
 
 export default class ProductDetails extends Component {
   constructor(state) {
     super(state);
+    this.addCartItem = this.addCartItem.bind(this);
     this.state = {
       product: {},
       loading: true,
@@ -30,6 +32,25 @@ export default class ProductDetails extends Component {
     this.setState({ product: selectedProduct, loading: false });
   }
 
+  addCartItem(product) {
+    const check = Cart.some((value) => value.title === product.title);
+    if (check) {
+      Cart.forEach((cartItem) => {
+        if (cartItem.title === product.title) {
+          cartItem.quantity += 1;
+        }
+      });
+    } else {
+      const { title, thumbnail, price } = product;
+      Cart.push({
+        title,
+        thumbnail,
+        price,
+        quantity: 1,
+      });
+    }
+  }
+
   render() {
     const { product, loading } = this.state;
     if (loading) return <Loading />;
@@ -39,7 +60,7 @@ export default class ProductDetails extends Component {
           <Link to="/">
             <div>Voltar</div>
           </Link>
-          <Link to="/ShoppingCart">
+          <Link to="/ShoppingCart" data-testid="shopping-cart-button">
             <div>carrinho de compras</div>
           </Link>
         </div>
@@ -50,6 +71,13 @@ export default class ProductDetails extends Component {
             <p>{ product.price }</p>
           </div>
         </div>
+        <button
+          type="button"
+          data-testid="product-detail-add-to-cart"
+          onClick={ () => this.addCartItem(product) }
+        >
+          Adicionar ao carinho
+        </button>
       </div>
     );
   }
