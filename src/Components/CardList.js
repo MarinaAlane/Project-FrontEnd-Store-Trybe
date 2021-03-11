@@ -5,7 +5,7 @@ import './Card.css';
 
 class CardList extends React.Component {
   render() {
-    const { products } = this.props;
+    const { products, totalCart } = this.props;
 
     if (!products || products.length === 0) {
       return <p>Nenhum produto foi encontrado</p>;
@@ -13,7 +13,12 @@ class CardList extends React.Component {
 
     return (
       <div className="container-card">
-        {products.map((product, index) => <Card key={ index } product={ product } />)}
+        {products.map((product, index) => (
+          <Card
+            key={ index }
+            product={ product }
+            totalCart={ totalCart }
+          />))}
       </div>
     );
   }
@@ -21,6 +26,7 @@ class CardList extends React.Component {
 
 CardList.propTypes = {
   products: PropTypes.objectOf().isRequired,
+  totalCart: PropTypes.func.isRequired,
 };
 
 export default CardList;

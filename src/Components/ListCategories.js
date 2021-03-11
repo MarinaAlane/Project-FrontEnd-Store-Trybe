@@ -11,7 +11,7 @@ class ListCategories extends React.Component {
             type="radio"
             data-testid="category"
             id={ id }
-            name={ id }
+            name="category"
             value={ id }
             onClick={ () => radio(id) }
           />

@@ -5,7 +5,7 @@ import './Card.css';
 
 class Card extends React.Component {
   render() {
-    const { product } = this.props;
+    const { product, totalCart } = this.props;
     const { title, thumbnail, price, id } = product;
 
     return (
@@ -19,6 +19,13 @@ class Card extends React.Component {
         >
           Detalhes do Produto
         </Link>
+        <button
+          type="button"
+          data-testid="product-add-to-cart"
+          onClick={ () => totalCart(product) }
+        >
+          Adicionar no Carrinho
+        </button>
       </div>
     );
   }
@@ -31,6 +38,7 @@ Card.propTypes = {
     thumbnail: PropTypes.string,
     price: PropTypes.number,
   }).isRequired,
+  totalCart: PropTypes.func.isRequired,
 };
 
 export default Card;

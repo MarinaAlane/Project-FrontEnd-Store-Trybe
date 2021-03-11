@@ -1,10 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import * as api from '../services/api';
 import CardList from '../Components/CardList';
 import ListCategories from '../Components/ListCategories';
 import botaoCarrinho from '../Images/botaoCarrinho.jpg';
-import './Search.css';
+import './Pages.css';
 
 class Search extends React.Component {
   constructor(props) {
@@ -68,6 +69,7 @@ class Search extends React.Component {
 
   render() {
     const { searchText, products, cardList, digite, categories } = this.state;
+    const { totalCart } = this.props;
 
     return (
       <div className="main" data-testid="home-initial-message">
@@ -103,11 +105,18 @@ class Search extends React.Component {
             </Link>
           </div>
           { digite && <p>Digite algum termo de pesquisa ou escolha uma categoria.</p> }
-          { cardList && <CardList products={ products } /> }
+          { cardList && <CardList
+            products={ products }
+            totalCart={ totalCart }
+          /> }
         </section>
       </div>
     );
   }
 }
+
+Search.propTypes = {
+  totalCart: PropTypes.func.isRequired,
+};
 
 export default Search;

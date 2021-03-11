@@ -7,15 +7,45 @@ import NotFound from './Pages/NotFound';
 import './App.css';
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.shoppingCartChange = this.shoppingCartChange.bind(this);
+
+    this.state = {
+      totalShoppingCart: [],
+    };
+  }
+
+  shoppingCartChange(value) {
+    const { totalShoppingCart } = this.state;
+    this.setState({ totalShoppingCart: [...totalShoppingCart, value] });
+  }
+
   render() {
+    const { totalShoppingCart } = this.state;
     return (
       <BrowserRouter>
         <Switch>
-          <Route exact path="/" component={ Search } />
-          <Route path="/carrinho" component={ Carrinho } />
+          <Route
+            exact
+            path="/"
+            render={ () => <Search totalCart={ this.shoppingCartChange } /> }
+          />
+          <Route
+            path="/carrinho"
+            render={ () => (
+              <Carrinho
+                totalCart={ totalShoppingCart }
+              />) }
+          />
           <Route
             path="/productDetails/:id"
-            render={ (props) => <ProductDetails { ...props } /> }
+            render={ (props) => (
+              <ProductDetails
+                totalCart={ this.shoppingCartChange }
+                { ...props }
+              />) }
           />
           <Route component={ NotFound } />
         </Switch>
