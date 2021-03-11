@@ -4,7 +4,7 @@ import * as api from '../services/api';
 import Categories from '../components/Categories';
 import Products from '../components/Products';
 
-class ProductsList extends React.Component {
+class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -18,6 +18,11 @@ class ProductsList extends React.Component {
     this.getCategory = this.getCategory.bind(this);
   }
 
+  // componentDidMount() {
+  //   this.fetchProductIdAndQuery();
+  // }
+  // Se descomentar o codigo acima quebra o req4 e req6 passa; vice-versa;
+
   handleClick() {
     this.fetchProductIdAndQuery();
   }
@@ -25,7 +30,6 @@ class ProductsList extends React.Component {
   async getCategory(category) {
     const productsList = await this.fetchProductId(category);
     this.setState({ categoryId: category, products: productsList });
-    // adicionada linha 27 onde
   }
 
   async fetchProductId(productId) {
@@ -36,7 +40,6 @@ class ProductsList extends React.Component {
   async fetchProductIdAndQuery() {
     const { searchText, categoryId } = this.state;
     const { results } = await api.getProductsFromCategoryAndQuery(categoryId, searchText);
-    console.log('fetchProductIdAndQuery');
     this.setState({ products: results });
   }
 
@@ -72,4 +75,4 @@ class ProductsList extends React.Component {
   }
 }
 
-export default ProductsList;
+export default Home;
