@@ -20,6 +20,9 @@ export default class ShoppingCart extends Component {
     return (
       <div>
         <Link exact to="/">Volta a pagina inicial</Link>
+        <Link to="/Checkout" data-testid="checkout-products">
+          checkout
+        </Link>
         <ul className="ulShoppingCart">
           { item
             .map((product) => (

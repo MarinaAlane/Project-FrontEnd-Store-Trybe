@@ -52,6 +52,11 @@ export default class Home extends Component {
             Carrinho de Compras
           </Link>
         </button>
+        <button type="button">
+          <Link to="/Checkout" data-testid="checkout-products">
+            checkout
+          </Link>
+        </button>
         <div className="left-side">
           <Categories handleCategory={ this.handleCategory } />
         </div>
