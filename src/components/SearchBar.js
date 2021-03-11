@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 export default class SearchBar extends Component {
   render() {
-    const { textInputCallback, submitCallback } = this.props;
+    const { textInputCallback, submitCallback, children } = this.props;
 
     return (
       <section className="SearchBar">
@@ -21,6 +21,7 @@ export default class SearchBar extends Component {
         >
           Buscar
         </button>
+        { children }
       </section>
     );
   }
@@ -29,4 +30,9 @@ export default class SearchBar extends Component {
 SearchBar.propTypes = {
   textInputCallback: PropTypes.func.isRequired,
   submitCallback: PropTypes.func.isRequired,
+  children: PropTypes.node,
+};
+
+SearchBar.defaultProps = {
+  children: null,
 };

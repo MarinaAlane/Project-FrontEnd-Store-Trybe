@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import * as fetchAPI from '../services/api';
 import CategoriesList from '../components/CategoriesList';
 import SearchBar from '../components/SearchBar';
+import CartIcon from '../components/CartIcon';
 import NoSearchText from '../components/NoSearchText';
 import LoadingMsg from '../components/LoadingMsg';
 import SearchResults from '../components/SearchResults';
@@ -59,9 +60,9 @@ export default class ProductList extends Component {
       <div className="ProductList">
         {
           categories
-            // Se a requisição foi completada, renderiza CategoriesList
+          // Se a requisição foi completada, renderiza CategoriesList
             ? <CategoriesList categories={ categories } />
-            // Caso contrário, exibe a mensagem
+          // Caso contrário, exibe a mensagem
             : <LoadingMsg />
         }
         <div className="SearchArea">
@@ -69,7 +70,9 @@ export default class ProductList extends Component {
             <SearchBar
               textInputCallback={ this.updateSearchValue }
               submitCallback={ this.submitSearch }
-            />
+            >
+              <CartIcon />
+            </SearchBar>
             { results.length === 0 && !loading
               ? <NoSearchText />
               : <SearchResults loading={ loading } results={ results } />}
