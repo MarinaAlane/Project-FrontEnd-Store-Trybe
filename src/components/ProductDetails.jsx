@@ -9,7 +9,7 @@ class ProductDetails extends React.Component {
     return (
       <div>
         <div>
-          <h3>{`${title} - R$ ${price}`}</h3>
+          <h3 data-testid="product-detail-name">{`${title} - R$ ${price}`}</h3>
           <img src={ thumbnail } alt={ title } />
         </div>
         <div>
