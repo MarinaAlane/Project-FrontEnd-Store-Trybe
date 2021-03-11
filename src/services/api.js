@@ -9,7 +9,7 @@ export async function getCategories() {
 
 export async function getProductsFromCategoryAndQuery(categoryId, query) {
   try {
-    const products = await fetch(`https://api.mercadolibre.com/sites/MLB/search?category=$${categoryId}&q=$${query}`);
+    const products = await fetch(`https://api.mercadolibre.com/sites/MLB/search?category=${categoryId}&q=${query}`);
     return await products.json();
   } catch (error) {
     console.log(`Erro ao consultar API do mercado livre --- ${error}`);
