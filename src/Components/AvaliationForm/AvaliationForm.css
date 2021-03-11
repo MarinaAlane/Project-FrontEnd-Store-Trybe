@@ -5,8 +5,8 @@
 }
 
 .avaliationFormContainer textarea {
-  margin: 1rem 0 1rem;
   display: block;
+  margin: 1rem 0;
 }
 
 .avaliationFormContainer button {
