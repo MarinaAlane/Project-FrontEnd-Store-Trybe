@@ -1,7 +1,8 @@
 import React from 'react';
 import { getProductsFromCategoryAndQuery } from '../services/api';
-import Card from '../components/Card';
 import ListCategories from './ListCategories';
+// import ProductDetais from './ProductDetais';
+import Card from '../components/Card';
 
 class LandingPage extends React.Component {
   constructor(props) {
@@ -48,8 +49,7 @@ class LandingPage extends React.Component {
         <button
           type="button"
           data-testid="query-button"
-          onClick={ () => this.fetchProductsByQuery('computador') }
-          // onClick={ () => this.fetchProductsByCategoryId('MLB1744') }
+          onClick={ () => this.fetchProductsByQuery() }
         >
           Pesquisar
         </button>
@@ -75,7 +75,16 @@ class LandingPage extends React.Component {
     return (
       <div>
         { this.inputButton() }
-        {products.map((product) => <Card product={ product } key={ product.id } />)}
+        {products
+          .map((product) => (
+            <Card product={ product } key={ product.id } />
+            // <Link
+            //   data-testid="product-detail-link"
+            //   key={ product.id }
+            //   to={ { pathname: `/product/${product.id}`, state: { product } } }
+            // >
+            // </Link>
+          ))}
         <ListCategories onChange={ this.fetchProductsByCategoryId } />
       </div>
     );
