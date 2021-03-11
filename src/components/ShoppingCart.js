@@ -8,16 +8,39 @@ class ShoppingCart extends React.Component {
     super(props);
 
     this.getProductsInStorage = this.getProductsInStorage.bind(this);
+    this.deleteItem = this.deleteItem.bind(this);
+    this.messageCartEmpyt = this.messageCartEmpyt.bind(this);
+    this.renderProducts = this.renderProducts.bind(this);
+
+    this.state = {
+      cart: JSON.parse(localStorage.getItem('itens')),
+    };
   }
 
-  getProductsInStorage() {
+  getProductsInStorage(cart) {
+    return cart.map((item) => (
+      <ProductCart key={ item.id } item={ item } deleteItem={ this.deleteItem } />
+    ));
+  }
+
+  messageCartEmpyt() {
+    return (
+      <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
+    );
+  }
+
+  deleteItem(idDeleted) {
     const cartItems = JSON.parse(localStorage.getItem('itens'));
-    if (cartItems.length === 0) {
-      return (
-        <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
-      );
-    }
-    return cartItems.map((item) => <ProductCart key={ item.id } item={ item } />);
+    const newCart = cartItems.filter(({ id }) => id !== idDeleted);
+    localStorage.setItem('itens', JSON.stringify(newCart));
+    this.setState(({
+      cart: newCart,
+    }));
+  }
+
+  renderProducts() {
+    const { cart } = this.state;
+    return cart.length ? this.getProductsInStorage(cart) : this.messageCartEmpyt();
   }
 
   render() {
@@ -33,7 +56,7 @@ class ShoppingCart extends React.Component {
           <button type="button">VOLTAR</button>
         </Link>
         <h1>Carrinho de Compras</h1>
-        { this.getProductsInStorage() }
+        { this.renderProducts() }
       </section>
     );
   }

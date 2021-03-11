@@ -1,5 +1,5 @@
 import React from 'react';
-import { string, number, shape } from 'prop-types';
+import { string, number, shape, func } from 'prop-types';
 
 export default class ProductCart extends React.Component {
   constructor(props) {
@@ -7,10 +7,16 @@ export default class ProductCart extends React.Component {
 
     this.increaseQuantity = this.increaseQuantity.bind(this);
     this.decreaseQuantity = this.decreaseQuantity.bind(this);
+    this.handlerClickDelete = this.handlerClickDelete.bind(this);
 
     this.state = {
       quantity: 1,
     };
+  }
+
+  handlerClickDelete({ target }) {
+    const { deleteItem } = this.props;
+    deleteItem(target.value);
   }
 
   increaseQuantity() {
@@ -27,7 +33,7 @@ export default class ProductCart extends React.Component {
 
   render() {
     const { item } = this.props;
-    const { title, price } = item;
+    const { id, title, price } = item;
     const { quantity } = this.state;
     return (
       <article>
@@ -52,6 +58,13 @@ export default class ProductCart extends React.Component {
         >
           +
         </button>
+        <button
+          type="button"
+          value={ id }
+          onClick={ this.handlerClickDelete }
+        >
+          Delete
+        </button>
       </article>
     );
   }
@@ -62,6 +75,7 @@ ProductCart.propTypes = {
     title: string,
     price: number,
   }),
+  deleteItem: func,
 };
 
 ProductCart.defaultProps = {
@@ -69,4 +83,5 @@ ProductCart.defaultProps = {
     title: '',
     price: '',
   }),
+  deleteItem: () => {},
 };
