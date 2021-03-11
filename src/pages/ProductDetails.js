@@ -14,9 +14,13 @@ export default class ProductDetails extends Component {
   }
 
   async componentDidMount() {
+    console.log(this.props);
     const { match } = this.props;
-    const { category, id, text } = match.params;
-    const product = await api.getProductsFromCategoryAndQuery(category, text);
+    const { category, id } = match.params;
+    const { location } = this.props;
+    const { search } = location;
+    const query = search.slice(1);
+    const product = await api.getProductsFromCategoryAndQuery(category, query);
     const selectedProduct = product.results
       .find((value) => value.id === id);
     this.addProductOnState(selectedProduct);
@@ -56,6 +60,11 @@ ProductDetails.propTypes = {
     params: PropTypes.objectOf({
       id: PropTypes.string.isRequired,
       category: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
+  location: PropTypes.objectOf({
+    params: PropTypes.objectOf({
+      search: PropTypes.string.isRequired,
     }).isRequired,
   }).isRequired,
 };

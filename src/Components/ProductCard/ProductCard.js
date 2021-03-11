@@ -10,7 +10,10 @@ class ProductCard extends Component {
     return (
       <Link
         data-testid="product-detail-link"
-        to={ `/${CategoryId}/${id}/${text}` }
+        // to={ `/${CategoryId}/${id}` }
+        to={ {
+          pathname: `/${CategoryId}/${id}`,
+          search: text } }
         className="linkProductCard"
       >
         <li data-testid="product" className="productCardContainer">
