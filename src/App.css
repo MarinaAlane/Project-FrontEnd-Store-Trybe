@@ -42,7 +42,7 @@
 }
 
 .btn-search:hover {
-  background-color: rgb(211, 211, 211);
+  background-color: lightgray;
 }
 
 .btn-search:active {
