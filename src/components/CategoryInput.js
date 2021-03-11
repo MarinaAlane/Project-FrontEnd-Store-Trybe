@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-class CategoryInput extends Component {
+export default class CategoryInput extends Component {
   render() {
-    const { name, id } = this.props;
+    const { name, id, selectionCallback } = this.props;
 
     return (
       <label htmlFor={ id }>
@@ -13,6 +13,7 @@ class CategoryInput extends Component {
           name="category"
           value={ id }
           data-testid="category"
+          onClick={ selectionCallback }
         />
         { name }
       </label>
@@ -23,6 +24,9 @@ class CategoryInput extends Component {
 CategoryInput.propTypes = {
   name: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
+  selectionCallback: PropTypes.func,
 };
 
-export default CategoryInput;
+CategoryInput.defaultProps = {
+  selectionCallback: () => { console.log('No event to handle.'); },
+};
