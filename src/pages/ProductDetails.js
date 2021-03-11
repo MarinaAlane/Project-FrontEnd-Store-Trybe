@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import RatingForm from '../components/RatingForm';
 
@@ -7,6 +8,7 @@ export default class ProductDetails extends Component {
     super();
     this.state = {
       loading: true,
+      shoppingCart: [],
     };
   }
 
@@ -25,6 +27,16 @@ export default class ProductDetails extends Component {
       thumbnail,
       price,
       loading: false,
+      id,
+    });
+  }
+
+  addOnCart(id) {
+    this.setState((state) => ({
+      shoppingCart: [...state.shoppingCart, id],
+    }), () => {
+      const { shoppingCart } = this.state;
+      sessionStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
     });
   }
 
@@ -35,7 +47,7 @@ export default class ProductDetails extends Component {
         <div>Loading...</div>
       );
     }
-    const { title, attributes, thumbnail, price } = this.state;
+    const { title, attributes, thumbnail, price, id } = this.state;
     return (
       <div>
         <div className="productContainer">
@@ -45,6 +57,16 @@ export default class ProductDetails extends Component {
             R$
             { price }
           </p>
+          <button
+            type="button"
+            data-testid="product-detail-add-to-cart"
+            onClick={ () => this.addOnCart(id) }
+          >
+            Adicionar ao Carrinho
+          </button>
+          <Link to="/shoppingCart">
+            <button type="button" data-testid="shopping-cart-button">ShoppingCart</button>
+          </Link>
           <ul>
             {attributes.map((attribute) => (
               <li key={ attribute.id }>
