@@ -6,8 +6,7 @@ export default class CartShop extends React.Component {
   render() {
     return (
       <main>
-        <FiShoppingCart />
-        <h1>Carrinho de compras</h1>
+        <h1><FiShoppingCart /> Carrinho de compras</h1>
         <div>
           <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
         </div>
