@@ -1,22 +1,20 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import * as api from '../services/api';
 
 export default class ListCategories extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       categories: [],
     };
-
-    // this.getCategories = this.getCategories.bind(this);
   }
 
   async componentDidMount() {
     const listCategories = await api.getCategories();
     this.estado(listCategories);
-    // this.setState({
-    //   categories: listCategories,
-    // });
   }
 
   estado(listaCat) {
@@ -26,23 +24,29 @@ export default class ListCategories extends Component {
   }
 
   render() {
-    // this.getCategories();
     const { categories } = this.state;
+    const { fnc } = this.props;
     return (
-      <div
-        style={ {
-          border: 'solid 1px #000',
-          padding: '10px',
-          margin: '10px',
-          borderRadius: '8px',
-          display: 'inline-block',
-          float: 'left' } }
-      >
+      <div className="category">
         <h1>Categorias:</h1>
-        {categories.map((catItem) => (
-          <p data-testid="category" key={ catItem.id }>{catItem.name}</p>
+        {categories.map(({ id, name }) => (
+          <label key={ id } htmlFor={ id }>
+            <input
+              data-testid="category"
+              type="radio"
+              name="category"
+              id={ id }
+              value={ id }
+              onClick={ fnc }
+            />
+            { name }
+          </label>
         ))}
       </div>
     );
   }
 }
+
+ListCategories.propTypes = {
+  fnc: PropTypes.func.isRequired,
+};
