@@ -18,10 +18,11 @@ class ProductList extends Component {
     };
   }
 
-  handleClick(id) {
-    this.setState({
+  async handleClick(id) {
+    await this.setState({
       productId: id,
     });
+    this.buttonClick();
   }
 
   handleChange({ target }) {
