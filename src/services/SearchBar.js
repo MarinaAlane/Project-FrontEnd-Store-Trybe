@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import * as api from './services/api';
+import * as api from './api';
 
 class SearchBar extends React.Component {
   constructor(props) {
@@ -16,17 +16,17 @@ class SearchBar extends React.Component {
   }
 
   async handleClick() {
-    const { sentProducts } = this.props;
+    const { sentProducts, category } = this.props;
     const { inputValue } = this.state;
-    const productsFromApi = await api.getProductsFromCategoryAndQuery('', inputValue);
-    sentProducts(productsFromApi);
+    const productsFromApi = await api
+      .getProductsFromCategoryAndQuery(category, inputValue);
+    sentProducts(productsFromApi, inputValue);
   }
 
   handleOnChange({ target }) {
     const { value } = target;
     this.setState({
       inputValue: value,
-
     });
   }
 
