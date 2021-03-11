@@ -9,7 +9,7 @@ class ShoppingCart extends React.Component {
   }
 
   item(listProducts) {
-    const { addProduct } = this.props;
+    const { addProduct, decrementProduct } = this.props;
     return listProducts.map((product) => (
       <div
         key={ product.id }
@@ -20,8 +20,16 @@ class ShoppingCart extends React.Component {
           { product.title }
         </p>
         <img src={ product.thumbnail } alt={ product.thumbnail.id } />
+        <button
+          data-testid="product-decrease-quantity"
+          type="button"
+          onClick={ () => decrementProduct(this.getProduct(product)) }
+        >
+          -
+        </button>
         <p data-testid="shopping-cart-product-quantity">{ product.qty }</p>
         <button
+          data-testid="product-increase-quantity"
           type="button"
           onClick={ () => addProduct(this.getProduct(product)) }
         >
@@ -62,6 +70,7 @@ class ShoppingCart extends React.Component {
 ShoppingCart.propTypes = {
   listProduct: PropTypes.arrayOf(PropTypes.object).isRequired,
   addProduct: PropTypes.func.isRequired,
+  decrementProduct: PropTypes.func.isRequired,
 };
 
 export default ShoppingCart;
