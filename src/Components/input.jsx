@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShoppingCart, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { FaShoppingCart, FaSearch } from 'react-icons/fa';
 import * as api from '../services/api';
 import ItemCard from './itemCard';
 
@@ -25,7 +24,6 @@ class Input extends Component {
     const { id, inputValue } = this.state;
     api.getProductsFromCategoryAndQuery(id, inputValue)
       .then((queryValue) => {
-        console.log(queryValue);
         this.setState({ products: queryValue });
       });
   }
@@ -41,10 +39,10 @@ class Input extends Component {
           onChange={ this.handleInput }
         />
         <button type="button" data-testid="query-button" onClick={ this.handleButton }>
-          <FontAwesomeIcon icon={ faSearch } />
+          <FaSearch />
         </button>
-        <Link to="/emptyCart" data-testid="shopping-cart-button">
-          <FontAwesomeIcon icon={ faShoppingCart } />
+        <Link to="/cart" data-testid="shopping-cart-button">
+          <FaShoppingCart />
         </Link>
         <p data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
