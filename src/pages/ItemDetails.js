@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import AddToCart from '../components/AddToCart';
+import CartButton from '../components/CartButton';
 
 class ItemDetails extends Component {
   render() {
-    const { location: { state: { title, thumbnail, price } } } = this.props;
+    const { location: { state: { result } } } = this.props;
+    const { title, thumbnail, price } = result;
     return (
       <main>
         <h2 data-testid="product-detail-name">{ title }</h2>
@@ -12,6 +15,8 @@ class ItemDetails extends Component {
           <p>{ price }</p>
           <p>detalhes do item</p>
         </div>
+        <AddToCart testId="product-detail-add-to-cart" itemCart={ result } />
+        <CartButton />
       </main>
     );
   }
@@ -20,11 +25,14 @@ class ItemDetails extends Component {
 ItemDetails.propTypes = {
   location: PropTypes.shape({
     state: PropTypes.shape({
-      title: PropTypes.string,
-      thumbnail: PropTypes.string,
-      price: PropTypes.number,
+      result: PropTypes.shape({
+        title: PropTypes.string.isRequired,
+        thumbnail: PropTypes.string.isRequired,
+        price: PropTypes.number.isRequired,
+      }).isRequired,
     }),
   }).isRequired,
+
 };
 
 export default ItemDetails;
