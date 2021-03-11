@@ -17,7 +17,9 @@ class ProductDetails extends React.Component {
     const { product } = this.state;
     return (
       <div data-testid="product">
+        <p data-testid="product-detail-name">{ product.title }</p>
         <img src={ product.thumbnail } alt={ `Imagem da ${product.title}` } />
+        <p>{ product.price }</p>
       </div>
     );
   }
