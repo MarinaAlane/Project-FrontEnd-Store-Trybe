@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
 import * as fetchAPI from '../services/api';
+import CategoriesList from '../components/CategoriesList';
+import SearchBar from '../components/SearchBar';
+import NoSearchText from '../components/NoSearchText';
+import LoadingMsg from '../components/LoadingMsg';
+import SearchResults from '../components/SearchResults';
+
+require('./ProductList.css');
 
 export default class ProductList extends Component {
   constructor() {
@@ -9,82 +16,66 @@ export default class ProductList extends Component {
       loading: false,
       categories: '',
       search: '',
-      itens: [],
+      results: [],
     };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.getItem = this.getItem.bind(this);
+    // Bind methods
+    this.fetchCategories = this.fetchCategories.bind(this);
+    this.updateSearchValue = this.updateSearchValue.bind(this);
+    this.submitSearch = this.submitSearch.bind(this);
   }
 
-  handleChange(event) {
-    const { value } = event.target;
-
-    this.setState({
-      search: value,
-    });
+  componentDidMount() {
+    this.fetchCategories();
   }
 
-  async getItem() {
-    this.setState({
-      loading: true,
-    });
+  async submitSearch() {
+    this.setState({ loading: true });
 
     const { search, categories } = this.state;
-    const resultFet = await fetchAPI.getProductsFromCategoryAndQuery(categories, search);
+    const { results } = await fetchAPI
+      .getProductsFromCategoryAndQuery(categories, search);
 
-    const { results } = resultFet;
     this.setState({
-      itens: results,
+      results,
       loading: false,
     });
   }
 
-  inputSearch() {
-    return (
-      <input
-        id="Search-input"
-        type="text"
-        placeholder="Exemplo"
-        onChange={ this.handleChange }
-        data-testid="query-input"
-      />
-    );
+  updateSearchValue(event) {
+    const { value: search } = event.target;
+    this.setState({ search });
   }
 
-  bntSearch() {
-    return (
-      <button
-        type="submit"
-        onClick={ this.getItem }
-        data-testid="query-button"
-      >
-        Buscar
-      </button>
-    );
-  }
-
-  elementCard(element) {
-    const { title, thumbnail, price, id } = element;
-
-    return (
-      <div key={ id } data-testid="product">
-        <p>{ title }</p>
-        <img src={ thumbnail } alt={ title } />
-        <p>{ price }</p>
-      </div>
-    );
+  async fetchCategories() {
+    // Requisita categorias da API e atualiza state do componente
+    const categories = await fetchAPI.getCategories();
+    this.setState({ categories });
   }
 
   render() {
-    const { itens, loading } = this.state;
-
-    if (loading) return <p>Carregando...</p>;
+    const { results, loading, categories } = this.state;
 
     return (
-      <div className="SearchArea">
-        { this.inputSearch() }
-        { this.bntSearch() }
-        { itens.map((item) => this.elementCard(item)) }
+      <div className="ProductList">
+        {
+          categories
+            // Se a requisição foi completada, renderiza CategoriesList
+            ? <CategoriesList categories={ categories } />
+            // Caso contrário, exibe a mensagem
+            : <LoadingMsg />
+        }
+        <div className="SearchArea">
+          <div>
+            <SearchBar
+              textInputCallback={ this.updateSearchValue }
+              submitCallback={ this.submitSearch }
+            />
+            { results.length === 0 && !loading
+              ? <NoSearchText />
+              : <SearchResults loading={ loading } results={ results } />
+            }
+          </div>
+        </div>
       </div>
     );
   }
