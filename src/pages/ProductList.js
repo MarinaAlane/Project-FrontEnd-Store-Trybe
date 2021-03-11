@@ -70,8 +70,8 @@ class ProductList extends React.Component {
             className="home-initial-message"
           >
             Digite algum termo de pesquisa ou escolha uma categoria.
-            </span>
-          {!loading && !json ? null : checkLoading}
+          </span>
+        {!loading && !json ? null : checkLoading}
         </div>
       </div>
     );
