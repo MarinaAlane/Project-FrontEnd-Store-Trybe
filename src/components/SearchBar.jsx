@@ -23,8 +23,9 @@ class SearchBar extends React.Component {
 
   apiSearch() {
     const { search } = this.state;
-    api.getProductsFromQuery(search)
-      .then((response) => this.setState({ result: response.results }));
+    const list = api.getProductsFromCategoryAndQuery("", search);console.log(list)
+    // api.getProductsFromQuery(search)
+    //   .then((response) => this.setState({ result: response.results }));
   }
 
   render() {

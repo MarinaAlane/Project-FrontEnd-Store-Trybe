@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import '../CSS/ProductList.css';
 
 class ProductCard extends React.Component {
@@ -21,8 +21,8 @@ class ProductCard extends React.Component {
   }
 }
 
-ProductCard.proptypes = {
-  // products: PropTypes.array,
-};
+// ProductCard.proptypes = {
+//   // products: PropTypes.array,
+// };
 
 export default ProductCard;
