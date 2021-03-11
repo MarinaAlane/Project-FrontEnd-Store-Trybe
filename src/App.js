@@ -5,18 +5,55 @@ import Home from './Home';
 import ShoppingCart from './ShoppingCart';
 import ProductDetails from './ProductDetails';
 
-function App() {
-  return (
-    <div className="App">
-      <BrowserRouter>
-        <Switch>
-          <Route exact path="/" component={ Home } />
-          <Route exact path="/shoppingcart" component={ ShoppingCart } />
-          <Route exact path="/productDetails" component={ ProductDetails } />
-        </Switch>
-      </BrowserRouter>
-    </div>
-  );
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      listProduct: [],
+    };
+    this.addProduct = this.addProduct.bind(this);
+  }
+
+  addProduct(product) {
+    const { listProduct } = this.state;
+    this.setState({
+      listProduct: [...listProduct, product],
+    });
+  }
+
+  render() {
+    const { listProduct } = this.state;
+    return (
+      <div className="App">
+        <BrowserRouter>
+          <Switch>
+            <Route
+              exact
+              path="/"
+              render={ (props) => (
+                <Home
+                  { ...props }
+                  addProduct={ this.addProduct }
+                  listProduct={ listProduct }
+                />
+              ) }
+            />
+            <Route
+              exact
+              path="/shoppingcart"
+              render={ ((props) => (
+                <ShoppingCart
+                  { ...props }
+                  addProduct={ this.addProduct }
+                  listProduct={ listProduct }
+                />)) }
+            />
+            <Route exact path="/productDetails" component={ ProductDetails } />
+          </Switch>
+        </BrowserRouter>
+      </div>
+    );
+  }
 }
 
 export default App;
