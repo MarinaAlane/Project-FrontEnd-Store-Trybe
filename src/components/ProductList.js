@@ -2,6 +2,7 @@ import React from 'react';
 import * as Api from '../services/api';
 import '../App.css';
 import ProductItem from './ProductItem';
+import { Link } from 'react-router-dom';
 
 class ProductList extends React.Component {
   constructor(props) {
@@ -66,6 +67,7 @@ class ProductList extends React.Component {
           Search
         </button>
         <div className="home-results">
+          <Link to="/cart" data-testid="shopping-cart-button">CARRINHO</Link>
           <span
             data-testid="home-initial-message"
             className="home-initial-message"
