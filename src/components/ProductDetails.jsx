@@ -1,21 +1,23 @@
-// nome do produto, imagem, preço e especificação técnica
-// Adicione o atributo data-testid com o valor product-detail-name
-// no elemento que possui o nome do produto na tela de detalhes.
-
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import * as api from '../services/api';
 
 class ProductDetails extends React.Component {
   constructor() {
     super();
+    this.fetchCategory = this.fetchCategory.bind(this);
 
     this.state = {
       product: [],
     };
   }
 
-  async componentDidMount() {
+  componentDidMount() {
+    this.fetchCategory();
+  }
+
+  async fetchCategory() {
     const { match: { params: { categoryID, id } } } = this.props;
     const productObj = await api.getProductsFromCategoryAndQuery(categoryID, '');
     const productDetails = productObj.results
@@ -48,5 +50,14 @@ class ProductDetails extends React.Component {
     );
   }
 }
+
+ProductDetails.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      categoryID: PropTypes.string,
+      id: PropTypes.string,
+    }).isRequired,
+  }).isRequired,
+};
 
 export default ProductDetails;
