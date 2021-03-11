@@ -14,7 +14,7 @@ class CardShoppingCart extends Component {
   }
 
   increaseQuantity(quantity) {
-    const { product: { available_quantity: availableQuantity } } = this.props;
+    const { product: { availableQuantity } } = this.props;
     if (quantity >= 0 && quantity < availableQuantity) {
       this.setState({ quantity: quantity += 1 });
     }
@@ -64,7 +64,7 @@ CardShoppingCart.propTypes = {
     thumbnail: PropTypes.string,
     price: PropTypes.number,
     quantity: PropTypes.number,
-    available_quantity: PropTypes.number,
+    availableQuantity: PropTypes.number,
   }).isRequired,
 };
 
