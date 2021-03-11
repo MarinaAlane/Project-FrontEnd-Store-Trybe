@@ -33,7 +33,7 @@ class Categories extends React.Component {
               key={ element.id }
               data-testid="category"
               className="category"
-              onClick={ () => handleClick(element.id)
+              onClick={ () => handleClick(element.id) }
             >
               {element.name}
             </button>
@@ -44,7 +44,6 @@ class Categories extends React.Component {
 
   render() {
     const { categories } = this.state;
-    console.log(categories);
     return (
       <div>
         {categories.length < 1 ? <span>Loading...</span> : this.inputRadioCreator()}
