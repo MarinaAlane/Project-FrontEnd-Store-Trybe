@@ -43,7 +43,7 @@ class ProductDetails extends React.Component {
           </span>
         </p>
         <img src={ thumbnail } alt="product-thumbnail" />
-        <Link to="/shopping-cart">Carrinho</Link>
+        <Link to="/shopping-cart">Ir para carrinho</Link>
       </div>
     );
   }
