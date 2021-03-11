@@ -1,21 +1,49 @@
 import React, { Component } from 'react';
 import * as fetchAPI from '../services/api';
 import CategoriesList from '../components/CategoriesList';
+import SearchBar from '../components/SearchBar';
+import NoSearchText from '../components/NoSearchText';
+import LoadingMsg from '../components/LoadingMsg';
+import SearchResults from '../components/SearchResults';
 
 require('./ProductList.css');
 
-class ProductList extends Component {
+export default class ProductList extends Component {
   constructor() {
     super();
+
     this.state = {
-      categories: undefined,
+      loading: false,
+      categories: '',
+      search: '',
+      results: [],
     };
     // Bind methods
     this.fetchCategories = this.fetchCategories.bind(this);
+    this.updateSearchValue = this.updateSearchValue.bind(this);
+    this.submitSearch = this.submitSearch.bind(this);
   }
 
   componentDidMount() {
     this.fetchCategories();
+  }
+
+  async submitSearch() {
+    this.setState({ loading: true });
+
+    const { search, categories } = this.state;
+    const { results } = await fetchAPI
+      .getProductsFromCategoryAndQuery(categories, search);
+
+    this.setState({
+      results,
+      loading: false,
+    });
+  }
+
+  updateSearchValue(event) {
+    const { value: search } = event.target;
+    this.setState({ search });
   }
 
   async fetchCategories() {
@@ -25,7 +53,8 @@ class ProductList extends Component {
   }
 
   render() {
-    const { categories } = this.state;
+    const { results, loading, categories } = this.state;
+
     return (
       <div className="ProductList">
         {
@@ -33,16 +62,20 @@ class ProductList extends Component {
             // Se a requisição foi completada, renderiza CategoriesList
             ? <CategoriesList categories={ categories } />
             // Caso contrário, exibe a mensagem
-            : <p className="CategoriesList">Carregando...</p>
+            : <LoadingMsg />
         }
         <div className="SearchArea">
-          <p data-testid="home-initial-message">
-            Digite algum termo de pesquisa ou escolha uma categoria.
-          </p>
+          <div>
+            <SearchBar
+              textInputCallback={ this.updateSearchValue }
+              submitCallback={ this.submitSearch }
+            />
+            { results.length === 0 && !loading
+              ? <NoSearchText />
+              : <SearchResults loading={ loading } results={ results } />}
+          </div>
         </div>
       </div>
     );
   }
 }
-
-export default ProductList;
