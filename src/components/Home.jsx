@@ -25,9 +25,9 @@ class Home extends React.Component {
 
   async fetchApiSearch() {
     const { searchText } = this.state;
-    const fetchList = await api.getProductsFromCategoryAndQuery("", searchText);
+    const fetchList = await api.getProductsFromCategoryAndQuery('', searchText);
 
-    if(!fetchList.results.length) {
+    if (!fetchList.results.length) {
       this.setState({
         showMessage: true,
       });
