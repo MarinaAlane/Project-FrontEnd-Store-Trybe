@@ -22,7 +22,6 @@ class SearchResult extends Component {
       );
     }
     return <div>Vazio</div>;
-
   }
 }
 
