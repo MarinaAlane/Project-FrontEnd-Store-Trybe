@@ -1,5 +1,5 @@
 import React from 'react';
-import CreateCard from './CreateCard';
+import CreateCard from './CreateCartCard';
 
 class RenderToCart extends React.Component {
   constructor() {
@@ -18,14 +18,16 @@ class RenderToCart extends React.Component {
     return item; 
   }
 
-
   render() {
     const cartItensArray = this.getLocalStorage();
     return(
       <div>
         {cartItensArray.map((array, i) => {
-          const productItem = { title: array[1], thumbnail: array[2], price: array[3] };
-          <CreateCard key={ i } product={ productItem } />
+          const productItem = { quant: Number(array[0]), title: array[1], thumbnail: array[2], price: array[3] };
+          return (
+          <div className="card">
+            <CreateCard key={ i } product={ productItem } />
+          </div>)
         })}
       </div>
     );
