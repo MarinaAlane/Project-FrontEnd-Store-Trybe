@@ -1,5 +1,6 @@
 import React from 'react';
 import CartButton from '../components/CartButton';
+import Category from '../components/Categories';
 
 class InitialPage extends React.Component {
   render() {
@@ -10,6 +11,9 @@ class InitialPage extends React.Component {
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>
         <CartButton />
+        <section>
+          <Category />
+        </section>
       </div>
     );
   }
