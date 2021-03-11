@@ -2,6 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 class InputCategory extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleOptionChange = this.handleOptionChange.bind(this);
+  }
+
+  handleOptionChange(event) {
+    const { value, checked } = event.target;
+    this.setState({ [value]: checked === true ? false : checked });
+  }
+
   render() {
     const { labelText, value, id } = this.props;
     return (
@@ -10,6 +20,7 @@ class InputCategory extends React.Component {
           value={ value }
           data-testid={ id }
           type="radio"
+          onChange={ this.handleOptionChange }
         />
         { labelText }
       </label>
