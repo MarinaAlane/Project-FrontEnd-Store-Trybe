@@ -3,15 +3,17 @@ import PropTypes from 'prop-types';
 
 class ListCategories extends React.Component {
   render() {
-    const { category: { id, name } } = this.props;
+    const { category: { id, name }, radio } = this.props;
     return (
-      <div data-testid="category">
+      <div>
         <label htmlFor={ id }>
           <input
-            type="checkbox"
+            type="radio"
+            data-testid="category"
             id={ id }
             name={ id }
             value={ id }
+            onClick={ () => radio(id) }
           />
           {name}
         </label>
@@ -25,6 +27,7 @@ ListCategories.propTypes = {
     id: PropTypes.string,
     name: PropTypes.string,
   }).isRequired,
+  radio: PropTypes.func.isRequired,
 };
 
 export default ListCategories;
