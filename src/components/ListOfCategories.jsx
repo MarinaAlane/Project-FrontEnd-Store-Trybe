@@ -1,6 +1,5 @@
 import React from 'react';
 import Loading from './Loading';
-import SearchBar from './SearchBar';
 import * as api from '../services/api';
 
 class ListOfCategories extends React.Component {
@@ -21,7 +20,6 @@ class ListOfCategories extends React.Component {
     if (categories === 0) return <Loading />;
     return (
       <div>
-        <SearchBar />
         <p>Categorias:</p>
         {categories
           .map((elem) => <p data-testid="category" key={ elem.id }>{ elem.name }</p>)}

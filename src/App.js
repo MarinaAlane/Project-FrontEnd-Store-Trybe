@@ -1,12 +1,10 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Home from './components/Home';
-import * as api from './services/api';
 import ShoppingCart from './components/ShoppingCart';
 import './App.css';
 
 function App() {
- api.getCategories().then((categories) => console.log(categories));
   return (
     <BrowserRouter>
       <Switch>

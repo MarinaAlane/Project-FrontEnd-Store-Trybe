@@ -1,4 +1,5 @@
 import React from 'react';
+import ProductCard from './ProductCard';
 import * as api from '../services/api';
 
 class SearchBar extends React.Component {
@@ -22,10 +23,12 @@ class SearchBar extends React.Component {
 
   apiSearch() {
     const { search } = this.state;
-    api.getProductsFromQuery(search).then((response) => this.setState({ result: response.results }));
+    api.getProductsFromQuery(search)
+      .then((response) => this.setState({ result: response.results }));
   }
 
   render() {
+    const { result } = this.state;
     return (
       <div>
         <input
@@ -42,6 +45,12 @@ class SearchBar extends React.Component {
         >
           Buscar
         </button>
+        <p
+          data-testid="home-initial-message"
+        >
+          Digite algum termo de pesquisa ou escolha uma categoria.
+        </p>
+        <ProductCard products={ result } />
       </div>
     );
   }
