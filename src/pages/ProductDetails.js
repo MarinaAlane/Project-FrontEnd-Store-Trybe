@@ -78,7 +78,7 @@ export default class ProductDetails extends Component {
           <div data-testid="product">
             <div className="titleDetails">
               { `${title} - ` }
-              { price.toLocaleString('pt-br', { style: 'currency', currency: 'BRL'}) }
+              { price.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }) }
             </div>
             <div className="productContanerDetail">
               <img src={ product.thumbnail } alt={ `foto-${product.title}` } />
