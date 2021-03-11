@@ -1,14 +1,11 @@
 import React from 'react';
-import './App.css';
 
-class App extends React.Component {
-  render() {
-    return (
-      <div>
-        Inicio do projeto
-      </div>
-    );
-  }
+import InitialPage from './components/InitialPage';
+
+function App() {
+  return (
+    <InitialPage />
+  );
 }
 
 export default App;
