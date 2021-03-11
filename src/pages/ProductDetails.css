@@ -1,0 +1,37 @@
+.headerLinks {
+  display: flex;
+  font-size: 2rem;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.linkShoppingCart {
+  color: black;
+}
+
+.titleDetails {
+  align-items: center;
+  display: flex;
+  font-weight: 900;
+}
+
+.productContanerDetail {
+  align-items: center;
+  display: flex;
+  height: 20rem;
+  justify-content: center;
+  width: 20rem;
+}
+
+.productContanerDetail img {
+  max-height: 90%;
+  max-width: 90%;
+}
+
+.buttonsCardDetails {
+  display: flex;
+  font-size: 1.5rem;
+  justify-content: center;
+  padding: 10px;
+  width: 20rem;
+}
