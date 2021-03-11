@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class SearchCard extends Component {
   render() {
@@ -15,5 +16,12 @@ class SearchCard extends Component {
     );
   }
 }
+
+SearchCard.propTypes = {
+  result: PropTypes.arrayOf(PropTypes.object),
+  response: PropTypes.bool,
+};
+
+SearchCard.defaultProps = [];
 
 export default SearchCard;

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import PropTypes from 'prop-types';
 import { getCategories } from '../services/api';
 
 class Categories extends Component {
@@ -42,5 +42,9 @@ class Categories extends Component {
     );
   }
 }
+
+Categories.propTypes = {
+  filterId: PropTypes.func,
+}.isRequired;
 
 export default Categories;
