@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-closing-tag-location */
 import React from 'react';
 import ListOfCategories from './ListOfCategories';
 import { getCategories } from '../services/api';
@@ -66,9 +65,11 @@ class InitialPage extends React.Component {
           Pesquisar
         </button>
         { butttonClicked ? <ListProducts categoryId="" query={ query } />
-          : <p data-testid="home-initial-message">
-            Digite algum termo de pesquisa ou escolha uma categoria.
-          </p>}
+          : (
+            <p data-testid="home-initial-message">
+              Digite algum termo de pesquisa ou escolha uma categoria.
+            </p>
+          )}
         <div>
           Categorias:
           { categories.map((category, index) => (
