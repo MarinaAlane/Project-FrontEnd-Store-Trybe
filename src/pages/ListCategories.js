@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import * as api from '../services/api';
 
 class ListCategories extends React.Component {
@@ -8,6 +9,8 @@ class ListCategories extends React.Component {
     this.state = {
       categories: [],
     };
+
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
@@ -16,26 +19,37 @@ class ListCategories extends React.Component {
         .setState({ categories: response }));
   }
 
+  handleClick(event) {
+    const { onChange } = this.props;
+    onChange(event.target.value);
+  }
+
   render() {
     const { categories } = this.state;
     return (
       <div>
         <p>Categorias:</p>
-        {categories.map((category) => (
-          <label htmlFor="category" key={ category.id }>
-            <input
-              type="radio"
-              value={ category.name }
-              key={ category.id }
-              name="category"
-              data-testid="category"
-            />
-            { category.name }
-          </label>
-        ))}
+        <div onChange={ this.handleClick }>
+          {categories.map((category) => (
+            <label htmlFor="category" key={ category.id }>
+              <input
+                type="radio"
+                value={ category.id }
+                key={ category.id }
+                name="category"
+                data-testid="category"
+              />
+              { category.name }
+            </label>
+          ))}
+        </div>
       </div>
     );
   }
 }
+
+ListCategories.propTypes = {
+  onChange: PropTypes.func.isRequired,
+};
 
 export default ListCategories;

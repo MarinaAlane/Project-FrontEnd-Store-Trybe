@@ -1,6 +1,7 @@
 import React from 'react';
 import { getProductsFromCategoryAndQuery } from '../services/api';
 import Card from '../components/Card';
+import ListCategories from './ListCategories';
 
 class LandingPage extends React.Component {
   constructor(props) {
@@ -9,9 +10,11 @@ class LandingPage extends React.Component {
     this.state = {
       products: [],
       search: '',
+
     };
 
     this.fetchProductsByQuery = this.fetchProductsByQuery.bind(this);
+    this.fetchProductsByCategoryId = this.fetchProductsByCategoryId.bind(this);
     this.hendleChange = this.hendleChange.bind(this);
     this.inputButton = this.inputButton.bind(this);
   }
@@ -19,6 +22,13 @@ class LandingPage extends React.Component {
   async fetchProductsByQuery() {
     const { search } = this.state;
     const items = await getProductsFromCategoryAndQuery(false, search);
+    this.setState({
+      products: items.results,
+    });
+  }
+
+  async fetchProductsByCategoryId(categoryId) {
+    const items = await getProductsFromCategoryAndQuery(categoryId, false);
     this.setState({
       products: items.results,
     });
@@ -39,6 +49,7 @@ class LandingPage extends React.Component {
           type="button"
           data-testid="query-button"
           onClick={ () => this.fetchProductsByQuery('computador') }
+          // onClick={ () => this.fetchProductsByCategoryId('MLB1744') }
         >
           Pesquisar
         </button>
@@ -56,6 +67,7 @@ class LandingPage extends React.Component {
           <h1 data-testid="home-initial-message">
             Digite algum termo de pesquisa ou escolha uma categoria.
           </h1>
+          <ListCategories onChange={ this.fetchProductsByCategoryId } />
         </>
       );
     }
@@ -64,6 +76,7 @@ class LandingPage extends React.Component {
       <div>
         { this.inputButton() }
         {products.map((product) => <Card product={ product } key={ product.id } />)}
+        <ListCategories onChange={ this.fetchProductsByCategoryId } />
       </div>
     );
   }
