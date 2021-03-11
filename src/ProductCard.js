@@ -22,7 +22,7 @@ class ProductCard extends React.Component {
           data-testid="product-detail-link"
           to={ { pathname: '/productDetails', product } }
         >
-          Teste
+          DETALHES
         </Link>
       </div>
     );
