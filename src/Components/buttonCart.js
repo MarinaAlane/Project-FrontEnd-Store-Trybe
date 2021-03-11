@@ -21,7 +21,7 @@ class ButtonCart extends Component {
     if (redirect) return <Redirect to="/ShoppingCart" />;
     return (
       <button
-
+        type="button"
         onClick={ this.routeCart }
         data-testId="shopping-cart-button"
       >
