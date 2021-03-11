@@ -24,9 +24,16 @@ class App extends React.Component {
   }
 
   render() {
-    const { inputValue, setInputValue, selectedCategory, setSelectedCategory } = this.state;
+    const {
+      inputValue,
+      setInputValue,
+      selectedCategory,
+      setSelectedCategory,
+    } = this.state;
     return (
-      <InputContext.Provider value={ { inputValue, setInputValue, selectedCategory, setSelectedCategory } }>
+      <InputContext.Provider
+        value={ { inputValue, setInputValue, selectedCategory, setSelectedCategory } }
+      >
         <Router>
           <Switch>
             <Route exact path="/" component={ HomePage } />
