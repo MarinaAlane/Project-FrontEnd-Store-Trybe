@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class ProductDetais extends Component {
   render() {
     const { location: { state: { product } } } = this.props;
     const { title, price, thumbnail, attributes } = product;
-    const { name, value_name} = attributes;
+    // const { name, value_name: valueName } = attributes;
     return (
       <>
         <h3 data-testid="product-detail-name">
@@ -19,7 +20,7 @@ class ProductDetais extends Component {
             {attributes
               .map((atribut) => (
                 <p
-                  key={ name }
+                  key={ atribut.name }
                 >
                   {`${atribut.name}: ${atribut.value_name}`}
                 </p>
@@ -30,5 +31,18 @@ class ProductDetais extends Component {
     );
   }
 }
+
+ProductDetais.propTypes = {
+  location: PropTypes.shape({
+    state: PropTypes.shape({
+      product: PropTypes.shape({
+        title: PropTypes.string,
+        thumbnail: PropTypes.string,
+        price: PropTypes.number,
+        attributes: PropTypes.arrayOf(PropTypes.object),
+      }),
+    }),
+  }).isRequired,
+};
 
 export default ProductDetais;
