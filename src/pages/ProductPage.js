@@ -3,7 +3,7 @@ import '../App.css';
 import PropTypes from 'prop-types';
 
 
-export default class ProductPage extends Component {
+class ProductPage extends Component {
   render() {
     const { product } = this.props;
     return (

@@ -1,11 +1,11 @@
 import React from 'react';
 import * as Api from '../services/api';
-import '../App.css'
+import '../App.css';
 import ProductPage from './ProductPage';
 
 class ProductList extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       loading: false,
@@ -29,7 +29,6 @@ class ProductList extends React.Component {
     });
   }
 
-
   changeText(evt) {
     this.setState({
       searchText: evt.target.value,
@@ -43,7 +42,7 @@ class ProductList extends React.Component {
         {results.length === 0
           ? <span>nenhum produto foi encontrado</span>
           : results
-            .map((product) => <ProductPage key={product.id} product={product} />)}
+            .map((product) => <ProductPage key={ product.id } product= { product } />)}
       </section>
     );
   }
@@ -72,7 +71,7 @@ class ProductList extends React.Component {
           >
             Digite algum termo de pesquisa ou escolha uma categoria.
             </span>
-          {!loading && !json ? null : checkLOading}
+          {!loading && !json ? null : checkLoading}
         </div>
       </div>
     );
