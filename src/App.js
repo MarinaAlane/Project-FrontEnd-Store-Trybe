@@ -1,24 +1,37 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import CartPage from './pages/CartPage';
+import HomePage from './pages/HomePage';
+import InputContext from './components/InputContext';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={ logo } className="App-logo" alt="logo" />
-        <p>Edit src/App.js and save to reload.</p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      inputValue: '',
+      setInputValue: this.setInputValue.bind(this),
+    };
+    // this.setInputValue = this.setInputValue.bind(this);
+  }
+
+  setInputValue(inputValue) {
+    console.log(`Input recebido como param: ${inputValue}`);
+    if (inputValue) this.setState({ inputValue });
+  }
+
+  render() {
+    const { inputValue, setInputValue } = this.state;
+    return (
+      <InputContext.Provider value={ { inputValue, setInputValue } }>
+        <Router>
+          <Switch>
+            <Route exact path="/" component={ HomePage } />
+            <Route path="/cart" component={ CartPage } />
+          </Switch>
+        </Router>
+      </InputContext.Provider>
+    );
+  }
 }
 
 export default App;
