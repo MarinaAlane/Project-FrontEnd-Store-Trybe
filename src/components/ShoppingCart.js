@@ -6,7 +6,7 @@ import ItemCart from './ItemCart';
 
 class ShoppingCart extends Component {
   render() {
-    const { cartItems } = this.props;
+    const { cartItems, sumToCart } = this.props;
     if (cartItems.length < 1) {
       return (
         <h3
@@ -18,7 +18,12 @@ class ShoppingCart extends Component {
     }
     return (
       <div>
-        {cartItems.map((item) => <ItemCart key={ item.id } item={ item } />)}
+        { cartItems.map((item) => (
+          <ItemCart
+            key={ item.id }
+            item={ item }
+            sumToCart={ sumToCart }
+          />))}
         <Link to="/checkout-cart" data-testid="checkout-products">Finalizar compra</Link>
       </div>
     );
@@ -27,6 +32,7 @@ class ShoppingCart extends Component {
 
 ShoppingCart.propTypes = {
   cartItems: PropTypes.arrayOf(),
+  sumToCart: PropTypes.func,
 }.isRequired;
 
 export default ShoppingCart;

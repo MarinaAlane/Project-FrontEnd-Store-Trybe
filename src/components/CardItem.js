@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 class CardItem extends Component {
   render() {
-    const { item, handleCart } = this.props;
+    const { item, handleCart, sumToCart } = this.props;
     const { title, price, thumbnail, id } = item;
     return (
       <div data-testid="product">
@@ -21,7 +21,10 @@ class CardItem extends Component {
         </Link>
         <button
           type="button"
-          onClick={ () => handleCart(item) }
+          onClick={ () => {
+            handleCart(item);
+            sumToCart(1);
+          } }
           data-testid="product-add-to-cart"
         >
           Adicionar ao Carrinho
@@ -39,6 +42,7 @@ CardItem.propTypes = {
     id: PropTypes.string,
   }),
   handleCart: PropTypes.func,
+  sumToCart: PropTypes.func,
 }.isRequired;
 
 export default CardItem;

@@ -6,17 +6,21 @@ import shoppingCartIcon from '../images/shopping_cart_black.svg';
 
 class ItemDetails extends Component {
   render() {
-    const { handleCart, location: { state: { item } } } = this.props;
+    const { handleCart, sumToCart, itemsQtt, location: { state: { item } } } = this.props;
     return (
       <div>
         <div>
           <Link to="/shopping-cart" data-testid="shopping-cart-button">
             <img src={ shoppingCartIcon } alt="Icone do Carrinho de Compras" />
+            <p data-testid="shopping-cart-size">{ itemsQtt }</p>
           </Link>
           <h2 data-testid="product-detail-name">{item.title}</h2>
           <button
             type="button"
-            onClick={ () => handleCart(item) }
+            onClick={ () => {
+              handleCart(item);
+              sumToCart(1);
+            } }
             data-testid="product-detail-add-to-cart"
           >
             Adicionar ao Carrinho
@@ -40,6 +44,7 @@ ItemDetails.propTypes = {
     }),
   }),
   handleCart: PropTypes.func,
+  sumToCart: PropTypes.func,
 }.isRequired;
 
 export default ItemDetails;
