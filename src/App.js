@@ -17,7 +17,7 @@ class App extends Component {
     };
     this.handleCart = this.handleCart.bind(this);
     this.sumToCart = this.sumToCart.bind(this);
-    this.setLocalStorageCart = this.setLocalStorageCart.bind(this);
+    // this.setLocalStorageCart = this.setLocalStorageCart.bind(this);
   }
 
   handleCart(item) {
@@ -25,14 +25,14 @@ class App extends Component {
     this.setState({
       cartItems: [...cartItems, item],
     }, () => {
-      this.setLocalStorageCart();
+      localStorage.setItem('cartItem', JSON.stringify(cartItems));
     });
   }
 
-  setLocalStorageCart() {
-    const { cartItems } = this.state;
-    localStorage.setItem('cartItem', JSON.stringify(cartItems));
-  }
+  // setLocalStorageCart() {
+  //   const { cartItems } = this.state;
+  //   localStorage.setItem('cartItem', JSON.stringify(cartItems));
+  // }
 
   sumToCart(item) {
     this.setState((previousState) => ({

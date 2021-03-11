@@ -4,9 +4,8 @@ import PropTypes from 'prop-types';
 class ItemCart extends Component {
   constructor(props) {
     super(props);
-    const initialQtt = +(localStorage.getItem('itemsQtt'));
     this.state = {
-      quantity: initialQtt,
+      quantity: 1,
     };
     this.decreaseQtt = this.decreaseQtt.bind(this);
     this.increaseQtt = this.increaseQtt.bind(this);
@@ -34,7 +33,7 @@ class ItemCart extends Component {
     const { item } = this.props;
     let min = false;
     let plus = false;
-    if (quantity <= 1) min = true;
+    if (quantity <= 0) min = true;
     if (quantity >= item.available_quantity) plus = true;
     const { title, price, thumbnail } = item;
     return (
