@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import './CheckoutForm.css';
 
 class CheckoutForm extends Component {
   render() {
     return (
-      <form>
+      <form className="checkout-form">
         <label htmlFor="checkout-fullname">
           Nome completo
           <input data-testid="checkout-fullname" id="checkout-fullname" type="text" />
