@@ -14,7 +14,7 @@ class ShortProduct extends Component {
     );
   }
 }
-
+ 
 ShortProduct.propTypes = ({
   title: PropTypes.string,
   thumbnail: PropTypes.string,
