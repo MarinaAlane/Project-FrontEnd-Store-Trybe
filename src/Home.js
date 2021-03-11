@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import SearchBar from './SearchBar';
 import MainPage from './MainPage';
 import ProductsList from './services/ProductsList';
@@ -39,5 +40,10 @@ class Home extends React.Component {
     );
   }
 }
+
+Home.propTypes = {
+  sentProducts: PropTypes.func.isRequired,
+
+}.isRequired;
 
 export default Home;
