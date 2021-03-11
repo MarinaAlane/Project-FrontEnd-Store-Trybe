@@ -32,12 +32,15 @@
   width: 70vw;
   height: 100vh;
 }
+
 .product-list h1 {
   text-align: center;
 }
+
 input Link img {
  height: 100px;
 }
+
 .main-search {
   border-radius: 20px;
   text-align: right;
