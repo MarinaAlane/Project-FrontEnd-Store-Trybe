@@ -14,11 +14,13 @@ class Search extends React.Component {
     this.searchTextChange = this.searchTextChange.bind(this);
     this.renderCard = this.renderCard.bind(this);
     this.getCategoriesApi = this.getCategoriesApi.bind(this);
+    this.changeCategory = this.changeCategory.bind(this);
 
     this.state = {
       categories: [],
       products: [],
       searchText: '',
+      category: '',
       cardList: false,
       digite: true,
     };
@@ -37,8 +39,8 @@ class Search extends React.Component {
       });
   }
 
-  getCatAndQuery(value) {
-    api.getProductsFromCategoryAndQuery('MLB1403', value)
+  getCatAndQuery(category, value) {
+    api.getProductsFromCategoryAndQuery(category, value)
       .then(({ results }) => {
         this.setState({
           products: results,
@@ -52,9 +54,14 @@ class Search extends React.Component {
     this.setState({ searchText: value });
   }
 
+  changeCategory(value) {
+    this.setState({ category: value }, () => this.renderCard());
+  }
+
   renderCard() {
-    const { searchText } = this.state;
-    this.getCatAndQuery(searchText);
+    const { searchText, category } = this.state;
+    console.log(category);
+    this.getCatAndQuery(category, searchText);
     this.setState({
       digite: false,
     });
@@ -62,14 +69,16 @@ class Search extends React.Component {
 
   render() {
     const { searchText, products, cardList, digite, categories } = this.state;
-
     return (
       <div className="main" data-testid="home-initial-message">
         <section className="section-category">
           Categorias:
           { categories.map((category) => (
-            <ListCategories key={ category.id } category={ category } />))}
-
+            <ListCategories
+              key={ category.id }
+              category={ category }
+              radio={ this.changeCategory }
+            />))}
         </section>
         <section>
           <div>
