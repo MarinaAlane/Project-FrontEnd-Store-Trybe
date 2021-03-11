@@ -40,3 +40,42 @@
     transform: rotate(360deg);
   }
 }
+
+header {
+  width: 75%;
+  float: right;
+  text-align: center;
+}
+
+main {
+  width: 75%;
+  float: right;
+  text-align: center;
+}
+
+.aside-categories {
+  border-style: solid;
+  border-width: 2px;
+  border-color: #282c34;
+  background-color: gainsboro;
+  width: 20%;
+  float: left;
+}
+
+.aside-categories h3 {
+  text-align: center;
+}
+
+.aside-categories ul {
+  /*  https://pt.stackoverflow.com/questions/424667/como-tirar-esse-pontos  */
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+.aside-categories li {
+  /*  https://pt.stackoverflow.com/questions/424667/como-tirar-esse-pontos  */
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 10px;
+}
