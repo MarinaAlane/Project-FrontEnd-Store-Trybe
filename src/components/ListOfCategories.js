@@ -5,18 +5,27 @@ import PropTypes from 'prop-types';
 class ListOfCategories extends React.Component {
   render() {
     const { category } = this.props;
+    const { name, id } = category;
     return (
       <div>
-        <li>
-          {category}
-        </li>
+        <label htmlFor="category">
+          <input
+            type="radio"
+            className={ id }
+            data-testid="category"
+          />
+          {name}
+        </label>
       </div>
     );
   }
 }
 
 ListOfCategories.propTypes = {
-  category: PropTypes.string.isRequired,
+  category: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default ListOfCategories;
