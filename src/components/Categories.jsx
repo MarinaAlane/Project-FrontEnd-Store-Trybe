@@ -28,17 +28,18 @@ class Categories extends React.Component {
       <aside className="categories-list">
         {categories
           .map(({ id, name }) => (
-            <div key={ id }>
+            <label key={ id } htmlFor={ id }>
               <input
                 type="radio"
                 key={ id }
+                id={ id }
                 data-testid="category"
                 className="category"
                 onClick={ () => handleClick(id) }
                 name="Categories"
               />
               { name }
-            </div>
+            </label>
           ))}
       </aside>
     );
