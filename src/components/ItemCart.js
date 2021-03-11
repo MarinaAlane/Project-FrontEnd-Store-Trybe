@@ -4,8 +4,9 @@ import PropTypes from 'prop-types';
 class ItemCart extends Component {
   constructor(props) {
     super(props);
+    const initialQtt = +(localStorage.getItem('itemsQtt'));
     this.state = {
-      quantity: 1,
+      quantity: initialQtt,
     };
     this.decreaseQtt = this.decreaseQtt.bind(this);
     this.increaseQtt = this.increaseQtt.bind(this);
