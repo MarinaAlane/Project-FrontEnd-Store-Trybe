@@ -96,7 +96,7 @@ class SearchBar extends React.Component {
               : productList.results.map((product) => (
                 <div className="card">
                   <CreateCard key={ product.id } product={ product } />
-                  <AddButton />
+                  <AddButton product={ product } />
                 </div>)) }
           </div>
         </div>
