@@ -12,10 +12,10 @@ class ItemCard extends Component {
         <h1>{ title }</h1>
         <img src={ thumbnail } alt={ title } />
         <div>{price}</div>
-        <AddToCart itemCart={ result } />
+        <AddToCart testId="product-add-to-cart" itemCart={ result } />
         <Link
           data-testid="product-detail-link"
-          to={ { pathname: '/item-details', state: { title, thumbnail, price } } }
+          to={ { pathname: '/item-details', state: { result } } }
         >
           Detalhes
         </Link>

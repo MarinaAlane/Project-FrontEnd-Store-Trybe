@@ -12,14 +12,14 @@ class AddToCart extends Component {
     const { itemCart } = this.props;
     const item = itemCart;
     localStorage.setItem(JSON.stringify(item.id), JSON.stringify(item));
-    console.log(item);
   }
 
   render() {
+    const { testId } = this.props;
     return (
       <button
         type="button"
-        data-testid="product-add-to-cart"
+        data-testid={ testId }
         onClick={ this.addToLocalStorage }
       >
         Adicionar ao Carrinho
@@ -30,6 +30,7 @@ class AddToCart extends Component {
 
 AddToCart.propTypes = {
   itemCart: Proptypes.shape().isRequired,
+  testId: Proptypes.string.isRequired,
 };
 
 export default AddToCart;
