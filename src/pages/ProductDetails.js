@@ -31,9 +31,9 @@ export default class ProductDetails extends Component {
     });
   }
 
-  addOnCart(id) {
+  addOnCart(title, id) {
     this.setState((state) => ({
-      shoppingCart: [...state.shoppingCart, id],
+      shoppingCart: [...state.shoppingCart, { title, id }],
     }), () => {
       const { shoppingCart } = this.state;
       sessionStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
@@ -60,7 +60,7 @@ export default class ProductDetails extends Component {
           <button
             type="button"
             data-testid="product-detail-add-to-cart"
-            onClick={ () => this.addOnCart(id) }
+            onClick={ () => this.addOnCart(title, id) }
           >
             Adicionar ao Carrinho
           </button>
