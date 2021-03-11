@@ -34,7 +34,8 @@ class ProductCard extends Component {
 
   render() {
     const { product, text } = this.props;
-    const { title, thumbnail, price, category_id: CategoryId, id } = product;
+    const { title, thumbnail, price, category_id: CategoryId, id, shipping } = product;
+    const { free_shipping: freeShipping } = shipping;
     return (
       <li data-testid="product" className="productCardContainer">
         <Link
@@ -48,6 +49,7 @@ class ProductCard extends Component {
           <img src={ thumbnail } alt={ `foto-${title}` } />
           <p>{ price.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }) }</p>
         </Link>
+        { freeShipping ? <p data-testid="free-shipping">Frete gráris</p> : null }
         <button
           type="button"
           data-testid="product-add-to-cart"
