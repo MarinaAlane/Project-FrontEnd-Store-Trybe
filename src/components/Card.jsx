@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import NothingFound from './NothingFound';
 
 class Card extends Component {
@@ -9,11 +10,19 @@ class Card extends Component {
       return <NothingFound />;
     }
     const map = productsContent.map((currentValue) => (
-      <div key={ currentValue.id } data-testid="product">
-        <p>{currentValue.title}</p>
-        <img src={ currentValue.thumbnail } alt="product-sample" />
-        <p>{currentValue.price}</p>
-        <p>{ currentValue.category_id }</p>
+      <div
+        key={ currentValue.id }
+        data-testid="product"
+      >
+        <Link
+          data-testid="product-detail-link"
+          to={ `/productdetails/${currentValue.id}` }
+        >
+          <p>{currentValue.title}</p>
+          <img src={ currentValue.thumbnail } alt="product-sample" />
+          <p>{currentValue.price}</p>
+          <p>{ currentValue.category_id }</p>
+        </Link>
       </div>
     ));
 
