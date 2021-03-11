@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import Categories from './Categories';
 import ProductCard from './ProductCard';
 import * as api from '../services/api';
+import './styles/ProductList.css';
 
 class ProductList extends Component {
   constructor() {
@@ -41,9 +42,11 @@ class ProductList extends Component {
 
   emptySearch() {
     return (
-      <h1 data-testid="home-initial-message">
-        Digite algum termo de pesquisa ou escolha uma categoria.
-      </h1>
+      <div className="empty-search">
+        <h1 data-testid="home-initial-message">
+          Digite algum termo de pesquisa ou escolha uma categoria.
+        </h1>
+      </div>
     );
   }
 
@@ -65,26 +68,36 @@ class ProductList extends Component {
     const { results } = this.state;
     return (
       <div>
-        <div>
-          <label htmlFor="search-input">
-            <input
-              data-testid="query-input"
-              type="text"
-              name="search-input"
-              placeholder="Buscar"
-              onChange={ this.handleChange }
-            />
-          </label>
-          <button
-            data-testid="query-button"
-            type="button"
-            onClick={ this.buttonClick }
-          >
-            Buscar
-          </button>
-          <Link to="/shopping-cart" data-testid="shopping-cart-button">Carrinho</Link>
-          <Categories handleClick={ this.handleClick } />
-          { !results ? this.emptySearch() : this.productMap() }
+        <header className="header">
+          <div className="search-bar">
+            <label htmlFor="search-input">
+              <input
+                data-testid="query-input"
+                type="text"
+                name="search-input"
+                placeholder="Buscar"
+                onChange={ this.handleChange }
+              />
+            </label>
+            <button
+              data-testid="query-button"
+              type="button"
+              onClick={ this.buttonClick }
+            >
+              Buscar
+            </button>
+          </div>
+          <div className="link">
+            <Link to="/shopping-cart" data-testid="shopping-cart-button">Carrinho</Link>
+          </div>
+        </header>
+        <div className="main-container">
+          <div className="categories">
+            <Categories handleClick={ this.handleClick } />
+          </div>
+          <div className="results">
+            { !results ? this.emptySearch() : this.productMap() }
+          </div>
         </div>
       </div>
     );
