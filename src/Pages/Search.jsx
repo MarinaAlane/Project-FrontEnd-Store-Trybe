@@ -72,7 +72,7 @@ class Search extends React.Component {
     return (
       <div className="main" data-testid="home-initial-message">
         <section className="section-category">
-          Categorias:
+          <p>Categorias:</p>
           { categories.map((category) => (
             <ListCategories
               key={ category.id }
