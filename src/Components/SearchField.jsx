@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ButtonCart from './ButtonCart';
 
 class SearchField extends Component {
   render() {
@@ -7,6 +8,7 @@ class SearchField extends Component {
         <input
           type="text"
         />
+        <ButtonCart />
         <div>Digite algum termo de pesquisa ou escolha uma categoria.</div>
       </div>
     );

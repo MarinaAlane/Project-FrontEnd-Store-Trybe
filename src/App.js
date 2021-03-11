@@ -1,12 +1,15 @@
 import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import ShoppingCart from './Components/ShoppingCart';
 import SearchField from './Components/SearchField';
-import './App.css';
 
 function App() {
   return (
     <BrowserRouter>
-      <Route exact path="/" component={ SearchField } />
+      <Switch>
+        <Route exact path="/" component={ SearchField } />
+        <Route path="/ShoppingCart" component={ ShoppingCart } />
+      </Switch>
     </BrowserRouter>
   );
 }
