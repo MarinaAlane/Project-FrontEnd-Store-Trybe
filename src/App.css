@@ -2,11 +2,24 @@
   text-align: center;
 }
 
+body {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 .left-side {
+  border: 1px solid black;
+  border-radius: 10px;
+  float: left;
   left: 0;
+  margin: 1rem;
+  padding: 10px;
+  width: 17rem;
 }
 
 ul {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
