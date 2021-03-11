@@ -9,20 +9,19 @@ class ListOfCategories extends React.Component {
     return (
       <div>
         <p>Categorias:</p>
-        <ul>
-          {
-            categories
-              .map((elem) => (
-                <li
-                  data-testid="category"
-                  key={ elem.id }
-                  onClick={ () => onClickSelectedCategory(elem.id) }
-                >
-                  { elem.name }
-                </li>
-              ))
-          }
-        </ul>
+        {
+          categories.map((elem) => (
+            <button
+              onClick={ () => onClickSelectedCategory(elem.id) }
+              key={ elem.id }
+              type="button"
+              data-testid="category"
+              value={ elem.name }
+            >
+              { elem.name }
+            </button>
+          ))
+        }
       </div>
     );
   }
