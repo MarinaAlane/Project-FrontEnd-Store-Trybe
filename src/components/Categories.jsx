@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import * as api from '../services/api';
 import '../categories.css';
 
@@ -22,7 +23,7 @@ class Categories extends React.Component {
 
   inputRadioCreator() {
     const { categories } = this.state;
-    console.log(categories);
+    const { handleClick } = this.props;
     return (
       <aside className="categories-list">
         {categories
@@ -32,6 +33,7 @@ class Categories extends React.Component {
               key={ element.id }
               data-testid="category"
               className="category"
+              onClick={ () => handleClick(element.id) }
             >
               {element.name}
             </button>
@@ -42,7 +44,6 @@ class Categories extends React.Component {
 
   render() {
     const { categories } = this.state;
-    console.log(categories);
     return (
       <div>
         {categories.length < 1 ? <span>Loading...</span> : this.inputRadioCreator()}
@@ -50,5 +51,9 @@ class Categories extends React.Component {
     );
   }
 }
+
+Categories.propTypes = {
+  handleClick: PropTypes.func.isRequired,
+};
 
 export default Categories;
