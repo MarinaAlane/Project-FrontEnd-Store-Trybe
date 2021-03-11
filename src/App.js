@@ -42,7 +42,10 @@ class App extends Component {
               <ItemDetails handleCart={ this.handleCart } location={ props.location } />
             ) }
           />
-          <Route path="/checkout-cart" render={ () => <CheckoutCart cartItems={ cartItems } /> } />
+          <Route
+            path="/checkout-cart"
+            render={ () => <CheckoutCart cartItems={ cartItems } /> }
+          />
         </Switch>
       </BrowserRouter>
     );
