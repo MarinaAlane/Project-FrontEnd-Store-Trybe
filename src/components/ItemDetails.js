@@ -23,10 +23,10 @@ class ItemDetails extends Component {
           </button>
         </div>
         <div>
-          <labe>
+          <label>
             Escreva algo sobre o produto
             <textarea data-testid="product-detail-evaluation" />
-          </labe>
+          </label>
         </div>
       </div>
     );
