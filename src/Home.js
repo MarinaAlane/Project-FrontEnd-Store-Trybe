@@ -26,6 +26,8 @@ class Home extends React.Component {
     });
   }
 
+  // validando push
+
   render() {
     const { products, productsArrive } = this.state;
     return (
