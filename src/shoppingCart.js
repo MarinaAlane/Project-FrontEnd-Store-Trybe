@@ -30,7 +30,7 @@ class shoppingCart extends React.Component {
 
   getProductsById() {
     const { shoppingCartIdList } = this.state;
-    shoppingCartIdList.forEach(async ({ id }) => {
+    shoppingCartIdList.forEach(async (id) => {
       const endpoint = `https://api.mercadolibre.com/items/${id}`;
       const response = await fetch(endpoint);
       const responseObj = await response.json();
