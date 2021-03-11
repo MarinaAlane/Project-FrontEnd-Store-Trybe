@@ -1,12 +1,21 @@
 /* Arquivo SearchBar */
-.header {
+.main {
+  flex-direction: column;
+}
+
+.main, .header {
   align-items: center;
-  display: flex;
+  display: inline;
   justify-content: center;
-  margin-top: 20px;
+  width: 900px;
+}
+
+.header {
+  height: 100vh;
 }
 
 .message {
+  display: inline;
   text-align: center;
 }
 
@@ -15,7 +24,7 @@
   height: 20px;
   outline: none;
   padding: 5px;
-  width: 80%;
+  width: 60%;
 }
 
 .shop-cart-main {
@@ -89,6 +98,21 @@
 
 .empty-message {
   text-align: center;
+}
+
+/* Categorias */
+.content-category {
+  display: inline-block;
+}
+
+.category {
+  border: solid 1px black;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  margin: 10px;
+  max-width: 250px;
+  padding: 10px;
 }
 
 /* Card */

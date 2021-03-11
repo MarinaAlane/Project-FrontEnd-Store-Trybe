@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import shopCart from '../images/shopCart.png';
+import ListCategories from './ListCategories';
 
 import { getProductsFromCategoryAndQuery } from '../services/api';
 import CreateCard from './CreateCard';
@@ -36,40 +37,46 @@ class SearchBar extends React.Component {
     const { productList } = this.state;
     return (
       <>
-        <div className="header">
-          <input
-            data-testid="query-input"
-            type="text"
-            className="search-bar-main"
-            onChange={ this.getValue }
-          />
-
-          <button
-            className="btn-search"
-            data-testid="query-button"
-            type="button"
-            onClick={ () => this.requestList() }
-          >
-            Pesquisar
-          </button>
-
-          <Link to="/shopping-cart" data-testid="shopping-cart-button">
-            <img
-              src={ shopCart }
-              alt="Imagem do carrinho de compras"
-              className="shop-cart-main"
-            />
-          </Link>
+        <div className="content-category">
+          <ListCategories />
         </div>
 
-        <h4 data-testid="home-initial-message" className="message">
-          Digite algum termo de pesquisa ou escolha uma categoria.
-        </h4>
+        <div className="main">
+          <div className="header">
+            <input
+              data-testid="query-input"
+              type="text"
+              className="search-bar-main"
+              onChange={ this.getValue }
+            />
 
-        <div>
-          { !productList ? <p>Nenhum produto foi encontrado</p>
-            : productList.results.map((product) => (
-              <CreateCard key={ product.id } product={ product } />)) }
+            <button
+              className="btn-search"
+              data-testid="query-button"
+              type="button"
+              onClick={ () => this.requestList() }
+            >
+              Pesquisar
+            </button>
+
+            <Link to="/shopping-cart" data-testid="shopping-cart-button">
+              <img
+                src={ shopCart }
+                alt="Imagem do carrinho de compras"
+                className="shop-cart-main"
+              />
+            </Link>
+          </div>
+
+          <h4 data-testid="home-initial-message" className="message">
+            Digite algum termo de pesquisa ou escolha uma categoria.
+          </h4>
+
+          <div>
+            { !productList ? <p>Nenhum produto foi encontrado</p>
+              : productList.results.map((product) => (
+                <CreateCard key={ product.id } product={ product } />)) }
+          </div>
         </div>
       </>
     );
