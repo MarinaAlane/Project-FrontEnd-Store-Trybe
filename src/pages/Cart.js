@@ -11,6 +11,10 @@ class Cart extends Component {
   }
 
   componentDidMount() {
+    this.getProdutsInLocalStorage();
+  }
+
+  getProdutsInLocalStorage() {
     const itemsInCart = JSON.parse(localStorage.getItem('NoMasterCart'));
     if (itemsInCart) {
       this.setState({

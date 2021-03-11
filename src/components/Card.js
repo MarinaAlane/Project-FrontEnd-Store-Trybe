@@ -12,7 +12,6 @@ class Card extends Component {
   handleClick(product) {
     const itemsInCart = JSON.parse(localStorage.getItem('NoMasterCart'));
     if (!itemsInCart) localStorage.setItem('NoMasterCart', JSON.stringify([product]));
-    // console.log(itemsInCart);
     else {
       const itemsToAdd = [...itemsInCart, product];
       localStorage.setItem('NoMasterCart', JSON.stringify(itemsToAdd));
@@ -57,7 +56,8 @@ Card.propTypes = {
     thumbnail: PropTypes.string,
     price: PropTypes.number,
     id: PropTypes.string,
-  }).isRequired,
-};
+  }),
+  testid: PropTypes.string,
+}.isRequired;
 
 export default Card;
