@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import botaoCarrinho from '../Images/botaoCarrinho.jpg';
+import imgKart from '../Images/botaoCarrinho.jpg';
 import './Pages.css';
 
 class ProductDetails extends React.Component {
@@ -12,9 +12,9 @@ class ProductDetails extends React.Component {
     return (
       <div>
         <div className="nav-details">
-          <Link to="/">Volta</Link>
+          <Link to="/">&#8678;</Link>
           <Link data-testid="shopping-cart-button" to="/carrinho">
-            <img src={ botaoCarrinho } alt="botãoCarrinhoVazio" />
+            <img src={ imgKart } alt="ShopCartImg" />
           </Link>
         </div>
         <section className="main-shoppingCart">
@@ -22,7 +22,8 @@ class ProductDetails extends React.Component {
           <div className="img-details">
             <img src={ thumbnail } alt={ title } />
             <div className="product-details">
-              Detalhes
+              <h3>Especificações tecnicas</h3>
+              <p>Produto muito bom, compre logo.</p>
             </div>
           </div>
           <button

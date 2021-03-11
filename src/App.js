@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Search from './Pages/Search';
 import Carrinho from './Pages/Carrinho';
-import ProductDetails from './Pages/ProductDetails';
+import SingleView from './Pages/SingleView';
 import NotFound from './Pages/NotFound';
 import './App.css';
 
@@ -42,7 +42,7 @@ class App extends React.Component {
           <Route
             path="/productDetails/:id"
             render={ (props) => (
-              <ProductDetails
+              <SingleView
                 totalCart={ this.shoppingCartChange }
                 { ...props }
               />) }
