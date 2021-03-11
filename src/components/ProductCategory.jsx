@@ -15,10 +15,11 @@ class ProductCategory extends Component {
   }
 }
 
-export default ProductCategory;
-
 ProductCategory.propTypes = {
   category: PropTypes.shape({
     name: PropTypes.string,
   }).isRequired,
 };
+
+export default ProductCategory;
+
