@@ -9,7 +9,7 @@ class ListCategories extends React.Component {
         {categories.map(({ name, id }) => (
           <div>
             <label htmlFor={ id }>
-                <input key={ id } data-testid="category" type="checkbox"/>{ name }
+              <input key={ id } data-testid="category" type="checkbox"/>{ name }
             </label>
           </div>))}
       </div>);

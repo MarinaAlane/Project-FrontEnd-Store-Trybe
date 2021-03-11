@@ -34,6 +34,7 @@ class Home extends React.Component {
     this.setState({
       query: target.value,
     });
+    localStorage.setItem('query', target.value);
   }
 
   async getCategories() {
@@ -51,7 +52,6 @@ class Home extends React.Component {
 
   render() {
     const { promisse, categories, products } = this.state;
-    console.log(categories);
     if (promisse === true) {
       return (
         <div>
