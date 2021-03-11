@@ -9,20 +9,24 @@ class App extends React.Component {
     super(props);
     this.state = {
       inputValue: '',
+      selectedCategory: '',
       setInputValue: this.setInputValue.bind(this),
+      setSelectedCategory: this.setSelectedCategory.bind(this),
     };
-    // this.setInputValue = this.setInputValue.bind(this);
   }
 
   setInputValue(inputValue) {
-    console.log(`Input recebido como param: ${inputValue}`);
-    if (inputValue) this.setState({ inputValue });
+    this.setState({ inputValue });
+  }
+
+  setSelectedCategory(selectedCategory) {
+    this.setState({ selectedCategory });
   }
 
   render() {
-    const { inputValue, setInputValue } = this.state;
+    const { inputValue, setInputValue, selectedCategory, setSelectedCategory } = this.state;
     return (
-      <InputContext.Provider value={ { inputValue, setInputValue } }>
+      <InputContext.Provider value={ { inputValue, setInputValue, selectedCategory, setSelectedCategory } }>
         <Router>
           <Switch>
             <Route exact path="/" component={ HomePage } />
