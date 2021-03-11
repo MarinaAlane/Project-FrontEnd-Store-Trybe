@@ -12,7 +12,7 @@ class Cart extends Component {
               <p data-testid="shopping-cart-product-name">{ card.title }</p>
               <img src={ card.thumbnail } alt="img" />
               <p>{card.price}</p>
-              <p data-testid="shopping-cart-product-quantity"> counter </p>
+              <p data-testid="shopping-cart-product-quantity"> 1 </p>
             </div>
           ))}
       </div>

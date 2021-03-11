@@ -41,7 +41,7 @@ class Details extends Component {
           </ul>
           <button
             type="button"
-            data-testid="product-add-to-cart"
+            data-testid="product-detail-add-to-cart"
             onClick={ () => this.handlerState(products) }
           >
             <FaCartPlus />
