@@ -12,25 +12,43 @@ class SearchBar extends React.Component {
 
     this.state = {
       productList: undefined,
-      search: undefined,
+      searchQuery: '',
+      searchCategory: '',
     };
 
-    this.getValue = this.getValue.bind(this);
+    this.getQuery = this.getQuery.bind(this);
+    this.getCategory = this.getCategory.bind(this);
+    this.blankField = this.blankField.bind(this);
   }
 
   // Altera o estado de search para o valor contido na searchBar
-  getValue(event) {
-    this.setState({
-      search: event.target.value,
+  async getQuery(event) {
+    await this.setState({
+      searchQuery: event.target.value,
     });
+    // console.log(this.state.searchQuery);
+  }
+
+  async getCategory(event) {
+    await this.setState({
+      searchCategory: event.target.value,
+    });
+    this.requestList();
+    // console.log(this.state.searchCategory);
   }
 
   async requestList() {
-    const { search } = this.state;
-    const reqList = await getProductsFromCategoryAndQuery('', search);
+    const { searchCategory, searchQuery } = this.state;
+    const reqList = await getProductsFromCategoryAndQuery(searchCategory, searchQuery);
     this.setState({
       productList: reqList,
     });
+  }
+
+  blankField() {
+    return (
+      <p className="alert-message">Nenhum produto foi encontrado</p>
+    );
   }
 
   render() {
@@ -38,7 +56,7 @@ class SearchBar extends React.Component {
     return (
       <>
         <div className="content-category">
-          <ListCategories />
+          <ListCategories fnc={ this.getCategory } />
         </div>
 
         <div className="main">
@@ -47,7 +65,7 @@ class SearchBar extends React.Component {
               data-testid="query-input"
               type="text"
               className="search-bar-main"
-              onChange={ this.getValue }
+              onChange={ this.getQuery }
             />
 
             <button
@@ -73,7 +91,7 @@ class SearchBar extends React.Component {
           </h4>
 
           <div>
-            { !productList ? <p>Nenhum produto foi encontrado</p>
+            { !productList ? this.blankField()
               : productList.results.map((product) => (
                 <CreateCard key={ product.id } product={ product } />)) }
           </div>

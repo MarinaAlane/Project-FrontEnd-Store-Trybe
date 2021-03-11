@@ -15,7 +15,6 @@
 }
 
 .message {
-  display: inline;
   text-align: center;
 }
 
@@ -116,6 +115,10 @@
 }
 
 /* Card */
+.alert-message {
+  text-align: center;
+}
+
 .card {
   border: 1px solid;
   border-radius: 15px;

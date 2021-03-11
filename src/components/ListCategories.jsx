@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import * as api from '../services/api';
 
@@ -24,6 +25,7 @@ export default class ListCategories extends Component {
 
   render() {
     const { categories } = this.state;
+    const { fnc } = this.props;
     return (
       <div className="category">
         <h1>Categorias:</h1>
@@ -34,6 +36,8 @@ export default class ListCategories extends Component {
               type="radio"
               name="category"
               id={ id }
+              value={ id }
+              onClick={ fnc }
             />
             { name }
           </label>
@@ -42,3 +46,7 @@ export default class ListCategories extends Component {
     );
   }
 }
+
+ListCategories.propTypes = {
+  fnc: PropTypes.func.isRequired,
+};
