@@ -29,11 +29,11 @@ export default class Categories extends Component {
       <div className="wrapper-category">
         {categories.map((category) => (
           <div key={ category.id }>
-            <label data-testid="category" htmlFor="category">
+            <label data-testid="category" htmlFor={ category.id }>
               <input
                 onClick={ handleCategory }
                 type="radio"
-                id="category"
+                id={ category.id }
                 name="selectedCategory"
                 value={ category.id }
               />

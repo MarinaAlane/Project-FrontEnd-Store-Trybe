@@ -5,7 +5,7 @@
   flex-direction: column;
   height: 300px;
   margin: 0.5rem;
-  width: 20rem;
+  width: 17.7rem;
 }
 
 .productCardContainer img {
@@ -23,5 +23,14 @@
 
 .linkProductCard {
   color: black;
+  height: 250px;
   text-decoration: none;
+}
+
+.productCardContainer button {
+  background-color: rgb(153, 25, 25);
+  color: white;
+  font-weight: 900;
+  margin: auto;
+  padding: 10px;
 }
