@@ -39,9 +39,9 @@ class Home extends Component {
       }));
   }
 
-  addOnCart(id) {
+  addOnCart(title, id) {
     this.setState((state) => ({
-      shoppingCart: [...state.shoppingCart, id],
+      shoppingCart: [...state.shoppingCart, { title, id }],
     }), () => {
       const { shoppingCart } = this.state;
       sessionStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
@@ -98,7 +98,7 @@ class Home extends Component {
           <button
             type="button"
             data-testid="product-add-to-cart"
-            onClick={ () => this.addOnCart(id) }
+            onClick={ () => this.addOnCart(title, id) }
           >
             Adicionar ao Carrinho
           </button>

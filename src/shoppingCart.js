@@ -6,11 +6,13 @@ class shoppingCart extends React.Component {
 
     this.state = {
       shoppingCartIdList: [],
-      shoppingCartList: [],
+      updatedValue: {},
     };
 
     this.getShoppingCartItems = this.getShoppingCartItems.bind(this);
-    this.getProductsById = this.getProductsById.bind(this);
+    this.addItem = this.addItem.bind(this);
+    this.removeItem = this.removeItem.bind(this);
+    this.updateQuantities = this.updateQuantities.bind(this);
   }
 
   componentDidMount() {
@@ -20,24 +22,44 @@ class shoppingCart extends React.Component {
   getShoppingCartItems() {
     if (sessionStorage.shoppingCart) {
       const items = JSON.parse(sessionStorage.shoppingCart);
-      this.setState({
-        shoppingCartIdList: items,
-      }, () => {
-        this.getProductsById();
+      items.forEach((item) => {
+        this.setState(({ shoppingCartIdList }) => ({
+          shoppingCartIdList: [...shoppingCartIdList, item],
+        }), () => {
+          this.updateQuantities();
+        });
       });
     }
   }
 
-  getProductsById() {
+  updateQuantities() {
     const { shoppingCartIdList } = this.state;
-    shoppingCartIdList.forEach(async (id) => {
-      const endpoint = `https://api.mercadolibre.com/items/${id}`;
-      const response = await fetch(endpoint);
-      const responseObj = await response.json();
-      this.setState(({ shoppingCartList }) => ({
-        shoppingCartList: [...shoppingCartList, responseObj],
+    shoppingCartIdList.forEach(({ id }) => {
+      this.setState(({ updatedValue }) => ({
+        updatedValue: {
+          ...updatedValue,
+          [id]: 1,
+        },
       }));
     });
+  }
+
+  addItem(id) {
+    this.setState((state) => ({
+      updatedValue: {
+        ...state.updatedValue,
+        [id]: state.updatedValue[id] + 1,
+      },
+    }));
+  }
+
+  removeItem(id) {
+    this.setState((state) => ({
+      updatedValue: {
+        ...state.updatedValue,
+        [id]: state.updatedValue[id] - 1,
+      },
+    }));
   }
 
   renderEmptyCart() {
@@ -49,12 +71,31 @@ class shoppingCart extends React.Component {
   }
 
   renderCartItems() {
-    const { shoppingCartList } = this.state;
-    return shoppingCartList
+    const { shoppingCartIdList, updatedValue } = this.state;
+    return shoppingCartIdList
       .map(({ title, id }) => (
         <div key={ id }>
           <p data-testid="shopping-cart-product-name">{ title }</p>
-          <p data-testid="shopping-cart-product-quantity">1</p>
+          <p
+            data-testid="shopping-cart-product-quantity"
+          >
+            { updatedValue[id] }
+          </p>
+          <button
+            type="button"
+            onClick={ () => this.addItem(id) }
+            data-testid="product-increase-quantity"
+          >
+            +
+          </button>
+          <button
+            type="button"
+            onClick={ () => this.removeItem(id) }
+            data-testid="product-decrease-quantity"
+          >
+            -
+          </button>
+
         </div>
       ));
   }
