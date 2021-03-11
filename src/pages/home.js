@@ -23,13 +23,17 @@ class Home extends React.Component {
   }
 
   render() {
+    const { categories } = this.state;
     return (
       <div>
         <input className="App" type="text" />
         <p data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>
-        {this.state.categories.map((categoria) => (<div> {categoria.name} </div>))}
+        {categories.map((categoria) => (
+          <div data-testid="category" key={ categories.id }>
+            { categoria.name }
+          </div>))}
       </div>
     );
   }
