@@ -9,17 +9,25 @@ class ItemDetails extends Component {
     const { handleCart, location: { state: { item } } } = this.props;
     return (
       <div>
-        <Link to="/shopping-cart" data-testid="shopping-cart-button">
-          <img src={ shoppingCartIcon } alt="Icone do Carrinho de Compras" />
-        </Link>
-        <h2 data-testid="product-detail-name">{item.title}</h2>
-        <button
-          type="button"
-          onClick={ () => handleCart(item) }
-          data-testid="product-detail-add-to-cart"
-        >
-          Adicionar ao Carrinho
-        </button>
+        <div>
+          <Link to="/shopping-cart" data-testid="shopping-cart-button">
+            <img src={ shoppingCartIcon } alt="Icone do Carrinho de Compras" />
+          </Link>
+          <h2 data-testid="product-detail-name">{item.title}</h2>
+          <button
+            type="button"
+            onClick={ () => handleCart(item) }
+            data-testid="product-detail-add-to-cart"
+          >
+            Adicionar ao Carrinho
+          </button>
+        </div>
+        <div>
+          <label htmlFor="product-detail-evaluation">
+            Escreva algo sobre o produto
+            <textarea data-testid="product-detail-evaluation" />
+          </label>
+        </div>
       </div>
     );
   }
