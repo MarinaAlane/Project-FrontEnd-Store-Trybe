@@ -45,6 +45,7 @@ class Home extends React.Component {
     this.setState({
       query: target.value,
     });
+    localStorage.setItem('query', target.value);
   }
 
   handleInputCategories({ target }) {

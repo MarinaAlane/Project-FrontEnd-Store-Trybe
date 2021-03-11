@@ -2,8 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import ProductCard from './ProductCard';
+import cart from '../services/cart';
 
 class ProductList extends React.Component {
+  constructor() {
+    super();
+    this.click = this.click.bind(this);
+  }
+
+  click(event) {
+    const id = event.target.value;
+    cart(localStorage.getItem('query'), id);
+  }
+
   render() {
     const { products } = this.props;
     return (
@@ -17,6 +28,7 @@ class ProductList extends React.Component {
             <ProductCard
               key={ product.id }
               product={ product }
+              click={ this.click }
             />
           </Link>
         ))}
