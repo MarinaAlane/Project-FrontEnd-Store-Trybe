@@ -2,17 +2,23 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.home {
+  margin: 1em 20px;
+  text-align: center;
 }
 
-@media ( prefers-reduced-motion : no-preference ) {
+.product-item {
+  border: 1px solid lightgrey;
+  border-radius: 15px;
+  box-shadow: 3px 3px 5px lightgrey;
+  margin: 1em 0;
+  padding: 1%;
+}
 
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-
+.product-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
 }
 
 .App-header {

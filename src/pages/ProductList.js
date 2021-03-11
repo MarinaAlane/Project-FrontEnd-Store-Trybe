@@ -22,7 +22,7 @@ class ProductList extends React.Component {
     const { searchText } = this.state;
     this.setState({ loading: true });
     const SearchJson = await Api
-      .getProductsFromCategoryAndQuery('panela', searchText);
+      .getProductsFromCategoryAndQuery('books', searchText);
     this.setState({
       loading: false,
       json: SearchJson,
