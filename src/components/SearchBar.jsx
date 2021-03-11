@@ -12,7 +12,6 @@ class SearchBar extends React.Component {
           onChange={ onSearchTextChange }
           name="search"
         />
-
         <button
           type="button"
           data-testid="query-button"
