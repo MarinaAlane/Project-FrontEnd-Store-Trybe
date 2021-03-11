@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as api from '../services/api';
-import '../categories.css';
+import './styles/categories.css';
 
 class Categories extends React.Component {
   constructor() {
@@ -27,16 +27,19 @@ class Categories extends React.Component {
     return (
       <aside className="categories-list">
         {categories
-          .map((element) => (
-            <button
-              type="button"
-              key={ element.id }
-              data-testid="category"
-              className="category"
-              onClick={ () => handleClick(element.id) }
-            >
-              {element.name}
-            </button>
+          .map(({ id, name }) => (
+            <label key={ id } htmlFor={ id }>
+              <input
+                type="radio"
+                key={ id }
+                id={ id }
+                data-testid="category"
+                className="category"
+                onClick={ () => handleClick(id) }
+                name="Categories"
+              />
+              { name }
+            </label>
           ))}
       </aside>
     );
