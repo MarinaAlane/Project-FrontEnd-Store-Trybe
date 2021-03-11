@@ -13,9 +13,11 @@ class Card extends Component {
         <p>{currentValue.title}</p>
         <img src={ currentValue.thumbnail } alt="product-sample" />
         <p>{currentValue.price}</p>
+        <p>{ currentValue.category_id }</p>
       </div>
     ));
-    return (<div>{map}</div>);
+
+    return (<div>{ map }</div>);
   }
 }
 

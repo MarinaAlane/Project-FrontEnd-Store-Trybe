@@ -15,13 +15,16 @@ class Home extends Component {
       productsContent: [],
       inputValue: '',
       status: false,
+      CategoryId: '',
     };
   }
 
-  async activateButton() {
+  async activateButton(event) {
+    const category = event.target.className;
+    console.log(category);
     const { inputValue } = this.state;
-    const response = await api.getProductsFromCategoryAndQuery('', inputValue);
-    const jsonResults = response.results;
+    const response = await api.getProductsFromCategoryAndQuery(category, inputValue);
+    const jsonResults = await response.results;
     this.setState({
       productsContent: jsonResults,
       status: true,
@@ -30,7 +33,7 @@ class Home extends Component {
   }
 
   render() {
-    const { productsContent, status } = this.state;
+    const { productsContent, status, CategoryId } = this.state;
     return (
       <div>
         <form>
@@ -50,8 +53,15 @@ class Home extends Component {
           <Button activateButton={ this.activateButton } />
         </form>
         <Link to="/shopping-cart" data-testid="shopping-cart-button"> Cart </Link>
-        <CategoriesList />
-        <Card productsContent={ productsContent } status={ status } />
+        <CategoriesList
+          getIdToState={ this.getIdToState }
+          activateButton={ this.activateButton }
+        />
+        <Card
+          productsContent={ productsContent }
+          status={ status }
+          CategoryId={ CategoryId }
+        />
       </div>
     );
   }
