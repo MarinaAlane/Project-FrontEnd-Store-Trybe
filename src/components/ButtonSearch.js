@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 
 class ButtonSearch extends React.Component {
   render() {
-    const { getProduct } = this.props;
+    const { onClick } = this.props;
     return (
-      <button type="submit" onClick={ getProduct } data-testid="query-button">
+      <button type="submit" onClick={ onClick } data-testid="query-button">
         <AiOutlineSearch />
       </button>
     );
@@ -14,7 +14,7 @@ class ButtonSearch extends React.Component {
 }
 
 ButtonSearch.propTypes = {
-  getProduct: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default ButtonSearch;

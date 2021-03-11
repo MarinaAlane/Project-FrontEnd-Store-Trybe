@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 
 class ProductCard extends Component {
   render() {
-    const { produtc } = this.props;
-    const { id, title, thumbnail, price } = produtc;
+    const { id, title, thumbnail, price } = this.props;
     return (
       <div key={ id } data-testid="product">
         <p>{title}</p>
@@ -16,12 +15,10 @@ class ProductCard extends Component {
 }
 
 ProductCard.propTypes = {
-  produtc: PropTypes.shape({
-    id: PropTypes.number,
-    title: PropTypes.string,
-    thumbnail: PropTypes.string,
-    price: PropTypes.string,
-  }).isRequired,
+  id: PropTypes.number.isRequired,
+  title: PropTypes.string.isRequired,
+  thumbnail: PropTypes.string.isRequired,
+  price: PropTypes.string.isRequired,
 };
 
 export default ProductCard;

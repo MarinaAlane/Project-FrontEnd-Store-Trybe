@@ -3,21 +3,23 @@ import PropTypes from 'prop-types';
 
 class InputSearch extends Component {
   render() {
-    const { handleChange } = this.props;
+    const { onChange } = this.props;
     return (
-      <input
-        placeholder="Digite o produto"
-        id="input-search"
-        type="text"
-        onChange={ handleChange }
-        data-testid="query-input"
-      />
+      <div>
+        <input
+          placeholder="Digite o produto"
+          id="input-search"
+          type="text"
+          onChange={ onChange }
+          data-testid="query-input"
+        />
+      </div>
     );
   }
 }
 
 InputSearch.propTypes = {
-  handleChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default InputSearch;
