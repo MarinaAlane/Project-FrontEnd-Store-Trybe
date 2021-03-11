@@ -1,4 +1,5 @@
 import React from 'react';
+import CreateCard from './CreateCard';
 
 class RenderToCart extends React.Component {
   constructor() {
@@ -12,16 +13,20 @@ class RenderToCart extends React.Component {
   }
 
   getLocalStorage = () => {
-    const teste = localStorage;
     const storageArray = Object.values(localStorage);
-    const item = storageArray.map((item) => console.log(item.split('||')))
-    
+    const item = storageArray.map((item) => item.split('||'));
+    return item; 
   }
+
+
   render() {
+    const cartItensArray = this.getLocalStorage();
     return(
       <div>
-        <button onClick={this.getLocalStorage}>ddddddd</button>
-        {/* <p>{teste}</p> */}
+        {cartItensArray.map((array, i) => {
+          const productItem = { title: array[1], thumbnail: array[2], price: array[3] };
+          <CreateCard key={ i } product={ productItem } />
+        })}
       </div>
     );
   }

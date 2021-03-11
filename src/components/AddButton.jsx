@@ -12,13 +12,9 @@ class AddButton extends React.Component {
   
   addItem = () => {
     const {product: {id, title, thumbnail, price} } = this.props;
-    if (localStorage.getItem(id) === undefined) {
-      this.setState({ id: id});
-    } else {
-      this.setState((anterior, _props) => ({
-        cont: anterior.cont + 1
-      }))
-    }
+    this.setState((anterior, _props) => ({
+      cont: anterior.cont + 1
+    }))
     const productInfoLocalStorage = `${this.state.cont}||${title}||${thumbnail}||${price}`
     localStorage.setItem(id, productInfoLocalStorage);
   }
