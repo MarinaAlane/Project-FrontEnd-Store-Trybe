@@ -21,12 +21,13 @@ class ProductCard extends Component {
         }
       });
     } else {
-      const { title, thumbnail, price } = product;
+      const { title, thumbnail, price, available_quantity } = product;
       Cart.push({
         title,
         thumbnail,
         price,
         quantity: 1,
+        available_quantity,
       });
     }
   }

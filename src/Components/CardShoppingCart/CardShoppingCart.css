@@ -10,3 +10,7 @@
 .cardShoppingCartContainer img {
   width: 100px;
 }
+
+.hidden {
+  display: hidden;
+}
