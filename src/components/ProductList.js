@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import * as Api from '../services/api';
 import '../App.css';
 import ProductItem from './ProductItem';
+import CategoryList from './CategoryList';
 
 class ProductList extends React.Component {
   constructor(props) {
@@ -12,11 +13,18 @@ class ProductList extends React.Component {
       loading: false,
       json: undefined,
       searchText: '',
+      categories: [],
     };
 
     this.changeText = this.changeText.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.renderProducts = this.renderProducts.bind(this);
+    this.LoadCategories = this.LoadCategories.bind(this);
+    this.renderCategories = this.renderCategories.bind(this);
+  }
+
+  componentDidMount() {
+    this.LoadCategories();
   }
 
   async handleSearch() {
@@ -24,10 +32,18 @@ class ProductList extends React.Component {
     this.setState({ loading: true });
     const SearchJson = await Api
       .getProductsFromCategoryAndQuery('book', searchText);
-      // book is a dummy category
+    // book is a dummy category
     this.setState({
       loading: false,
       json: SearchJson,
+    });
+  }
+
+  async LoadCategories() {
+    const allCategories = await Api
+      .getCategories();
+    this.setState({
+      categories: allCategories,
     });
   }
 
@@ -45,6 +61,18 @@ class ProductList extends React.Component {
           ? <span>Nenhum produto foi encontrado</span>
           : results
             .map((product) => <ProductItem key={ product.id } product={ product } />)}
+      </section>
+    );
+  }
+
+  renderCategories() {
+    const { categories } = this.state;
+    return (
+      <section className="category-list">
+        {categories.length === 0
+          ? <span>Nenhuma categoria foi encontrada</span>
+          : categories
+            .map((categ) => <CategoryList key={ categ.id } name={ categ.name } />)}
       </section>
     );
   }
@@ -73,6 +101,7 @@ class ProductList extends React.Component {
             className="home-initial-message"
           >
             Digite algum termo de pesquisa ou escolha uma categoria.
+            { this.renderCategories() }
           </span>
           { !loading && !json ? null : checkLoading }
         </div>
