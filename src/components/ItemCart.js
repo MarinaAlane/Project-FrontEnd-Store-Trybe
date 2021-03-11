@@ -12,15 +12,19 @@ class ItemCart extends Component {
   }
 
   decreaseQtt() {
+    const { sumToCart } = this.props;
     this.setState((previousState) => ({
       quantity: previousState.quantity - 1,
     }));
+    sumToCart(-1);
   }
 
   increaseQtt() {
+    const { sumToCart } = this.props;
     this.setState((previousState) => ({
       quantity: previousState.quantity + 1,
     }));
+    sumToCart(1);
   }
 
   render() {
@@ -61,6 +65,7 @@ ItemCart.propTypes = {
     price: PropTypes.number,
     thumbnail: PropTypes.string,
   }),
+  sumToCart: PropTypes.func,
 }.isRequired;
 
 export default ItemCart;

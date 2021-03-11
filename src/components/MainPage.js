@@ -43,7 +43,7 @@ class MainPage extends Component {
 
   render() {
     const { searchBar, items } = this.state;
-    const { handleCart } = this.props;
+    const { handleCart, sumToCart, itemsQtt } = this.props;
     return (
       <div>
         <div>
@@ -68,6 +68,7 @@ class MainPage extends Component {
         </h1>
         <Link to="/shopping-cart" data-testid="shopping-cart-button">
           <img src={ shoppingCartIcon } alt="Icone do Carrinho de Compras" />
+          <p data-testid="shopping-cart-size">{ itemsQtt }</p>
         </Link>
         <div>
           <Categories onClick={ this.handleCategory } />
@@ -80,6 +81,7 @@ class MainPage extends Component {
                 item={ obj }
                 key={ obj.id }
                 handleCart={ handleCart }
+                sumToCart={ sumToCart }
               />
             ))}
         </div>
@@ -90,6 +92,7 @@ class MainPage extends Component {
 
 MainPage.propTypes = {
   handleCart: PropTypes.func,
+  sumToCart: PropTypes.func,
 }.isRequired;
 
 export default MainPage;
