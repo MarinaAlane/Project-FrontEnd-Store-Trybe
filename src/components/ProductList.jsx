@@ -35,7 +35,6 @@ class ProductList extends Component {
     console.log(this.state);
     const { productId, productQuery } = this.state;
     const promise = await api.getProductsFromCategoryAndQuery(productId, productQuery);
-    console.log(promise);
     this.setState({
       results: promise.results,
     });
