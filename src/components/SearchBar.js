@@ -3,6 +3,7 @@ import * as api from '../services/api';
 import Product from './Product';
 import CategoriesList from './CategoriesList';
 import ShoppingCartButton from './ShoppingCartButton';
+import '../styles/SearchBar.css';
 
 export default class SearchBar extends Component {
   constructor(props) {
@@ -54,14 +55,16 @@ export default class SearchBar extends Component {
     const { query, products } = this.state;
     return (
       <div>
-        <section>
+        <section className="container-search-bar">
           <input
+            className="input-search-bar"
             type="text"
             data-testid="query-input"
             value={ query }
             onChange={ this.handlerChange }
           />
           <button
+            className="button-search-bar"
             type="button"
             data-testid="query-button"
             onClick={ this.handlerClick }
