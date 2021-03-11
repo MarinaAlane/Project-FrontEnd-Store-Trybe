@@ -26,8 +26,10 @@ class ProductList extends Component {
     this.fetchCategories();
   }
 
-  handleCategories(event) {
-    this.setState({ selectedCategory: event.target.value });
+  handleCategories({ target: { value } }) {
+    const { searchBar } = this.state;
+    this.setState({ selectedCategory: value });
+    this.fetchProductList(value, searchBar);
   }
 
   searchBarHandler({ target: { value } }) {
