@@ -31,11 +31,11 @@ class ProductList extends React.Component {
     this.fetchProducts();
   }
 
-  handleCategoryClick(id) {
+  /* handleCategoryClick(id) {
     this.setState({
       categoryId: id,
     });
-  }
+  } */
 
   async fetchProducts() {
     const { categoryId, query } = this.state;
@@ -49,7 +49,7 @@ class ProductList extends React.Component {
   initialMsg() {
     return (
       <h1 data-testid="home-initial-message">
-        Digite algum termo de pesquisa ou escolha uma categoria.
+        Nenhum produto foi encontrado.
       </h1>
     );
   }
@@ -62,12 +62,13 @@ class ProductList extends React.Component {
     return (
       <div>
         <SearchBar onChange={ this.handleChange } onClick={ this.handleSearchClick } />
-        {products ? products.map(({ id, title, thumbnail, price }) => (<ProductCard
-          key={ id }
-          title={ title }
-          thumbnail={ thumbnail }
-          price={ price }
-        />)) : this.initialMsg()}
+        {products.length > 0 ? products.map(({ id, title, thumbnail, price }) => (
+          <ProductCard
+            key={ id }
+            title={ title }
+            thumbnail={ thumbnail }
+            price={ price }
+          />)) : this.initialMsg()}
       </div>
     );
   }
