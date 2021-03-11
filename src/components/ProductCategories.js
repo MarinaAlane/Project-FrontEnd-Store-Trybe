@@ -35,11 +35,12 @@ class ProductCategories extends React.Component {
   }
 
   render() {
+    const { categories } = this.state;
     return (
       <aside className="aside-categories">
         <h3>Categorias</h3>
         <ul>
-          {this.state.categories.map((category) => this.categoryItemList(category))}
+          {categories.map((category) => this.categoryItemList(category))}
         </ul>
       </aside>
     );
