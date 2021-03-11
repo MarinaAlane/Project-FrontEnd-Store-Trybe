@@ -5,7 +5,11 @@ import ProductList from './ProductList';
 
 class RenderElements extends React.Component {
   render() {
-    const { products, handleClick, handleInputChange } = this.props;
+    const {
+      products,
+      handleClick,
+      handleInputChange,
+    } = this.props;
     return (
       <div>
         <input type="text" />
