@@ -31,6 +31,10 @@ class ItemCart extends Component {
   render() {
     const { quantity } = this.state;
     const { item } = this.props;
+    let min = false;
+    let plus = false;
+    if (quantity <= 1) min = true;
+    if (quantity >= item.available_quantity) plus = true;
     const { title, price, thumbnail } = item;
     return (
       <div data-testid="product">
@@ -42,6 +46,7 @@ class ItemCart extends Component {
           type="button"
           onClick={ this.decreaseQtt }
           data-testid="product-decrease-quantity"
+          disabled={ min }
         >
           -
         </button>
@@ -52,6 +57,7 @@ class ItemCart extends Component {
           type="button"
           onClick={ this.increaseQtt }
           data-testid="product-increase-quantity"
+          disabled={ plus }
         >
           +
         </button>
