@@ -1,28 +1,32 @@
 import React, { Component } from 'react';
-import { Redirect, Router } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 class ButtonCart extends Component {
-
   constructor() {
     super();
     this.routeCart = this.routeCart.bind(this);
     this.state = {
       redirect: false,
-    }
+    };
   }
 
   routeCart() {
     this.setState(
-      { redirect: true, }
-    )
+      { redirect: true },
+    );
   }
 
   render() {
-    if (this.state.redirect === true)
-      return (
-          <Redirect to='/ShoppingCart' />
-        );
-      return( <button onClick={ this.routeCart } data-testId='shopping-cart-button' >Carrinho</button>
+    const { redirect } = this.state;
+    if (redirect) return <Redirect to="/ShoppingCart" />;
+    return (
+      <button
+
+        onClick={ this.routeCart }
+        data-testId="shopping-cart-button"
+      >
+        Carrinho
+      </button>
     );
   }
 }

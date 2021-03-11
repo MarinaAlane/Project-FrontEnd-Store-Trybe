@@ -1,10 +1,9 @@
-import React from  'react';
-
+import React from 'react';
 
 class ShoppingCart extends React.Component {
   render() {
-    return(
-      <p data-testId='shopping-cart-empty-message'>Seu carrinho está vazio</p>
+    return (
+      <p data-testId="shopping-cart-empty-message">Seu carrinho está vazio</p>
     );
   }
 }

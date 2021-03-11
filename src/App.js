@@ -1,10 +1,16 @@
 import React from 'react';
-import './App.css';
-import ButtonCart from './Components/buttonCart';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import ShoppingCart from './Components/ShoppingCart';
+import Home from './Components/home';
 
 function App() {
   return (
-    < ButtonCart />
+    <BrowserRouter>
+      <Switch>
+        <Route exact path="/" component={ Home } />
+        <Route path="/ShoppingCart" component={ ShoppingCart } />
+      </Switch>
+    </BrowserRouter>
   );
 }
 
