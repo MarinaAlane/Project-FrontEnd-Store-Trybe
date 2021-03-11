@@ -2,12 +2,11 @@ import React, { Component } from 'react';
 import '../App.css';
 import PropTypes from 'prop-types';
 
-
 class ProductPage extends Component {
   render() {
     const { product } = this.props;
     return (
-      <div className = "product-item" data-testid="product">
+      <div className="product-item" data-testid="product">
         <h2>{product.title}</h2>
         <img alt={ `${product.title}` } src={ product.thumbnail } />
         <i>{ product.price }</i>

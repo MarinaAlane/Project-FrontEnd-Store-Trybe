@@ -4,7 +4,6 @@ import './App.css';
 import InitialPage from './pages/InitialPage';
 import ShoppingCart from './pages/ShoppingCart';
 
-
 function App() {
   return (
     <BrowserRouter>

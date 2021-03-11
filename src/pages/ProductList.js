@@ -42,28 +42,28 @@ class ProductList extends React.Component {
         {results.length === 0
           ? <span>nenhum produto foi encontrado</span>
           : results
-            .map((product) => <ProductPage key={ product.id } product= { product } />)}
+            .map((product) => <ProductPage key={ product.id } product={ product } />)}
       </section>
     );
   }
 
   render() {
     const { loading, json } = this.state;
-    const checkLoading = !json ? < p > loading...</p> : this.renderProducts(json);
+    const checkLoading = !json ? <p> loading...</p> : this.renderProducts(json);
     return (
       <div className="home">
         <input
           type="text"
           data-testid="query-input"
-          onChange={this.changeText}
+          onChange={ this.changeText }
         />
         <button
           type="button"
-          onClick={this.handleSearch}
+          onClick={ this.handleSearch }
           data-testid="query-button"
         >
           Search
-          </button>
+        </button>
         <div className="home-results">
           <span
             data-testid="home-initial-message"
@@ -71,7 +71,7 @@ class ProductList extends React.Component {
           >
             Digite algum termo de pesquisa ou escolha uma categoria.
           </span>
-        {!loading && !json ? null : checkLoading}
+          {!loading && !json ? null : checkLoading}
         </div>
       </div>
     );
