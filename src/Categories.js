@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 class Categories extends React.Component {
   render() {
-    const { id, name } = this.props;
+    const { id, name, onChange } = this.props;
     return (
       <label
         htmlFor={ id }
@@ -15,6 +15,7 @@ class Categories extends React.Component {
           id={ id }
           key={ id }
           className="cat-radio"
+          onChange={ onChange }
         />
       </label>
     );
@@ -24,6 +25,7 @@ class Categories extends React.Component {
 Categories.propTypes = {
   id: PropTypes.string,
   name: PropTypes.string,
+  onChange: PropTypes.func,
 }.isRequired;
 
 export default Categories;

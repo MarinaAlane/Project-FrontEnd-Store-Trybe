@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { getCategories, getProductsFromCategoryAndQuery } from './services/api';
 import Categories from './Categories';
+import Products from './Products';
 
 import './Home.css';
 
@@ -10,14 +11,30 @@ class Home extends Component {
     super(props);
     this.state = {
       categories: [],
-      selectedProducts: [],
+      selectedProducts: undefined,
+      categoryId: '',
     };
     this.getCategoriesApi = this.getCategoriesApi.bind(this);
     this.getProducts = this.getProducts.bind(this);
+    this.onRadioChange = this.onRadioChange.bind(this);
   }
 
   componentDidMount() {
     this.getCategoriesApi();
+  }
+
+  onRadioChange({ target }) {
+    const { id } = target;
+    this.setState({ categoryId: id });
+  }
+
+  async getProducts() {
+    const searchInput = document.querySelector('.searchInput').value;
+    const { categoryId } = this.state;
+    const productsArray = await getProductsFromCategoryAndQuery(categoryId, searchInput);
+    this.setState({
+      selectedProducts: productsArray,
+    });
   }
 
   async getCategoriesApi() {
@@ -27,20 +44,7 @@ class Home extends Component {
     });
   }
 
-  async getProducts() {
-    const searchInput = document.querySelector('.searchInput').value;
-    const radioAll = document.querySelectorAll('.cat-radio');
-    const radioArray = radioAll.entries();
-    console.log(radioArray);
-    const idCategory = (radioArray.find((radio) => radio.checked === true)).id;
-    const productsArray = await getProductsFromCategoryAndQuery(idCategory, searchInput);
-    this.setState({
-      selectedProducts: productsArray,
-    });
-  }
-
   render() {
-    console.log(this.state);
     const message = (
       <h5
         data-testid="home-initial-message"
@@ -49,7 +53,8 @@ class Home extends Component {
         Digite algum termo de pesquisa ou escolha uma categoria.
       </h5>
     );
-    const { categories } = this.state;
+    const { categories, selectedProducts } = this.state;
+    console.log(selectedProducts);
     return (
       <div>
         <input type="text" className="searchInput" data-testid="query-input" />
@@ -66,7 +71,18 @@ class Home extends Component {
         </Link>
         {
           categories.map(({ id, name }) => (
-            <Categories key={ id } name={ name } id={ id } />))
+            <Categories
+              onChange={ this.onRadioChange }
+              key={ id }
+              name={ name }
+              id={ id }
+            />))
+        }
+        {
+          !selectedProducts ? <p>Nenhum Produto Encontrado</p>
+            : (selectedProducts.results.map((product) => (
+              <Products product={ product } key={ product.id } />
+            )))
         }
       </div>
     );
