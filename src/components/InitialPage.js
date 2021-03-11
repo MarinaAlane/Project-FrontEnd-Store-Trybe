@@ -22,7 +22,8 @@ class InitialPage extends React.Component {
         this.setState({
           categories: getApiCategories,
         });
-      });
+      },
+    );
   }
 
   render() {
@@ -36,7 +37,7 @@ class InitialPage extends React.Component {
         <div>
           Categorias:
           { categories.map((category, index) => (
-            <ListOfCategories key={ index } category={ category.name } />
+            <ListOfCategories key={ index } category={ category } />
           ))} 
         </div>
       </div>
