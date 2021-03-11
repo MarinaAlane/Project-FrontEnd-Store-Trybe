@@ -12,7 +12,22 @@ class ProductCard extends Component {
   }
 
   addCartItem(product) {
-    Cart.push(product);
+    const check = Cart.some((value) => value.title === product.title);
+    if (check) {
+      Cart.forEach((cartItem) => {
+        if (cartItem.title === product.title) {
+          cartItem.quantity += 1;
+        }
+      });
+    } else {
+      const { title, thumbnail, price } = product;
+      Cart.push({
+        title,
+        thumbnail,
+        price,
+        quantity: 1,
+      });
+    }
     console.log(Cart);
     // localStorage.setItem('produto', JSON.stringify(product));
   }

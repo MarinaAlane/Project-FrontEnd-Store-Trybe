@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import CardShoppingCart from '../Components/CardShoppingCart/CardShoppingCart';
 import Cart from '../services/Data';
 
@@ -18,7 +19,8 @@ export default class ShoppingCart extends Component {
     }
     return (
       <div>
-        <ul>
+        <Link exact to="/">Volta a pagina inicial</Link>
+        <ul className="ulShoppingCart">
           { item
             .map((product) => (
               <CardShoppingCart product={ product } key={ product.id } />
