@@ -23,7 +23,7 @@ class ItemDetails extends Component {
           </button>
         </div>
         <div>
-          <label>
+          <label htmlFor="product-detail-evaluation">
             Escreva algo sobre o produto
             <textarea data-testid="product-detail-evaluation" />
           </label>
