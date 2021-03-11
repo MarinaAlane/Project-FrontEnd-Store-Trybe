@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 class ProductList extends React.Component {
   render() {
@@ -9,6 +10,7 @@ class ProductList extends React.Component {
         >
           Digite algum termo de pesquisa ou escolha uma categoria.
         </span>
+        <Link to="/cart" data-testid="shopping-cart-button">CARRINHO</Link>
       </div>
     );
   }

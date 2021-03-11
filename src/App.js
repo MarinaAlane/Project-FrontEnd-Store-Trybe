@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import CartButton from './components/CartButton';
 import ProductList from './components/ProductList';
 
 class App extends React.Component {
@@ -12,6 +13,7 @@ class App extends React.Component {
             path="/"
             render={ () => (<ProductList />) }
           />
+          <Route path="/cart" render={ () => (<CartButton />) } />
         </Switch>
       </Router>
     );
