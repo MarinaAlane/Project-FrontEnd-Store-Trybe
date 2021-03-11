@@ -8,11 +8,10 @@ class Product extends Component {
     const { title, price, thumbnail, id } = product;
     return (
       <section data-testid="product">
-        <p>{ title }</p>
-        <img src={ thumbnail } alt={ title } />
-        <p>{ price }</p>
         <Link data-testid="product-detail-link" to={ `/details/${id}` }>
-          Detalhes
+          <p>{ title }</p>
+          <img src={ thumbnail } alt={ title } />
+          <p>{ price }</p>
         </Link>
       </section>
     );
