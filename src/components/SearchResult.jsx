@@ -9,13 +9,14 @@ class SearchResult extends Component {
     if (result.length !== 0) {
       return (
         <section className="flex-result">
-          {result.map(({ id, title, thumbnail, price }) => (
+          {result.map((element) => (
             <ItemCard
-              key={ id }
-              id={ id }
-              title={ title }
-              thumbnail={ thumbnail }
-              price={ price }
+              key={ element.id }
+              id={ element.id }
+              title={ element.title }
+              thumbnail={ element.thumbnail }
+              price={ element.price }
+              result={ element }
             />
           ))}
         </section>
