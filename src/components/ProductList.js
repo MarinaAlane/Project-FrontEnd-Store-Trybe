@@ -1,5 +1,5 @@
 import React from 'react';
-import { getProductsFromCategoryAndQuery } from '../services/api';
+import * as Api from '../services/api';
 import '../App.css';
 import ProductItem from './ProductItem';
 
