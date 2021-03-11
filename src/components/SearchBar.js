@@ -17,6 +17,10 @@ export default class SearchBar extends Component {
     };
   }
 
+  componentDidMount() {
+    if (!localStorage.getItem('itens')) localStorage.setItem('itens', JSON.stringify([]));
+  }
+
   handlerChange({ target }) {
     const { value } = target;
     this.setState({
