@@ -21,8 +21,8 @@ class ProductCard extends React.Component {
   }
 }
 
-ProductCard.proptypes = {
-  // products: PropTypes.array,
-};
+// ProductCard.propTypes = {
+//   products: PropTypes.arrayOf().isRequired,
+// };
 
 export default ProductCard;
