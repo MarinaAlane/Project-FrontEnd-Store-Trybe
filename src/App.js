@@ -12,6 +12,7 @@ class App extends React.Component {
       listProduct: [],
     };
     this.addProduct = this.addProduct.bind(this);
+    this.decrementProduct = this.decrementProduct.bind(this);
   }
 
   addProduct(product) {
@@ -19,6 +20,19 @@ class App extends React.Component {
     this.setState({
       listProduct: [...listProduct, product],
     });
+  }
+
+  decrementProduct(product) {
+    const { listProduct } = this.state;
+    const not = -1;
+    const list = listProduct.slice();
+    const index = list.slice().reverse().findIndex((item) => item.id === product.id);
+    if (index !== not) {
+      list.splice(list.length - 1 - index, 1);
+      this.setState({
+        listProduct: list,
+      });
+    }
   }
 
   render() {
@@ -45,6 +59,7 @@ class App extends React.Component {
                 <ShoppingCart
                   { ...props }
                   addProduct={ this.addProduct }
+                  decrementProduct={ this.decrementProduct }
                   listProduct={ listProduct }
                 />)) }
             />
