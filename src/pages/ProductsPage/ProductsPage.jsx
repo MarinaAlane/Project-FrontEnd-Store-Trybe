@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Product from '../../components/Product/Product';
+import Product from '../../components/Product';
 import * as api from '../../services/api';
 import InputContext from '../../components/InputContext';
 
