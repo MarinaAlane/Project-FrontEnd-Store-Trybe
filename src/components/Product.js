@@ -6,12 +6,22 @@ import AddToCartButton from './AddToCartButton';
 class Products extends React.Component {
   render() {
     const { product } = this.props;
-    const { id, title, price, thumbnail, category_id: categoryId } = product;
+    const {
+      id,
+      title,
+      price,
+      thumbnail,
+      category_id: categoryId,
+      shipping,
+    } = product;
+
+    const { free_shipping: freeShipping } = shipping;
     return (
       <div data-testid="product">
         <img src={ thumbnail } alt={ `${title}` } />
         <p>{ title }</p>
         <p>{ `R$ ${price}` }</p>
+        {freeShipping && <p data-testid="free-shipping">Frete Grátis</p>}
         <Link
           to={ `details/${categoryId}/${id}` }
           data-testid="product-detail-link"

@@ -13,6 +13,7 @@ class Details extends React.Component {
 
     this.state = {
       product: {},
+      freeShipping: false,
     };
   }
 
@@ -27,14 +28,16 @@ class Details extends React.Component {
 
     const fecthProducts = await api.getProductsFromCategoryAndQuery(idCategory, '');
     const product = fecthProducts.results.find(({ id }) => id === idProduct);
+    const { shipping } = product;
     this.setState({
       product,
+      freeShipping: shipping.free_shipping,
     });
   }
 
   render() {
-    const { product } = this.state;
-    const { title, price, thumbnail } = product;
+    const { product, freeShipping } = this.state;
+    const { id, title, price, thumbnail } = product;
     const { match } = this.props;
     const { params } = match;
     const { idCategory, idProduct } = params;
@@ -43,11 +46,12 @@ class Details extends React.Component {
         <img src={ thumbnail } alt={ title } />
         <p data-testid="product-detail-name">{title}</p>
         <p>{price}</p>
+        {freeShipping && <p data-testid="free-shipping">Frete Grátis</p>}
         <Link to="/">Home</Link>
         <ShoppingCartButton idProduct={ idProduct } idCategory={ idCategory } />
         <AddToCartButton
           datatestid="product-detail-add-to-cart"
-          productData={ product }
+          productData={ { id, title, price } }
         />
         <AvaluatorForm />
       </section>
