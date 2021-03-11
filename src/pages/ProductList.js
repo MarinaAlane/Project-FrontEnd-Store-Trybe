@@ -72,8 +72,7 @@ export default class ProductList extends Component {
             />
             { results.length === 0 && !loading
               ? <NoSearchText />
-              : <SearchResults loading={ loading } results={ results } />
-            }
+              : <SearchResults loading={ loading } results={ results } />}
           </div>
         </div>
       </div>
