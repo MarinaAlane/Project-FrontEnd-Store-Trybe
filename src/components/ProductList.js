@@ -32,7 +32,7 @@ class ProductList extends React.Component {
 
   changeText(evt) {
     this.setState({
-      searchText: evt.target.value,
+      searchText: target.value,
     });
   }
 
