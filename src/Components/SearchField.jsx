@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import ButtonCart from './ButtonCart'
+import ButtonCart from './ButtonCart';
+
 class SearchField extends Component {
   render() {
     return (
