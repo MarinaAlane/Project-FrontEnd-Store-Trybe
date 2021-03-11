@@ -35,10 +35,10 @@ export default class ProductCart extends React.Component {
         <p>{ price * quantity }</p>
         <button
           type="button"
-          data-testid="product-increase-quantity"
-          onClick={ this.increaseQuantity }
+          data-testid="product-decrease-quantity"
+          onClick={ this.decreaseQuantity }
         >
-          +
+          -
         </button>
         <span
           data-testid="shopping-cart-product-quantity"
@@ -47,10 +47,10 @@ export default class ProductCart extends React.Component {
         </span>
         <button
           type="button"
-          data-testid="product-decrease-quantity"
-          onClick={ this.decreaseQuantity }
+          data-testid="product-increase-quantity"
+          onClick={ this.increaseQuantity }
         >
-          -
+          +
         </button>
       </article>
     );
