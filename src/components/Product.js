@@ -23,7 +23,7 @@ class Products extends React.Component {
         <p>{ `R$ ${price}` }</p>
         {freeShipping && <p data-testid="free-shipping">Frete Grátis</p>}
         <Link
-          to={ `details/${categoryId}/${id}` }
+          to={ { pathname: `details/${categoryId}/${id}`, state: { product } } }
           data-testid="product-detail-link"
         >
           Detalhe

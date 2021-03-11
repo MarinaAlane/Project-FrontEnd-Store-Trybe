@@ -1,44 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { shape, string } from 'prop-types';
-import * as api from '../services/api';
+import { bool, number, shape, string } from 'prop-types';
 import ShoppingCartButton from '../components/ShoppingCartButton';
 import AddToCartButton from '../components/AddToCartButton';
 import AvaluatorForm from '../components/AvaluatorForm';
 
 class Details extends React.Component {
-  constructor(props) {
-    super(props);
-    this.getProductByCategory = this.getProductByCategory.bind(this);
-
-    this.state = {
-      product: {},
-      freeShipping: false,
-    };
-  }
-
-  componentDidMount() {
-    this.getProductByCategory();
-  }
-
-  async getProductByCategory() {
-    const { match } = this.props;
-    const { params } = match;
-    const { idCategory, idProduct } = params;
-
-    const fecthProducts = await api.getProductsFromCategoryAndQuery(idCategory, '');
-    const product = fecthProducts.results.find(({ id }) => id === idProduct);
-    const { shipping } = product;
-    this.setState({
-      product,
-      freeShipping: shipping.free_shipping,
-    });
-  }
-
   render() {
-    const { product, freeShipping } = this.state;
-    const { id, title, price, thumbnail } = product;
-    const { match } = this.props;
+    const { location, match } = this.props;
+    const { state } = location;
+    const { product } = state;
+    const { id, title, price, thumbnail, shipping } = product;
+    const { free_shipping: freeShipping } = shipping;
+
     const { params } = match;
     const { idCategory, idProduct } = params;
     return (
@@ -64,6 +38,20 @@ Details.propTypes = {
     params: shape({
       idCategory: string.isRequired,
       idProduct: string.isRequired,
+    }).isRequired,
+  }).isRequired,
+
+  location: shape({
+    state: shape({
+      product: shape({
+        id: string.isRequired,
+        title: string.isRequired,
+        price: number,
+        thumbnail: string,
+        shipping: shape({
+          freeShipping: bool.isRequired,
+        }).isRequired,
+      }).isRequired,
     }).isRequired,
   }).isRequired,
 };
