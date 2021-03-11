@@ -29,8 +29,6 @@ class ProductCard extends Component {
         quantity: 1,
       });
     }
-    console.log(Cart);
-    // localStorage.setItem('produto', JSON.stringify(product));
   }
 
   render() {
