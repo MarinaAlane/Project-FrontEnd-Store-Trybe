@@ -4,7 +4,7 @@ import { shape, string } from 'prop-types';
 import * as api from '../services/api';
 import ShoppingCartButton from '../components/ShoppingCartButton';
 import AddToCartButton from '../components/AddToCartButton';
-import AvaluatorForm from '../components/AvaluatorForm';
+import EvaluatorForm from '../components/EvaluatorForm';
 
 class Details extends React.Component {
   constructor(props) {
@@ -34,7 +34,12 @@ class Details extends React.Component {
 
   render() {
     const { product } = this.state;
-    const { title, price, thumbnail } = product;
+    const {
+      id,
+      title,
+      price,
+      thumbnail,
+      available_quantity: availableQuantity } = product;
     const { match } = this.props;
     const { params } = match;
     const { idCategory, idProduct } = params;
@@ -47,9 +52,9 @@ class Details extends React.Component {
         <ShoppingCartButton idProduct={ idProduct } idCategory={ idCategory } />
         <AddToCartButton
           datatestid="product-detail-add-to-cart"
-          productData={ product }
+          productData={ { id, title, price, availableQuantity } }
         />
-        <AvaluatorForm />
+        <EvaluatorForm />
       </section>
     );
   }

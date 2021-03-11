@@ -69,6 +69,7 @@ export default class SearchBar extends Component {
             Search
           </button>
         </section>
+        <ShoppingCartButton />
         { products.length !== 0
           ? this.showProducts()
           : (
@@ -76,7 +77,6 @@ export default class SearchBar extends Component {
               Digite algum termo de pesquisa ou escolha uma categoria.
             </p>
           )}
-        <ShoppingCartButton />
         <CategoriesList handlerQueryByCategory={ this.handlerQueryByCategory } />
       </div>
     );
