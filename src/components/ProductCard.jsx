@@ -1,5 +1,4 @@
 import React from 'react';
-// import * as api from '../services/api';
 import PropTypes from 'prop-types';
 
 class ProductCard extends React.Component {

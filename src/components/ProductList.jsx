@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ProductCard from './ProductCard';
-import * as cart from '../services/cart';
+import cart from '../services/cart';
 
 class ProductList extends React.Component {
   constructor() {
@@ -11,7 +11,7 @@ class ProductList extends React.Component {
 
   click(event) {
     const id = event.target.value;
-    cart.cart(localStorage.getItem('query'), id);
+    cart(localStorage.getItem('query'), id);
   }
 
   render() {
