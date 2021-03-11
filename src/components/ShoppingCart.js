@@ -18,8 +18,12 @@ class ShoppingCart extends Component {
     }
     return (
       <div>
-
-        {cartItems.map((item) => <ItemCart key={ item.id } item={ item } sumToCart={ sumToCart } />)}
+        { cartItems.map((item) => (
+          <ItemCart
+            key={ item.id }
+            item={ item }
+            sumToCart={ sumToCart }
+          />))}
         <Link to="/checkout-cart" data-testid="checkout-products">Finalizar compra</Link>
       </div>
     );

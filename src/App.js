@@ -24,9 +24,8 @@ class App extends Component {
     this.setState({
       cartItems: [...cartItems, item],
     }, () => {
-      const { cartItems } = this.state;
       localStorage.setItem('cartItem', JSON.stringify(cartItems));
-     });
+    });
   }
 
   sumToCart(item) {
@@ -47,7 +46,7 @@ class App extends Component {
             exact
             path="/"
             render={ () => (
-              <MainPage 
+              <MainPage
                 handleCart={ this.handleCart }
                 sumToCart={ this.sumToCart }
                 itemsQtt={ itemsQtt }
@@ -66,7 +65,7 @@ class App extends Component {
           <Route
             path="/details/:id"
             render={ (props) => (
-              <ItemDetails 
+              <ItemDetails
                 handleCart={ this.handleCart }
                 location={ props.location }
                 sumToCart={ this.sumToCart }
@@ -77,8 +76,8 @@ class App extends Component {
           <Route
             path="/checkout-cart"
             render={ () => (
-              <CheckoutCart 
-                cartItems={ cartItems } 
+              <CheckoutCart
+                cartItems={ cartItems }
               />
             ) }
           />

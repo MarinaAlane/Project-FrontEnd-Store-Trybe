@@ -13,10 +13,11 @@ class ItemCart extends Component {
 
   decreaseQtt() {
     const { sumToCart } = this.props;
+    const magicNumber = -1;
     this.setState((previousState) => ({
       quantity: previousState.quantity - 1,
     }));
-    sumToCart(-1);
+    sumToCart(magicNumber);
   }
 
   increaseQtt() {

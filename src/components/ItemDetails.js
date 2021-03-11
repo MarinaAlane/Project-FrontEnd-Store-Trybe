@@ -18,8 +18,8 @@ class ItemDetails extends Component {
           <button
             type="button"
             onClick={ () => {
-              handleCart(item)
-              sumToCart(1)
+              handleCart(item);
+              sumToCart(1);
             } }
             data-testid="product-detail-add-to-cart"
           >
