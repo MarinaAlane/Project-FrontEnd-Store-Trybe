@@ -41,7 +41,7 @@ class ProductList extends React.Component {
     return (
       <section className="product-list">
         {results.length === 0
-          ? <span>nenhum produto foi encontrado</span>
+          ? <span>Nenhum produto foi encontrado</span>
           : results
             .map((product) => <ProductItem key={ product.id } product={ product } />)}
       </section>
