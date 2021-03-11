@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faShoppingCart, faSearch } from '@fortawesome/free-solid-svg-icons';
 import * as api from '../services/api';
 import ItemCard from './itemCard';
+import CategoriesList from './categoriesList';
 
 class Input extends Component {
   constructor(props) {
@@ -11,19 +12,25 @@ class Input extends Component {
     this.state = {
       products: [],
       inputValue: '',
-      id: '',
+      categoryValue: '',
     };
     this.handleInput = this.handleInput.bind(this);
     this.handleButton = this.handleButton.bind(this);
+    this.handleCategory = this.handleCategory.bind(this);
   }
 
   handleInput({ target }) {
     this.setState({ inputValue: target.value });
   }
 
+  handleCategory({ target }) {
+    this.setState({ categoryValue: target.value });
+    this.handleButton();
+  }
+
   handleButton() {
-    const { id, inputValue } = this.state;
-    api.getProductsFromCategoryAndQuery(id, inputValue)
+    const { inputValue, categoryValue } = this.state;
+    api.getProductsFromCategoryAndQuery(categoryValue, inputValue)
       .then((queryValue) => {
         console.log(queryValue);
         this.setState({ products: queryValue });
@@ -49,6 +56,7 @@ class Input extends Component {
         <p data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>
+        <CategoriesList handleCat={ this.handleCategory } />
         <div>
           {products.length < 1 ? <p>Nenhum produto foi encontrado</p>
             : products.results.map((item) => (

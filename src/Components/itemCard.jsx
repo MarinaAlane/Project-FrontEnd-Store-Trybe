@@ -11,8 +11,8 @@ class ItemCard extends Component {
     return (
       <div data-testid="product">
         <h2>{ title }</h2>
-        <img src={ thumbnail } alt="img" />
-        <p>{ price }</p>
+        <img src={ thumbnail } alt={ title } />
+        <p>{ `R$ ${price.toFixed(2)}` }</p>
         <Link
           to={ {
             pathname: `/details/${id}`,
@@ -27,8 +27,6 @@ class ItemCard extends Component {
   }
 }
 
-// estrutura do card ok!
-
 ItemCard.propTypes = {
   products: PropTypes.shape({
     title: PropTypes.string,
@@ -37,7 +35,5 @@ ItemCard.propTypes = {
     id: PropTypes.string,
   }).isRequired,
 };
-
-// corrigido propTypes
 
 export default ItemCard;
