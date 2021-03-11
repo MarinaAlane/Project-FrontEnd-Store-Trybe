@@ -48,7 +48,16 @@ class App extends React.Component {
                   listProduct={ listProduct }
                 />)) }
             />
-            <Route exact path="/productDetails" component={ ProductDetails } />
+            <Route
+              exact
+              path="/productDetails"
+              render={ ((props) => (
+                <ProductDetails
+                  { ...props }
+                  addProduct={ this.addProduct }
+                  listProduct={ listProduct }
+                />)) }
+            />
           </Switch>
         </BrowserRouter>
       </div>
