@@ -30,7 +30,7 @@ class ProductList extends React.Component {
     });
   }
 
-  changeText(evt) {
+  changeText({ target }) {
     this.setState({
       searchText: target.value,
     });
