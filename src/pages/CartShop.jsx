@@ -6,11 +6,12 @@ export default class CartShop extends React.Component {
   render() {
     return (
       <main>
-        <FiShoppingCart data-testid="shopping-cart-button" />
+        <FiShoppingCart />
+        <h1>Carrinho de compras</h1>
         <div>
           <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
-          <Link to="/">Continuar comprando</Link>
         </div>
+        <Link to="/">Continuar comprando</Link>
       </main>
     );
   }
