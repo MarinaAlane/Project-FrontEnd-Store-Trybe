@@ -6,7 +6,7 @@
 }
 
 .linkShoppingCart {
-  color: black
+  color: black;
 }
 
 .titleDetails {
@@ -23,7 +23,7 @@
   width: 20rem;
 }
 
-.productContanerDetail img{
+.productContanerDetail img {
   max-height: 90%;
   max-width: 90%;
 }
