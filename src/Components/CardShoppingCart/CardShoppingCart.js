@@ -1,11 +1,30 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+// import Cart from '../../services/Data';
 import './CardShoppingCart.css';
 
 class CardShoppingCart extends Component {
+  constructor(props) {
+    super(props);
+    const { quantity } = props.product;
+    console.log(quantity);
+    this.increaseQuantity = this.increaseQuantity.bind(this);
+    this.decreaseQuantity = this.decreaseQuantity.bind(this);
+    this.state = { quantity };
+  }
+
+  increaseQuantity(quantity) {
+    if (quantity >= 0) this.setState({ quantity: quantity += 1 });
+  }
+
+  decreaseQuantity(quantity) {
+    if (quantity > 0) this.setState({ quantity: quantity -= 1 });
+  }
+
   render() {
     const { product } = this.props;
-    const { title, thumbnail, price, quantity } = product;
+    const { title, thumbnail, price } = product;
+    const { quantity } = this.state;
     return (
       <li className="cardShoppingCartContainer">
         <img src={ thumbnail } alt={ `imagem ${title}` } />
@@ -17,6 +36,20 @@ class CardShoppingCart extends Component {
             { quantity }
           </p>
         </div>
+        <button
+          onClick={ () => this.increaseQuantity(quantity) }
+          data-testid="product-increase-quantity"
+          type="button"
+        >
+          +
+        </button>
+        <button
+          onClick={ () => this.decreaseQuantity(quantity) }
+          data-testid="product-decrease-quantity"
+          type="button"
+        >
+          -
+        </button>
       </li>
     );
   }
