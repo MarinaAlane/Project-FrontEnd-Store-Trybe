@@ -9,14 +9,15 @@ class InputCategory extends React.Component {
 
   handleOptionChange(event) {
     const { value, checked } = event.target;
-    this.setState({ [value]: checked === true ? false : checked });
+    this.setState({ [value]: checked });
   }
 
   render() {
     const { labelText, value, id } = this.props;
     return (
-      <label htmlFor={ id } key={ value }>
+      <label htmlFor="Category" key={ value }>
         <input
+          name="Category"
           value={ value }
           data-testid={ id }
           type="radio"
