@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import { Link } from 'react-router-dom';
 import ItemCart from './ItemCart';
 
 class ShoppingCart extends Component {
@@ -18,6 +19,7 @@ class ShoppingCart extends Component {
     return (
       <div>
         {cartItems.map((item) => <ItemCart key={ item.id } item={ item } />)}
+        <Link to="/checkout-cart" data-testid="checkout-products">Finalizar compra</Link>
       </div>
     );
   }

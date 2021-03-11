@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import MainPage from './components/MainPage';
 import ShoppingCart from './components/ShoppingCart';
 import ItemDetails from './components/ItemDetails';
+import CheckoutCart from './components/CheckoutCart';
 
 class App extends Component {
   constructor(props) {
@@ -41,6 +42,7 @@ class App extends Component {
               <ItemDetails handleCart={ this.handleCart } location={ props.location } />
             ) }
           />
+          <Route path="/checkout-cart" render={ () => <CheckoutCart cartItems={ cartItems } /> } />
         </Switch>
       </BrowserRouter>
     );
