@@ -25,8 +25,8 @@ class App extends React.Component {
   decrementProduct(product) {
     const { listProduct } = this.state;
     const not = -1;
-    const list = listProduct;
-    const index = list.findIndex((item) => item.id === product.id);
+    const list = listProduct.slice();
+    const index = list.slice().reverse().findIndex((item) => item.id === product.id);
     if (index !== not) {
       list.splice(list.length - 1 - index, 1);
       this.setState({

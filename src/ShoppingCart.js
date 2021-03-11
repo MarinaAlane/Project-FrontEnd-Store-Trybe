@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 class ShoppingCart extends React.Component {
   getProduct(product) {
     const accumulator = { ...product };
-    delete accumulator.qty;
     return accumulator;
   }
 
