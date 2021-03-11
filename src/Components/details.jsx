@@ -1,20 +1,29 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShoppingCart, faReply } from '@fortawesome/free-solid-svg-icons';
+import { FaShoppingCart, FaReply, FaCartPlus } from 'react-icons/fa';
+import dataCart from '../services/dataCart';
 
 class Details extends Component {
+  constructor(props) {
+    super(props);
+    this.handlerState = this.handlerState.bind(this);
+  }
+
+  handlerState(products) {
+    dataCart.push(products);
+  }
+
   render() {
     const { location: { state: { products } } } = this.props;
     return (
       <div>
         <header>
-          <Link to="/emptyCart" data-testid="shopping-cart-button">
-            <FontAwesomeIcon icon={ faShoppingCart } />
+          <Link to="/cart" data-testid="shopping-cart-button">
+            <FaShoppingCart />
           </Link>
           <Link to="/">
-            <FontAwesomeIcon icon={ faReply } />
+            <FaReply />
           </Link>
         </header>
         <main>
@@ -29,12 +38,14 @@ class Details extends Component {
           <ul className="rightAside">
             <li> Especificações Técnicas</li>
             <li>lorem ipsum dolor sit amet, consectetur adipis</li>
-            <li>lorem ipsum dolor sit amet, consectetur adipis</li>
-            <li>lorem ipsum dolor sit amet, consectetur adipis</li>
-            <li>lorem ipsum dolor sit amet, consectetur adipis</li>
-            <li>lorem ipsum dolor sit amet, consectetur adipis</li>
-            <li>lorem ipsum dolor sit amet, consectetur adipis</li>
           </ul>
+          <button
+            type="button"
+            data-testid="product-add-to-cart"
+            onClick={ () => this.handlerState(products) }
+          >
+            <FaCartPlus />
+          </button>
         </main>
       </div>
     );

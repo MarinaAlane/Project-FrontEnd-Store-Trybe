@@ -1,10 +1,19 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
+import { FaCartPlus, FaInfoCircle } from 'react-icons/fa';
+import dataCart from '../services/dataCart';
 
 class ItemCard extends Component {
+  constructor(props) {
+    super(props);
+    this.handlerState = this.handlerState.bind(this);
+  }
+
+  handlerState(products) {
+    dataCart.push(products);
+  }
+
   render() {
     const { products } = this.props;
     const { title, price, thumbnail, id } = products;
@@ -18,10 +27,17 @@ class ItemCard extends Component {
             pathname: `/details/${id}`,
             state: { products },
           } }
-          data-testid="product-detail-link "
+          data-testid="product-detail-link"
         >
-          <FontAwesomeIcon icon={ faInfoCircle } />
+          <FaInfoCircle />
         </Link>
+        <button
+          type="button"
+          data-testid="product-add-to-cart"
+          onClick={ () => this.handlerState(products) }
+        >
+          <FaCartPlus />
+        </button>
       </div>
     );
   }
