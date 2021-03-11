@@ -16,6 +16,8 @@ class Home extends React.Component {
     this.getProducts = this.getProducts.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleClickCategories = this.handleClickCategories.bind(this);
+    this.handleInputCategories = this.handleInputCategories.bind(this);
   }
 
   componentDidMount() {
@@ -30,11 +32,24 @@ class Home extends React.Component {
     });
   }
 
+  async handleClickCategories(categoryId) {
+    const { query } = this.state;
+    const selectedCategories = await this.getProducts({ categoryId, query });
+    console.log(selectedCategories);
+    this.setState({
+      products: selectedCategories.results,
+    });
+  }
+
   handleInputChange({ target }) {
     this.setState({
       query: target.value,
     });
     localStorage.setItem('query', target.value);
+  }
+
+  handleInputCategories({ target }) {
+    this.handleClickCategories(target.value);
   }
 
   async getCategories() {
@@ -61,7 +76,10 @@ class Home extends React.Component {
             handleInputChange={ this.handleInputChange }
           />
           <div>
-            <ListCategories categories={ categories } />
+            <ListCategories
+              categories={ categories }
+              handleInputCategories={ this.handleInputCategories }
+            />
           </div>
         </div>
       );
