@@ -5,9 +5,10 @@ export default function ShoppingCartButton() {
   return (
     <div>
       <Link to="/shoppingCart" data-testid="shopping-cart-button">
-        <button type="button">
+        {/* <button type="button">
           <img src="../../public/shoppingCartIcon.svg" alt="Shopping Cart Icon" />
-        </button>
+        </button> */}
+        Carrinho
       </Link>
     </div>
   );
