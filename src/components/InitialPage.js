@@ -38,7 +38,7 @@ class InitialPage extends React.Component {
           Categorias:
           { categories.map((category, index) => (
             <ListOfCategories key={ index } category={ category } />
-          ))} 
+          ))}
         </div>
       </div>
     );
