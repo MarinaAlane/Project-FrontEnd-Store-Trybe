@@ -43,8 +43,8 @@
 }
 
 .assessment-div {
-  display: flex;
   align-items: center;
+  display: flex;
 }
 
 .assessment-email {
@@ -52,5 +52,5 @@
 }
 
 .assessment-mensagem {
-  margin: 0px 5px 5px 5px;
+  margin: 0 5px 5px;
 }
