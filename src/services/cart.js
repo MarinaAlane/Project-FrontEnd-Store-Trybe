@@ -1,5 +1,5 @@
 async function cart(product) {
-  if (localStorage['carrinho'] === undefined) {
+  if (localStorage.carrinho === undefined) {
     const { id, title } = product;
     const jsonObj = JSON.stringify([{id: id, title: title, count: 1}]);
     localStorage.setItem("carrinho", jsonObj);
@@ -9,6 +9,7 @@ async function cart(product) {
     if (findProduct) {
       // aqui devo adicionar mais um ao count;
       const position = productJ.indexOf(findProduct);
+      console.log(position);
       productJ[position].count += 1;
       const jsonString = JSON.stringify(productJ);
       localStorage.setItem("carrinho", jsonString);
