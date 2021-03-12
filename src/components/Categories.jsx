@@ -4,10 +4,15 @@ import PropTypes from 'prop-types';
 class Categories extends React.Component {
   render() {
     const { categories } = this.props;
-    console.log(categories);
+
     return (
-      categories.map((category) => <li key={ category.id }>{ category.name }</li>)
-    );
+      categories.map((category) => (
+        <li
+          key={ category.id }
+          data-testid="category"
+        >
+          {category.name}
+        </li>)));
   }
 }
 

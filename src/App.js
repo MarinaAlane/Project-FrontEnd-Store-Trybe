@@ -1,8 +1,8 @@
 import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import ProductList from './components/ProductList';
 import './App.css';
-// import Cart from './components/Cart';
+import Cart from './components/Cart';
 import * as api from './services/api';
 
 class App extends React.Component {
@@ -17,17 +17,28 @@ class App extends React.Component {
   async componentDidMount() {
     await api.getCategories()
       .then((response) => this.setState({
-        categories: response }));
+        categories: response,
+      }));
   }
 
   render() {
-    const { categories } = this.state;
+    const { categories, products } = this.state;
     return (
       <BrowserRouter>
-        <Route
-          path="/"
-          render={ () => <ProductList categories={ categories } /> }
-        />
+        <Switch>
+          <Route
+            exact
+            path="/"
+            render={ () => (
+              <ProductList
+                categories={ categories }
+                searchedProducts={ products }
+                handleChange={ this.handleChange }
+              />
+            ) }
+          />
+          <Route path="/cart" component={ Cart } />
+        </Switch>
       </BrowserRouter>
     );
   }
