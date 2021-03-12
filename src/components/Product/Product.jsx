@@ -5,15 +5,21 @@ import PropTypes from 'prop-types';
 class Product extends Component {
   render() {
     const { product } = this.props;
-    const { title, price, thumbnail, id } = product;
+    const { title, price, thumbnail, id, attributes } = product;
     return (
-      <section data-testid="product">
-        <Link data-testid="product-detail-link" to={ `/details/${id}` }>
-          <p>{ title }</p>
+      <Link
+        data-testid="product-detail-link"
+        to={ {
+          pathname: `/details/${id}`,
+          state: { title, price, thumbnail, attributes },
+        } }
+      >
+        <section data-testid="product">
+          <p>{title}</p>
           <img src={ thumbnail } alt={ title } />
-          <p>{ price }</p>
-        </Link>
-      </section>
+          <p>{price}</p>
+        </section>
+      </Link>
     );
   }
 }
