@@ -1,4 +1,5 @@
 import React from 'react';
+import CategorieList from '../components/CategoryList';
 import ProductCard from '../components/ProductCard';
 import SearchBar from '../components/SearchBar';
 import * as api from '../services/api';
@@ -46,6 +47,8 @@ class ProductList extends React.Component {
           onSearchTextChange={ this.onSearchTextChange }
           getProducts={ () => this.getProducts('', searchText) }
         />
+
+        <CategorieList />
 
         <div className="product-container">
           { (products.length > 0)
