@@ -5,6 +5,7 @@ import ShoppingCart from './components/ShoppingCart';
 import './App.css';
 
 function App() {
+  localStorage.setItem('products', []);
   return (
     <BrowserRouter>
       <Switch>
