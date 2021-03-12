@@ -11,9 +11,9 @@ class AddToCart extends Component {
   addToLocalStorage() {
     const { itemCart } = this.props;
     const initialQuatity = { quant: 1 };
-    const customID = { custom: `${itemCart.id}_${localStorage.length}` };
+    const customID = { custom: `${itemCart.id}_itemCart_${localStorage.length}` };
     localStorage.setItem(
-      `${itemCart.id}_${localStorage.length}`,
+      `${itemCart.id}_itemCart_${localStorage.length}`,
       `${JSON.stringify({ ...customID, ...initialQuatity, ...itemCart })}`,
     );
   }
