@@ -25,9 +25,9 @@ class ProductList extends React.Component {
     });
   }
 
-  async getProducts(categorie, query) {
+  async getProducts(query) {
     try {
-      const response = await api.getProductsFromCategoryAndQuery(categorie, query);
+      const response = await api.getProducts(query);
       const productArray = response.results;
       this.setState({
         products: productArray,
@@ -45,7 +45,7 @@ class ProductList extends React.Component {
         <SearchBar
           value={ searchText }
           onSearchTextChange={ this.onSearchTextChange }
-          getProducts={ () => this.getProducts('', searchText) }
+          getProducts={ () => this.getProducts(searchText) }
         />
 
         <CategorieList />
