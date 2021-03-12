@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class ProductDetails extends Component {
   constructor(props) {
@@ -30,5 +31,13 @@ class ProductDetails extends Component {
     );
   }
 }
+
+ProductDetails.propTypes = {
+  history: PropTypes.shape({
+    location: PropTypes.shape({
+      state: {},
+    }).isRequired,
+  }).isRequired,
+};
 
 export default ProductDetails;
