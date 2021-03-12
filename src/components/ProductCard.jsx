@@ -1,18 +1,25 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 class ProductCard extends React.Component {
   render() {
-    const { product } = this.props;
+    const { products } = this.props;
 
     return (
       <section className="products-container">
-        { product.length !== 0
-          ? product.map(({ id, title, thumbnail, price }) => (
-            <div key={ id } className="product-card" data-testid="product">
-              <span>{title}</span>
-              <img src={ thumbnail } alt={ title } />
-              <p>{`R$ ${price}`}</p>
+        { products.length !== 0
+          ? products.map((product) => (
+            <div key={ product.id } className="product-card" data-testid="product">
+              <span>{product.title}</span>
+              <img src={ product.thumbnail } alt={ product.title } />
+              <p>{`R$ ${product.price}`}</p>
+              <Link
+                to={ { pathname: `/product/${product.id}`, state: { product } } }
+                data-testid="product-detail-link"
+              >
+                Ver detalhes
+              </Link>
             </div>))
           : (
             <h1>
@@ -24,7 +31,7 @@ class ProductCard extends React.Component {
 }
 
 ProductCard.propTypes = {
-  product: PropTypes.arrayOf(
+  products: PropTypes.arrayOf(
     PropTypes.shape({
       map: PropTypes.func,
       id: PropTypes.string,
@@ -36,7 +43,7 @@ ProductCard.propTypes = {
 };
 
 ProductCard.defaultProps = {
-  product: PropTypes.arrayOf(
+  products: PropTypes.arrayOf(
     PropTypes.shape({
       map: PropTypes.func,
       id: PropTypes.string,

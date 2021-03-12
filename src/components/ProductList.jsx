@@ -62,7 +62,7 @@ class ProductList extends React.Component {
           />
 
           {hasFetched
-            ? <ProductCard product={ products.results } />
+            ? <ProductCard products={ products.results } />
             : <p data-testid="home-initial-message">{message}</p>}
         </section>
       </main>
