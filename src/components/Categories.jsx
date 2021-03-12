@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 class Categories extends React.Component {
   render() {
-    const { categoryId, name, handleRadio, searchProduct } = this.props;
+    const { categoryId, name, handleRadio } = this.props;
 
     return (
       <label htmlFor={ categoryId } data-testid="category">
