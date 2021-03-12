@@ -5,19 +5,6 @@ import PropTypes from 'prop-types';
 class Product extends Component {
   render() {
     const { product } = this.props;
-<<<<<<< HEAD
-    const { title, price, thumbnail, id } = product;
-    return (
-      <section data-testid="product">
-        <div className="products">
-          <p>{ title }</p>
-          <img src={ thumbnail } alt={ title } />
-          <p>{ price }</p>
-          <span style={ { display: 'none' } }>{ id }</span>
-        </div>
-      </section>
-
-=======
     const { title, price, thumbnail, id, attributes } = product;
     return (
       <Link
@@ -28,12 +15,14 @@ class Product extends Component {
         } }
       >
         <section data-testid="product">
-          <p>{title}</p>
-          <img src={ thumbnail } alt={ title } />
-          <p>{price}</p>
+          <div className="products">
+            <p>{ title }</p>
+            <img src={ thumbnail } alt={ title } />
+            <p>{ price }</p>
+            <span style={ { display: 'none' } }>{ id }</span>
+          </div>
         </section>
       </Link>
->>>>>>> d3f29015bf4524769d7620ea1b620abc79817db5
     );
   }
 }
