@@ -5,7 +5,7 @@
   padding: 20px;
 }
 
-.linkShoppingCart div span{
+.linkShoppingCart div span {
   font-size: 1rem;
 }
 
@@ -22,8 +22,8 @@
 .titleDetails {
   align-items: flex-start;
   color: rgb(55, 55, 55);
-  font-size: 1.2rem;
   display: flex;
+  font-size: 1.2rem;
   flex-direction: column;
   font-weight: 900;
   justify-content: flex-start;
@@ -56,8 +56,8 @@
 } */
 
 .detailsToAddCart {
-  border: 1px solid rgba(0, 0, 0, 0.288);
   background-color: rgb(230, 0, 20);
+  border: 1px solid rgba(0, 0, 0, 0.288);
   color: azure;
   font-size: 1.2rem;
   font-weight: 600;
