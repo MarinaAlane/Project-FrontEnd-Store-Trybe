@@ -25,7 +25,7 @@ class ProductDetails extends React.Component {
           <img src={ thumbnail } alt={ title } />
         </div>
         <div>
-          <h4>Especificações Técnicas</h4>
+          <h4>Especificações Técnica</h4>
           <button
             type="button"
             value={ product.id }
