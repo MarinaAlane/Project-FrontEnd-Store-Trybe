@@ -14,11 +14,7 @@ class RenderToCart extends React.Component {
   }
 
   getLocalStorage() {
-    const storageArray = Object.values(localStorage).filter((value) => {
-      if (value[0] !== '{') {
-        return value;
-      }
-    });
+    const storageArray = Object.values(localStorage).filter((value) => value[0] !== '{');
     const itens = storageArray.map((item) => item.split('||'));
     return itens;
   }
