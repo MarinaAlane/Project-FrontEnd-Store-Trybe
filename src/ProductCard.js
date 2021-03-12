@@ -7,7 +7,7 @@ class ProductCard extends React.Component {
     const { product, addProduct } = this.props;
     const { price, thumbnail, title } = product;
     return (
-      <div data-testid="product" className="product-card hvr-grow hvr-outline-out">
+      <div data-testid="product" className="product-card hvr-grow hover-prod">
         <div className="product-details">
           <div className="product-title-div">
             <h2 className="product-title">{ title }</h2>
