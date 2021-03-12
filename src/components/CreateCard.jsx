@@ -17,7 +17,7 @@ class CreateCard extends Component {
           </div>
           <p>{ price }</p>
         </div>
-        </Link>
+      </Link>
     );
   }
 }
