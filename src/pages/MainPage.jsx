@@ -1,25 +1,43 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import Search from '../components/Search';
-import ProductsList from '../components/ProductList';
-import CartIcon from '../images/carrinho.png';
+// import Loading from '../components/Loading';
+import { getCategories } from '../services/api';
+import Header from '../components/Header';
+import Main from '../components/Main';
+import Aside from '../components/Aside';
 
 class MainPage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      categories: [],
+      // loading: true,
+    };
+  }
+
+  async componentDidMount() {
+    return getCategories()
+      .then((data) => this
+        .setState((lastState) => ({
+          ...lastState,
+          categories: data,
+          loading: false,
+        })));
+  }
+
   render() {
+    const { categories } = this.state;
     return (
       <>
-        <header>
-          <Search />
-          <Link data-testid="shopping-cart-button" to="/cartPage">
-            <img src={ CartIcon } alt="cart" />
-          </Link>
-        </header>
-        <main>
-          <ProductsList />
-        </main>
+        <Header />
+        <Main />
+        <Aside categories={ categories } />
       </>
     );
   }
 }
 
 export default MainPage;
+
+// if (loading) {
+//   return <Loading />;
+// }
