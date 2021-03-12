@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 class CategoryCard extends React.Component {
   render() {
-    const { category } = this.props;
+    const { category, getCategoryId } = this.props;
     const { id, name } = category;
     return (
       <div className="category-card">
@@ -14,6 +14,7 @@ class CategoryCard extends React.Component {
             id={ id }
             value={ name }
             data-testid="category"
+            onClick={ () => getCategoryId(id) }
           />
           { name }
         </label>
@@ -27,6 +28,7 @@ CategoryCard.propTypes = {
     id: PropTypes.string,
     name: PropTypes.string,
   }).isRequired,
+  getCategoryId: PropTypes.func.isRequired,
 };
 
 export default CategoryCard;
