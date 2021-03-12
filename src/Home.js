@@ -96,17 +96,17 @@ class Home extends React.Component {
             Digite algum termo de pesquisa ou escolha uma categoria.
           </p>
         </div>
-            <div className="nav-content">
-              <Categorias categories={ categories } onClick={ this.categoriesFilter } />
-              <main className="product-container">
-                {(products.length > 0) ? <ProductList
-                products={ products }
-                listProducts={ listProducts }
-                addProduct={ addProduct }
-                />
-                : <p className="search-empty">Nenhum produto foi encontrado</p>}
-              </main>
-            </div>
+        <div className="nav-content">
+          <Categorias categories={ categories } onClick={ this.categoriesFilter } />
+          <main className="product-container">
+            {(products.length > 0) ? <ProductList
+              products={ products }
+              listProducts={ listProducts }
+              addProduct={ addProduct }
+            />
+              : <p className="search-empty">Nenhum produto foi encontrado</p>}
+          </main>
+        </div>
         <Footer />
       </section>
     );
