@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import ProductsAtCart from '../services/data';
+import { incrementProduct } from '../services/dataservices';
 
 class ProductDetails extends React.Component {
   constructor() {
@@ -14,7 +14,7 @@ class ProductDetails extends React.Component {
     const { location } = this.props;
     console.log(location);
     const { state } = location;
-    const { title, image, price } = state;
+    const { title, image, price, productId } = state;
     return (
       <div>
         <Link to="/shopping-cart" data-testid="shopping-cart-button">Carrinho</Link>
@@ -28,9 +28,9 @@ class ProductDetails extends React.Component {
           <button
             type="button"
             data-testid="product-detail-add-to-cart"
-            onClick={
-              () => ProductsAtCart.push({ title, image, price })
-            }
+            onClick={ () => {
+              incrementProduct({ title, image, price, productId, quantity: 1 });
+            } }
           >
             Adicionar ao Carrinho
           </button>
@@ -58,6 +58,7 @@ ProductDetails.propTypes = {
       title: PropTypes.string,
       image: PropTypes.string,
       price: PropTypes.string,
+      productId: PropTypes.string,
     }),
   }).isRequired,
 };

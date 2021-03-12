@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import ProductsAtCart from '../services/data';
+import { incrementProduct } from '../services/dataservices';
 
 class ProductCard extends React.Component {
   render() {
@@ -14,9 +14,9 @@ class ProductCard extends React.Component {
         <button
           type="button"
           data-testid="product-add-to-cart"
-          onClick={
-            () => ProductsAtCart.push({ title, image, price })
-          }
+          onClick={ () => {
+            incrementProduct({ title, image, price, productId, quantity: 1 });
+          } }
         >
           Adicionar ao Carrinho
         </button>
