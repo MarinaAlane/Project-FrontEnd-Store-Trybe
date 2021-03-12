@@ -130,9 +130,9 @@
   flex-direction: column;
   justify-content: center;
   margin: 10px;
-  width: 20%;
   padding: 10px;
   text-align: center;
+  width: 20%;
 }
 
 .card-container {
