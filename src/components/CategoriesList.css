@@ -1,5 +1,8 @@
 .CategoriesList {
+  border: 2px solid;
   display: flex;
   flex-direction: column;
-  width: 20%;
+  margin: 25px;
+  margin-top: 15px;
+  width: 40%;
 }
