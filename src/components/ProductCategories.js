@@ -7,7 +7,6 @@ class ProductCategories extends React.Component {
     this.state = {
       categories: [{ name: 'Carregando categorias', id: 'Carregando categorias' }],
     };
-    console.log(ApiMercadoLivre.getCategories());
   }
 
   componentDidMount() {
@@ -27,9 +26,9 @@ class ProductCategories extends React.Component {
         <input
           type="checkbox"
           name={ category.name }
-          id={ category.name }
+          id={ category.id }
         />
-        <label htmlFor={ category.name } data-testid="category">{category.name}</label>
+        <label htmlFor={ category.id } data-testid="category">{category.name}</label>
       </li>
     );
   }
