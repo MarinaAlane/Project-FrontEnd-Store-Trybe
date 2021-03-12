@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 class shoppingCart extends React.Component {
   constructor(props) {
@@ -6,13 +7,16 @@ class shoppingCart extends React.Component {
 
     this.state = {
       shoppingCartIdList: [],
-      updatedValue: {},
+      quantity: {},
+      totalValue: 0,
     };
 
     this.getShoppingCartItems = this.getShoppingCartItems.bind(this);
     this.addItem = this.addItem.bind(this);
     this.removeItem = this.removeItem.bind(this);
     this.updateQuantities = this.updateQuantities.bind(this);
+    this.removeFromCart = this.removeFromCart.bind(this);
+    this.renderTotalValue = this.renderTotalValue.bind(this);
   }
 
   componentDidMount() {
@@ -35,31 +39,49 @@ class shoppingCart extends React.Component {
   updateQuantities() {
     const { shoppingCartIdList } = this.state;
     shoppingCartIdList.forEach(({ id }) => {
-      this.setState(({ updatedValue }) => ({
-        updatedValue: {
-          ...updatedValue,
+      this.setState(({ quantity }) => ({
+        quantity: {
+          ...quantity,
           [id]: 1,
         },
-      }));
+      }), () => {
+        this.renderTotalValue();
+      });
     });
   }
 
   addItem(id) {
     this.setState((state) => ({
-      updatedValue: {
-        ...state.updatedValue,
-        [id]: state.updatedValue[id] + 1,
+      quantity: {
+        ...state.quantity,
+        [id]: state.quantity[id] + 1,
       },
-    }));
+    }), () => {
+      this.renderTotalValue();
+    });
   }
 
   removeItem(id) {
     this.setState((state) => ({
-      updatedValue: {
-        ...state.updatedValue,
-        [id]: state.updatedValue[id] - 1,
+      quantity: {
+        ...state.quantity,
+        [id]: state.quantity[id] - 1,
       },
-    }));
+    }), () => {
+      this.renderTotalValue();
+    });
+  }
+
+  removeFromCart(id) {
+    const { shoppingCartIdList } = this.state;
+    const listWithoutProduct = shoppingCartIdList
+      .filter((product) => product.id !== id && product);
+    this.setState({
+      shoppingCartIdList: listWithoutProduct,
+    }, () => {
+      this.renderTotalValue();
+      sessionStorage.setItem('shoppingCart', JSON.stringify(shoppingCartIdList));
+    });
   }
 
   renderEmptyCart() {
@@ -71,15 +93,15 @@ class shoppingCart extends React.Component {
   }
 
   renderCartItems() {
-    const { shoppingCartIdList, updatedValue } = this.state;
+    const { shoppingCartIdList, quantity } = this.state;
     return shoppingCartIdList
       .map(({ title, id }) => (
-        <div key={ id }>
+        <div key={ id } id={ id }>
           <p data-testid="shopping-cart-product-name">{ title }</p>
           <p
             data-testid="shopping-cart-product-quantity"
           >
-            { updatedValue[id] }
+            { quantity[id] }
           </p>
           <button
             type="button"
@@ -95,16 +117,40 @@ class shoppingCart extends React.Component {
           >
             -
           </button>
+          <button type="button" onClick={ () => this.removeFromCart(id) }>X</button>
 
         </div>
       ));
   }
 
+  renderTotalValue() {
+    const { shoppingCartIdList, quantity } = this.state;
+    const value = shoppingCartIdList
+      .reduce((acc, curr) => (
+        acc + (parseInt(curr.price, 10) * parseInt(quantity[curr.id], 10))
+      ), 0);
+    this.setState({
+      totalValue: value,
+    });
+  }
+
   render() {
-    const { shoppingCartIdList } = this.state;
+    const { shoppingCartIdList, totalValue } = this.state;
     return (
       <div>
         {shoppingCartIdList.length > 0 ? this.renderCartItems() : this.renderEmptyCart()}
+        <h3>
+          Valor total: R$
+          { totalValue }
+        </h3>
+        <Link to={ { pathname: '/checkout', state: { ...this.state } } }>
+          <button
+            type="button"
+            data-testid="checkout-products"
+          >
+            Finalize sua Compra
+          </button>
+        </Link>
       </div>
     );
   }
