@@ -19,7 +19,6 @@ class ProductsPage extends Component {
     const { inputValue: stateInput, category: stateCategory } = this.state;
     const { inputValue: contextInput, selectedCategory: contextCategory } = this.context;
     if (stateInput !== contextInput || stateCategory !== contextCategory) {
-      console.log('teste');
       this.fetchAds(contextCategory, contextInput);
     }
   }
@@ -33,7 +32,6 @@ class ProductsPage extends Component {
 
   render() {
     const { product, loading } = this.state;
-
     return (
       <InputContext.Consumer>
         {
@@ -41,10 +39,15 @@ class ProductsPage extends Component {
             loading
               ? <p>loading</p>
               : (
-                product.results.map((term) => (<Product
-                  key={ term.id }
-                  product={ term }
-                />))
+                <div>
+                  {product.results.map((term) => (
+                    <div key={ term.id } className="product">
+                      <Product
+                        product={ term }
+                      />
+                    </div>
+                  ))}
+                </div>
               )
           )
         }

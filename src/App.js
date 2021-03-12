@@ -11,8 +11,10 @@ class App extends React.Component {
     this.state = {
       inputValue: '',
       selectedCategory: '',
+      cartProducts: [],
       setInputValue: this.setInputValue.bind(this),
       setSelectedCategory: this.setSelectedCategory.bind(this),
+      addProductToCart: this.addProductToCart.bind(this),
     };
   }
 
@@ -24,16 +26,30 @@ class App extends React.Component {
     this.setState({ selectedCategory });
   }
 
+  addProductToCart(newProduct) {
+    this.setState((prevState) => (
+      { cartProducts: [...prevState.cartProducts, newProduct] }
+    ));
+  }
+
   render() {
     const {
       inputValue,
       setInputValue,
+      cartProducts,
       selectedCategory,
       setSelectedCategory,
+      addProductToCart,
     } = this.state;
     return (
       <InputContext.Provider
-        value={ { inputValue, setInputValue, selectedCategory, setSelectedCategory } }
+        value={ {
+          inputValue,
+          setInputValue,
+          cartProducts,
+          selectedCategory,
+          setSelectedCategory,
+          addProductToCart } }
       >
         <Router>
           <Switch>
