@@ -17,3 +17,13 @@ export async function getProductsFromCategoryAndQuery(categoryId, query) {
     console.log(error);
   }
 }
+
+export async function getProductFromId(id) {
+  try {
+    const endpoint = await fetch(`https://api.mercadolibre.com/items?ids=${id}`);
+    const promise = await endpoint.json();
+    return promise;
+  } catch (error) {
+    console.log(error);
+  }
+}
