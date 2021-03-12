@@ -78,12 +78,6 @@ class LandingPage extends React.Component {
         {products
           .map((product) => (
             <Card product={ product } key={ product.id } />
-            // <Link
-            //   data-testid="product-detail-link"
-            //   key={ product.id }
-            //   to={ { pathname: `/product/${product.id}`, state: { product } } }
-            // >
-            // </Link>
           ))}
         <ListCategories onChange={ this.fetchProductsByCategoryId } />
       </div>
