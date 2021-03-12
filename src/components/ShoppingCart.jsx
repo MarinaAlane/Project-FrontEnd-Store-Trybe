@@ -36,9 +36,6 @@ class ShoppingCart extends React.Component {
             </div>
           ))
         }
-        {/*  O QUE PRECISA RENDERIZA
-         DESESTRUTURAR O LISTOFPRODUCTS
-         RENDERIZAR */}
       </div>
     );
   }
