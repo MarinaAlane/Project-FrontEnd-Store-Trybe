@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import ButtonCart from './components/shopping_cart/ButtonCart';
 import AsideCategoriesList from './components/AsideCategoriesList';
-import * as marketAPI from './services/api.js';
-import SearchLogo from '../src/components/search_logo.svg';
+import * as marketAPI from './services/api';
+import SearchLogo from './components/search_logo.svg';
 import ProductCard from './components/ProductCard';
-
 
 class ProductList extends Component {
   constructor(props) {
@@ -12,18 +11,20 @@ class ProductList extends Component {
 
     this.state = {
       searchedText: '',
-    }
+    };
 
     this.filterProducts = this.filterProducts.bind(this);
     this.displayList = this.displayList.bind(this);
-  };
+  }
 
   componentDidUpdate() {
     this.filterProducts();
   }
 
   filterProducts() {
-    marketAPI.getProductsFromCategoryAndQuery("MBL", this.searchedText).then((searchedText) => this.setState( { searchedText }))
+    marketAPI
+      .getProductsFromCategoryAndQuery('MBL', this.searchedText)
+      .then((searchedText) => this.setState({ searchedText }));
   }
 
   displayList() {
@@ -31,9 +32,11 @@ class ProductList extends Component {
     const { results } = searchedText;
     return (
       <section>
-        { results.map((product) => <ProductCard key={ product.id } product={ product } /> ) }
+        { results.map((product) => {
+          return (<ProductCard key={ product.id } product={ product } />)
+        }) }
       </section>
-    )
+    );
   }
 
   render() {
@@ -43,13 +46,12 @@ class ProductList extends Component {
           type="text"
           className="search-bar"
           data-testid="query-input"
-          onChange= {(event) => {
-            this.setState({ searchedText: event.target.value })} }
+          onChange={(event) => { this.setState({ searchedText: event.target.value });} }
         />
         <img
           src={ SearchLogo }
           alt="Query button"
-          onClick={this.displayList}
+          onClick={ this.displayList }
           data-testid="query-button"
         />
         <ButtonCart />
