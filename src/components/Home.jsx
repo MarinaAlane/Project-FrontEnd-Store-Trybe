@@ -4,7 +4,6 @@ import ListOfCategories from './ListOfCategories';
 import SearchBar from './SearchBar';
 import ProductCard from './ProductCard';
 import * as api from '../services/api';
-import ShoppingCart from './ShoppingCart';
 
 class Home extends React.Component {
   constructor(props) {
@@ -35,11 +34,10 @@ class Home extends React.Component {
 
   addItemCart(id) {
     const { productsList, addItem } = this.state;
-    const item = productsList.find((item) => id === item.id);
+    const itemProduct = productsList.find((item) => id === item.id);
     item.quantity = 1;
-    console.log(item);
     this.setState({
-      addItem: [...addItem, item],
+      addItem: [...addItem, itemProduct],
     });
   }
 
