@@ -4,7 +4,7 @@ class Forms extends Component {
   render() {
     return (
       <forms>
-        <legend>Dados Cadastrais</legend>
+        <h1>Dados Cadastrais</h1>
         <input type="text" placeholder="Nome Completo" data-testid="checkout-fullname" />
         <input type="text" placeholder="CPF" data-testid="checkout-cpf" />
         <input type="text" placeholder="E-mail" data-testid="checkout-email" />
