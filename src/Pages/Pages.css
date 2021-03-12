@@ -1,0 +1,35 @@
+.main {
+  display: flex;
+  margin: 5px;
+}
+
+.section-category {
+  border: 2px solid black;
+  margin: 15px;
+  padding: 10px;
+}
+
+.nav-details {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 10px;
+}
+
+.main-shoppingCart {
+  display: flex;
+  flex-direction: column;
+  margin: 0 10px;
+}
+
+.img-details {
+  display: flex;
+  height: 300px;
+}
+
+.product-details {
+  border: 2px solid black;
+  margin: 0 10px;
+  text-align: center;
+  width: 500px;
+}
