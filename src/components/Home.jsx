@@ -4,6 +4,7 @@ import ListOfCategories from './ListOfCategories';
 import SearchBar from './SearchBar';
 import ProductCard from './ProductCard';
 import * as api from '../services/api';
+import ShoppingCart from './ShoppingCart';
 
 class Home extends React.Component {
   constructor(props) {
@@ -12,10 +13,12 @@ class Home extends React.Component {
       searchText: '',
       productsList: [],
       categories: [],
+      addItem: [],
     };
     this.handleSearchTextChange = this.handleSearchTextChange.bind(this);
     this.fetchApiSearch = this.fetchApiSearch.bind(this);
     this.fetchByCategoryId = this.fetchByCategoryId.bind(this);
+    this.addItemCart = this.addItemCart.bind(this);
   }
 
   componentDidMount() {
@@ -27,6 +30,16 @@ class Home extends React.Component {
     const { value } = target;
     this.setState({
       searchText: value,
+    });
+  }
+
+  addItemCart(id) {
+    const { productsList, addItem } = this.state;
+    const item = productsList.find((item) => id === item.id);
+    item.quantity = 1;
+    console.log(item);
+    this.setState({
+      addItem: [...addItem, item],
     });
   }
 
@@ -56,9 +69,8 @@ class Home extends React.Component {
   }
 
   render() {
-    const { productsList, showMessage, categories } = this.state;
+    const { productsList, showMessage, categories, addItem } = this.state;
     const emptySearchMessage = <p>Nenhum produto foi encontrado</p>;
-
     return (
       <div>
         <SearchBar
@@ -80,12 +92,16 @@ class Home extends React.Component {
         {
           showMessage ? emptySearchMessage : <ProductCard
             products={ productsList }
+            onClick={ this.addItemCart }
           />
         }
 
         <button type="button">
           <Link
-            to="/shopping-cart"
+            to={ {
+              pathname: '/shopping-cart',
+              state: addItem,
+            } }
             data-testid="shopping-cart-button"
           >
             Carrinho
