@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Search from './Pages/Search';
 import Carrinho from './Pages/Carrinho';
 import SingleView from './Pages/SingleView';
+import Checkout from './Pages/Checkout';
 import NotFound from './Pages/NotFound';
 import './App.css';
 
@@ -47,6 +48,7 @@ class App extends React.Component {
                 { ...props }
               />) }
           />
+          <Route path="/checkout" component={ Checkout } />
           <Route component={ NotFound } />
         </Switch>
       </BrowserRouter>
