@@ -7,20 +7,6 @@
   text-align: center;
 }
 
-.product-item {
-  border: 1px solid lightgrey;
-  border-radius: 15px;
-  box-shadow: 3px 3px 5px lightgrey;
-  margin: 1em 0;
-  padding: 1%;
-}
-
-.product-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-evenly;
-}
-
 .App-header {
   align-items: center;
   background-color: #282c34;

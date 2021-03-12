@@ -1,79 +1,72 @@
-import React from 'react';
+import React, { Component } from 'react';
 import * as Api from '../services/api';
-import '../App.css';
-import ProductPage from './ProductPage';
+import ProductItem from './ProductItem';
 
-class ProductList extends React.Component {
+class ProductList extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      loading: false,
-      json: undefined,
-      searchText: '',
+      products: [],
+      query: '',
     };
 
-    this.changeText = this.changeText.bind(this);
-    this.handleSearch = this.handleSearch.bind(this);
-    this.renderProducts = this.renderProducts.bind(this);
+    this.onInputUpdate = this.onInputUpdate.bind(this);
+    this.getProducts = this.getProducts.bind(this);
   }
 
-  async handleSearch() {
-    const { searchText } = this.state;
-    this.setState({ loading: true });
-    const SearchJson = await Api
-      .getProductsFromCategoryAndQuery('books', searchText);
-    this.setState({
-      loading: false,
-      json: SearchJson,
-    });
+  onInputUpdate({ target }) {
+    const { value } = target;
+    this.setState((props) => (
+      {
+        ...props,
+        query: value,
+      }
+    ));
   }
 
-  changeText(evt) {
-    this.setState({
-      searchText: evt.target.value,
-    });
-  }
-
-  renderProducts(json) {
-    const { results } = json;
-    return (
-      <section className="product-list">
-        {results.length === 0
-          ? <span>nenhum produto foi encontrado</span>
-          : results
-            .map((product) => <ProductPage key={ product.id } product={ product } />)}
-      </section>
+  getProducts() {
+    const { query } = this.state;
+    const result = Api.getProductsFromCategoryAndQuery(query, query);
+    result.then(
+      (res) => {
+        this.setState((props) => ({
+          ...res,
+          products: res.results,
+        }));
+      },
     );
   }
 
   render() {
-    const { loading, json } = this.state;
-    const checkLoading = !json ? <p> loading...</p> : this.renderProducts(json);
+    const { query, products } = this.state;
+    console.log(products);
     return (
-      <div className="home">
-        <input
-          type="text"
-          data-testid="query-input"
-          onChange={ this.changeText }
-        />
-        <button
-          type="button"
-          onClick={ this.handleSearch }
-          data-testid="query-button"
-        >
-          Search
-        </button>
-        <div className="home-results">
-          <span
-            data-testid="home-initial-message"
-            className="home-initial-message"
-          >
-            Digite algum termo de pesquisa ou escolha uma categoria.
-          </span>
-          {!loading && !json ? null : checkLoading}
-        </div>
-      </div>
+      <main>
+        <header>
+          <input
+            value={query}
+            onChange={this.onInputUpdate}
+            data-test-id="query-input"
+            type="text"
+          />
+          <button data-testid="query-button" onCLick={this.getProducts} type="button">
+            Buscar
+          </button>
+        </header>
+        {
+          products.length !== 0 ? products.map((product) => (
+            <ProductItem
+              key={product.id}
+              title={product.title}
+              price={product.price}
+              image={product.thumbnail}
+            />
+          )) : (
+              <br>dummy tag</br>
+          )
+        }
+      </main>
     );
   }
 }
