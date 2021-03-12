@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ProductsAtCart from '../services/data';
 import { Link } from 'react-router-dom';
+import ProductsAtCart from '../services/data';
 
 class ProductCard extends React.Component {
   render() {
