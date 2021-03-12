@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router';
-import SearchBar from './SearchBar';
-import ShopCart from './ShopCart';
+import ProductDetails from './productDetails';
+import SearchBar from '../pages/SearchBar';
+import ShopCart from '../pages/ShopCart';
 
 class Content extends Component {
   render() {
@@ -10,6 +11,7 @@ class Content extends Component {
         <Switch>
           <Route exact path="/" component={ SearchBar } />
           <Route exact path="/shopping-cart" component={ ShopCart } />
+          <Route exact path="/product-details/:id" component={ ProductDetails } />
         </Switch>
       </main>
     );

@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import shopCart from '../images/shopCart.png';
-import ListCategories from '../components/ListCategories';
+import ListCategories from './ListCategories';
 
 import { getProductsFromCategoryAndQuery } from '../services/api';
-import CreateCard from '../components/CreateCard';
-import AddButton from '../components/AddButton';
+import CreateCard from './CreateCard';
+import AddButton from './AddButton';
 
 class SearchBar extends React.Component {
   constructor() {
@@ -20,6 +20,10 @@ class SearchBar extends React.Component {
     this.getQuery = this.getQuery.bind(this);
     this.getCategory = this.getCategory.bind(this);
     this.blankField = this.blankField.bind(this);
+  }
+
+  componentDidMount() {
+    this.requestList();
   }
 
   // Altera o estado de search para o valor contido na searchBar
@@ -44,6 +48,7 @@ class SearchBar extends React.Component {
     this.setState({
       productList: reqList,
     });
+    localStorage.setItem('productObj', JSON.stringify(reqList));
   }
 
   blankField() {
