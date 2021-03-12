@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { string, number, shape } from 'prop-types';
 import AddToCartButton from './AddToCartButton';
 
-class Products extends React.Component {
+class Product extends React.Component {
   render() {
     const { product } = this.props;
     const {
@@ -38,7 +38,7 @@ class Products extends React.Component {
   }
 }
 
-Products.propTypes = {
+Product.propTypes = {
   product: shape({
     title: string.isRequired,
     price: number.isRequired,
@@ -48,4 +48,4 @@ Products.propTypes = {
   }).isRequired,
 };
 
-export default Products;
+export default Product;
