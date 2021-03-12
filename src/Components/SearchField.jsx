@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ButtonCart from './ButtonCart';
 import * as api from '../services/api';
 import ItemCard from './ItemCard';
+import ListCategorie from './ListCategorie';
 
 class SearchField extends Component {
   constructor() {
@@ -63,6 +64,7 @@ class SearchField extends Component {
         {/* <button type="submit" onClick={ this.searchResults }>Pesquisar</button> */}
         <ButtonCart />
         {this.searchResults()}
+        <ListCategorie />
       </div>
     );
   }
