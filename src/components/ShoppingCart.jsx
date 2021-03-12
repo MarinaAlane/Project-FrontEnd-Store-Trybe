@@ -7,9 +7,35 @@ class ShoppingCart extends React.Component {
     super();
     this.state = {
       quantity: 0,
-    }
+    };
     this.clickPlus = this.clickPlus.bind(this);
     this.componentUpdate = this.componentUpdate.bind(this);
+    this.usingState = this.usingState.bind(this);
+  }
+
+  clickDecrease(id) {
+    const productJ = JSON.parse(localStorage.carrinho);
+    const findProduct = productJ.find((data) => data.id === id);
+    const position = productJ.indexOf(findProduct);
+    if (productJ[position].count > 1) {
+      productJ[position].count -= 1;
+      this.setState({
+        quantity: productJ[position].count,
+      });
+      const jsonString = JSON.stringify(productJ);
+      localStorage.setItem('carrinho', jsonString);
+    }
+    this.usingState();
+  }
+
+  usingState() {
+    const { quantity } = this.state;
+    let quantityVar = quantity;
+    console.log(quantityVar);
+  }
+
+  componentDidUpdate() {
+    this.componentUpdate();
   }
 
   clickPlus(id) {
@@ -22,30 +48,11 @@ class ShoppingCart extends React.Component {
     });
     const jsonString = JSON.stringify(productJ);
     localStorage.setItem('carrinho', jsonString);
-  }
-
-  clickDecrease(id) {
-    const productJ = JSON.parse(localStorage.carrinho);
-    const findProduct = productJ.find((data) => data.id === id);
-    const position = productJ.indexOf(findProduct);
-    if(productJ[position].count > 1) {
-      productJ[position].count -= 1;
-      this.setState({
-        quantity: productJ[position].count,
-      });
-      const jsonString = JSON.stringify(productJ);
-      localStorage.setItem('carrinho', jsonString);
-    }
-
-  }
-
-  componentDidUpdate() {
-    this.componentUpdate()
+    this.usingState();
   }
 
   componentUpdate() {
     return (
-
       JSON.parse(localStorage.carrinho).map(({ title, count, id }) => (
         <div key={ id }>
           <RenderCarts title={ title } count={ count } id={ id } />
