@@ -11,25 +11,27 @@ class ProductList extends Component {
       query: '',
     };
 
-    this.onInputUpdate = this.onInputUpdate.bind(this);
-    this.getProducts = this.getProducts.bind(this);
+    this.userInput = this.userInput.bind(this);
+    this.loadProducts= this.loadProducts.bind(this);
   }
 
-  onInputUpdate({ target }) {
+  userInput({ target }) {
     const { value } = target;
     this.setState((props) => (
       {
         ...props,
         query: value,
       }
-    ));
+      ));
+      console.log(value);
   }
 
-  getProducts() {
+  loadProducts() {
     const { query } = this.state;
     const result = Api.getProductsFromCategoryAndQuery(query, query);
     result.then(
       (res) => {
+        console.log(res);
         this.setState((props) => ({
           ...res,
           products: res.results,
@@ -45,11 +47,11 @@ class ProductList extends Component {
         <header>
           <input
             value={query}
-            onChange={this.onInputUpdate}
+            onChange={this.userInput}
             data-test-id="query-input"
             type="text"
           />
-          <button data-testid="query-button" onClick={this.getProducts} type="button">
+          <button data-testid="query-button" onClick={this.loadProducts} type="button">
             Buscar
           </button>
         </header>
@@ -63,7 +65,7 @@ class ProductList extends Component {
             />
             
           )) : (
-              <br>dummy tag</br>
+              <p>Digite algum termo de pesquisa ou escolha uma categoria.</p>
           )
         }
       </main>
@@ -72,3 +74,4 @@ class ProductList extends Component {
 }
 
 export default ProductList;
+
