@@ -55,7 +55,7 @@ class SearchBar extends React.Component {
   render() {
     const { productList } = this.state;
     return (
-      <>
+      <div className="master-container">
         <div className="content-category">
           <ListCategories fnc={ this.getCategory } />
         </div>
@@ -91,7 +91,7 @@ class SearchBar extends React.Component {
             Digite algum termo de pesquisa ou escolha uma categoria.
           </h4>
 
-          <div>
+          <div className="card-container">
             { !productList ? this.blankField()
               : productList.results.map((product) => (
                 <div className="card" key={ product.id }>
@@ -100,7 +100,7 @@ class SearchBar extends React.Component {
                 </div>)) }
           </div>
         </div>
-      </>
+      </div>
     );
   }
 }
