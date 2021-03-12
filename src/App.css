@@ -261,8 +261,8 @@
   z-index: -1;
 }
 
-.hvr-outline-out:hover:before, 
-.hvr-outline-out:focus:before, 
+.hvr-outline-out:hover:before ,
+.hvr-outline-out:focus:before ,
 .hvr-outline-out:active:before {
   bottom: -8px;
   left: -8px;
