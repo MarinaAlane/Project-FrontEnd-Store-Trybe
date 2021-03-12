@@ -14,7 +14,7 @@ class ProductList extends React.Component {
       json: undefined,
       searchText: '',
       categories: [],
-      selectedCategories: null,
+      selectedCategories: '',
     };
 
     this.changeText = this.changeText.bind(this);
@@ -23,30 +23,38 @@ class ProductList extends React.Component {
     this.LoadCategories = this.LoadCategories.bind(this);
     this.renderCategories = this.renderCategories.bind(this);
     this.clickCategory = this.clickCategory.bind(this);
+    this.loadProduct = this.loadProduct.bind(this);
   }
 
   componentDidMount() {
     this.LoadCategories();
+    this.loadProduct();
   }
 
   async handleSearch() {
-    const { searchText } = this.state;
-    console.log(this.state);
+    const { searchText, selectedCategories } = this.state;
     this.setState({ loading: true });
-    console.log(this.state);
-    const SearchJson = await Api
-      .getProductsFromCategoryAndQuery('book', searchText);
-    console.log(SearchJson);
+    const searchJson = await Api
+      .getProductsFromCategoryAndQuery(selectedCategories, searchText);
     this.setState({
       loading: false,
-      json: SearchJson,
+      json: searchJson,
     });
-    console.log(this.state);
+  }
+
+  async loadProduct() {
+    const searchJson = await Api.getProductsFromCategoryAndQuery();
+    this.setState({
+      loading: false,
+      json: searchJson,
+    });
   }
 
   async clickCategory({ target }) {
-    const teste = await Api.getProductsFromCategoryAndQuery(target.id, this.state.searchText);
-    return teste
+    await this.setState({
+      selectedCategories: target.id,
+    });
+    await this.handleSearch();
   }
 
   async LoadCategories() {
@@ -85,8 +93,13 @@ class ProductList extends React.Component {
           ? <span>Nenhuma categoria foi encontrada</span>
           : categories
             .map((category) => (
-              <CategoryList key={ category.id } name={ category.name } category={ category.id } clickCategory={ this.clickCategory } />
-              ))}
+              <CategoryList
+                key={ category.id }
+                name={ category.name }
+                category={ category.id }
+                clickCategory={ this.clickCategory }
+              />
+            ))}
       </section>
     );
   }

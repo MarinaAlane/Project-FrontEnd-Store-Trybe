@@ -18,6 +18,7 @@ class CategoryList extends Component {
 CategoryList.propTypes = {
   name: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
+  clickCategory: PropTypes.func.isRequired,
 };
 
 export default CategoryList;
