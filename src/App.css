@@ -1,3 +1,32 @@
+.aside-categories {
+  background-color: gainsboro;
+  border-color: #282c34;
+  border-style: solid;
+  border-width: 2px;
+  float: left;
+  width: 20%;
+}
+
+.aside-categories h3 {
+  text-align: center;
+}
+
+.aside-categories ul {
+
+  /*  https://pt.stackoverflow.com/questions/424667/como-tirar-esse-pontos  */
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.aside-categories li {
+
+  /*  https://pt.stackoverflow.com/questions/424667/como-tirar-esse-pontos  */
+  padding-bottom: 3px;
+  padding-left: 10px;
+  padding-top: 3px;
+}
+
 .header {
   align-items: center;
   display: flex;
