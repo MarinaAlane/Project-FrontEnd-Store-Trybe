@@ -18,9 +18,12 @@ class ProductsPage extends Component {
   }
 
   componentDidUpdate() {
-    const { inputValue: stateInput } = this.state;
-    const { inputValue: contextInput } = this.context;
-    if (stateInput !== contextInput) this.fetchAds(contextInput);
+    const { inputValue: stateInput, category: stateCategory } = this.state;
+    const { inputValue: contextInput, selectedCategory: contextCategory } = this.context;
+    if (stateInput !== contextInput || stateCategory !== contextCategory) {
+      console.log('teste');
+      this.fetchAds(contextCategory, contextInput);
+    }
   }
 
   handleClick(index) {
