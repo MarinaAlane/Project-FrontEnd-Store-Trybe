@@ -24,7 +24,6 @@ class AsideCategoriesList extends Component {
     const { categories } = this.state;
     const categoriesList = categories
       .map(({ name }, index) => <li key={ index } data-testid="category">{name}</li>);
-    console.log(categories);
     return (
       <div className="d-flex">
         <aside className="aside categories-list">
