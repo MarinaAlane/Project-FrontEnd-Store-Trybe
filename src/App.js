@@ -10,7 +10,10 @@ function App() {
       <Switch>
         <Route exact path="/" component={ ProductList } />
         <Route path="/cartshop" component={ CartShop } />
-        <Route path="/product-details/:id" component={ ProductDetails } />
+        <Route
+          path="/product-details/:id"
+          render={ (props) => <ProductDetails { ...props } /> }
+        />
       </Switch>
     </Router>
   );

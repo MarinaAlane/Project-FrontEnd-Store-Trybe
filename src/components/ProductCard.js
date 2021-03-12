@@ -35,29 +35,40 @@ export default class ProductCard extends Component {
     const { redirectTo } = this.state;
 
     if (redirectTo !== '') {
-      return <Redirect to={ `/product-details/${redirectTo}` } />;
+      return (
+        <Redirect
+          to={ {
+            pathname: `/product-details/${redirectTo}`,
+            state: { ...this.props },
+          } }
+        />
+      );
     }
 
     return (
-      <div
-        tabIndex="0"
-        className="product-card"
-        data-testid="product"
+      <section
+        data-testid="product-detail-link"
         onClick={ this.goToDetails }
         onKeyDown={ this.goToDetails }
+        tabIndex="0"
         role="button"
       >
-        <section className="title-card">
-          <p>{ title }</p>
-        </section>
-        <section className="body-card">
-          <img src={ thumbnail } alt={ title } />
-          <p>
-            R$
-            { price }
-          </p>
-        </section>
-      </div>
+        <div
+          className="product-card"
+          data-testid="product"
+        >
+          <section className="title-card">
+            <p>{ title }</p>
+          </section>
+          <section className="body-card">
+            <img src={ thumbnail } alt={ title } />
+            <p>
+              R$
+              { price }
+            </p>
+          </section>
+        </div>
+      </section>
     );
   }
 }
