@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import * as Api from '../services/api';
 import '../App.css';
 import ProductItem from './ProductItem';
+import CategoryList from './CategoryList';
 
 class ProductList extends React.Component {
   constructor(props) {
@@ -12,11 +13,18 @@ class ProductList extends React.Component {
       loading: false,
       json: undefined,
       searchText: '',
+      categories: [],
     };
 
     this.changeText = this.changeText.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.renderProducts = this.renderProducts.bind(this);
+    this.LoadCategories = this.LoadCategories.bind(this);
+    this.renderCategories = this.renderCategories.bind(this);
+  }
+
+  componentDidMount() {
+    this.LoadCategories();
   }
 
   async handleSearch() {
@@ -24,10 +32,18 @@ class ProductList extends React.Component {
     this.setState({ loading: true });
     const SearchJson = await Api
       .getProductsFromCategoryAndQuery('book', searchText);
-      // book is a dummy category
+    // book is a dummy category
     this.setState({
       loading: false,
       json: SearchJson,
+    });
+  }
+
+  async LoadCategories() {
+    const allCategories = await Api
+      .getCategories();
+    this.setState({
+      categories: allCategories,
     });
   }
 
@@ -45,6 +61,20 @@ class ProductList extends React.Component {
           ? <span>Nenhum produto foi encontrado</span>
           : results
             .map((product) => <ProductItem key={ product.id } product={ product } />)}
+      </section>
+    );
+  }
+
+  renderCategories() {
+    const { categories } = this.state;
+    return (
+      <section className="category-list">
+        {categories.length === 0
+          ? <span>Nenhuma categoria foi encontrada</span>
+          : categories
+            .map((category) => (
+              <CategoryList key={ category.id } name={ category.name } />
+            ))}
       </section>
     );
   }
@@ -74,6 +104,7 @@ class ProductList extends React.Component {
           >
             Digite algum termo de pesquisa ou escolha uma categoria.
           </span>
+          { this.renderCategories() }
           { !loading && !json ? null : checkLoading }
         </div>
       </div>
