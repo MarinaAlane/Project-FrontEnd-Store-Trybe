@@ -57,6 +57,9 @@ class ShoppingCart extends React.Component {
         </Link>
         <h1>Carrinho de Compras</h1>
         { this.renderProducts() }
+        <Link to="/checkout" data-testid="checkout-products">
+          Finalizar a compra
+        </Link>
       </section>
     );
   }

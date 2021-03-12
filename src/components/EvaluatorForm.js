@@ -9,7 +9,7 @@ class EvaluatorForm extends Component {
       avaliacao: 0,
     };
     this.handleChange = this.handleChange.bind(this);
-    this.saveAvaluation = this.saveAvaluation.bind(this);
+    this.saveAvaluation = this.saveEvaluation.bind(this);
   }
 
   handleChange({ target }) {
@@ -18,7 +18,7 @@ class EvaluatorForm extends Component {
     });
   }
 
-  saveAvaluation() {
+  saveEvaluation() {
     localStorage.setItem('rating', JSON.stringify(this.state));
   }
 
@@ -50,7 +50,7 @@ class EvaluatorForm extends Component {
               onChange={ this.handleChange }
             />
           </label>
-          <button type="button" onClick={ this.saveAvaluation }>Avaliar</button>
+          <button type="button" onClick={ this.saveEvaluation }>Avaliar</button>
         </fieldset>
       </form>
     );
