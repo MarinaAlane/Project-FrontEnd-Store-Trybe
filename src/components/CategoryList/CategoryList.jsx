@@ -1,5 +1,6 @@
 import React from 'react';
 import * as api from '../../services/api';
+import InputContext from '../InputContext';
 
 class CategoryList extends React.Component {
   constructor() {
@@ -22,16 +23,25 @@ class CategoryList extends React.Component {
   render() {
     const { category } = this.state;
     return (
-      <div>
-        {category.map((item) => (
-          <li
-            data-testid="category"
-            key={ item.id }
-          >
-            {item.name}
-          </li>
-        ))}
-      </div>
+      <InputContext.Consumer>
+        {
+          ({ setSelectedCategory }) => category.map(({ id, name }) => (
+            <li
+              key={ id }
+              style={ { listStyle: 'none' } }
+            >
+              <input
+                data-testid="category"
+                type="radio"
+                id={ id }
+                name="categoryInputName"
+                onClick={ () => setSelectedCategory(id) }
+              />
+              <label htmlFor={ id }>{ name }</label>
+            </li>
+          ))
+        }
+      </InputContext.Consumer>
     );
   }
 }
