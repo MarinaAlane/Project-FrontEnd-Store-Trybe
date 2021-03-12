@@ -5,9 +5,10 @@ import Main from '../components/Main';
 
 class Home extends React.Component {
   render() {
+    const showInput = true;
     return (
       <div>
-        <Header />
+        <Header showInput={ showInput } />
         <Main />
       </div>
     );

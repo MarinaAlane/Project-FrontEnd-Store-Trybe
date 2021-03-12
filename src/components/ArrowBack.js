@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { IoCartOutline } from 'react-icons/io5';
+import { TiArrowBackOutline } from 'react-icons/ti';
 
 class ButtonShoppingCart extends React.Component {
   render() {
     return (
-      <div>
-        <Link to="/shopping-cart" data-testid="shopping-cart-button">
-          <IoCartOutline size={ 28 } color="rgb(0, 0, 0)" />
+      <div className="arrow-back">
+        <Link to="/">
+          <TiArrowBackOutline size={ 30 } color="rgb(0, 0, 0)" />
         </Link>
       </div>
     );

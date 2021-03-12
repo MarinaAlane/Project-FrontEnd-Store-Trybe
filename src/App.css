@@ -1,9 +1,19 @@
 .header {
   align-items: center;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   max-width: 100%;
-  padding: 10px 40px;
+  padding: 10px 30px;
+}
+
+.arrow-back {
+  padding: 5px 30px;
+}
+
+.shopping-icon {
+  align-items: center;
+  display: flex;
+  justify-content: center;
 }
 
 .input-search {
@@ -15,6 +25,8 @@
 }
 
 .main {
+  align-items: center;
   display: flex;
+  flex-direction: column;
   justify-content: center;
 }
