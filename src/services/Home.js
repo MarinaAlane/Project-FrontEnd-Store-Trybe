@@ -14,7 +14,6 @@ class Home extends React.Component {
       productsArrive: false,
       category: '',
       query: '',
-      shoppingCartList: [],
     };
 
     this.getProducts = this.getProducts.bind(this);
@@ -66,11 +65,11 @@ class Home extends React.Component {
   }
 
   render() {
-    const { products, productsArrive, category, shoppingCartList } = this.state;
+    const { products, productsArrive, category } = this.state;
     return (
       <>
         <SearchBar category={ category } sentProducts={ this.getProducts } />
-        <ShoppingCartBtn shoppingCartList={ shoppingCartList } />
+        <ShoppingCartBtn />
         <AllCategories onClick={ this.filterCategory } />
         { productsArrive
           ? <ProductsList addToCartBtn={ this.addToCartBtn } productsList={ products } />
