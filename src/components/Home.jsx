@@ -35,7 +35,7 @@ class Home extends React.Component {
   addItemCart(id) {
     const { productsList, addItem } = this.state;
     const itemProduct = productsList.find((item) => id === item.id);
-    item.quantity = 1;
+    itemProduct.quantity = 1;
     this.setState({
       addItem: [...addItem, itemProduct],
     });
