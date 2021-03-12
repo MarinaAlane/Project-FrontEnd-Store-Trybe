@@ -14,6 +14,36 @@ class Details extends Component {
     dataCart.push(products);
   }
 
+  formStructure() {
+    return (
+      <form>
+        <div>
+          <input type="email" placeholder="E-mail" required />
+          <select required>
+            <option value="5">
+              5
+            </option>
+            <option value="4">
+              4
+            </option>
+            <option value="3">
+              3
+            </option>
+            <option value="2">
+              2
+            </option>
+            <option value="1">
+              1
+            </option>
+          </select>
+        </div>
+        <div>
+          <textarea rows="5" cols="30" data-testid="product-detail-evaluation" />
+        </div>
+      </form>
+    );
+  }
+
   render() {
     const { location: { state: { products } } } = this.props;
     return (
@@ -47,6 +77,7 @@ class Details extends Component {
             <FaCartPlus />
           </button>
         </main>
+        {this.formStructure()}
       </div>
     );
   }
