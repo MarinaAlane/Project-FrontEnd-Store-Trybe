@@ -27,7 +27,7 @@ class ProductDetails extends React.Component {
     const { idCategory, idProduct } = match.params;
     const requestProduct = await getProductsFromCategoryAndQuery(idCategory, '');
     const product = requestProduct.results.find(({ id }) => id === idProduct);
-    console.log(product);
+    console.log(match);
     this.setState({
       // id: requestProduct.id,
       title: product.title,
