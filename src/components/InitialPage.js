@@ -11,15 +11,23 @@ class InitialPage extends React.Component {
       butttonClicked: false,
       query: '',
       categories: [],
+      categoryId: '',
     };
 
     this.getApiCategories = this.getApiCategories.bind(this);
     this.buttonClick = this.buttonClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleClickCategory = this.handleClickCategory.bind(this);
   }
 
   componentDidMount() {
     this.getApiCategories();
+  }
+
+  handleClickCategory(id) {
+    this.setState({
+      categoryId: id,
+    }, () => this.buttonClick());
   }
 
   handleChange({ target }) {
@@ -41,13 +49,14 @@ class InitialPage extends React.Component {
   }
 
   buttonClick() {
+    const { butttonClicked } = this.state;
     this.setState({
-      butttonClicked: true,
+      butttonClicked: !butttonClicked,
     });
   }
 
   render() {
-    const { categories, butttonClicked, query } = this.state;
+    const { categories, butttonClicked, query, categoryId } = this.state;
     return (
       <div className="list-products">
         <input
@@ -65,7 +74,7 @@ class InitialPage extends React.Component {
         >
           Pesquisar
         </button>
-        { butttonClicked ? <ListProducts categoryId="" query={ query } />
+        { butttonClicked ? <ListProducts categoryId={ categoryId } query={ query } />
           : (
             <p data-testid="home-initial-message">
               Digite algum termo de pesquisa ou escolha uma categoria.
@@ -74,7 +83,11 @@ class InitialPage extends React.Component {
         <div>
           Categorias:
           {categories.map((category, index) => (
-            <ListOfCategories key={ index } category={ category } />
+            <ListOfCategories
+              key={ index }
+              category={ category }
+              handleClick={ this.handleClickCategory }
+            />
           ))}
         </div>
         <Link data-testid="shopping-cart-button" to="/cart">

@@ -3,15 +3,17 @@ import PropTypes from 'prop-types';
 
 class ListOfCategories extends React.Component {
   render() {
-    const { category } = this.props;
+    const { category, handleClick } = this.props;
     const { name, id } = category;
     return (
       <div>
         <label htmlFor="category">
           <input
             type="radio"
-            className={ id }
             data-testid="category"
+            name="category"
+            id={ id }
+            onClick={ () => handleClick(id) }
           />
           {name}
         </label>
@@ -25,6 +27,7 @@ ListOfCategories.propTypes = {
     name: PropTypes.string.isRequired,
     id: PropTypes.string.isRequired,
   }).isRequired,
+  handleClick: PropTypes.func.isRequired,
 };
 
 export default ListOfCategories;
