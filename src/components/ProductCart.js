@@ -7,20 +7,25 @@ export default class ProductCart extends React.Component {
 
     this.increaseQuantity = this.increaseQuantity.bind(this);
     this.decreaseQuantity = this.decreaseQuantity.bind(this);
-    this.handlerClickDelete = this.handlerClickDelete.bind(this);
-
+    this.handleClickDelete = this.handleClickDelete.bind(this);
+    const { item } = this.props;
+    const { availableQuantity } = item;
     this.state = {
       quantity: 1,
+      availableQuantity,
+      buttonDisabled: false,
     };
   }
 
-  handlerClickDelete({ target }) {
+  handleClickDelete({ target }) {
     const { deleteItem } = this.props;
     deleteItem(target.value);
   }
 
   increaseQuantity() {
-    this.setState((oldState) => ({
+    const { availableQuantity, quantity } = this.state;
+    if (quantity >= availableQuantity) return this.setState({ buttonDisabled: true });
+    return this.setState((oldState) => ({
       quantity: oldState.quantity + 1,
     }));
   }
@@ -34,11 +39,13 @@ export default class ProductCart extends React.Component {
   render() {
     const { item } = this.props;
     const { id, title, price } = item;
-    const { quantity } = this.state;
+    const { quantity, availableQuantity, buttonDisabled } = this.state;
+    const precisionDecimal = 4;
     return (
       <article>
         <p data-testid="shopping-cart-product-name">{ title }</p>
-        <p>{ price * quantity }</p>
+        <p>{ parseFloat((price * quantity)).toPrecision(precisionDecimal) }</p>
+        <p>{ `Estoque: ${availableQuantity}` }</p>
         <button
           type="button"
           data-testid="product-decrease-quantity"
@@ -49,11 +56,12 @@ export default class ProductCart extends React.Component {
         <span
           data-testid="shopping-cart-product-quantity"
         >
-          { quantity }
+          { `${quantity}`.padStart(2, '0') }
         </span>
         <button
           type="button"
           data-testid="product-increase-quantity"
+          disabled={ buttonDisabled }
           onClick={ this.increaseQuantity }
         >
           +
@@ -61,7 +69,7 @@ export default class ProductCart extends React.Component {
         <button
           type="button"
           value={ id }
-          onClick={ this.handlerClickDelete }
+          onClick={ this.handleClickDelete }
         >
           Delete
         </button>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-class AvaluatorForm extends Component {
+class EvaluatorForm extends Component {
   constructor() {
     super();
     this.state = {
@@ -9,7 +9,7 @@ class AvaluatorForm extends Component {
       avaliacao: 0,
     };
     this.handleChange = this.handleChange.bind(this);
-    this.saveAvaluation = this.saveAvaluation.bind(this);
+    this.saveAvaluation = this.saveEvaluation.bind(this);
   }
 
   handleChange({ target }) {
@@ -18,7 +18,7 @@ class AvaluatorForm extends Component {
     });
   }
 
-  saveAvaluation() {
+  saveEvaluation() {
     localStorage.setItem('rating', JSON.stringify(this.state));
   }
 
@@ -50,11 +50,11 @@ class AvaluatorForm extends Component {
               onChange={ this.handleChange }
             />
           </label>
-          <button type="button" onClick={ this.saveAvaluation }>Avaliar</button>
+          <button type="button" onClick={ this.saveEvaluation }>Avaliar</button>
         </fieldset>
       </form>
     );
   }
 }
 
-export default AvaluatorForm;
+export default EvaluatorForm;

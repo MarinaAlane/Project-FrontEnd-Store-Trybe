@@ -3,14 +3,21 @@ import { Link } from 'react-router-dom';
 import { bool, number, shape, string } from 'prop-types';
 import ShoppingCartButton from '../components/ShoppingCartButton';
 import AddToCartButton from '../components/AddToCartButton';
-import AvaluatorForm from '../components/AvaluatorForm';
+import EvaluatorForm from '../components/EvaluatorForm';
 
 class Details extends React.Component {
   render() {
     const { location } = this.props;
     const { state } = location;
     const { product } = state;
-    const { id, title, price, thumbnail, shipping, category_id: categoryId } = product;
+    const {
+      id,
+      title,
+      price,
+      thumbnail,
+      shipping,
+      category_id: categoryId,
+      available_quantity: availableQuantity } = product;
     const { free_shipping: freeShipping } = shipping;
     return (
       <section>
@@ -22,9 +29,9 @@ class Details extends React.Component {
         <ShoppingCartButton idProduct={ id } idCategory={ categoryId } />
         <AddToCartButton
           datatestid="product-detail-add-to-cart"
-          productData={ { id, title, price } }
+          productData={ { id, title, price, availableQuantity } }
         />
-        <AvaluatorForm />
+        <EvaluatorForm />
       </section>
     );
   }

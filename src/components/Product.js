@@ -12,9 +12,9 @@ class Products extends React.Component {
       price,
       thumbnail,
       category_id: categoryId,
+      available_quantity: availableQuantity,
       shipping,
     } = product;
-
     const { free_shipping: freeShipping } = shipping;
     return (
       <div data-testid="product">
@@ -30,7 +30,7 @@ class Products extends React.Component {
         </Link>
         <AddToCartButton
           datatestid="product-add-to-cart"
-          productData={ { id, title, price } }
+          productData={ { id, title, price, availableQuantity } }
         />
       </div>
 
@@ -44,6 +44,7 @@ Products.propTypes = {
     price: number.isRequired,
     thumbnail: string.isRequired,
     category_id: string.isRequired,
+    availableQuantity: number,
   }).isRequired,
 };
 
