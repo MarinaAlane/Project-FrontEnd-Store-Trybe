@@ -5,6 +5,7 @@ import ListCategories from './ListCategories';
 
 import { getProductsFromCategoryAndQuery } from '../services/api';
 import CreateCard from './CreateCard';
+import AddButton from './AddButton';
 
 class SearchBar extends React.Component {
   constructor() {
@@ -59,7 +60,7 @@ class SearchBar extends React.Component {
   render() {
     const { productList } = this.state;
     return (
-      <>
+      <div className="master-container">
         <div className="content-category">
           <ListCategories fnc={ this.getCategory } />
         </div>
@@ -81,7 +82,6 @@ class SearchBar extends React.Component {
             >
               Pesquisar
             </button>
-
             <Link to="/shopping-cart" data-testid="shopping-cart-button">
               <img
                 src={ shopCart }
@@ -95,13 +95,16 @@ class SearchBar extends React.Component {
             Digite algum termo de pesquisa ou escolha uma categoria.
           </h4>
 
-          <div>
+          <div className="card-container">
             { !productList ? this.blankField()
               : productList.results.map((product) => (
-                <CreateCard key={ product.id } product={ product } />)) }
+                <div className="card" key={ product.id }>
+                  <CreateCard product={ product } />
+                  <AddButton product={ product } />
+                </div>)) }
           </div>
         </div>
-      </>
+      </div>
     );
   }
 }

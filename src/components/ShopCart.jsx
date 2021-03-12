@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import shopCart from '../images/shopCart.png';
 import previous from '../images/previous.png';
 import box from '../images/box.png';
+import RenderToCart from './RenderToCart';
 
 class ShopCart extends Component {
   render() {
@@ -32,6 +33,7 @@ class ShopCart extends Component {
             Seu carrinho está vazio
           </p>
         </div>
+        <RenderToCart />
       </>
     );
   }
