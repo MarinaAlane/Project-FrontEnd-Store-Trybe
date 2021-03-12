@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import CartItem from './cartItem';
 import dataCart from '../services/dataCart';
 
@@ -11,6 +12,11 @@ class Cart extends Component {
           : dataCart.map((card, index) => (
             <CartItem card={ card } key={ index } index={ index } />
           ))}
+        <button type="button">
+          <Link to="/checkout" data-testid="checkout-products">
+            checkout
+          </Link>
+        </button>
       </div>
     );
   }

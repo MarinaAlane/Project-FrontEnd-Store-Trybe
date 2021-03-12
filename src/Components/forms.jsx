@@ -1,5 +1,5 @@
 import React from 'react';
-import Payment from './paymentMethod';
+import PaymentMethod from './paymentMethod';
 
 const RegisterForms = () => (
   <forms>
@@ -45,7 +45,7 @@ const RegisterForms = () => (
         <option value="TO">Tocantins</option>
       </select>
     </fieldset>
-    <Payment />
+    <PaymentMethod />
   </forms>
 );
 

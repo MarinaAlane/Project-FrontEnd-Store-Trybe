@@ -1,7 +1,7 @@
 import React from 'react';
 import { FaCreditCard, FaBarcode } from 'react-icons/fa';
 
-const Payment = () => (
+const PaymentMethod = () => (
   <forms>
     <fieldset>
       <legend>Formas de Pagamento</legend>
@@ -39,4 +39,4 @@ const Payment = () => (
   </forms>
 );
 
-export default Payment;
+export default PaymentMethod;
