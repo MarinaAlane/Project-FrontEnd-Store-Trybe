@@ -72,7 +72,9 @@ class ProductList extends React.Component {
         {categories.length === 0
           ? <span>Nenhuma categoria foi encontrada</span>
           : categories
-            .map((category) => <CategoryList key={ category.id } name={ category.name } />)}
+            .map((category) => (
+              <CategoryList key={ category.id } name={ category.name } />
+            ))}
       </section>
     );
   }
