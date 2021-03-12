@@ -10,8 +10,8 @@
   color: antiquewhite;
   display: flex;
   font-size: 40px;
-  justify-content: center;
   height: 8em;
+  justify-content: center;
 }
 
 .search-container {
@@ -51,18 +51,17 @@
 
 .nav-content {
   display: flex;
-  margin-top: 3em;
   margin-bottom: 5em;
+  margin-top: 3em;
 }
 
 .product-list {
   display: flex;
-  flex-direction: row;
   flex-flow: row wrap;
   justify-content: center;
   margin-right: 25em;
-  min-width: 80em;
   min-height: 80em;
+  min-width: 80em;
   padding: 16px;
   z-index: 4;
 }
@@ -197,7 +196,7 @@
 }
 
 .footer-title a:hover {
-  color:#090f1f
+  color: #090f1f
 }
 
 .hvr-bounce-to-right {
@@ -215,7 +214,7 @@
   background: #090f1f;
   border-bottom: 4px #2098d1 ridge;
   bottom: 0;
-  content: "";
+  content: '';
   left: 0;
   position: absolute;
   right: 0;
@@ -227,13 +226,15 @@
   transition-timing-function: ease-out;
   z-index: -1;
 }
-.hvr-bounce-to-right:hover, 
-.hvr-bounce-to-right:focus, 
+
+.hvr-bounce-to-right:hover,
+.hvr-bounce-to-right:focus,
 .hvr-bounce-to-right:active {
   color: #2098d1;
 }
-.hvr-bounce-to-right:hover:before, 
-.hvr-bounce-to-right:focus:before, 
+
+.hvr-bounce-to-right:hover:before,
+.hvr-bounce-to-right:focus:before,
 .hvr-bounce-to-right:active:before {
   transform: scaleX(1);
   transition-timing-function: cubic-bezier(0.52, 1.64, 0.37, 0.66);
@@ -258,32 +259,32 @@
   transition-property: top , right , bottom , left;
   z-index: -1;
 }
-.hvr-outline-out:hover:before, .hvr-outline-out:focus:before, .hvr-outline-out:active:before {
+
+.hvr-outline-out:hover:before,
+.hvr-outline-out:focus:before,
+.hvr-outline-out:active:before {
   bottom: -8px;
   left: -8px;
   right: -8px;
   top: -8px;
 }
 
-@-webkit-keyframes hvr-pop {
-  50% {
-    transform: scale(1.2);
-  }
-}
 @keyframes hvr-pop {
   50% {
     transform: scale(1.2);
   }
 }
+
 .hvr-pop {
   box-shadow: 0 0 1px rgba(0, 0, 0, 0);
   display: inline-block;
   transform: perspective(1px) translateZ(0);
   vertical-align: middle;
 }
+
 .hvr-pop:hover, .hvr-pop:focus, .hvr-pop:active {
   animation-duration: 0.3s;
-  animation-name: hvr-pop;
   animation-iteration-count: 1;
   animation-timing-function: linear;
+  animation-name: hvr-pop;
 }
