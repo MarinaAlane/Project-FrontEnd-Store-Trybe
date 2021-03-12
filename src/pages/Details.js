@@ -1,55 +1,32 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { shape, string } from 'prop-types';
-import * as api from '../services/api';
+import { bool, number, shape, string } from 'prop-types';
 import ShoppingCartButton from '../components/ShoppingCartButton';
 import AddToCartButton from '../components/AddToCartButton';
 import EvaluatorForm from '../components/EvaluatorForm';
 
 class Details extends React.Component {
-  constructor(props) {
-    super(props);
-    this.getProductByCategory = this.getProductByCategory.bind(this);
-
-    this.state = {
-      product: {},
-    };
-  }
-
-  componentDidMount() {
-    this.getProductByCategory();
-  }
-
-  async getProductByCategory() {
-    const { match } = this.props;
-    const { params } = match;
-    const { idCategory, idProduct } = params;
-
-    const fecthProducts = await api.getProductsFromCategoryAndQuery(idCategory, '');
-    const product = fecthProducts.results.find(({ id }) => id === idProduct);
-    this.setState({
-      product,
-    });
-  }
-
   render() {
-    const { product } = this.state;
+    const { location } = this.props;
+    const { state } = location;
+    const { product } = state;
     const {
       id,
       title,
       price,
       thumbnail,
+      shipping,
+      category_id: categoryId,
       available_quantity: availableQuantity } = product;
-    const { match } = this.props;
-    const { params } = match;
-    const { idCategory, idProduct } = params;
+    const { free_shipping: freeShipping } = shipping;
     return (
       <section>
         <img src={ thumbnail } alt={ title } />
         <p data-testid="product-detail-name">{title}</p>
         <p>{price}</p>
+        {freeShipping && <p data-testid="free-shipping">Frete Grátis</p>}
         <Link to="/">Home</Link>
-        <ShoppingCartButton idProduct={ idProduct } idCategory={ idCategory } />
+        <ShoppingCartButton idProduct={ id } idCategory={ categoryId } />
         <AddToCartButton
           datatestid="product-detail-add-to-cart"
           productData={ { id, title, price, availableQuantity } }
@@ -61,10 +38,17 @@ class Details extends React.Component {
 }
 
 Details.propTypes = {
-  match: shape({
-    params: shape({
-      idCategory: string.isRequired,
-      idProduct: string.isRequired,
+  location: shape({
+    state: shape({
+      product: shape({
+        id: string.isRequired,
+        title: string.isRequired,
+        price: number,
+        thumbnail: string,
+        shipping: shape({
+          freeShipping: bool.isRequired,
+        }).isRequired,
+      }).isRequired,
     }).isRequired,
   }).isRequired,
 };
