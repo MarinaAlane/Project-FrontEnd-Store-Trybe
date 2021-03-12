@@ -7,7 +7,10 @@ class RenderCarts extends React.Component {
     return (
       <div>
         <h4 data-testid="shopping-cart-product-name">{ title }</h4>
-        <p data-testid="shopping-cart-product-quantity">Quantidade: { count }</p>
+        <p data-testid="shopping-cart-product-quantity">
+          Quantidade:
+          { count }
+        </p>
       </div>
     );
   }

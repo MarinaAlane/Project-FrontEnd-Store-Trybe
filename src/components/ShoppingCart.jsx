@@ -3,7 +3,7 @@ import RenderCarts from './RenderCart';
 
 class ShoppingCart extends React.Component {
   render() {
-    if (localStorage["carrinho"] === undefined) {
+    if (localStorage.carrinho === undefined) {
       return (
         <div>
           <h4 data-testid="shopping-cart-empty-message">Seu carrinho está vazio</h4>
@@ -12,9 +12,9 @@ class ShoppingCart extends React.Component {
     }
     return (
       <div>
-        { JSON.parse(localStorage["carrinho"]).map(({ title, count, id }) => (
+        { JSON.parse(localStorage.carrinho).map(({ title, count, id }) => (
           <div key={ id }>
-            <RenderCarts title={ title } count={ count }/>
+            <RenderCarts title={ title } count={ count } />
           </div>
         ))}
       </div>
