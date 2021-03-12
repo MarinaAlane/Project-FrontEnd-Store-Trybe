@@ -77,7 +77,6 @@ class SearchBar extends React.Component {
             >
               Pesquisar
             </button>
-
             <Link to="/shopping-cart" data-testid="shopping-cart-button">
               <img
                 src={ shopCart }

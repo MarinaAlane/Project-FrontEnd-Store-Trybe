@@ -4,35 +4,36 @@ import CreateCard from './CreateCartCard';
 class RenderToCart extends React.Component {
   constructor() {
     super();
-    this.state = {
-      cont:'',
-      title:'',
-      thumbnail:'',
-      price:'',
-    }
+    // this.state = {
+    //   cont: '',
+    //   title: '',
+    //   thumbnail: '',
+    //   price: '',
+    // };
+    this.getLocalStorage = this.getLocalStorage.bind(this);
   }
 
-  getLocalStorage = () => {
+  getLocalStorage() {
     const storageArray = Object.values(localStorage);
-    const item = storageArray.map((item) => item.split('||'));
-    return item; 
+    const itens = storageArray.map((item) => item.split('||'));
+    return itens;
   }
 
   render() {
     const cartItensArray = this.getLocalStorage();
-    return(
+    return (
       <div className="card-container">
         {cartItensArray.map((array) => {
           const productItem = {
             quant: Number(array[0]),
             title: array[1],
             thumbnail: array[2],
-            price: Number(array[3])
+            price: Number(array[3]),
           };
           return (
-          <div className="card" key={ productItem.thumbnail }>
-            <CreateCard product={ productItem } />
-          </div>)
+            <div className="card" key={ productItem.thumbnail }>
+              <CreateCard product={ productItem } />
+            </div>);
         })}
       </div>
     );
