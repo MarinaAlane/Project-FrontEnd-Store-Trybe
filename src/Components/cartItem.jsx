@@ -68,6 +68,7 @@ class CartItem extends Component {
           </button>
           <button
             type="button"
+            onClick={ () => this.excludeItem(card, counter) }
           >
             x
           </button>
