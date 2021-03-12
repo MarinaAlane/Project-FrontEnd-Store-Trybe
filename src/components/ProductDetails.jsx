@@ -53,7 +53,7 @@ class ProductDetails extends React.Component {
     );
   }
 }
-
+// teste
 ProductDetails.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
