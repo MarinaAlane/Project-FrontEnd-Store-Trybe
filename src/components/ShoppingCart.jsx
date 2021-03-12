@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-//VQV2
+
 class ShoppingCart extends React.Component {
   constructor(props) {
     super(props);
