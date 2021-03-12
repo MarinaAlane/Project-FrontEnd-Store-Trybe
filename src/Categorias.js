@@ -1,13 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './App.css';
 
 class Categorias extends React.Component {
   render() {
     const { categories, onClick } = this.props;
     return (
-      <div>
+      <div className="category-filter">
         {categories.map((categoria) => (
-          <button
+          <button     
+            className="hvr-forward category-button"
             id={ categoria.id }
             type="button"
             key={ categoria.id }
@@ -28,3 +30,4 @@ Categorias.propTypes = {
 };
 
 export default Categorias;
+// category-button

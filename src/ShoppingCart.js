@@ -12,6 +12,7 @@ class ShoppingCart extends React.Component {
     return listProducts.map((product) => (
       <div
         key={ product.id }
+        className="shopping-cart-content"
       >
         <p
           data-testid="shopping-cart-product-name"
