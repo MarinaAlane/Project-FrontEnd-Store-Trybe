@@ -43,7 +43,13 @@ class App extends React.Component {
     } = this.state;
     return (
       <InputContext.Provider
-        value={ { inputValue, setInputValue, cartProducts, selectedCategory, setSelectedCategory, addProductToCart } }
+        value={ {
+          inputValue,
+          setInputValue,
+          cartProducts,
+          selectedCategory,
+          setSelectedCategory,
+          addProductToCart } }
       >
         <Router>
           <Switch>

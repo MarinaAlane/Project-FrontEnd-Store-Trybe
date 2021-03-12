@@ -25,9 +25,9 @@ class Product extends Component {
                 <p>{ price }</p>
               </Link>
               <Button
-                dataTestId="product-add-to-cart"
+                dataTestId
                 submit={ false }
-                id="add-to-cart-btn"
+                id="product-add-to-cart"
                 onHandleClick={ () => addProductToCart({ title, id, thumbnail, price }) }
               >
                 Adicionar ao carrinho

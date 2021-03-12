@@ -1,18 +1,11 @@
 import React, { Component } from 'react';
+import { number, string, shape } from 'prop-types';
 import InputContext from '../InputContext';
 
-class CartProducts extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      cartProducts: [],
-    };
-  }
-
+class CartProduct extends Component {
   render() {
-    const { cartProducts } = this.state;
     const { info } = this.props;
-    const { title, id, thumbnail, price } = info;
+    const { title, thumbnail, price, quantity } = info;
     return (
       <InputContext.Consumer>
         {
@@ -21,7 +14,7 @@ class CartProducts extends Component {
               <p data-testid="shopping-cart-product-name">{title}</p>
               <img src={ thumbnail } alt={ title } />
               <p>{price}</p>
-              <p data-testid="shopping-cart-product-quantity">{}</p>
+              <p data-testid="shopping-cart-product-quantity">{ quantity }</p>
             </section>
           )
         }
@@ -30,6 +23,15 @@ class CartProducts extends Component {
   }
 }
 
-CartProducts.contextType = InputContext;
+CartProduct.contextType = InputContext;
 
-export default CartProducts;
+CartProduct.propTypes = {
+  info: shape({
+    price: number,
+    thumbnail: string,
+    id: string,
+    title: string,
+  }),
+}.isRequired;
+
+export default CartProduct;
