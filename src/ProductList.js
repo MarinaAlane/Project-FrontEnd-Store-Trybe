@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import ButtonCart from './components/shopping_cart/ButtonCart';
 import AsideCategoriesList from './components/AsideCategoriesList';
-/* import QueryButton from './components/QueryButton'; */
 import * as marketAPI from './services/api.js';
 import SearchLogo from '../src/components/search_logo.svg';
 import ProductCard from './components/ProductCard';
