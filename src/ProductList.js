@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import ButtonCart from './components/shopping_cart/ButtonCart';
 import AsideCategoriesList from './components/AsideCategoriesList';
 import * as marketAPI from './services/api';
-import SearchLogo from './components/search_logo.svg';
 import ProductCard from './components/ProductCard';
 
 class ProductList extends Component {
@@ -32,9 +31,10 @@ class ProductList extends Component {
     const { results } = searchedText;
     return (
       <section>
-        { results.map((product) => {
-          return (<ProductCard key={ product.id } product={ product } />)
-        }) }
+        { results.map((product) => (<ProductCard
+          key={ product.id }
+          product={ product }
+        />)) }
       </section>
     );
   }
@@ -46,14 +46,15 @@ class ProductList extends Component {
           type="text"
           className="search-bar"
           data-testid="query-input"
-          onChange={(event) => { this.setState({ searchedText: event.target.value });} }
+          onChange={ (event) => { this.setState({ searchedText: event.target.value }); } }
         />
-        <img
-          src={ SearchLogo }
-          alt="Query button"
+        <button
+          type="button"
           onClick={ this.displayList }
           data-testid="query-button"
-        />
+        >
+          search
+        </button>
         <ButtonCart />
         <AsideCategoriesList />
         <p data-testid="home-initial-message" className="product-list-message">
