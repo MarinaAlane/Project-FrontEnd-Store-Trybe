@@ -1,11 +1,19 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import EvaluationForm from '../components/EvaluationForm';
+import Evaluations from '../components/Evaluations';
 
 class ProductDetais extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      evaluations: [],
+    };
+
     this.handleClick = this.handleClick.bind(this);
+    this.newEvaluaion = this.newEvaluaion.bind(this);
   }
 
   handleClick(product) {
@@ -17,8 +25,18 @@ class ProductDetais extends Component {
     }
   }
 
+  newEvaluaion(evaluation) {
+    const { evaluations } = this.state;
+    this.setState({
+      evaluations: [...evaluations, evaluation],
+    });
+  }
+
   render() {
-    const { location: { state: { product } } } = this.props;
+    const { evaluations } = this.state;
+    const { location: { state } } = this.props;
+    if (!state) return <Redirect to="/" />;
+    const { product } = state;
     const { title, price, thumbnail, attributes } = product;
     return (
       <>
@@ -47,6 +65,8 @@ class ProductDetais extends Component {
           >
             Adicionar
           </button>
+          <EvaluationForm onSubmit={ this.newEvaluaion } />
+          <Evaluations evaluations={ evaluations } />
         </div>
       </>
     );
