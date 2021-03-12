@@ -8,7 +8,6 @@ class CartItem extends Component {
     this.state = {
       counter: 1,
     };
-    this.excludeItem = this.excludeItem.bind(this);
     this.addItem = this.addItem.bind(this);
     this.subtractItem = this.subtractItem.bind(this);
   }
@@ -24,56 +23,41 @@ class CartItem extends Component {
     this.setState({ counter: count });
   }
 
-  addItem(item) {
-    dataCart.push(item);
-    this.counterUpdate(item);
+  addItem(count) {
+    if (count >= 0) this.setState({ counter: count + 1 });
   }
 
-  subtractItem(index, item) {
-    dataCart.splice(index, 1);
-    this.counterUpdate(item);
-  }
-
-  excludeItem(item, counter) {
-    for (let helper = 0; helper < counter; helper += 1) {
-      dataCart.splice(dataCart.indexOf(item), 1);
-    }
-    this.counterUpdate(item);
+  subtractItem(count) {
+    if (count > 0) this.setState({ counter: count - 1 });
   }
 
   render() {
     const { card } = this.props;
     const { card: { thumbnail, title, price }, index } = this.props;
     const { counter } = this.state;
-    return (index === dataCart.findIndex((item) => item === card)
-      ? (
+    return (index === dataCart.findIndex((item) => item === card) // encontra o índice da primeira instância de cada item
+      ? ( // apenas o primeiro de cada item é renderizado
         <div>
           <p data-testid="shopping-cart-product-name">{title}</p>
           <img src={ thumbnail } alt={ title } />
-          <p>{`R$ ${price.toFixed(2)}`}</p>
-          <p data-testid="shopping-cart-product-quantity">{`Qtd.: ${counter}`}</p>
+          <p>{`R$ ${(counter * price).toFixed(2)}`}</p>
+          <p data-testid="shopping-cart-product-quantity">{`Qt.: ${counter}`}</p>
           <button
             type="button"
-            onClick={ () => this.subtractItem(index, card) }
+            onClick={ () => this.subtractItem(counter) }
             data-testid="product-decrease-quantity"
           >
             -
           </button>
           <button
             type="button"
-            onClick={ () => this.addItem(card) }
+            onClick={ () => this.addItem(counter) }
             data-testid="product-increase-quantity"
           >
             +
           </button>
-          <button
-            type="button"
-            onClick={ () => this.excludeItem(card, counter) }
-          >
-            x
-          </button>
         </div>
-      ) : <div />
+      ) : null // sem mais divs vazias
     );
   }
 }
