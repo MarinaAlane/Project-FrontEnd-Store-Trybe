@@ -28,7 +28,7 @@ class Product extends Component {
                 dataTestId="product-add-to-cart"
                 submit={ false }
                 id="add-to-cart-btn"
-                onHandleClick={ () => addProductToCart(id) }
+                onHandleClick={ () => addProductToCart({ title, id, thumbnail, price }) }
               >
                 Adicionar ao carrinho
               </Button>

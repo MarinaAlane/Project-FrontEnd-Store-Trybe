@@ -15,7 +15,7 @@ class CategoryList extends React.Component {
     const category = await api.getCategories();
     this.updateState(category);
   }
-
+urn
   updateState(category) {
     this.setState({ category });
   }
