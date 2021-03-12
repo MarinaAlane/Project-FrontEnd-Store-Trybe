@@ -12,6 +12,7 @@ class ShoppingCart extends React.Component {
     this.increaseProductQuantity = this.increaseProductQuantity.bind(this);
     this.decreaseProductQuantity = this.decreaseProductQuantity.bind(this);
     this.deleteProduct = this.deleteProduct.bind(this);
+    this.renderEmptyCart = this.renderEmptyCart.bind(this);
   }
 
   increaseProductQuantity(id) {
@@ -28,17 +29,22 @@ class ShoppingCart extends React.Component {
     console.log('clicou');
   }
 
+  renderEmptyCart() {
+    return (
+      <section>
+        <p data-testid="shopping-cart-empty-message">
+          Seu carrinho está vazio
+        </p>
+      </section>
+    );
+  }
+
+  // COLOCAR O PRECO TOTAL E O PRECO POR ITEM...
+
   render() {
     const { listOfProducts } = this.state;
-    if (listOfProducts.length === 0) {
-      return (
-        <section>
-          <p data-testid="shopping-cart-empty-message">
-            Seu carrinho está vazio
-          </p>
-        </section>
-      );
-    }
+    const emptyCart = this.renderEmptyCart();
+    if (listOfProducts.length === 0) return emptyCart;
     return (
       <div>
         {
@@ -71,6 +77,7 @@ class ShoppingCart extends React.Component {
                 >
                   -
                 </button>
+                <p>Preço do produto: </p>
               </div>
             </div>
           ))
