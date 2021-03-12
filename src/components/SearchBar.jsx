@@ -21,6 +21,10 @@ class SearchBar extends React.Component {
     this.blankField = this.blankField.bind(this);
   }
 
+  componentDidMount() {
+    this.requestList();
+  }
+
   // Altera o estado de search para o valor contido na searchBar
   async getQuery(event) {
     await this.setState({
@@ -43,6 +47,7 @@ class SearchBar extends React.Component {
     this.setState({
       productList: reqList,
     });
+    localStorage.setItem('productObj', JSON.stringify(reqList));
   }
 
   blankField() {
