@@ -227,7 +227,7 @@
   z-index: -1;
 }
 
-.hvr-head:hover .hvr-head:focus .hvr-head:active {
+.hvr-head:hover, .hvr-head:focus, .hvr-head:active {
   color: #2098d1;
 }
 
@@ -257,7 +257,7 @@
   z-index: -1;
 }
 
-.hover-prod:hover:before .hover-prod:focus:before .hover-prod:active:before {
+.hover-prod:hover:before:focus:before:active:before {
   bottom: -8px;
   left: -8px;
   right: -8px;
