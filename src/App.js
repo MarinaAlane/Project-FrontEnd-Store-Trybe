@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
-import ProductDetails from './components/ProductDetails';
-// import './App.css';
-import ProductList from './components/ProductList';
-import ShoppingCart from './components/ShoppingCart';
+import ProductDetails from './pages/ProductDetails';
+import ProductList from './pages/ProductList';
+import ShoppingCart from './pages/ShoppingCart';
+import './App.css';
 
 function App() {
   return (

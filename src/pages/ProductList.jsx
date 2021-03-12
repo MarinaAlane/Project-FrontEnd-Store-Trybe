@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { getCategories, getProductsFromCategoryAndQuery } from '../services/api';
-import ProductCategory from './ProductCategory';
-import ProductCard from './ProductCard';
+import ProductCategory from '../components/ProductCategory';
+import ProductCard from '../components/ProductCard';
 
 class ProductList extends Component {
   constructor(props) {
@@ -14,20 +14,24 @@ class ProductList extends Component {
       renderProductList: false,
       searchBar: '',
       selectedCategory: '',
+      cartProducts: [],
     };
     this.handleCategories = this.handleCategories.bind(this);
     this.searchBarHandler = this.searchBarHandler.bind(this);
     this.searchButtonHandler = this.searchButtonHandler.bind(this);
     this.renderCategory = this.renderCategory.bind(this);
     this.renderProducts = this.renderProducts.bind(this);
+    this.addProductToCart = this.addProductToCart.bind(this);
   }
 
   componentDidMount() {
     this.fetchCategories();
   }
 
-  handleCategories(event) {
-    this.setState({ selectedCategory: event.target.value });
+  handleCategories({ target: { value } }) {
+    const { searchBar } = this.state;
+    this.setState({ selectedCategory: value });
+    this.fetchProductList(value, searchBar);
   }
 
   searchBarHandler({ target: { value } }) {
@@ -37,6 +41,24 @@ class ProductList extends Component {
   searchButtonHandler() {
     const { selectedCategory, searchBar } = this.state;
     this.fetchProductList(selectedCategory, searchBar);
+  }
+
+  addProductToCart(product) {
+    const { cartProducts } = this.state;
+    if (cartProducts.some((cartProduct) => cartProduct.id === product.id)) {
+      const newCart = cartProducts.map((cartProduct) => {
+        if (cartProduct.id === product.id) {
+          return { ...cartProduct, quantity: cartProduct.quantity + 1 };
+        }
+        return cartProduct;
+      });
+      this.setState({ cartProducts: newCart });
+    } else {
+      product.quantity = 1;
+      this.setState((state) => ({
+        cartProducts: [...state.cartProducts, product],
+      }));
+    }
   }
 
   async fetchCategories() {
@@ -79,14 +101,20 @@ class ProductList extends Component {
     if (productList) {
       return (
         productList.map((product) => (
-          <ProductCard key={ product.id } product={ product } />
+          <div key={ product.id }>
+            <ProductCard
+              key={ product.id }
+              product={ product }
+              onClick={ this.addProductToCart }
+            />
+          </div>
         ))
       );
     }
   }
 
   render() {
-    const { searchBar } = this.state;
+    const { searchBar, cartProducts } = this.state;
     return (
       <div className="main-page">
         <aside className="categories-list">
@@ -109,7 +137,10 @@ class ProductList extends Component {
           </button>
           <Link
             data-testid="shopping-cart-button"
-            to="/shopping-cart"
+            to={ {
+              pathname: '/shopping-cart',
+              state: { cartProducts },
+            } }
           >
             Carrinho de compras
           </Link>
