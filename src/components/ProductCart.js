@@ -7,14 +7,14 @@ export default class ProductCart extends React.Component {
 
     this.increaseQuantity = this.increaseQuantity.bind(this);
     this.decreaseQuantity = this.decreaseQuantity.bind(this);
-    this.handlerClickDelete = this.handlerClickDelete.bind(this);
+    this.handleClickDelete = this.handleClickDelete.bind(this);
 
     this.state = {
       quantity: 1,
     };
   }
 
-  handlerClickDelete({ target }) {
+  handleClickDelete({ target }) {
     const { deleteItem } = this.props;
     deleteItem(target.value);
   }
@@ -61,7 +61,7 @@ export default class ProductCart extends React.Component {
         <button
           type="button"
           value={ id }
-          onClick={ this.handlerClickDelete }
+          onClick={ this.handleClickDelete }
         >
           Delete
         </button>

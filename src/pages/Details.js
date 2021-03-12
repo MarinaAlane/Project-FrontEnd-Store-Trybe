@@ -4,7 +4,7 @@ import { shape, string } from 'prop-types';
 import * as api from '../services/api';
 import ShoppingCartButton from '../components/ShoppingCartButton';
 import AddToCartButton from '../components/AddToCartButton';
-import AvaluatorForm from '../components/AvaluatorForm';
+import EvaluatorForm from '../components/EvaluatorForm';
 
 class Details extends React.Component {
   constructor(props) {
@@ -49,7 +49,7 @@ class Details extends React.Component {
           datatestid="product-detail-add-to-cart"
           productData={ product }
         />
-        <AvaluatorForm />
+        <EvaluatorForm />
       </section>
     );
   }
