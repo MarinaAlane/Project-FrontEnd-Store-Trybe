@@ -24,15 +24,23 @@ class CartItem extends Component {
     this.setState({ counter: count });
   }
 
+  // função counter deve somente add e subtract para manipular o contador e não o array
+  // para manipular a repetição do produto na tela tem que ser outro tipo de função
+
   addItem(item) {
     dataCart.push(item);
     this.counterUpdate(item);
   }
+  // não precisa dar push no array, precisa somente do contador
+  // o contador serve como quantidade de pedidos de um mesmo produto
 
   subtractItem(index, item) {
     dataCart.splice(index, 1);
     this.counterUpdate(item);
   }
+
+  // mesmo problema do item acima, não estamos retirando um produto do array
+  // o contador somente manipula quantidade de pedidos
 
   excludeItem(item, counter) {
     for (let helper = 0; helper < counter; helper += 1) {
