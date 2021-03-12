@@ -27,11 +27,11 @@ class CategoryList extends React.Component {
         {
           ({ setSelectedCategory }) => category.map(({ id, name }) => (
             <li
-              data-testid="category"
               key={ id }
               style={ { listStyle: 'none' } }
             >
               <input
+                data-testid="category"
                 type="radio"
                 id={ id }
                 name="categoryInputName"
