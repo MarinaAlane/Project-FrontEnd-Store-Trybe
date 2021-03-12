@@ -2,9 +2,9 @@
   background: url(../utils/images/lupa.svg) 15px no-repeat #ededf0;
   border: none;
   border-radius: 99px;
-      height: 36px;
-      padding-left: 45px;
-      width: 668px;
+  height: 36px;
+  padding-left: 45px;
+  width: 668px;
 }
 
 .button-search-bar {
