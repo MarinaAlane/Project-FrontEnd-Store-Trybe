@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Proptypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 class AddToCart extends Component {
   constructor() {
@@ -10,8 +10,12 @@ class AddToCart extends Component {
 
   addToLocalStorage() {
     const { itemCart } = this.props;
-    const item = itemCart;
-    localStorage.setItem(JSON.stringify(item.id), JSON.stringify(item));
+    const initialQuatity = { quant: 1 };
+    const customID = { custom: `${itemCart.id}_${localStorage.length}` };
+    localStorage.setItem(
+      `${itemCart.id}_${localStorage.length}`,
+      `${JSON.stringify({ ...customID, ...initialQuatity, ...itemCart })}`,
+    );
   }
 
   render() {
@@ -29,8 +33,8 @@ class AddToCart extends Component {
 }
 
 AddToCart.propTypes = {
-  itemCart: Proptypes.shape().isRequired,
-  testId: Proptypes.string.isRequired,
+  itemCart: PropTypes.shape().isRequired,
+  testId: PropTypes.string.isRequired,
 };
 
 export default AddToCart;
