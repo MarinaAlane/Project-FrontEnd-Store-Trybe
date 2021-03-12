@@ -28,6 +28,7 @@ class ProductList extends React.Component {
   handleChange({ target }) {
     const { name, value } = target;
     this.setState({ [name]: value });
+    this.searchProduct(name);
   }
 
   async searchProduct() {
@@ -50,6 +51,7 @@ class ProductList extends React.Component {
               categoryId={ id }
               name={ name }
               handleRadio={ this.handleChange }
+              searchCategory={ this.searchProduct }
             />
           ))}
         </section>

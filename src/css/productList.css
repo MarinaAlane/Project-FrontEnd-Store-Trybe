@@ -49,12 +49,11 @@
   flex-flow: column;
   font-size: 12px;
   justify-content: space-evenly;
-  min-height: 300px;
   margin: 15px;
   max-width: 200px;
+  min-height: 300px;
   padding: 0 15px;
   text-align: center;
-  
 }
 
 .product-card img {
