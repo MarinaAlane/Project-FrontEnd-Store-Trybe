@@ -49,7 +49,7 @@ class ProductList extends Component {
             data-test-id="query-input"
             type="text"
           />
-          <button data-testid="query-button" onCLick={this.getProducts} type="button">
+          <button data-testid="query-button" onClick={this.getProducts} type="button">
             Buscar
           </button>
         </header>
