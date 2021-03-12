@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import ButtonCart from './components/shopping_cart/ButtonCart';
 import AsideCategoriesList from './components/AsideCategoriesList';
-import QueryButton from './components/QueryButton';
+/* import QueryButton from './components/QueryButton'; */
 import * as marketAPI from './services/api.js';
+import SearchLogo from '../src/components/search_logo.svg';
 
 
 class ProductList extends Component {
@@ -14,12 +15,22 @@ class ProductList extends Component {
     }
 
     this.filterProducts = this.filterProducts.bind(this);
+    this.displayList = this.displayList.bind(this);
   };
 
-  filterProducts() {
-    marketAPI.getProductsFromCategoryAndQuery("MBL",this.searchedText).then((searchedText) => this.setState( { searchedText }))
+  componentDidUpdate() {
+    this.filterProducts();
   }
 
+  filterProducts() {
+    marketAPI.getProductsFromCategoryAndQuery("MBL", this.searchedText).then((searchedText) => this.setState( { searchedText }))
+  }
+
+  displayList() {
+    const { searchedText } = this.state;
+    const { results } = searchedText;
+    results.map((element)=> console.log(element) );
+  }
 
   render() {
     return (
@@ -28,9 +39,10 @@ class ProductList extends Component {
           type="text"
           className="search-bar"
           data-testid="query-input"
-          onChange= {(event) => {this.setState({ searchedText: event.target.value })} }
+          onChange= {(event) => {
+            this.setState({ searchedText: event.target.value })} }
         />
-        <QueryButton />
+        <img src={ SearchLogo } alt="Query button" onClick={this.displayList} data-testid="query-button" />
         <ButtonCart />
         <AsideCategoriesList />
         <p data-testid="home-initial-message" className="product-list-message">
