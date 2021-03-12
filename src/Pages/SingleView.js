@@ -10,7 +10,6 @@ class ProductDetails extends React.Component {
     return (
       <button
         type="button"
-        data-testid="product-detail-add-to-cart"
         onClick={ () => console.log(param) }
       >
         {name}
