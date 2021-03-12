@@ -1,4 +1,5 @@
 import React from 'react';
+import CategoryList from '../components/CategoryList';
 import ProductCard from '../components/ProductCard';
 import SearchBar from '../components/SearchBar';
 import * as api from '../services/api';
@@ -8,12 +9,14 @@ class ProductList extends React.Component {
   constructor(props) {
     super(props);
 
-    this.getProducts = this.getProducts.bind(this);
+    this.getProductsAndOrCategory = this.getProductsAndOrCategory.bind(this);
     this.onSearchTextChange = this.onSearchTextChange.bind(this);
+    this.getCategoryId = this.getCategoryId.bind(this);
 
     this.state = {
       products: [],
       searchText: '',
+      categoryId: '',
     };
   }
 
@@ -24,9 +27,16 @@ class ProductList extends React.Component {
     });
   }
 
-  async getProducts(categorie, query) {
+  getCategoryId(categoryId) {
+    this.setState({
+      categoryId,
+    }, () => this.getProductsAndOrCategory());
+  }
+
+  async getProductsAndOrCategory() {
+    const { categoryId, searchText } = this.state;
     try {
-      const response = await api.getProductsFromCategoryAndQuery(categorie, query);
+      const response = await api.getProductsFromCategoryAndQuery(categoryId, searchText);
       const productArray = response.results;
       this.setState({
         products: productArray,
@@ -44,8 +54,10 @@ class ProductList extends React.Component {
         <SearchBar
           value={ searchText }
           onSearchTextChange={ this.onSearchTextChange }
-          getProducts={ () => this.getProducts('', searchText) }
+          getProducts={ () => this.getProductsAndOrCategory() }
         />
+
+        <CategoryList getCategoryId={ this.getCategoryId } />
 
         <div className="product-container">
           { (products.length > 0)
