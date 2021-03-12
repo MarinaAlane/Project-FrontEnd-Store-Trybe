@@ -6,7 +6,7 @@ import ProductList from './ProductList';
 import * as api from './services/api';
 import Header from './Header';
 import Footer from './Footer';
-import CheckoutImg from "./image/checkout-img.png";
+import CheckoutImg from './image/checkout-img.png';
 
 class Home extends React.Component {
   constructor(props) {
@@ -84,27 +84,29 @@ class Home extends React.Component {
             >
               <span role="img" aria-labelledby="search">🔎</span>
             </button>
-          <Link
-            to="/shoppingcart"
-            className="checkout-button hvr-pop"
-            data-testid="shopping-cart-button"
-          >
-            <img className="checkout-img" alt="checkout" src={ CheckoutImg } />
-          </Link>
+            <Link
+              to="/shoppingcart"
+              className="checkout-button hvr-pop"
+              data-testid="shopping-cart-button"
+            >
+              <img className="checkout-img" alt="checkout" src={ CheckoutImg } />
+            </Link>
           </div>
-            <p data-testid="home-initial-message">Digite algum termo de pesquisa ou escolha uma categoria.</p>
-          </div>
-          <div className="nav-content">
-          <Categorias categories={ categories } onClick={ this.categoriesFilter } />
-          <main className="product-container">
-            {(products.length > 0) ? <ProductList
-              products={ products }
-              listProducts={ listProducts }
-              addProduct={ addProduct }
-            />
-            : <p className="search-empty">Nenhum produto foi encontrado</p>}
-          </main>
+          <p data-testid="home-initial-message">
+            Digite algum termo de pesquisa ou escolha uma categoria.
+          </p>
         </div>
+            <div className="nav-content">
+              <Categorias categories={ categories } onClick={ this.categoriesFilter } />
+              <main className="product-container">
+                {(products.length > 0) ? <ProductList
+                products={ products }
+                listProducts={ listProducts }
+                addProduct={ addProduct }
+                />
+                : <p className="search-empty">Nenhum produto foi encontrado</p>}
+              </main>
+            </div>
         <Footer />
       </section>
     );

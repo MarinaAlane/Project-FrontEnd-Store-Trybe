@@ -3,7 +3,8 @@ import React from 'react';
 class Footer extends React.Component {
   render() {
     return (
-      <footer className="footer">Develop by @ 
+      <footer className="footer">
+        Develop by @
         <p className="footer-title">
           <a href="https://github.com/layokaminski" target="a_blank">Layo Kaminski,</a>
           <a href="https://github.com/MarcioFujita" target="a_blank"> Marcio Fujita,</a>
