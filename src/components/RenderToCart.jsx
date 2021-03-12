@@ -21,7 +21,7 @@ class RenderToCart extends React.Component {
   render() {
     const cartItensArray = this.getLocalStorage();
     return(
-      <div>
+      <div className="card-container">
         {cartItensArray.map((array) => {
           const productItem = {
             quant: Number(array[0]),

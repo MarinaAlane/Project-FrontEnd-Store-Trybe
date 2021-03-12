@@ -5,7 +5,7 @@ class AddButton extends React.Component {
   constructor() {
     super();
     this.state = {
-      id: '',//nome do item
+      id: '', // nome do item
       cont: 1,
     };
   }
