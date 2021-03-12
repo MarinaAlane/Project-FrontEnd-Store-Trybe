@@ -3,7 +3,7 @@ import React from 'react';
 class Main extends React.Component {
   render() {
     return (
-      <main>
+      <main className="main">
         <p data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>

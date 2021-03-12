@@ -25,4 +25,36 @@
   padding-bottom: 3px;
   padding-left: 10px;
   padding-top: 3px;
+  
+.header {
+  align-items: center;
+  display: flex;
+  justify-content: flex-start;
+  max-width: 100%;
+  padding: 10px 30px;
+}
+
+.arrow-back {
+  padding: 5px 30px;
+}
+
+.shopping-icon {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.input-search {
+  border-radius: 30px;
+  height: 35px;
+  margin-right: 30px;
+  outline: none;
+  width: 100%;
+}
+
+.main {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
