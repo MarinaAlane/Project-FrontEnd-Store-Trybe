@@ -1,16 +1,30 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import FormAssessment from '../Components/FormAssessments';
 import imgKart from '../Images/botaoCarrinho.jpg';
 import './Pages.css';
 
 class ProductDetails extends React.Component {
+  buttonAddAndRemove(param, name) {
+    return (
+      <button
+        type="button"
+        data-testid="product-detail-add-to-cart"
+        onClick={ () => console.log(param) }
+      >
+        {name}
+      </button>
+    );
+  }
+
   render() {
-    const { location: { state: { product } }, totalCart } = this.props;
-    const { title, price, thumbnail } = product;
+    const { location: { state }, totalCart } = this.props;
+    if (!state) return <Redirect to="/" />;
+    const { title, price, thumbnail, id } = state.product;
 
     return (
-      <div>
+      <div className="main-details">
         <div className="nav-details">
           <Link to="/">&#8678;</Link>
           <Link data-testid="shopping-cart-button" to="/carrinho">
@@ -18,7 +32,7 @@ class ProductDetails extends React.Component {
           </Link>
         </div>
         <section className="main-shoppingCart">
-          <p data-testid="product-detail-name">{`${title} - R$ ${price}`}</p>
+          <h2 data-testid="product-detail-name">{`${title} - R$ ${price}`}</h2>
           <div className="img-details">
             <img src={ thumbnail } alt={ title } />
             <div className="product-details">
@@ -26,13 +40,25 @@ class ProductDetails extends React.Component {
               <p>Produto muito bom, compre logo.</p>
             </div>
           </div>
-          <button
-            type="button"
-            data-testid="product-detail-add-to-cart"
-            onClick={ () => totalCart(product) }
-          >
-            Adicionar no Carrinho
-          </button>
+        </section>
+        <section className="section-addCart">
+          <h2>Quantidade</h2>
+          <div className="section-button-AddCart">
+            { this.buttonAddAndRemove('Remove', '-') }
+            <p>Number</p>
+            { this.buttonAddAndRemove('Adicionar', '+') }
+            <button
+              type="button"
+              data-testid="product-detail-add-to-cart"
+              onClick={ () => totalCart(state.product) }
+            >
+              Adicionar no Carrinho
+            </button>
+          </div>
+        </section>
+        <section className="section-assessments">
+          <h2>Avaliações</h2>
+          <FormAssessment id={ id } />
         </section>
       </div>
     );
@@ -46,6 +72,7 @@ ProductDetails.propTypes = {
         title: PropTypes.string,
         price: PropTypes.number,
         thumbnail: PropTypes.string,
+        id: PropTypes.string,
       }),
     }),
   }).isRequired,

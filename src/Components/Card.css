@@ -37,3 +37,20 @@
   justify-content: center;
   margin: 0;
 }
+
+.assessment-card {
+  border: 1px solid black;
+}
+
+.assessment-div {
+  display: flex;
+  align-items: center;
+}
+
+.assessment-email {
+  margin: 0 5px;
+}
+
+.assessment-mensagem {
+  margin: 0px 5px 5px 5px;
+}
