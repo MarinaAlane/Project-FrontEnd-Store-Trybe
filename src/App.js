@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import CartPage from './pages/CartPage';
 import HomePage from './pages/HomePage';
 import InputContext from './components/InputContext';
+import ProductDetails from './pages/ProductDetails';
 
 class App extends React.Component {
   constructor(props) {
@@ -38,6 +39,10 @@ class App extends React.Component {
           <Switch>
             <Route exact path="/" component={ HomePage } />
             <Route path="/cart" component={ CartPage } />
+            <Route
+              path="/details/:id"
+              render={ (props) => <ProductDetails { ...props } /> }
+            />
           </Switch>
         </Router>
       </InputContext.Provider>

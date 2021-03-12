@@ -31,15 +31,16 @@ class CartProducts extends Component {
   }
 
   render() {
-    const { cartProducts, productId } = this.state;
+    const { cartProducts } = this.state;
     return (
       <StateContext.Consumer>
         {() => {
-          cartProducts.map(({ title, thumbnail, price, id }) => (
+          cartProducts.map(({ title, thumbnail, price, id }, index) => (
             <div key={ id }>
-              <p>{title}</p>
+              <p data-testid="shopping-cart-product-name">{title}</p>
               <img src={ thumbnail } alt={ title } />
               <p>{price}</p>
+              <p data-testid="shopping-cart-product-quantity">{index + 1}</p>
             </div>
           ));
         }}

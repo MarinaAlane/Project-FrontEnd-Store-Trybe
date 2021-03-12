@@ -1,8 +1,8 @@
 import React from 'react';
 
 import Header from '../../components/Header';
-import CategoryList from '../../components/CategoryList/CategoryList';
-import ProductsPage from '../ProductsPage/ProductsPage';
+import CategoryList from '../../components/CategoryList';
+import ProductsPage from '../ProductsPage';
 
 class HomePage extends React.Component {
   render() {
