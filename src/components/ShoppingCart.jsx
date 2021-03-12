@@ -13,6 +13,16 @@ class ShoppingCart extends React.Component {
     this.usingState = this.usingState.bind(this);
   }
 
+  usingState() {
+    const { quantity } = this.state;
+    const quantityVar = quantity;
+    console.log(quantityVar);
+  }
+
+  componentDidUpdate() {
+    this.componentUpdate();
+  }
+
   clickDecrease(id) {
     const productJ = JSON.parse(localStorage.carrinho);
     const findProduct = productJ.find((data) => data.id === id);
@@ -26,16 +36,6 @@ class ShoppingCart extends React.Component {
       localStorage.setItem('carrinho', jsonString);
     }
     this.usingState();
-  }
-
-  usingState() {
-    const { quantity } = this.state;
-    let quantityVar = quantity;
-    console.log(quantityVar);
-  }
-
-  componentDidUpdate() {
-    this.componentUpdate();
   }
 
   clickPlus(id) {
