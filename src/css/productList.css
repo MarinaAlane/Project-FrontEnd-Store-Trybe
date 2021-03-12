@@ -1,8 +1,8 @@
 .page-container {
   border: 5px solid magenta;
   display: flex;
-  flex-flow: row;
   flex: 1;
+  flex-flow: row;
   margin: 25px;
   padding: 10px;
 }
@@ -48,12 +48,13 @@
   display: flex;
   flex-flow: column;
   font-size: 12px;
-  min-height: 300px;
   justify-content: space-evenly;
+  min-height: 300px;
   margin: 15px;
+  max-width: 200px;
   padding: 0 15px;
   text-align: center;
-  max-width: 200px;
+  
 }
 
 .product-card img {
