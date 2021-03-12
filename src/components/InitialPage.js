@@ -11,7 +11,7 @@ class InitialPage extends React.Component {
       butttonClicked: false,
       query: '',
       categories: [],
-      categoryId: undefined,
+      categoryId: '',
     };
 
     this.getApiCategories = this.getApiCategories.bind(this);
