@@ -23,8 +23,8 @@
   align-items: flex-start;
   color: rgb(55, 55, 55);
   display: flex;
-  font-size: 1.2rem;
   flex-direction: column;
+  font-size: 1.2rem;
   font-weight: 900;
   justify-content: flex-start;
   margin: 1rem;
