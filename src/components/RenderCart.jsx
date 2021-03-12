@@ -3,19 +3,19 @@ import PropTypes from 'prop-types';
 
 class RenderCarts extends React.Component {
   render() {
-    const { name, quantity } = this.props;
+    const { title, count } = this.props;
     return (
       <div>
-        <h4 data-testid="shopping-cart-product-name">{ name }</h4>
-        <h6 data-testid="shopping-cart-product-quantity">{ quantity }</h6>
+        <h4 data-testid="shopping-cart-product-name">{ title }</h4>
+        <p data-testid="shopping-cart-product-quantity">Quantidade: { count }</p>
       </div>
     );
   }
 }
 
 RenderCarts.propTypes = {
-  name: PropTypes.string.isRequired,
-  quantity: PropTypes.number.isRequired,
+  title: PropTypes.string.isRequired,
+  count: PropTypes.number.isRequired,
 };
 
 export default RenderCarts;

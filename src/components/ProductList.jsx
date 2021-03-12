@@ -10,9 +10,8 @@ class ProductList extends React.Component {
     this.click = this.click.bind(this);
   }
 
-  click(event) {
-    const id = event.target.value;
-    cart(localStorage.getItem('query'), id);
+  click(data) {
+    cart(data);
   }
 
   render() {
@@ -34,7 +33,7 @@ class ProductList extends React.Component {
             <button
               type="button"
               value={ product.id }
-              onClick={ this.click }
+              onClick={ () => this.click(product) }
               data-testid="product-add-to-cart"
             >
               Adicionar

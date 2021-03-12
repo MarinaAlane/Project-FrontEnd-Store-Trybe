@@ -1,28 +1,24 @@
-import * as api from './api';
-
-function handleResults(data, idCart) {
-  data.results.forEach((product) => {
-    if (product.id === idCart) {
-      if (localStorage[idCart]) {
-        const jsonProduct = window.localStorage.getItem(idCart);
-        const productJ = JSON.parse(jsonProduct);
-        const json = JSON.stringify({ title: productJ.title, value: productJ.value + 1 });
-        localStorage.setItem(idCart, json);
-      } else {
-        const jsonTitle = JSON.stringify({ title: product.title, value: 1 });
-        localStorage.setItem(idCart, jsonTitle);
-      }
-    }
-  });
-}
-
-async function cart(query, idCart) {
-  if (!query) {
-    const data = await api.getProductsFromCategoryAndQuery(idCart);
-    handleResults(data, idCart);
+async function cart(product) {
+  if (localStorage['carrinho'] === undefined) {
+    const { id, title } = product;
+    const jsonObj = JSON.stringify([{id: id, title: title, count: 1}]);
+    localStorage.setItem("carrinho", jsonObj);
   } else {
-    const data = await api.getProductsFromQuery(query);
-    handleResults(data, idCart);
+    const productJ = JSON.parse(localStorage["carrinho"]);
+    const findProduct = productJ.find((data) => data.id === product.id);
+    if (findProduct) {
+      // aqui devo adicionar mais um ao count;
+      const position = productJ.indexOf(findProduct);
+      productJ[position].count += 1;
+      const jsonString = JSON.stringify(productJ);
+      localStorage.setItem("carrinho", jsonString);
+    } else {
+      //Aqui ele adiciona um novo produto ao carrinho
+      const { id, title } = product;
+      productJ.push({id: id, title: title, count: 1});
+      const newProducts = JSON.stringify(productJ);
+      localStorage.setItem("carrinho", newProducts);
+    }
   }
 }
 
