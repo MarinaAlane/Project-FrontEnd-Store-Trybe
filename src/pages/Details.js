@@ -7,14 +7,11 @@ import AvaluatorForm from '../components/AvaluatorForm';
 
 class Details extends React.Component {
   render() {
-    const { location, match } = this.props;
+    const { location } = this.props;
     const { state } = location;
     const { product } = state;
-    const { id, title, price, thumbnail, shipping } = product;
+    const { id, title, price, thumbnail, shipping, category_id: categoryId } = product;
     const { free_shipping: freeShipping } = shipping;
-
-    const { params } = match;
-    const { idCategory, idProduct } = params;
     return (
       <section>
         <img src={ thumbnail } alt={ title } />
@@ -22,7 +19,7 @@ class Details extends React.Component {
         <p>{price}</p>
         {freeShipping && <p data-testid="free-shipping">Frete Grátis</p>}
         <Link to="/">Home</Link>
-        <ShoppingCartButton idProduct={ idProduct } idCategory={ idCategory } />
+        <ShoppingCartButton idProduct={ id } idCategory={ categoryId } />
         <AddToCartButton
           datatestid="product-detail-add-to-cart"
           productData={ { id, title, price } }
@@ -34,13 +31,6 @@ class Details extends React.Component {
 }
 
 Details.propTypes = {
-  match: shape({
-    params: shape({
-      idCategory: string.isRequired,
-      idProduct: string.isRequired,
-    }).isRequired,
-  }).isRequired,
-
   location: shape({
     state: shape({
       product: shape({
