@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import ProductsAtCart from '../services/data';
 
 class ProductCard extends React.Component {
   render() {
@@ -10,6 +11,15 @@ class ProductCard extends React.Component {
         <h1>{ title }</h1>
         <img src={ image } alt={ title } />
         <p>{ price }</p>
+        <button
+          type="button"
+          data-testid="product-add-to-cart"
+          onClick={
+            () => ProductsAtCart.push({ title, image, price })
+          }
+        >
+          Adicionar ao Carrinho
+        </button>
         <Link
           to={ {
             pathname: `/product/${productId}`,

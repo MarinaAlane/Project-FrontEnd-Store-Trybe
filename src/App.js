@@ -6,6 +6,7 @@ import ProductDetails from './components/ProductDetails';
 import './App.css';
 
 function App() {
+  localStorage.setItem('products', []);
   return (
     <BrowserRouter>
       <Switch>
