@@ -25,7 +25,6 @@ class ShoppingCart extends React.Component {
   }
 
   render() {
-    console.log(ProductsAtCart);
     return (
       <div>
         <Link to="/">Voltar</Link>
