@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { getProduct } from '../services/api';
+import { getProductsFromCategoryAndQuery } from '../services/api';
 import ButtonShoppingCart from '../components/ButtonShoppingCart';
 
 class ProductDetails extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       // id: 0,
       title: '',
@@ -21,16 +21,19 @@ class ProductDetails extends React.Component {
     this.fetchProduct();
   }
 
+  // logica baseada no code review do SantosDiv
   async fetchProduct() {
     const { match } = this.props;
-    const { id } = match.params;
-    const requestProduct = await getProduct(id);
+    const { idCategory, idProduct } = match.params;
+    const requestProduct = await getProductsFromCategoryAndQuery(idCategory, '');
+    const product = requestProduct.results.find(({ id }) => id === idProduct);
+    console.log(product);
     this.setState({
       // id: requestProduct.id,
-      title: requestProduct[0].body.title,
-      thumbnail: requestProduct[0].body.thumbnail,
-      price: requestProduct[0].body.price,
-      attributes: requestProduct[0].body.attributes,
+      title: product.title,
+      thumbnail: product.thumbnail,
+      price: product.price,
+      attributes: product.attributes,
       loading: false,
     });
   }
@@ -46,8 +49,8 @@ class ProductDetails extends React.Component {
           <ButtonShoppingCart />
         </Link>
 
-        <div data-testid="product-detail-name">
-          <h2>{title}</h2>
+        <div>
+          <h2 data-testid="product-detail-name">{title}</h2>
           <img alt="" src={ thumbnail } />
           <h3>{`R$ ${price}`}</h3>
           <ol>
@@ -63,7 +66,8 @@ class ProductDetails extends React.Component {
 ProductDetails.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
-      id: PropTypes.string,
+      idCategory: PropTypes.string,
+      idProduct: PropTypes.string,
     }),
   }).isRequired,
 };
