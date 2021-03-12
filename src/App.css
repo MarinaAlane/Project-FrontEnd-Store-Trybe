@@ -5,7 +5,7 @@
 
 .header {
   align-items: center;
-  background-color: #2098D1;
+  background-color: #2098d1;
   border-bottom: 4px #090f1f ridge;
   color: antiquewhite;
   display: flex;
@@ -92,7 +92,7 @@
 }
 
 .product-details a {
-  color: #2098D1;
+  color: #2098d1;
   font-style: italic;
   margin: 10px;
   text-decoration: none;
@@ -143,9 +143,9 @@
 
 .category-button:hover {
   background-color: aliceblue;
-  border: 1px #2098D1 solid;
+  border: 1px #2098d1 solid;
   border-radius: 4px;
-  color: #2098D1;
+  color: #2098d1;
 }
 
 .hvr-forward {
@@ -177,7 +177,7 @@
 .footer {
   align-items: center;
   background-color: aliceblue;
-  border-top: 1px #2098D1 ridge;
+  border-top: 1px #2098d1 ridge;
   color: grey;
   display: flex;
   height: 50px;
@@ -191,13 +191,13 @@
   font-style: italic;
 }
 
-.footer-title a:hover {
-  color:#090f1f
-}
-
 .footer-title a {
   color: grey;
   text-decoration: none;
+}
+
+.footer-title a:hover {
+  color:#090f1f
 }
 
 .hvr-bounce-to-right {
@@ -213,7 +213,7 @@
 
 .hvr-bounce-to-right:before {
   background: #090f1f;
-  border-bottom: 4px #2098D1 ridge;
+  border-bottom: 4px #2098d1 ridge;
   bottom: 0;
   content: "";
   left: 0;
@@ -230,7 +230,7 @@
 .hvr-bounce-to-right:hover, 
 .hvr-bounce-to-right:focus, 
 .hvr-bounce-to-right:active {
-  color: #2098D1;
+  color: #2098d1;
 }
 .hvr-bounce-to-right:hover:before, 
 .hvr-bounce-to-right:focus:before, 
@@ -255,7 +255,7 @@
   top: 0;
   right: 0;
   transition-duration: 0.3s;
-  transition-property: top, right, bottom, left;
+  transition-property: top , right , bottom , left;
   z-index: -1;
 }
 .hvr-outline-out:hover:before, .hvr-outline-out:focus:before, .hvr-outline-out:active:before {
