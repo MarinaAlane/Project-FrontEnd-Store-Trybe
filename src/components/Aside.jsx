@@ -19,7 +19,7 @@ class Aside extends React.Component {
 }
 
 Aside.propTypes = {
-  categories: PropTypes.arrayOf(PropTypes.string).isRequired,
+  categories: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default Aside;

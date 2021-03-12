@@ -1,6 +1,5 @@
 import React from 'react';
-// import Loading from '../components/Loading';
-import { getCategories } from '../services/api';
+import { getCategories, getProductsFromCategoryAndQuery } from '../services/api';
 import Header from '../components/Header';
 import Main from '../components/Main';
 import Aside from '../components/Aside';
@@ -10,12 +9,13 @@ class MainPage extends React.Component {
     super(props);
     this.state = {
       categories: [],
-      // loading: true,
+      productsFromQuery: [],
     };
+    this.getProductsFromQuery = this.getProductsFromQuery.bind(this);
   }
 
   async componentDidMount() {
-    return getCategories()
+    await getCategories()
       .then((data) => this
         .setState((lastState) => ({
           ...lastState,
@@ -24,12 +24,20 @@ class MainPage extends React.Component {
         })));
   }
 
+  async getProductsFromQuery(query) {
+    const data = await getProductsFromCategoryAndQuery('', query);
+    this.setState((lastState) => ({
+      ...lastState,
+      productsFromQuery: data.results,
+    }));
+  }
+
   render() {
-    const { categories } = this.state;
+    const { categories, productsFromQuery } = this.state;
     return (
       <>
-        <Header />
-        <Main />
+        <Header getProductsFromQuery={ this.getProductsFromQuery } />
+        <Main productsFromQuery={ productsFromQuery } />
         <Aside categories={ categories } />
       </>
     );
@@ -37,7 +45,3 @@ class MainPage extends React.Component {
 }
 
 export default MainPage;
-
-// if (loading) {
-//   return <Loading />;
-// }
