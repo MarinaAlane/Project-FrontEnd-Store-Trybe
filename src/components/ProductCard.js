@@ -6,9 +6,9 @@ class ProductCard extends React.Component {
     return (
       <section data-testid="product">
         {/* receber um obj como props, render nome image e preço */}
-        <h3>{/* titulo/nome */}</h3>
-        <img src={{/* imagem do prosuto */}} alt="Imagem do Produto" />
-        <p>{/* preço */}</p>
+        <h3>{ product.title }</h3>
+        <img src={ product.thumbnail } alt="Imagem do Produto" />
+        <p>{ product.price }</p>
           
       </section>
     );
