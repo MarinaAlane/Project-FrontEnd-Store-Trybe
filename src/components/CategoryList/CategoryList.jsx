@@ -25,17 +25,21 @@ class CategoryList extends React.Component {
     return (
       <InputContext.Consumer>
         {
-          ({ setSelectedCategory }) => {
-            return category.map(({ id, name }) => (
-              <li
-                data-testid="category"
-                key={ id }
+          ({ setSelectedCategory }) => category.map(({ id, name }) => (
+            <li
+              data-testid="category"
+              key={ id }
+              style={ { listStyle: 'none' } }
+            >
+              <input
+                type="radio"
+                id={ id }
+                name="categoryInputName"
                 onClick={ () => setSelectedCategory(id) }
-              >
-                { name }
-              </li>
-            ));
-          }
+              />
+              <label htmlFor={ id }>{ name }</label>
+            </li>
+          ))
         }
       </InputContext.Consumer>
     );
