@@ -4,6 +4,9 @@ import PropTypes from 'prop-types';
 import Categorias from './Categorias';
 import ProductList from './ProductList';
 import * as api from './services/api';
+import Header from './Header';
+import Footer from './Footer';
+import CheckoutImg from './image/checkout-img.png';
 
 class Home extends React.Component {
   constructor(props) {
@@ -63,31 +66,48 @@ class Home extends React.Component {
     const { queryInput, products, categories } = this.state;
     const { addProduct, listProducts } = this.props;
     return (
-      <section>
-        <label htmlFor="Digite" data-testid="home-initial-message">
-          <input
-            type="text"
-            value={ queryInput }
-            onChange={ this.handleChange }
-            data-testid="query-input"
-          />
-          Digite algum termo de pesquisa ou escolha uma categoria.
-        </label>
-        <Categorias categories={ categories } onClick={ this.categoriesFilter } />
-        <button
-          type="button"
-          data-testid="query-button"
-          onClick={ this.fetchSearch }
-        >
-          Procurar
-        </button>
-        {(products.length > 0) ? <ProductList
-          products={ products }
-          listProducts={ listProducts }
-          addProduct={ addProduct }
-        />
-          : <p>Nenhum produto foi encontrado</p>}
-        <Link to="/shoppingcart" data-testid="shopping-cart-button">CARRINHO</Link>
+      <section className="main-content">
+        <Header />
+        <div className="search-container">
+          <div className="search-bar-div">
+            <input
+              className="form-control"
+              type="text"
+              value={ queryInput }
+              onChange={ this.handleChange }
+              data-testid="query-input"
+            />
+            <button
+              type="button"
+              data-testid="query-button"
+              onClick={ this.fetchSearch }
+            >
+              <span role="img" aria-labelledby="search">🔎</span>
+            </button>
+            <Link
+              to="/shoppingcart"
+              className="checkout-button hvr-pop"
+              data-testid="shopping-cart-button"
+            >
+              <img className="checkout-img" alt="checkout" src={ CheckoutImg } />
+            </Link>
+          </div>
+          <p data-testid="home-initial-message">
+            Digite algum termo de pesquisa ou escolha uma categoria.
+          </p>
+        </div>
+        <div className="nav-content">
+          <Categorias categories={ categories } onClick={ this.categoriesFilter } />
+          <main className="product-container">
+            {(products.length > 0) ? <ProductList
+              products={ products }
+              listProducts={ listProducts }
+              addProduct={ addProduct }
+            />
+              : <p className="search-empty">Nenhum produto foi encontrado</p>}
+          </main>
+        </div>
+        <Footer />
       </section>
     );
   }
