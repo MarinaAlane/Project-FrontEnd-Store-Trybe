@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Loading from './Loading';
-// VQV
+
 class ListOfCategories extends React.Component {
   render() {
     const { categories, onClickSelectedCategory } = this.props;
