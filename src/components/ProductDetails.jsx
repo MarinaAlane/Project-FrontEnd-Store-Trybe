@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import * as api from '../services/api';
+import RatingForm from './RatingForm';
 
 class ProductDetails extends React.Component {
   constructor() {
@@ -29,6 +30,7 @@ class ProductDetails extends React.Component {
 
   render() {
     const { product: { title, thumbnail, price } } = this.state;
+    console.log(this.props);
     return (
       <div>
         <p>
@@ -45,6 +47,7 @@ class ProductDetails extends React.Component {
           </span>
         </p>
         <img src={ thumbnail } alt="product-thumbnail" />
+        <RatingForm />
         <Link to="/shopping-cart">Ir para carrinho</Link>
       </div>
     );
