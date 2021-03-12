@@ -8,7 +8,7 @@ class Categorias extends React.Component {
     return (
       <div className="category-filter">
         {categories.map((categoria) => (
-          <button     
+          <button
             className="hvr-forward category-button"
             id={ categoria.id }
             type="button"
@@ -30,4 +30,3 @@ Categorias.propTypes = {
 };
 
 export default Categorias;
-// category-button

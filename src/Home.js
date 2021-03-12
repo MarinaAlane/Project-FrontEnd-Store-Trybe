@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import Categorias from './Categorias';
 import ProductList from './ProductList';
 import * as api from './services/api';
-import Header from './Header'
-import Footer from './Footer'
-import CheckoutImg from "./image/checkout-img.png"
+import Header from './Header';
+import Footer from './Footer';
+import CheckoutImg from "./image/checkout-img.png";
 
 class Home extends React.Component {
   constructor(props) {
@@ -71,7 +71,7 @@ class Home extends React.Component {
         <div className="search-container">
           <div className="search-bar-div">
             <input
-              class="form-control"
+              className="form-control"
               type="text"
               value={ queryInput }
               onChange={ this.handleChange }
@@ -83,31 +83,27 @@ class Home extends React.Component {
               onClick={ this.fetchSearch }
             >
               <span role="img" aria-labelledby="search">🔎</span>
-          </button>
-          <Link 
-            to="/shoppingcart" 
-            className="checkout-button hvr-pop" 
+            </button>
+          <Link
+            to="/shoppingcart"
+            className="checkout-button hvr-pop"
             data-testid="shopping-cart-button"
           >
-            <img 
-              className="checkout-img" 
-              alt="checkout" 
-              src={ CheckoutImg }>
-            </img>
+            <img className="checkout-img" alt="checkout" src={ CheckoutImg } />
           </Link>
-        </div>
-          <p data-testid="home-initial-message">Digite algum termo de pesquisa ou escolha uma categoria.</p>
-        </div>
-        <div className="nav-content">
+          </div>
+            <p data-testid="home-initial-message">Digite algum termo de pesquisa ou escolha uma categoria.</p>
+          </div>
+          <div className="nav-content">
           <Categorias categories={ categories } onClick={ this.categoriesFilter } />
-        <main className="product-container">
-          {(products.length > 0) ? <ProductList
-            products={ products }
-            listProducts={ listProducts }
-            addProduct={ addProduct }
-          />
-          : <p className="search-empty">Nenhum produto foi encontrado</p>}
-        </main>
+          <main className="product-container">
+            {(products.length > 0) ? <ProductList
+              products={ products }
+              listProducts={ listProducts }
+              addProduct={ addProduct }
+            />
+            : <p className="search-empty">Nenhum produto foi encontrado</p>}
+          </main>
         </div>
         <Footer />
       </section>

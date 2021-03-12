@@ -12,9 +12,9 @@ class ProductCard extends React.Component {
           <div className="product-title-div">
             <h2 className="product-title">{ title }</h2>
           </div>
-          <img src={ thumbnail } alt={ title } className="product-img"/>
+          <img src={ thumbnail } alt={ title } className="product-img" />
           <div className="product-detais-card">
-            <p>{ `R$ ${ price }` }</p>
+            <p>{ `R$ ${price}` }</p>
             <Link
               data-testid="product-detail-link"
               to={ { pathname: '/productDetails', product } }
@@ -25,7 +25,8 @@ class ProductCard extends React.Component {
               type="button"
               data-testid="product-add-to-cart"
               onClick={ () => addProduct(product) }
-            ><span role="img" aria-labelledby="carrinho">🛒</span>
+            >
+              <span role="img" aria-labelledby="carrinho">🛒</span>
             </button>
           </div>
         </div>
