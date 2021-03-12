@@ -11,7 +11,10 @@ class ProductCard extends React.Component {
         <img src={ thumbnail } alt={ title } />
         <h1>{ title }</h1>
         <p>{ `R$ ${price.toFixed(2)}` }</p>
-        <Link to={ { pathname: '/product-details', state: { product } } } data-testid="product-detail-link">
+        <Link
+          to={ { pathname: '/product-details', state: { product } } }
+          data-testid="product-detail-link"
+        >
           Ver detalhes
         </Link>
       </div>
