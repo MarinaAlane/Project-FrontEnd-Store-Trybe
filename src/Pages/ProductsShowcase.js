@@ -13,10 +13,12 @@ class ProductsShowcase extends React.Component {
       searchText: '',
       categoryId: '',
       products: [],
+      cartProductsId: [],
     };
     this.inputChange = this.inputChange.bind(this);
     this.fetchProducts = this.fetchProducts.bind(this);
     this.onChangeCategoriesInput = this.onChangeCategoriesInput.bind(this);
+    this.addProductsToCart = this.addProductsToCart.bind(this);
   }
 
   componentDidMount() {
@@ -43,8 +45,28 @@ class ProductsShowcase extends React.Component {
     this.setState({ products: requestProducts.results });
   }
 
+  addProductsToCart(product) {
+    this.setState((estadoAnterior) => ({
+      cartProductsId: [...estadoAnterior.cartProductsId, product],
+    }));
+  }
+
+  renderLinkToCart(cartProductsId) {
+    return (
+      <Link
+        data-testid="shopping-cart-button"
+        to={ {
+          pathname: '/shopping-cart',
+          state: { cartProductsId },
+        } }
+      >
+        <ButtonShoppingCart />
+      </Link>
+    );
+  }
+
   render() {
-    const { categoriesArray, products, searchText } = this.state;
+    const { categoriesArray, products, searchText, cartProductsId } = this.state;
     return (
       <div>
         <input
@@ -59,9 +81,8 @@ class ProductsShowcase extends React.Component {
         >
           Busca
         </button>
-        <Link data-testid="shopping-cart-button" to="/shopping-cart">
-          <ButtonShoppingCart />
-        </Link>
+        {this.renderLinkToCart(cartProductsId)}
+
         <p data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>
@@ -72,7 +93,12 @@ class ProductsShowcase extends React.Component {
         {products.length === 0
           ? <p>Nenhum produto foi encontrado</p>
           : products
-            .map((product) => <ProductCard key={ product.id } product={ product } />)}
+            .map((product) => (
+              <ProductCard
+                key={ product.id }
+                product={ product }
+                addProductsToCart={ this.addProductsToCart }
+              />))}
       </div>
     );
   }
