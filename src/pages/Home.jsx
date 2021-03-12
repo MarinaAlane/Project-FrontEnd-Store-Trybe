@@ -10,54 +10,59 @@ class Home extends React.Component {
     this.state = {
       categories: [],
       value: '',
-      categoryId: '',
+      // categoryId: '',
       products: [],
     };
     this.fetchCategories = this.fetchCategories.bind(this);
     this.HandleClick = this.HandleClick.bind(this);
     this.fetchQuery = this.fetchQuery.bind(this);
+    this.HandleChange = this.HandleChange.bind(this);
   }
+
   componentDidMount() {
     this.fetchCategories();
-    
   }
 
   fetchQuery(categoryId, value) {
-    api.getProductsFromCategoryAndQuery(categoryId, value).then(({ results }) => this.setState({ products: results }))
+    api.getProductsFromCategoryAndQuery(categoryId, value)
+      .then(({ results }) => this.setState({ products: results }));
   }
 
   fetchCategories() {
-    api.getCategories().then(category => this.setState({ categories: category }))
+    api.getCategories().then((category) => this.setState({ categories: category }));
   }
 
-  HandleChange = (event) => {
+  HandleChange(event) {
     this.setState({ value: event.target.value });
   }
 
   HandleClick() {
-    const value = this.state.value;
-    this.fetchQuery(null, value)
-
+    const { value } = this.state;
+    this.fetchQuery(null, value);
   }
 
   render() {
     const { products, categories } = this.state;
-    //console.log(products)
     return (
-      <>
+      <div>
         <header className="home-header">
-          <input type="text"
+          <input
+            type="text"
             placeholder="Digite algum termo de pesquisa"
             data-testid="query-input"
-            onChange={this.HandleChange}
+            onChange={ this.HandleChange }
           />
           <Link to="/cart" data-testid="shopping-cart-button">
             <i className="fas fa-shopping-cart" />
           </Link>
         </header>
-        <button type="button"
+        <button
+          type="button"
           data-testid="query-button"
-          onClick={this.HandleClick} >pesquisar</button>
+          onClick={ this.HandleClick }
+        >
+          pesquisar
+        </button>
         <main>
           <p data-testid="home-initial-message">
             Digite algum termo de pesquisa ou escolha uma categoria.
@@ -65,36 +70,32 @@ class Home extends React.Component {
         </main>
         <div>
           <ul>
-
             {(categories.length > 0) && (
-              categories.map(({ id, name }) => <li key={id} data-testid="category">{name}</li>)
+              categories
+                .map(({ id, name }) => <li key={ id } data-testid="category">{name}</li>)
             )}
           </ul>
         </div>
         <div>
           {/* {products.map(product => product.title)} */}
           {(products.length === 0) ? (<p>Nenhum produto encontrado</p>) : (
-            products.map((product) => <Product key={product.id} array={product} />)
+            products.map((product) => <Product key={ product.id } array={ product } />)
           )}
         </div>
-        {
-          // // Estrutura para termo
-          //api.getProductsFromCategoryAndQuery(query, 'cinta')
-          //.then((search) => console.log(search))
-        }
-        {
-          // // Estrutura para id de categoria
-          // api.getProductsFromCategoryAndQuery('MLB1071')
-          //   .then((categoryID) => console.log(categoryID))
-        }
-        {
-          // // Estrutura para busca de id e termo
-          // api.getProductsFromCategoryAndQuery("MLB1540", 'cinta')
-          //   .then((categories) => console.log(categories))
-        }
-      </>
+      </div>
     );
   }
 }
-
 export default Home;
+
+// // Estrutura para termo
+// api.getProductsFromCategoryAndQuery(query, 'cinta')
+// .then((search) => console.log(search))
+
+// // Estrutura para id de categoria
+// api.getProductsFromCategoryAndQuery('MLB1071')
+//   .then((categoryID) => console.log(categoryID))
+
+// // Estrutura para busca de id e termo
+// api.getProductsFromCategoryAndQuery("MLB1540", 'cinta')
+//   .then((categories) => console.log(categories))
