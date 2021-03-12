@@ -9,7 +9,7 @@ class ShoppingCart extends React.Component {
 
     this.getProductsInStorage = this.getProductsInStorage.bind(this);
     this.deleteItem = this.deleteItem.bind(this);
-    this.messageCartEmpyt = this.messageCartEmpyt.bind(this);
+    this.messageCartEmpty = this.messageCartEmpty.bind(this);
     this.renderProducts = this.renderProducts.bind(this);
 
     this.state = {
@@ -23,7 +23,7 @@ class ShoppingCart extends React.Component {
     ));
   }
 
-  messageCartEmpyt() {
+  messageCartEmpty() {
     return (
       <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
     );
@@ -40,7 +40,7 @@ class ShoppingCart extends React.Component {
 
   renderProducts() {
     const { cart } = this.state;
-    return cart.length ? this.getProductsInStorage(cart) : this.messageCartEmpyt();
+    return cart.length ? this.getProductsInStorage(cart) : this.messageCartEmpty();
   }
 
   render() {

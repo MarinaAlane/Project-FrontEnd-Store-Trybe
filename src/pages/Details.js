@@ -34,7 +34,12 @@ class Details extends React.Component {
 
   render() {
     const { product } = this.state;
-    const { title, price, thumbnail } = product;
+    const {
+      id,
+      title,
+      price,
+      thumbnail,
+      available_quantity: availableQuantity } = product;
     const { match } = this.props;
     const { params } = match;
     const { idCategory, idProduct } = params;
@@ -47,7 +52,7 @@ class Details extends React.Component {
         <ShoppingCartButton idProduct={ idProduct } idCategory={ idCategory } />
         <AddToCartButton
           datatestid="product-detail-add-to-cart"
-          productData={ product }
+          productData={ { id, title, price, availableQuantity } }
         />
         <EvaluatorForm />
       </section>

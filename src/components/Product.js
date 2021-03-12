@@ -6,7 +6,14 @@ import AddToCartButton from './AddToCartButton';
 class Products extends React.Component {
   render() {
     const { product } = this.props;
-    const { id, title, price, thumbnail, category_id: categoryId } = product;
+    const {
+      id,
+      title,
+      price,
+      thumbnail,
+      category_id: categoryId,
+      available_quantity: availableQuantity,
+    } = product;
     return (
       <div data-testid="product">
         <img src={ thumbnail } alt={ `${title}` } />
@@ -20,7 +27,7 @@ class Products extends React.Component {
         </Link>
         <AddToCartButton
           datatestid="product-add-to-cart"
-          productData={ { id, title, price } }
+          productData={ { id, title, price, availableQuantity } }
         />
       </div>
 
@@ -34,6 +41,7 @@ Products.propTypes = {
     price: number.isRequired,
     thumbnail: string.isRequired,
     category_id: string.isRequired,
+    availableQuantity: number,
   }).isRequired,
 };
 
