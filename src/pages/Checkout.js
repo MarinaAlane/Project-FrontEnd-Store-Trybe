@@ -1,5 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import * as API from './serviceAPI';
+import CheckoutProductReview from '../components/CheckoutProductReview';
+import CheckoutPaymentMethod from '../components/CheckoutPaymentMethod';
 
 class Checkout extends React.Component {
   constructor() {
@@ -13,15 +16,27 @@ class Checkout extends React.Component {
       address: '',
       complement: '',
       city: '',
+      states: [],
     };
-
     this.onChange = this.onChange.bind(this);
+    this.getStates = this.getStates.bind(this);
+  }
+
+  componentDidMount() {
+    this.getStates();
   }
 
   onChange({ target }) {
     const { name, value } = target;
     this.setState({
       [name]: value,
+    });
+  }
+
+  async getStates() {
+    const response = await API.getBrazilStates();
+    this.setState({
+      states: response,
     });
   }
 
@@ -136,93 +151,22 @@ class Checkout extends React.Component {
     );
   }
 
-  creditCardPaymentMethod() {
-    return (
-      <div>
-        <label htmlFor="payment">
-          <p>Visa</p>
-          <input
-            name="payment"
-            id="visa"
-            value="visa"
-            type="radio"
-            onChange={ this.onChange }
-          />
-        </label>
-        <label htmlFor="payment">
-          <p>MasterCard</p>
-          <input
-            name="payment"
-            id="mastercard"
-            value="mastercard"
-            type="radio"
-            onChange={ this.onChange }
-          />
-        </label>
-        <label htmlFor="payment">
-          <p>Elo</p>
-          <input
-            name="payment"
-            id="elo"
-            value="elo"
-            type="radio"
-            onChange={ this.onChange }
-          />
-        </label>
-      </div>
-    );
-  }
-
-  paymentMethod() {
-    return (
-      <div>
-        <fieldset>
-          <legend>Método de pagamento</legend>
-          <label htmlFor="payment">
-            <p>Boleto</p>
-            <input
-              name="payment"
-              id="boleto"
-              value="boleto"
-              type="radio"
-              onChange={ this.onChange }
-            />
-          </label>
-          <fieldset>
-            <legend>Cartão de Crédito</legend>
-            { this.creditCardPaymentMethod() }
-          </fieldset>
-        </fieldset>
-      </div>
-    );
-  }
-
-  productCartReview() {
-    const storedProducts = JSON.parse(localStorage.getItem('itens'));
-    return (
-      <div>
-        <fieldset>
-          <legend>Revise seus Produtos</legend>
-          { storedProducts.map(((product) => (
-            <div key={ `${product.id}` }>
-              <img alt="Product" src={ product.thumbnail } />
-              <p data-testid="shopping-cart-product-name">{ product.title }</p>
-              <p data-testid="shopping-cart-product-quantity">{ product.quantity }</p>
-              <p>{ product.price }</p>
-            </div>
-          ))) }
-        </fieldset>
-      </div>
-    );
-  }
-
   render() {
-    const states = ['Rio de Janeiro', 'Minas Gerais', 'Amazonas', 'São Paulo', 'Ceará'];
-    const { fullName, email, cpf, phone, cep, address, complement, city } = this.state;
+    const {
+      fullName,
+      email,
+      cpf,
+      phone,
+      cep,
+      address,
+      complement,
+      city,
+      states,
+    } = this.state;
     return (
       <div>
         <div>
-          { this.productCartReview() }
+          <CheckoutProductReview />
           <fieldset>
             <legend>Informações do Comprador</legend>
             { this.fullNameInput(fullName) }
@@ -233,12 +177,12 @@ class Checkout extends React.Component {
             { this.addressInput(address) }
             { this.complementInput(complement) }
             { this.cityInput(city) }
-            <select required name="countryState" onChange={ this.onChange }>
+            <select required name="states">
               <option>Selecione</option>
-              { states.map((value, key) => (<option key={ key }>{ value }</option>)) }
+              { states.map(({ nome, id }) => (<option key={ id }>{ nome }</option>)) }
             </select>
           </fieldset>
-          { this.paymentMethod() }
+          <CheckoutPaymentMethod />
         </div>
         <Link to="/"><button type="submit">Finalizar Compra</button></Link>
       </div>
