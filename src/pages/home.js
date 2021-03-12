@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import AsideMenu from '../components/AsideMenu';
 import * as apis from '../services/api';
 import '../styles/pages/Home.css';
 
@@ -8,12 +9,28 @@ class Home extends React.Component {
     super(props);
     this.state = {
       categories: [],
+      menuActive: false,
     };
+    this.handleMenuClick = this.handleMenuClick.bind(this);
     this.apiRequest = this.apiRequest.bind(this);
+    this.handleCategoryClick = this.handleCategoryClick.bind(this);
   }
 
   componentDidMount() {
     this.apiRequest();
+  }
+
+  handleMenuClick() {
+    const { menuActive } = this.state;
+    let menuStatus = true;
+    if (menuActive) menuStatus = false;
+    this.setState({
+      menuActive: menuStatus,
+    });
+  }
+
+  handleCategoryClick({ target }) {
+    console.log(target.innerText);
   }
 
   async apiRequest() {
@@ -25,7 +42,7 @@ class Home extends React.Component {
   }
 
   render() {
-    const { categories } = this.state;
+    const { categories, menuActive } = this.state;
     return (
       <div>
         <header className="home-header-container">
@@ -39,14 +56,12 @@ class Home extends React.Component {
             <button type="button" alt="cart-button" />
           </Link>
         </header>
-        <aside className="categories-content">
-          <ul className="list-categories">
-            {categories.map((categoria) => (
-              <li data-testid="category" key={ categories.id }>
-                { categoria.name }
-              </li>))}
-          </ul>
-        </aside>
+        <AsideMenu
+          categories={ categories }
+          menuActive={ menuActive }
+          handleCategoryClick={ this.handleCategoryClick }
+          handleMenuClick={ this.handleMenuClick }
+        />
       </div>
     );
   }
