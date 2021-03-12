@@ -1,7 +1,7 @@
 .content-product {
   display: flex;
-  margin: 3%;
   flex-direction: column;
+  margin: 3%;
 }
 
 .header-product {
@@ -18,7 +18,7 @@
   margin-top: 1.5%;
 }
 
-.title-product{
+.title-product {
   margin-bottom: 40px;
 }
 
