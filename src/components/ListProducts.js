@@ -42,6 +42,7 @@ class ListProducts extends Component {
           title={ product.title }
           thumbnail={ product.thumbnail }
           price={ product.price }
+          category_id={ product.category_id }
         />)) }
       </div>
     );
