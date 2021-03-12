@@ -11,6 +11,7 @@ class Categories extends React.Component {
       >
         { name }
         <input
+          name="category-radio"
           type="radio"
           id={ id }
           key={ id }
