@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import StateContext from '../../components/StateContext';
+import InputContext from '../../components/InputContext';
 import * as api from '../../services/api';
 
 class CartProducts extends Component {
@@ -33,7 +33,7 @@ class CartProducts extends Component {
   render() {
     const { cartProducts } = this.state;
     return (
-      <StateContext.Consumer>
+      <InputContext.Consumer>
         {() => {
           cartProducts.map(({ title, thumbnail, price, id }, index) => (
             <div key={ id }>
@@ -44,11 +44,11 @@ class CartProducts extends Component {
             </div>
           ));
         }}
-      </StateContext.Consumer>
+      </InputContext.Consumer>
     );
   }
 }
 
-CartProducts.contextType = StateContext;
+CartProducts.contextType = InputContext;
 
 export default CartProducts;
