@@ -8,6 +8,7 @@ class ShoppingCart extends Component {
     this.increaseQuant = this.increaseQuant.bind(this);
     this.decreaseOrDelete = this.decreaseOrDelete.bind(this);
     this.deleteItem = this.deleteItem.bind(this);
+    this.localStorageIsEmpty = this.localStorageIsEmpty.bind(this);
   }
 
   increaseQuant(event) {
@@ -44,9 +45,22 @@ class ShoppingCart extends Component {
       [`${JSON.parse(event.target.value).custom}`]: 0 });
   }
 
+  localStorageIsEmpty() {
+    let isEmpty = false;
+
+    const keys = Object.keys(localStorage)
+      .filter((item) => item.includes('_itemCart_'));
+
+    if (keys.length === 0) isEmpty = true;
+
+    return isEmpty;
+  }
+
   renderCartItem() {
-    const cartItens = Object.values(localStorage).map((item) => {
-      item = JSON.parse(item);
+    const keys = Object.keys(localStorage)
+      .filter((item) => item.includes('_itemCart_'));
+    const cartItens = keys.map((key) => {
+      const item = JSON.parse(localStorage.getItem(key));
       return (
         <section key={ item.custom }>
           <div>
@@ -92,7 +106,7 @@ class ShoppingCart extends Component {
   }
 
   render() {
-    if (localStorage.length === 0) {
+    if (this.localStorageIsEmpty()) {
       return (
         <h1 data-testid="shopping-cart-empty-message">
           Seu carrinho está vazio
