@@ -1,6 +1,6 @@
 import React from 'react';
 import CartButton from '../components/CartButton';
-import Category from '../components/Categories';
+import Categories from '../components/Categories';
 
 class InitialPage extends React.Component {
   render() {
@@ -12,7 +12,7 @@ class InitialPage extends React.Component {
         </p>
         <CartButton />
         <section>
-          <Category />
+          <Categories />
         </section>
       </div>
     );
