@@ -10,36 +10,45 @@ class ProductList extends Component {
 
     this.state = {
       searchedText: '',
+      products: [],
     };
 
     this.filterProducts = this.filterProducts.bind(this);
     this.displayList = this.displayList.bind(this);
   }
 
-  componentDidUpdate() {
+ /*  componentDidUpdate() {
     this.filterProducts();
-  }
+  } */
 
-  filterProducts() {
+  async filterProducts() {
     marketAPI
       .getProductsFromCategoryAndQuery('MBL', this.searchedText)
-      .then((searchedText) => this.setState({ searchedText }));
+      .then((productList) => this.setState((previousState) => ({ 
+        products: [...previousState.products, productList]})));
   }
 
-  displayList() {
-    const { searchedText } = this.state;
-    const { results } = searchedText;
+  async displayList() {
+    await this.filterProducts();
+    const { products } = this.state;
+    console.log(products)
+    const { results } = products;
+    console.log(results)
     return (
       <section>
-        { results.map((product) => (<ProductCard
-          key={ product.id }
-          product={ product }
-        />)) }
+        {results.length === 0
+          ? <section>não encontrado</section> 
+          :results.map((product) => <ProductCard key={ product.id } product={ product }/>)}
       </section>
     );
   }
 
   render() {
+    /* const { products } = this.state;
+    const { results } = products;
+    console.log(results);
+    const list = results
+      .map((product) => <ProductCard key={ product.id } product={ product }/>) */
     return (
       <div className="product-list">
         <input
