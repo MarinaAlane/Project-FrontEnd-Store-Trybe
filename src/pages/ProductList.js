@@ -3,7 +3,7 @@ import * as fetchAPI from '../services/api';
 import CategoriesList from '../components/CategoriesList';
 import SearchBar from '../components/SearchBar';
 import CartIcon from '../components/CartIcon';
-import NoSearchText from '../components/NoSearchText';
+import SearchStatusMsg from '../components/SearchStatusMsg';
 import LoadingMsg from '../components/LoadingMsg';
 import SearchResults from '../components/SearchResults';
 
@@ -15,14 +15,17 @@ export default class ProductList extends Component {
 
     this.state = {
       loading: false,
-      categories: '',
+      categories: undefined,
+      selectedCategory: '',
       search: '',
       results: [],
+      statusMessage: 'Digite algum termo de pesquisa ou escolha uma categoria.',
     };
     // Bind methods
     this.fetchCategories = this.fetchCategories.bind(this);
     this.updateSearchValue = this.updateSearchValue.bind(this);
     this.submitSearch = this.submitSearch.bind(this);
+    this.selectCategory = this.selectCategory.bind(this);
   }
 
   componentDidMount() {
@@ -32,9 +35,9 @@ export default class ProductList extends Component {
   async submitSearch() {
     this.setState({ loading: true });
 
-    const { search, categories } = this.state;
+    const { search, selectedCategory } = this.state;
     const { results } = await fetchAPI
-      .getProductsFromCategoryAndQuery(categories, search);
+      .getProductsFromCategoryAndQuery(selectedCategory, search);
 
     this.setState({
       results,
@@ -53,15 +56,26 @@ export default class ProductList extends Component {
     this.setState({ categories });
   }
 
+  selectCategory(event) {
+    const { target: { value: selectedCategory } } = event;
+    this.setState({ selectedCategory }, this.submitSearch);
+  }
+
   render() {
-    const { results, loading, categories } = this.state;
+    const { results, loading, categories, statusMessage } = this.state;
+    const noSearchResults = results.length === 0 && !loading;
 
     return (
       <div className="ProductList">
         {
           categories
           // Se a requisição foi completada, renderiza CategoriesList
-            ? <CategoriesList categories={ categories } />
+            ? (
+              <CategoriesList
+                categories={ categories }
+                selectionCallback={ this.selectCategory }
+              />
+            )
           // Caso contrário, exibe a mensagem
             : <LoadingMsg />
         }
@@ -73,8 +87,8 @@ export default class ProductList extends Component {
             >
               <CartIcon />
             </SearchBar>
-            { results.length === 0 && !loading
-              ? <NoSearchText />
+            { noSearchResults
+              ? <SearchStatusMsg text={ statusMessage } />
               : <SearchResults loading={ loading } results={ results } />}
           </div>
         </div>
