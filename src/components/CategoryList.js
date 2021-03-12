@@ -4,10 +4,10 @@ import PropTypes from 'prop-types';
 
 class CategoryList extends Component {
   render() {
-    const { name } = this.props;
+    const { name, category, clickCategory } = this.props;
     return (
       <div className="category" data-testid="category">
-        <button type="button">
+        <button type="button" id={ category } onClick={ clickCategory }>
           { name }
         </button>
       </div>
@@ -17,6 +17,7 @@ class CategoryList extends Component {
 
 CategoryList.propTypes = {
   name: PropTypes.string.isRequired,
+  category: PropTypes.string.isRequired,
 };
 
 export default CategoryList;

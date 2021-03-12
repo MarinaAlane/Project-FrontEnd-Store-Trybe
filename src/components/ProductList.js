@@ -14,6 +14,7 @@ class ProductList extends React.Component {
       json: undefined,
       searchText: '',
       categories: [],
+      selectedCategories: null,
     };
 
     this.changeText = this.changeText.bind(this);
@@ -21,6 +22,7 @@ class ProductList extends React.Component {
     this.renderProducts = this.renderProducts.bind(this);
     this.LoadCategories = this.LoadCategories.bind(this);
     this.renderCategories = this.renderCategories.bind(this);
+    this.clickCategory = this.clickCategory.bind(this);
   }
 
   componentDidMount() {
@@ -29,14 +31,22 @@ class ProductList extends React.Component {
 
   async handleSearch() {
     const { searchText } = this.state;
+    console.log(this.state);
     this.setState({ loading: true });
+    console.log(this.state);
     const SearchJson = await Api
       .getProductsFromCategoryAndQuery('book', searchText);
-    // book is a dummy category
+    console.log(SearchJson);
     this.setState({
       loading: false,
       json: SearchJson,
     });
+    console.log(this.state);
+  }
+
+  async clickCategory({ target }) {
+    const teste = await Api.getProductsFromCategoryAndQuery(target.id, this.state.searchText);
+    return teste
   }
 
   async LoadCategories() {
@@ -44,6 +54,7 @@ class ProductList extends React.Component {
       .getCategories();
     this.setState({
       categories: allCategories,
+      loading: false,
     });
   }
 
@@ -54,6 +65,7 @@ class ProductList extends React.Component {
   }
 
   renderProducts(json) {
+    if (!json) return;
     const { results } = json;
     return (
       <section className="product-list">
@@ -73,15 +85,15 @@ class ProductList extends React.Component {
           ? <span>Nenhuma categoria foi encontrada</span>
           : categories
             .map((category) => (
-              <CategoryList key={ category.id } name={ category.name } />
-            ))}
+              <CategoryList key={ category.id } name={ category.name } category={ category.id } clickCategory={ this.clickCategory } />
+              ))}
       </section>
     );
   }
 
   render() {
     const { loading, json } = this.state;
-    const checkLoading = !json ? <p>Loading...</p> : this.renderProducts(json);
+    const checkLoading = loading ? <p>Loading...</p> : this.renderProducts(json);
     return (
       <div className="home">
         <input
@@ -105,7 +117,7 @@ class ProductList extends React.Component {
             Digite algum termo de pesquisa ou escolha uma categoria.
           </span>
           { this.renderCategories() }
-          { !loading && !json ? null : checkLoading }
+          { checkLoading }
         </div>
       </div>
     );
