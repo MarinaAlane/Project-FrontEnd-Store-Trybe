@@ -65,7 +65,7 @@ class ProductList extends Component {
             />
             
           )) : (
-              <p>teste</p>
+              <p>Digite algum termo de pesquisa ou escolha uma categoria.</p>
           )
         }
       </main>
