@@ -11,11 +11,13 @@ class Home extends Component {
     super(props);
     this.state = {
       categories: [],
-      selectedProducts: undefined,
+      selectedProducts: [],
+      productsApi: undefined,
       categoryId: '',
     };
     this.getCategoriesApi = this.getCategoriesApi.bind(this);
     this.getProducts = this.getProducts.bind(this);
+    this.getProductsFilterByCategory = this.getProductsFilterByCategory.bind(this);
     this.onRadioChange = this.onRadioChange.bind(this);
   }
 
@@ -25,16 +27,32 @@ class Home extends Component {
 
   onRadioChange({ target }) {
     const { id } = target;
-    this.setState({ categoryId: id });
+    this.setState({
+      categoryId: id,
+    }, () => (this.getProducts()));
   }
 
   async getProducts() {
+    console.log(this.state);
     const searchInput = document.querySelector('.searchInput').value;
     const { categoryId } = this.state;
     const productsArray = await getProductsFromCategoryAndQuery(categoryId, searchInput);
+    console.log(productsArray);
     this.setState({
-      selectedProducts: productsArray,
+      productsApi: productsArray,
+      selectedProducts: productsArray.results,
     });
+  }
+
+  getProductsFilterByCategory() {
+    const { productsApi, categoryId } = this.state;
+    if (productsApi) {
+      const newFilterCategory = productsApi.results
+        .filter((product) => (product.category_id === categoryId));
+      this.setState({
+        selectedProducts: newFilterCategory,
+      });
+    }
   }
 
   async getCategoriesApi() {
@@ -53,8 +71,7 @@ class Home extends Component {
         Digite algum termo de pesquisa ou escolha uma categoria.
       </h5>
     );
-    const { categories, selectedProducts } = this.state;
-    console.log(selectedProducts);
+    const { categories, selectedProducts, productsApi } = this.state;
     return (
       <div>
         <input type="text" className="searchInput" data-testid="query-input" />
@@ -67,7 +84,7 @@ class Home extends Component {
           data-testid="shopping-cart-button"
           className="button-link"
         >
-          Botão
+          Adicionar ao Carrinho
         </Link>
         {
           categories.map(({ id, name }) => (
@@ -79,8 +96,8 @@ class Home extends Component {
             />))
         }
         {
-          !selectedProducts ? <p>Nenhum Produto Encontrado</p>
-            : (selectedProducts.results.map((product) => (
+          !productsApi ? <p>Nenhum Produto Encontrado</p>
+            : (selectedProducts.map((product) => (
               <Products product={ product } key={ product.id } />
             )))
         }
