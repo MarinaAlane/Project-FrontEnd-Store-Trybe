@@ -10,19 +10,25 @@ class ProductsPage extends Component {
       product: [],
       loading: true,
       inputValue: '',
+      category: '',
     };
     this.fetchAds = this.fetchAds.bind(this);
   }
 
   componentDidUpdate() {
-    const { inputValue: stateInput } = this.state;
-    const { inputValue: contextInput } = this.context;
-    if (stateInput !== contextInput) this.fetchAds(contextInput);
+    const { inputValue: stateInput, category: stateCategory } = this.state;
+    const { inputValue: contextInput, selectedCategory: contextCategory } = this.context;
+    if (stateInput !== contextInput || stateCategory !== contextCategory) {
+      console.log('teste');
+      this.fetchAds(contextCategory, contextInput);
+    }
   }
 
-  fetchAds(inputValue) {
-    api.getProductsFromCategoryAndQuery(null, inputValue)
-      .then((term) => this.setState({ product: term, loading: false, inputValue }));
+  fetchAds(category, inputValue) {
+    api.getProductsFromCategoryAndQuery(category, inputValue)
+      .then((term) => (
+        this.setState({ product: term, loading: false, inputValue, category })
+      ));
   }
 
   render() {
