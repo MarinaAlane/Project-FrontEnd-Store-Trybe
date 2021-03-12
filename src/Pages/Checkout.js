@@ -30,7 +30,7 @@ class Checkout extends React.Component {
             <input type="text" name="address" data-testid="checkout-address" />
           </label>
           <button type="button">
-            Fechar Compra
+            Comprar
           </button>
         </form>
       </div>

@@ -12,7 +12,7 @@ class CardShoppingCartList extends React.Component {
 
     return (
       <div className="container-card">
-        <p data-testid="shopping-cart-product-quantity">{totalShoppingCart.length}</p>
+        <p>{totalShoppingCart.length}</p>
         {totalShoppingCart.map((product, index) => (
           <CardShoppingCart
             key={ index }

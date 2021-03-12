@@ -20,6 +20,7 @@ class App extends React.Component {
 
   shoppingCartChange(value) {
     const { totalShoppingCart } = this.state;
+    if (totalShoppingCart.includes(value)) return;
     this.setState({ totalShoppingCart: [...totalShoppingCart, value] });
   }
 
