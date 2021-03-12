@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import * as API from '../services/api';
+import * as API from './serviceAPI';
 import CheckoutProductReview from '../components/CheckoutProductReview';
 import CheckoutPaymentMethod from '../components/CheckoutPaymentMethod';
 
@@ -152,7 +152,17 @@ class Checkout extends React.Component {
   }
 
   render() {
-    const { fullName, email, cpf, phone, cep, address, complement, city, states } = this.state;
+    const {
+      fullName,
+      email,
+      cpf,
+      phone,
+      cep,
+      address,
+      complement,
+      city,
+      states,
+    } = this.state;
     return (
       <div>
         <div>
