@@ -4,6 +4,7 @@ import AsideCategoriesList from './components/AsideCategoriesList';
 /* import QueryButton from './components/QueryButton'; */
 import * as marketAPI from './services/api.js';
 import SearchLogo from '../src/components/search_logo.svg';
+import ProductCard from './components/ProductCard';
 
 
 class ProductList extends Component {
@@ -29,7 +30,11 @@ class ProductList extends Component {
   displayList() {
     const { searchedText } = this.state;
     const { results } = searchedText;
-    results.map((element)=> console.log(element) );
+    return (
+      <section>
+        { results.map((product) => <ProductCard key={ product.id } product={ product } /> ) }
+      </section>
+    )
   }
 
   render() {
@@ -42,7 +47,12 @@ class ProductList extends Component {
           onChange= {(event) => {
             this.setState({ searchedText: event.target.value })} }
         />
-        <img src={ SearchLogo } alt="Query button" onClick={this.displayList} data-testid="query-button" />
+        <img
+          src={ SearchLogo }
+          alt="Query button"
+          onClick={this.displayList}
+          data-testid="query-button"
+        />
         <ButtonCart />
         <AsideCategoriesList />
         <p data-testid="home-initial-message" className="product-list-message">
