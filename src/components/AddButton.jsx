@@ -1,5 +1,5 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 
 class AddButton extends React.Component {
   constructor() {
@@ -27,6 +27,15 @@ class AddButton extends React.Component {
       </div>
     );
   }
+}
+
+AddButton.propTypes ={
+  product: PropTypes.shape({
+    id: PropTypes.string,
+    title: PropTypes.string,
+    thumbnail: PropTypes.string,
+    price: PropTypes.number,
+  })
 }
 
 export default AddButton;

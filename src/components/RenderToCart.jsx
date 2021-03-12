@@ -22,11 +22,16 @@ class RenderToCart extends React.Component {
     const cartItensArray = this.getLocalStorage();
     return(
       <div>
-        {cartItensArray.map((array, i) => {
-          const productItem = { quant: Number(array[0]), title: array[1], thumbnail: array[2], price: array[3] };
+        {cartItensArray.map((array) => {
+          const productItem = {
+            quant: Number(array[0]),
+            title: array[1],
+            thumbnail: array[2],
+            price: Number(array[3])
+          };
           return (
-          <div className="card">
-            <CreateCard key={ i } product={ productItem } />
+          <div className="card" key={ productItem.thumbnail }>
+            <CreateCard product={ productItem } />
           </div>)
         })}
       </div>

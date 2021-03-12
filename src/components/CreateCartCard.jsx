@@ -10,6 +10,7 @@ class CreateCard extends Component {
         <div className="image">
           <img src={ thumbnail } alt={ `Imagem de ${title}` } />
         </div>
+        <p>R${ price }</p>
         <p data-testid="shopping-cart-product-quantity">{ quant } unidade(s)</p>
       </div>
     );
@@ -18,6 +19,7 @@ class CreateCard extends Component {
 
 CreateCard.propTypes = {
   product: PropTypes.shape({
+    quant: PropTypes.number,
     title: PropTypes.string,
     thumbnail: PropTypes.string,
     price: PropTypes.number,

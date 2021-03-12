@@ -94,8 +94,8 @@ class SearchBar extends React.Component {
           <div>
             { !productList ? this.blankField()
               : productList.results.map((product) => (
-                <div className="card">
-                  <CreateCard key={ product.id } product={ product } />
+                <div className="card" key={ product.id }>
+                  <CreateCard product={ product } />
                   <AddButton product={ product } />
                 </div>)) }
           </div>
