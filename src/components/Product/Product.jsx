@@ -17,7 +17,7 @@ class Product extends Component {
                 data-testid="product-detail-link"
                 to={ {
                   pathname: `/details/${id}`,
-                  state: { title, price, thumbnail, attributes },
+                  state: { title, price, thumbnail, attributes, id },
                 } }
               >
                 <p>{ title }</p>
