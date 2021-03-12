@@ -1,18 +1,20 @@
 import React from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import ProductList from './components/ProductList';
+import Cart from './components/Cart';
 import './App.css';
 
-
-import * as api from './services/api';
-
-function App() {
-  api.getProductsFromCategoryAndQuery();
-  return (
-    <BrowserRouter>
-      <Route path="/" component={ ProductList } />
-    </BrowserRouter>
-  );
+class App extends React.Component {
+  render() {
+    return (
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/" component={ ProductList } />
+          <Route path="/cart" component={ Cart } />
+        </Switch>
+      </BrowserRouter>
+    );
+  }
 }
 
 export default App;
