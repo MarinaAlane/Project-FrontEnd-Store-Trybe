@@ -84,7 +84,7 @@ class Home extends Component {
           data-testid="shopping-cart-button"
           className="button-link"
         >
-          Botão
+          Adicionar ao Carrinho
         </Link>
         {
           categories.map(({ id, name }) => (
