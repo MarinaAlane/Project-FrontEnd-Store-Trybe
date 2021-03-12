@@ -23,14 +23,8 @@ export default class ProductItem extends Component {
   }
 }
 
-ProductItem.defaultProps = {
-  title: '',
-  image: '',
-  price: 0,
-};
-
 ProductItem.propTypes = {
-  title: PropTypes.string,
-  image: PropTypes.string,
-  price: PropTypes.number,
+  title: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
 };

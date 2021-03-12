@@ -40,7 +40,6 @@ class ProductList extends Component {
 
   render() {
     const { query, products } = this.state;
-    console.log(products);
     return (
       <main>
         <header>
@@ -62,6 +61,7 @@ class ProductList extends Component {
               price={product.price}
               image={product.thumbnail}
             />
+            
           )) : (
               <br>dummy tag</br>
           )
