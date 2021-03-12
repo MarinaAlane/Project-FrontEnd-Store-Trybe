@@ -11,55 +11,60 @@ class ProductList extends Component {
     this.state = {
       searchedText: '',
       products: [],
+      loaded: false,
     };
 
-    this.filterProducts = this.filterProducts.bind(this);
-    this.displayList = this.displayList.bind(this);
+    this.getProductsFromAPI = this.getProductsFromAPI.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
   }
 
- /*  componentDidUpdate() {
-    this.filterProducts();
-  } */
+  handleInputChange(event) {
+    const { target } = event;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const { name } = target;
 
-  async filterProducts() {
-    marketAPI
-      .getProductsFromCategoryAndQuery('MBL', this.searchedText)
-      .then((productList) => this.setState((previousState) => ({ 
-        products: [...previousState.products, productList]})));
+    this.setState({
+      [name]: value,
+    });
   }
 
-  async displayList() {
-    await this.filterProducts();
+  getProductsFromAPI() {
+    this.setState({ loaded: false });
+    const { searchedText } = this.state;
+    marketAPI.getProductsFromCategoryAndQuery('MLB', searchedText)
+      .then((products) => {
+        this.setState({ products });
+        this.setState({ loaded: true });
+      });
+  }
+
+  generateProductCards() {
     const { products } = this.state;
-    console.log(products)
     const { results } = products;
-    console.log(results)
     return (
       <section>
         {results.length === 0
-          ? <section>não encontrado</section> 
-          :results.map((product) => <ProductCard key={ product.id } product={ product }/>)}
+          ? <section>não encontrado</section>
+          : results
+            .map((product) => <ProductCard key={ product.id } product={ product } />)}
       </section>
     );
   }
 
   render() {
-    /* const { products } = this.state;
-    const { results } = products;
-    console.log(results);
-    const list = results
-      .map((product) => <ProductCard key={ product.id } product={ product }/>) */
+    const { loaded } = this.state;
     return (
       <div className="product-list">
         <input
           type="text"
           className="search-bar"
           data-testid="query-input"
-          onChange={ (event) => { this.setState({ searchedText: event.target.value }); } }
+          name="searchedText"
+          onChange={ this.handleInputChange }
         />
         <button
           type="button"
-          onClick={ this.displayList }
+          onClick={ this.getProductsFromAPI }
           data-testid="query-button"
         >
           search
@@ -69,6 +74,7 @@ class ProductList extends Component {
         <p data-testid="home-initial-message" className="product-list-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>
+        {loaded ? this.generateProductCards() : false}
       </div>
     );
   }
