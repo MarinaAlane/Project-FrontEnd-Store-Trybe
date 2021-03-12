@@ -4,6 +4,13 @@ import { Link } from 'react-router-dom';
 import NothingFound from './NothingFound';
 
 class Card extends Component {
+  constructor() {
+    super();
+
+    if
+    (localStorage.length === 0) { localStorage.setItem('productId', JSON.stringify([])); }
+  }
+
   render() {
     const { productsContent, status } = this.props;
     if (productsContent.length === 0 && status === true) {
@@ -21,7 +28,19 @@ class Card extends Component {
           <p>{currentValue.title}</p>
           <img src={ currentValue.thumbnail } alt="product-sample" />
           <p>{currentValue.price}</p>
-          <p>{ currentValue.category_id }</p>
+          <button
+            id={ currentValue.id }
+            type="button"
+            data-testid="product-add-to-cart"
+            onClick={ () => {
+              const storageIds = JSON.parse(localStorage.getItem('productId'));
+              storageIds.push(currentValue.id);
+              localStorage.setItem('productId', JSON.stringify(storageIds));
+            } }
+          >
+            Adicionar ao Carrinho
+          </button>
+
         </Link>
       </div>
     ));

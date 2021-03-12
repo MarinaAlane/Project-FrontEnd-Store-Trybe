@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import ShoppingCart from './ShoppingCart';
 
 class ProductDetails extends Component {
   constructor() {
@@ -41,6 +43,7 @@ class ProductDetails extends Component {
     return (
       <div>
         <div>
+          <Link to="/shopping-cart" data-testid="shopping-cart-button"> Cart </Link>
           <h2 data-testid="product-detail-name">{ title }</h2>
           <h2>
             R$
