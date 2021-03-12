@@ -16,12 +16,20 @@ class ProductsShowcase extends React.Component {
     };
     this.inputChange = this.inputChange.bind(this);
     this.fetchProducts = this.fetchProducts.bind(this);
+    this.onChangeCategoriesInput = this.onChangeCategoriesInput.bind(this);
   }
 
   componentDidMount() {
     return api.getCategories().then((categories) => (
       this.setState({ categoriesArray: categories })
     ));
+  }
+
+  async onChangeCategoriesInput({ target }) {
+    const productsByCategory = await api.getProductsFromCategoryAndQuery(target.value);
+    this.setState({
+      products: productsByCategory.results,
+    });
   }
 
   inputChange(event) {
@@ -59,6 +67,7 @@ class ProductsShowcase extends React.Component {
         </p>
         <CategoriesList
           categoriesArray={ categoriesArray }
+          onChangeCategoriesInput={ this.onChangeCategoriesInput }
         />
         {products.length === 0
           ? <p>Nenhum produto foi encontrado</p>
