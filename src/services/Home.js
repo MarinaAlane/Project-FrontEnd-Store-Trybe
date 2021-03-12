@@ -14,10 +14,12 @@ class Home extends React.Component {
       productsArrive: false,
       category: '',
       query: '',
+      shoppingCartList: [],
     };
 
     this.getProducts = this.getProducts.bind(this);
     this.filterCategory = this.filterCategory.bind(this);
+    this.addToCartBtn = this.addToCartBtn.bind(this);
   }
 
   getProducts(productsFromApi, inputValue) {
@@ -28,9 +30,33 @@ class Home extends React.Component {
     });
   }
 
+  addToCartBtn(product) {
+    const { shoppingCartList } = this.state;
+    const shoppingCartArray = shoppingCartList;
+    const productCartInfos = {
+      id: product.id,
+      name: product.title,
+      price: product.price,
+      thumb: product.thumbnail,
+      quantity: 1,
+    };
+    if (shoppingCartArray.length === 0) {
+      shoppingCartArray.push(productCartInfos);
+      this.setState({ shoppingCartList: shoppingCartArray });
+      return;
+    }
+    const cartItemsCheck = shoppingCartArray.findIndex((item) => product.id === item.id);
+    if (cartItemsCheck >= 0) {
+      shoppingCartArray[cartItemsCheck].quantity += 1;
+      this.setState({ shoppingCartList: shoppingCartArray });
+    } else {
+      shoppingCartArray.push(productCartInfos);
+      this.setState({ shoppingCartList: shoppingCartArray });
+    }
+  }
+
   async filterCategory({ target: { id } }) {
     const { query } = this.state;
-    console.log('teste01');
     const productsFromCategory = await api.getProductsFromCategoryAndQuery(id, query);
     this.setState({
       products: productsFromCategory,
@@ -40,14 +66,14 @@ class Home extends React.Component {
   }
 
   render() {
-    const { products, productsArrive, category } = this.state;
+    const { products, productsArrive, category, shoppingCartList } = this.state;
     return (
       <>
         <SearchBar category={ category } sentProducts={ this.getProducts } />
-        <ShoppingCartBtn />
+        <ShoppingCartBtn shoppingCartList={ shoppingCartList } />
         <AllCategories onClick={ this.filterCategory } />
         { productsArrive
-          ? <ProductsList productsList={ products } />
+          ? <ProductsList addToCartBtn={ this.addToCartBtn } productsList={ products } />
           : <MainPage /> }
       </>
     );
