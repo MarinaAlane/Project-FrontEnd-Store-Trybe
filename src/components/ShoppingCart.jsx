@@ -47,5 +47,4 @@ ShoppingCart.propTypes = {
   }).isRequired,
 };
 
-
 export default ShoppingCart;
