@@ -9,9 +9,24 @@ class ShoppingCart extends React.Component {
     this.state = {
       listOfProducts: [...state],
     };
+    this.increaseProductQuantity = this.increaseProductQuantity.bind(this);
+    this.decreaseProductQuantity = this.decreaseProductQuantity.bind(this);
+    this.deleteProduct = this.deleteProduct.bind(this);
   }
 
-  // VQV!
+  increaseProductQuantity(id) {
+    const { listOfProducts } = this.state;
+    const item = listOfProducts.find((product) => product.id === id);
+    console.log(item);
+  }
+
+  decreaseProductQuantity() {
+    console.log('clicou');
+  }
+
+  deleteProduct() {
+    console.log('clicou');
+  }
 
   render() {
     const { listOfProducts } = this.state;
@@ -29,12 +44,34 @@ class ShoppingCart extends React.Component {
         {
           listOfProducts.map(({ title, thumbnail, quantity, id }) => (
             <div key={ id }>
-              <p data-testid="shopping-cart-product-name">{ title }</p>
+              <button
+                type="button"
+                onClick={ this.deleteProduct }
+              >
+                X
+              </button>
               <img
                 src={ thumbnail }
                 alt={ `foto ${title}` }
               />
-              <p data-testid="shopping-cart-product-quantity">{ quantity }</p>
+              <p data-testid="shopping-cart-product-name">{ title }</p>
+              <div>
+                <button
+                  type="button"
+                  data-testid="product-increase-quantity"
+                  onClick={ () => this.increaseProductQuantity(id) }
+                >
+                  +
+                </button>
+                <p data-testid="shopping-cart-product-quantity">{ quantity }</p>
+                <button
+                  type="button"
+                  data-testid="product-decrease-quantity"
+                  onClick={ this.decreaseProductQuantity }
+                >
+                  -
+                </button>
+              </div>
             </div>
           ))
         }
