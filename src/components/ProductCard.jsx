@@ -44,6 +44,7 @@ class ProductCard extends React.Component {
 
 ProductCard.propTypes = {
   products: PropTypes.arrayOf().isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 
 export default ProductCard;
