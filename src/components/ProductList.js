@@ -72,7 +72,7 @@ class ProductList extends React.Component {
         {categories.length === 0
           ? <span>Nenhuma categoria foi encontrada</span>
           : categories
-            .map((categ) => <CategoryList key={ categ.id } name={ categ.name } />)}
+            .map((category) => <CategoryList key={ category.id } name={ category.name } />)}
       </section>
     );
   }
@@ -101,8 +101,8 @@ class ProductList extends React.Component {
             className="home-initial-message"
           >
             Digite algum termo de pesquisa ou escolha uma categoria.
-            { this.renderCategories() }
           </span>
+          { this.renderCategories() }
           { !loading && !json ? null : checkLoading }
         </div>
       </div>
