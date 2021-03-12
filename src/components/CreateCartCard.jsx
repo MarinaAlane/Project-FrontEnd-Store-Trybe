@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-class CreateCard extends Component {
+class CreateCartCard extends Component {
   render() {
     const { product: { quant, title, thumbnail, price } } = this.props;
     return (
       <div data-testid="product">
-        <h3 className="card-title" data-testid="shopping-cart-product-name">{ title }</h3>
+        <h3 data-testid="shopping-cart-product-name" className="card-title">{ title }</h3>
         <div className="image">
           <img src={ thumbnail } alt={ `Imagem de ${title}` } />
         </div>
@@ -24,7 +24,7 @@ class CreateCard extends Component {
   }
 }
 
-CreateCard.propTypes = {
+CreateCartCard.propTypes = {
   product: PropTypes.shape({
     quant: PropTypes.number,
     title: PropTypes.string,
@@ -33,4 +33,4 @@ CreateCard.propTypes = {
   }).isRequired,
 };
 
-export default CreateCard;
+export default CreateCartCard;

@@ -23,8 +23,8 @@ class AddButton extends React.Component {
 
   render() {
     return (
-      <div data-testid="product-detail-add-to-cart">
-        <button onClick={ this.addItem } type="submit" >
+      <div>
+        <button onClick={ this.addItem } type="submit" data-testid="product-add-to-cart">
           Adiciona ao carrinho
         </button>
       </div>
