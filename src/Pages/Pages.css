@@ -10,9 +10,9 @@
 }
 
 .nav-details {
+  align-items: center;
   display: flex;
   justify-content: space-between;
-  align-items: center;
   margin: 0 10px;
 }
 
@@ -29,7 +29,7 @@
 
 .product-details {
   border: 2px solid black;
-  text-align: center;
   margin: 0 10px;
+  text-align: center;
   width: 500px;
 }
