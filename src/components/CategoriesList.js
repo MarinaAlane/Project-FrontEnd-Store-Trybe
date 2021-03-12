@@ -4,15 +4,20 @@ import CategoryInput from './CategoryInput';
 
 require('./CategoriesList.css');
 
-class CategoriesList extends Component {
+export default class CategoriesList extends Component {
   render() {
-    const { categories } = this.props;
+    const { categories, selectionCallback } = this.props;
 
     return (
       <div className="CategoriesList">
         <p>Categorias: </p>
         { categories.map(({ name, id }) => (
-          <CategoryInput key={ id } name={ name } id={ id } />)) }
+          <CategoryInput
+            key={ id }
+            name={ name }
+            id={ id }
+            selectionCallback={ selectionCallback }
+          />)) }
       </div>
     );
   }
@@ -25,6 +30,9 @@ CategoriesList.propTypes = {
       id: PropTypes.string,
     }),
   ).isRequired,
+  selectionCallback: PropTypes.func,
 };
 
-export default CategoriesList;
+CategoriesList.defaultProps = {
+  selectionCallback: () => { console.log('No event to handle.'); },
+};
