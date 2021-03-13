@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 class FullProduct extends Component {
   render() {
-    const { match: { params: { id } } } = this.props;
+    const { match: { params: { id } }, addProductToCart } = this.props;
     const product = JSON.parse(localStorage.getItem(id));
     const { title, price, thumbnail } = product;
 
@@ -13,13 +13,18 @@ class FullProduct extends Component {
         <Link to="/">Voltar</Link>
         <Link to="/cart">Carrinho</Link>
         <div className="title" data-testid="product-detail-name">
-          <span>{ title }</span>
+          <span>{title}</span>
           <span className="title">
             - R$
-            { price }
+            {price}
           </span>
         </div>
-        <img className="products-image" src={ thumbnail } alt={ title } />
+        <img className="products-image" src={thumbnail} alt={title} />
+        <button data-testid="product-detail-add-to-cart"
+          type="button"
+          onClick={() => addProductToCart({ id, title, price, thumbnail })}>
+          Adicionar ao carrinho
+        </button>
       </div>
     );
   }
