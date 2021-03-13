@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import * as Api from '../services/api';
 import CardProduct from '../components/ProductCard';
+import CartButton from '../components/CartButton';
 
 class ProductList extends Component {
   constructor(props) {
@@ -75,9 +76,7 @@ class ProductList extends Component {
           >
             Buscar
           </button>
-          <Link data-testid="shopping-cart-button" to="/cart">
-            Carrinho
-          </Link>
+          <CartButton />
         </header>
 
         <aside>
@@ -89,10 +88,10 @@ class ProductList extends Component {
                   id={ category.id }
                   type="radio"
                   name="category"
-                  onClick={(event) => {
+                  onClick={ (event) => {
                     this.handleChange(event);
                     this.getProducts(category.id);
-                  }}
+                  } }
                 />
                 { category.name }
               </label>
