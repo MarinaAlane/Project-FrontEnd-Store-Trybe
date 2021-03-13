@@ -5,7 +5,7 @@ class ItemCard extends Component {
   render() {
     const { title, price, thumbnail } = this.props;
     return (
-      <div data-testid="product">
+      <div data-testid="product" className="item-card">
         <p>{title}</p>
         <img src={ thumbnail } alt={ `${title}` } />
         <p>{price}</p>

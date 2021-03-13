@@ -9,9 +9,11 @@ class SearchField extends Component {
     super();
     this.searchTermChange = this.searchTermChange.bind(this);
     this.searchResults = this.searchResults.bind(this);
+    this.onClickSearch = this.onClickSearch.bind(this);
     this.state = {
       searchTerm: '',
       matchItens: [],
+      onSearch: false,
     };
   }
 
@@ -19,17 +21,17 @@ class SearchField extends Component {
     this.handleMatch();
   }
 
-  componentDidUpdate() {
-    this.handleMatch();
-  }
-
   async handleMatch() {
     const { searchTerm } = this.state;
     const requestItens = await api.getProductsFromTerm(searchTerm);
-    console.log(requestItens);
     this.setState({
       matchItens: requestItens,
     });
+  }
+
+  onClickSearch() {
+    this.handleMatch();
+    this.setState({ onSearch: true });
   }
 
   searchTermChange({ target }) {
@@ -39,10 +41,7 @@ class SearchField extends Component {
   }
 
   searchResults() {
-    const { matchItens, searchTerm } = this.state;
-    if (!searchTerm) {
-      return <div>Digite algum termo de pesquisa ou escolha uma categoria.</div>;
-    }
+    const { matchItens } = this.state;
     if (matchItens.length === 0) {
       return <div>Nenhum produto foi encontrado</div>;
     }
@@ -54,6 +53,7 @@ class SearchField extends Component {
   }
 
   render() {
+    const { onSearch } = this.state;
     return (
       <div data-testid="home-initial-message">
         <input
@@ -61,9 +61,19 @@ class SearchField extends Component {
           type="text"
           onChange={ this.searchTermChange }
         />
-        {/* <button type="submit" onClick={ this.searchResults }>Pesquisar</button> */}
+        <button
+          type="submit"
+          onClick={ this.onClickSearch }
+          data-testid="query-button"
+        >
+          Pesquisar
+        </button>
         <ButtonCart />
-        {this.searchResults()}
+        <div className="item-container">
+          {!onSearch
+            ? <div>Digite algum termo de pesquisa ou escolha uma categoria.</div>
+            : this.searchResults()}
+        </div>
         <ListCategorie />
       </div>
     );
