@@ -6,10 +6,12 @@ class ShoppingCart extends Component {
 
     this.fetchIds = this.fetchIds.bind(this);
     this.startFetchIds = this.startFetchIds.bind(this);
+    this.configState = this.configState.bind(this);
 
     this.state = {
       storageFetchJson: [],
       loading: true,
+      compare: [],
     };
   }
 
@@ -24,14 +26,22 @@ class ShoppingCart extends Component {
     const filteredQuantity = arrayIds.filter(
       (currentValue) => currentValue === id,
     ).length;
-    console.log(filteredQuantity);
     json.count = filteredQuantity;
-    console.log(json);
-    this.setState((previousState) => ({
-      storageFetchJson: [...previousState.storageFetchJson, json],
-      loading: false,
-    }));
-    return json;
+
+    this.configState(json, id);
+  }
+
+  configState(object, id) {
+    const { compare } = this.state;
+    const compareIncludes = compare.includes(id);
+
+    if (compareIncludes === false) {
+      this.setState((previousState) => ({
+        storageFetchJson: [...previousState.storageFetchJson, object],
+        loading: false,
+        compare: [...previousState.compare, id],
+      }));
+    }
   }
 
   startFetchIds() {
@@ -54,7 +64,7 @@ class ShoppingCart extends Component {
       <div key={ currentValue.id }>
         <p data-testid="shopping-cart-product-name">{currentValue.title}</p>
         <p>{currentValue.price}</p>
-        <p>
+        <p data-testid="shopping-cart-product-quantity">
           Quantidade:
           {currentValue.count}
         </p>
