@@ -5,14 +5,6 @@ import ProductCard from './ProductCard';
 class ProductsList extends React.Component {
   render() {
     const { productsFromQuery } = this.props;
-    if (productsFromQuery.length <= 0) {
-      return (
-        <p>
-          Nenhum produto foi encontrado
-        </p>
-      );
-    }
-
     return (
       <div>
         { productsFromQuery
