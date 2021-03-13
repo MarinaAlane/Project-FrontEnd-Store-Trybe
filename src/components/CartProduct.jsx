@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { string, number } from 'prop-types';
 
 class CartProduct extends Component {
   render() {
@@ -13,5 +14,12 @@ class CartProduct extends Component {
     );
   }
 }
+
+CartProduct.propTypes = {
+  title: string,
+  thumbnail: string,
+  price: string,
+  quantity: number,
+}.isRequired;
 
 export default CartProduct;
