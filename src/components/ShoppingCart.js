@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import ProductCart from "./ProductCart";
 
 class ShoppingCart extends React.Component {
   render() {
@@ -14,8 +15,13 @@ class ShoppingCart extends React.Component {
     }
     return (
       <div>
-        {/* renderizar os componetes productCart apartir do cartProducts
-        Montar o componente productCart*/}
+        {cartProducts.map((productCart) => (<ProductCart
+          key={ productCart.id }
+          id={ productCart.id }
+          title={ productCart.title }
+          thumbnail={ productCart.thumbnail }
+          price={ productCart.price }
+        />)) }
       </div>
     );
   }

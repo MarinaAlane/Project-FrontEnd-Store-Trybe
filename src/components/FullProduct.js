@@ -11,7 +11,7 @@ class FullProduct extends Component {
     return (
       <div>
         <Link to="/">Voltar</Link>
-        <Link to="/cart">Carrinho</Link>
+        <Link data-testid="shopping-cart-button" to="/cart">Carrinho</Link>
         <div className="title" data-testid="product-detail-name">
           <span>{title}</span>
           <span className="title">
