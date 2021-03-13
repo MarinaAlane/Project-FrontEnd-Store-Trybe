@@ -4,19 +4,21 @@ import PropTypes from 'prop-types';
 import { TiArrowBackOutline, TiShoppingCart } from 'react-icons/ti';
 import Cart from '../services/Data';
 import Loading from '../Components/Loading/Loading';
-import './ProductDetails.css';
-import ButtonsCardDetails from '../Components/ButtonsCardDetails/ButtonsCardDetails';
+import '../Components/ProductDetailCard/ProductDetails.css';
 import AvaliationForm from '../Components/AvaliationForm/AvaliationForm';
-import PictureCardDetail from '../Components/PictureCardDetail/PictureCardDetail';
+import CounterCart from '../Components/CounterCart/CounterCart';
+import ProductDeatailsCard from '../Components/ProductDetailCard/ProductDetailscard';
 
 export default class ProductDetails extends Component {
   constructor(state) {
     super(state);
     this.searchForID = this.searchForID.bind(this);
     this.addCartItem = this.addCartItem.bind(this);
+    this.CounterCart = this.CounterCart.bind(this);
     this.state = {
       product: {},
       loading: true,
+      quant: 0,
     };
   }
 
@@ -24,6 +26,13 @@ export default class ProductDetails extends Component {
     const { match } = this.props;
     const { id } = match.params;
     this.searchForID(id);
+    this.CounterCart();
+  }
+
+  CounterCart() {
+    let counter = 0;
+    Cart.forEach((product) => { counter += product.quantity; });
+    this.setState({ quant: counter });
   }
 
   searchForID(id) {
@@ -37,7 +46,8 @@ export default class ProductDetails extends Component {
     this.setState({ product: selectedProduct, loading: false });
   }
 
-  addCartItem(product) {
+  addCartItem() {
+    const { product } = this.state;
     const check = Cart.some((value) => value.title === product.title);
     if (check) {
       Cart.forEach((cartItem) => {
@@ -55,12 +65,11 @@ export default class ProductDetails extends Component {
         quantity: add.value,
       });
     }
+    this.CounterCart();
   }
 
   render() {
-    const { product, loading } = this.state;
-    const { title, price, pictures } = product;
-    if (loading) return <Loading />;
+    const { product, loading, quant } = this.state;
     return (
       <div>
         <div className="headerLinks">
@@ -76,25 +85,13 @@ export default class ProductDetails extends Component {
           >
             <div>
               <TiShoppingCart />
+              <CounterCart quant={ quant } />
             </div>
           </Link>
         </div>
-        <div data-testid="product-detail-name" className="productContainer">
-          <PictureCardDetail pictures={ pictures } title={ title } />
-          <div className="titleDetails">
-            { title }
-            { price.toLocaleString('pt-br', { style: 'currency', currency: 'BRL' }) }
-            <ButtonsCardDetails product={ product } />
-            <button
-              className="detailsToAddCart"
-              type="button"
-              data-testid="product-detail-add-to-cart"
-              onClick={ () => this.addCartItem(product) }
-            >
-              Adicionar ao carrinho
-            </button>
-          </div>
-        </div>
+        { (loading)
+          ? <Loading />
+          : <ProductDeatailsCard product={ product } onClick={ this.addCartItem } />}
         <AvaliationForm />
       </div>
     );

@@ -30,6 +30,8 @@ class ProductCard extends Component {
         availableQuantity,
       });
     }
+    const { click } = this.props;
+    click();
   }
 
   render() {
@@ -66,6 +68,7 @@ class ProductCard extends Component {
 ProductCard.propTypes = {
   product: PropTypes.shape().isRequired,
   text: PropTypes.string.isRequired,
+  click: PropTypes.func.isRequired,
 };
 
 export default ProductCard;

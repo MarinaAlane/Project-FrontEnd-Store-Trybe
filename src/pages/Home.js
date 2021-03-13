@@ -4,6 +4,8 @@ import ProductCard from '../Components/ProductCard/ProductCard';
 import * as api from '../services/api';
 import Categories from '../Components/Categories/Categories';
 import Loading from '../Components/Loading/Loading';
+import CounterCart from '../Components/CounterCart/CounterCart';
+import Cart from '../services/Data';
 
 export default class Home extends Component {
   constructor(state) {
@@ -11,12 +13,18 @@ export default class Home extends Component {
 
     this.setSearchText = this.setSearchText.bind(this);
     this.handleCategory = this.handleCategory.bind(this);
+    this.CounterCart = this.CounterCart.bind(this);
 
     this.state = {
       searchText: '',
       productList: [],
       loading: false,
+      quant: 0,
     };
+  }
+
+  componentDidMount() {
+    this.CounterCart();
   }
 
   async handleCategory({ target }) {
@@ -34,8 +42,14 @@ export default class Home extends Component {
     this.setState({ searchText: target.value });
   }
 
+  CounterCart() {
+    let counter = 0;
+    Cart.forEach((product) => { counter += product.quantity; });
+    this.setState({ quant: counter });
+  }
+
   render() {
-    const { productList, loading, searchText } = this.state;
+    const { productList, loading, searchText, quant } = this.state;
     return (
       <div className="App">
         <input
@@ -50,6 +64,7 @@ export default class Home extends Component {
         <button type="button">
           <Link to="/ShoppingCart" data-testid="shopping-cart-button">
             Carrinho de Compras
+            <CounterCart quant={ quant } />
           </Link>
         </button>
         <button type="button">
@@ -67,7 +82,12 @@ export default class Home extends Component {
           { (loading) ? <Loading /> : null }
           {productList
             .map((product) => (
-              <ProductCard key={ product.id } product={ product } text={ searchText } />
+              <ProductCard
+                key={ product.id }
+                product={ product }
+                text={ searchText }
+                click={ this.CounterCart }
+              />
             ))}
         </ul>
       </div>
