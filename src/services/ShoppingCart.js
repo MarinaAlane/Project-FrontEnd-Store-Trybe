@@ -7,7 +7,7 @@ class ShoppingCart extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      shoppingCartList: [],
+      cartProducts: JSON.parse(localStorage.getItem('shoppingCartList')),
     };
     this.shoppingCartItemsList = this.shoppingCartItemsList.bind(this);
     this.updateQty = this.updateQty.bind(this);
@@ -48,23 +48,26 @@ class ShoppingCart extends React.Component {
       }
     });
     localStorage.setItem('shoppingCartList', JSON.stringify(newCart));
-    this.setState({ shoppingCartList: newCart });
+    this.setState({ cartProducts: newCart });
   }
 
   render() {
-    let cartList = localStorage.getItem('shoppingCartList');
-    if (cartList) {
-      cartList = JSON.parse(cartList);
-    } else { cartList = []; }
+    // let cartList = localStorage.getItem('shoppingCartList');
+    const { cartProducts } = this.state;
+    // let cartList = [];
+    // // let cartList = cartProducts;
+    // if (cartProducts) {
+    //   cartList = cartProducts;
+    // } else { cartList = []; }
     return (
       <section>
         <Link to="/">
           <button type="button">VOLTAR</button>
         </Link>
         <h1>Carrinho de Compras</h1>
-        { cartList.length === 0
+        { cartProducts.length === 0
           ? <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
-          : this.shoppingCartItemsList(cartList)}
+          : this.shoppingCartItemsList(cartParoducts)}
       </section>
     );
   }
