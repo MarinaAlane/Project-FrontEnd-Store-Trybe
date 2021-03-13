@@ -11,7 +11,6 @@ export default class ProductItem extends Component {
       price,
     };
   }
-  
   render() {
     const { title, image, price } = this.state;
     return (

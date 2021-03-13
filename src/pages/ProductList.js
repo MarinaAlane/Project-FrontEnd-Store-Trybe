@@ -31,7 +31,7 @@ class ProductList extends Component {
     result.then(
       (res) => {
         console.log(res);
-        this.setState((props) => ({
+        this.setState(() => ({
           ...res,
           products: res.results,
         }));
