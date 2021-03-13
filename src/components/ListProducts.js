@@ -39,6 +39,7 @@ class ListProducts extends Component {
       <div>
         {products.map((product) => (<ShortProduct
           key={ product.id }
+          id={ product.id }
           title={ product.title }
           thumbnail={ product.thumbnail }
           price={ product.price }
