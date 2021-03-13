@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import * as functions from './functions';
 
 class ProductsCard extends React.Component {
   render() {
-    const { product, addToCartBtn } = this.props;
+    const { product } = this.props;
     return (
       <div data-testid="product">
         <img src={ product.thumbnail } alt={ `Imagem da ${product.title}` } />
@@ -12,7 +13,7 @@ class ProductsCard extends React.Component {
         <p>{ product.price }</p>
         <button
           data-testid="product-add-to-cart"
-          onClick={ () => addToCartBtn(product) }
+          onClick={ () => functions.addToCartBtn(product) }
           type="button"
         >
           ADICIONAR AO CARRINHO

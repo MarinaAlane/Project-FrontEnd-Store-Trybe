@@ -5,11 +5,6 @@ import { Link } from 'react-router-dom';
 class ShoppingCart extends React.Component {
   constructor(props) {
     super(props);
-    const { location } = this.props;
-    const { shoppingCartList } = location.state;
-    this.state = {
-      shoppingCartList,
-    };
     this.shoppingCartItemsList = this.shoppingCartItemsList.bind(this);
   }
 
@@ -36,17 +31,19 @@ class ShoppingCart extends React.Component {
   }
 
   render() {
-    const { shoppingCartList } = this.state;
+    let cartList = localStorage.getItem('shoppingCartList');
+    if (cartList) {
+      cartList = JSON.parse(cartList);
+    } else { cartList = []; }
     return (
       <section>
         <Link to="/">
           <button type="button">VOLTAR</button>
         </Link>
         <h1>Carrinho de Compras</h1>
-        <button type="button" onClick={ () => console.log(shoppingCartList) }>aaa</button>
-        { shoppingCartList.length === 0
+        { cartList.length === 0
           ? <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
-          : this.shoppingCartItemsList(shoppingCartList)}
+          : this.shoppingCartItemsList(cartList)}
       </section>
     );
   }
