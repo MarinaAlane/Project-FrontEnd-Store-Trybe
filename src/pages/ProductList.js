@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import * as Api from '../services/api';
-import CardProduct from './CardProduct';
+import CardProduct from '../components/ProductCard';
 
 class ProductList extends Component {
   constructor(props) {
@@ -11,10 +11,11 @@ class ProductList extends Component {
       categories: [],
       products: [],
       query: '',
+      categoryId: '',
     };
 
     this.fetchCategories = this.fetchCategories.bind(this);
-    this.onInputUpdate = this.onInputUpdate.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.getProducts = this.getProducts.bind(this);
   }
 
@@ -22,27 +23,31 @@ class ProductList extends Component {
     this.fetchCategories();
   }
 
-  onInputUpdate({ target }) {
-    const { value } = target;
-    this.setState((props) => (
-      {
+  handleChange({ target }) {
+    if (target.type === 'radio') {
+      this.setState((props) => ({
+        ...props,
+        categoryId: target.id,
+      }));
+    } else {
+      const { value } = target;
+      this.setState((props) => ({
         ...props,
         query: value,
-      }
-    ));
+      }));
+    }
   }
 
-  getProducts() {
+  getProducts(categoryId) {
     const { query } = this.state;
-    const result = Api.getProductsFromCategoryAndQuery(query, query);
-    result.then(
-      (res) => {
-        this.setState((props) => ({
-          ...props,
-          products: res.results,
-        }));
-      },
-    );
+    console.log(categoryId);
+    const result = Api.getProductsFromCategoryAndQuery(categoryId, query);
+    result.then((res) => {
+      this.setState((props) => ({
+        ...props,
+        products: res.results,
+      }));
+    });
   }
 
   async fetchCategories() {
@@ -52,51 +57,58 @@ class ProductList extends Component {
   }
 
   render() {
-    const { query, products, categories } = this.state;
+    const { query, categories, products } = this.state;
 
     return (
       <main>
         <header>
           <input
             value={ query }
-            onChange={ this.onInputUpdate }
+            onChange={ this.handleChange }
             data-testid="query-input"
             type="text"
           />
-          <button data-testid="query-button" onClick={ this.getProducts } type="button">
+          <button
+            data-testid="query-button"
+            onClick={ this.getProducts }
+            type="button"
+          >
             Buscar
           </button>
-          <Link data-testid="shopping-cart-button" to="/cart">Carrinho</Link>
+          <Link data-testid="shopping-cart-button" to="/cart">
+            Carrinho
+          </Link>
         </header>
 
         <aside>
           <span>Categorias:</span>
           {categories.map((category) => (
             <div key={ category.id }>
-              <label
-                data-testid="category"
-                htmlFor={ `${category.name}-checkbox` }
-              >
-                <input id={ `${category.name}-checkbox` } type="checkbox" />
+              <label data-testid="category" htmlFor={ category.id }>
+                <input
+                  id={ category.id }
+                  type="radio"
+                  name="category"
+                  onClick={(event) => {
+                    this.handleChange(event);
+                    this.getProducts(category.id);
+                  }}
+                />
                 { category.name }
               </label>
             </div>
           ))}
         </aside>
-        {
-          products.length !== 0 ? products.map((product) => (
-            <CardProduct
-              key={ product.id }
-              title={ product.title }
-              price={ product.price }
-              image={ product.thumbnail }
-            />
-          )) : (
-            <p data-testid="home-initial-message">
-              Digite algum termo de pesquisa ou escolha uma categoria.
-            </p>
-          )
-        }
+
+        {products.length !== 0 ? (
+          products.map((product) => (
+            <CardProduct key={ product.id } product={ product } />
+          ))
+        ) : (
+          <p data-testid="home-initial-message">
+            Digite algum termo de pesquisa ou escolha uma categoria.
+          </p>
+        )}
       </main>
     );
   }
