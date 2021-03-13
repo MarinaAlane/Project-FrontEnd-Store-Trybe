@@ -1,10 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import ProductsAtCart from '../services/data';
+import ShoppingCartItem from './ShoppingCartItem';
 
 class ShoppingCart extends React.Component {
   constructor() {
     super();
+    this.state = {
+      products: ProductsAtCart,
+    };
     this.emptyMessage = this.emptyMessage.bind(this);
     this.renderCardItem = this.renderCardItem.bind(this);
   }
@@ -14,14 +18,9 @@ class ShoppingCart extends React.Component {
   }
 
   renderCardItem() {
-    return ProductsAtCart.map(({ image, title, price, id }) => (
-      <div data-testid="shopping-cart-product-name" key={ id }>
-        <img src={ image } alt={ title } />
-        <h1>{ title }</h1>
-        <p>{ price }</p>
-        <p data-testid="shopping-cart-product-quantity">1</p>
-      </div>
-    ));
+    const { products } = this.state;
+    return products
+      .map((product) => <ShoppingCartItem product={ product } key={ product.id } />);
   }
 
   render() {
