@@ -9,7 +9,8 @@ class MainPage extends React.Component {
     super(props);
     this.state = {
       categories: [],
-      productsFromQuery: [],
+      productsFromQuery: [{}],
+      isFetchingFromQuery: false,
     };
     this.getProductsFromQuery = this.getProductsFromQuery.bind(this);
   }
@@ -29,15 +30,19 @@ class MainPage extends React.Component {
     this.setState((lastState) => ({
       ...lastState,
       productsFromQuery: data.results,
+      isFetchingFromQuery: true,
     }));
   }
 
   render() {
-    const { categories, productsFromQuery } = this.state;
+    const { categories, productsFromQuery, isFetchingFromQuery } = this.state;
     return (
       <>
         <Header getProductsFromQuery={ this.getProductsFromQuery } />
-        <Main productsFromQuery={ productsFromQuery } />
+        <Main
+          productsFromQuery={ productsFromQuery }
+          isFetchingFromQuery={ isFetchingFromQuery }
+        />
         <Aside categories={ categories } />
       </>
     );
