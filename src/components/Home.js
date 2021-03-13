@@ -1,5 +1,6 @@
 import React from 'react';
 
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import Categories from './Categories';
@@ -41,6 +42,7 @@ class Home extends React.Component {
 
   render() {
     const { response, emptyResponse } = this.state;
+    const { addToCart } = this.props;
     return (
       <>
         <section>
@@ -57,7 +59,7 @@ class Home extends React.Component {
           >
             Pesquisar
           </button>
-          <Link data-testid="shopping-cart-button" to="/components/carrinho">
+          <Link data-testid="shopping-cart-button" to="/carrinho">
             <i className="fas fa-shopping-cart" />
           </Link>
         </section>
@@ -70,11 +72,19 @@ class Home extends React.Component {
           <Categories filterId={ this.filterById } />
         </section>
         <section>
-          <SearchCard result={ response } response={ emptyResponse } />
+          <SearchCard
+            result={ response }
+            response={ emptyResponse }
+            addToCart={ addToCart }
+          />
         </section>
       </>
     );
   }
 }
+
+Home.propTypes = {
+  addToCart: PropTypes.func,
+}.isRequired;
 
 export default Home;
