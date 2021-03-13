@@ -22,7 +22,8 @@ export default class ProductDetails extends Component {
 
   getProductId() {
     const {
-      location: { state: { id, price, thumbnail, title, attributes } },
+      location: { state: {
+        id, price, thumbnail, title, attributes, availableQuantity, freeShipping } },
     } = this.props;
     this.setState({
       title,
@@ -31,6 +32,8 @@ export default class ProductDetails extends Component {
       price,
       loading: false,
       id,
+      availableQuantity,
+      freeShipping,
     });
   }
 
@@ -43,9 +46,9 @@ export default class ProductDetails extends Component {
     }
   }
 
-  addOnCart(title, id, price) {
+  addOnCart(title, id, price, availableQuantity) {
     this.setState((state) => ({
-      shoppingCart: [...state.shoppingCart, { title, id, price }],
+      shoppingCart: [...state.shoppingCart, { title, id, price, availableQuantity }],
     }), () => {
       const { shoppingCart } = this.state;
       sessionStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
@@ -59,11 +62,15 @@ export default class ProductDetails extends Component {
         <div>Loading...</div>
       );
     }
-    const { title, attributes, thumbnail, price, id, shoppingCart } = this.state;
+    const {
+      title,
+      attributes,
+      thumbnail, price, id, shoppingCart, availableQuantity, freeShipping } = this.state;
     return (
       <div>
         <div className="productContainer">
           <h2 data-testid="product-detail-name">{ title }</h2>
+          {freeShipping && <p data-testid="free-shipping">Frete grátis</p>}
           <img src={ thumbnail } alt={ title } />
           <p>
             R$
@@ -72,7 +79,7 @@ export default class ProductDetails extends Component {
           <button
             type="button"
             data-testid="product-detail-add-to-cart"
-            onClick={ () => this.addOnCart(title, id, price) }
+            onClick={ () => this.addOnCart(title, id, price, availableQuantity) }
           >
             Adicionar ao Carrinho
           </button>
@@ -107,6 +114,8 @@ ProductDetails.propTypes = {
       thumbnail: PropTypes.string,
       title: PropTypes.string,
       attributes: PropTypes.arrayOf(PropTypes.object),
+      availableQuantity: PropTypes.number,
+      freeShipping: PropTypes.bool,
     }),
   }).isRequired,
 };

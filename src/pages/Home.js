@@ -43,9 +43,9 @@ class Home extends Component {
       }));
   }
 
-  addOnCart(title, id, price) {
+  addOnCart(title, id, price, availableQuantity) {
     this.setState((state) => ({
-      shoppingCart: [...state.shoppingCart, { title, id, price }],
+      shoppingCart: [...state.shoppingCart, { title, id, price, availableQuantity }],
     }), () => {
       const { shoppingCart } = this.state;
       sessionStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
@@ -97,33 +97,49 @@ class Home extends Component {
   renderProductList() {
     const { productList } = this.state;
     return (
-      productList.map(({ id, title, price, thumbnail, attributes }) => (
-        <div key={ id } data-testid="product">
-          <h3>{ title }</h3>
-          <img src={ thumbnail } alt={ title } />
-          <p>
-            R$
-            { price }
-          </p>
-          <Link
-            data-testid="product-detail-link"
-            to={ {
-              pathname: `/productdetails/${id}`,
-              state: { id, title, price, thumbnail, attributes },
-            } }
-          >
-            Detalhes do Produto
-          </Link>
-          <button
-            type="button"
-            data-testid="product-add-to-cart"
-            onClick={ () => this.addOnCart(title, id, price) }
-          >
-            Adicionar ao Carrinho
-          </button>
+      productList
+        .map(({ id,
+          title,
+          price,
+          thumbnail,
+          attributes,
+          available_quantity: availableQuantity,
+          shipping: { free_shipping: freeShipping },
+        }) => (
+          <div key={ id } data-testid="product">
+            <h3>{ title }</h3>
+            {freeShipping && <p data-testid="free-shipping">Frete grátis</p>}
+            <img src={ thumbnail } alt={ title } />
+            <p>
+              R$
+              { price }
+            </p>
+            <Link
+              data-testid="product-detail-link"
+              to={ {
+                pathname: `/productdetails/${id}`,
+                state: {
+                  id,
+                  title,
+                  price,
+                  thumbnail,
+                  attributes,
+                  availableQuantity,
+                  freeShipping },
+              } }
+            >
+              Detalhes do Produto
+            </Link>
+            <button
+              type="button"
+              data-testid="product-add-to-cart"
+              onClick={ () => this.addOnCart(title, id, price, availableQuantity) }
+            >
+              Adicionar ao Carrinho
+            </button>
 
-        </div>
-      ))
+          </div>
+        ))
     );
   }
 
