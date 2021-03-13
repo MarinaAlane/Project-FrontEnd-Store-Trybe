@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { shape, string, arrayOf, number, oneOfType } from 'prop-types';
 import Button from '../../components/Button';
 import InputContext from '../../components/InputContext';
+import ReviewForm from '../../components/ReviewForm/ReviewForm';
 
 export default class ProductDetails extends Component {
   constructor(props) {
@@ -49,6 +50,7 @@ export default class ProductDetails extends Component {
               ))
             }
           </ul>
+          <ReviewForm />
         </section>
       </>
     );
