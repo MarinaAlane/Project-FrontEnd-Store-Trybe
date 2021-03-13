@@ -19,9 +19,13 @@ class Home extends Component {
     this.handleClick = this.handleClick.bind(this);
     this.checkSearchResult = this.checkSearchResult.bind(this);
     this.addOnCart = this.addOnCart.bind(this);
+    this.checkStorage = this.checkStorage.bind(this);
   }
 
-  componentDidMount() { this.fetchCategories(); }
+  componentDidMount() {
+    this.fetchCategories();
+    this.checkStorage();
+  }
 
   handleChange({ target }) {
     const { value, name } = target;
@@ -81,10 +85,19 @@ class Home extends Component {
     );
   }
 
+  checkStorage() {
+    if (sessionStorage.shoppingCart) {
+      const cart = JSON.parse(sessionStorage.shoppingCart);
+      this.setState({
+        shoppingCart: [...cart],
+      });
+    }
+  }
+
   renderProductList() {
     const { productList } = this.state;
     return (
-      productList.map(({ id, title, price, thumbnail }) => (
+      productList.map(({ id, title, price, thumbnail, attributes }) => (
         <div key={ id } data-testid="product">
           <h3>{ title }</h3>
           <img src={ thumbnail } alt={ title } />
@@ -92,7 +105,13 @@ class Home extends Component {
             R$
             { price }
           </p>
-          <Link data-testid="product-detail-link" to={ `/productdetails/${id}` }>
+          <Link
+            data-testid="product-detail-link"
+            to={ {
+              pathname: `/productdetails/${id}`,
+              state: { id, title, price, thumbnail, attributes },
+            } }
+          >
             Detalhes do Produto
           </Link>
           <button
@@ -109,7 +128,7 @@ class Home extends Component {
   }
 
   render() {
-    const { productsInput, productList } = this.state;
+    const { productsInput, productList, shoppingCart } = this.state;
     return (
       <div>
         <aside>
@@ -118,7 +137,13 @@ class Home extends Component {
           </div>
         </aside>
         <Link to="/shoppingCart">
-          <button type="button" data-testid="shopping-cart-button">ShoppingCart</button>
+          <button
+            type="button"
+            data-testid="shopping-cart-button"
+          >
+            ShoppingCart
+            <span data-testid="shopping-cart-size">{` - ${shoppingCart.length}`}</span>
+          </button>
         </Link>
 
         <input

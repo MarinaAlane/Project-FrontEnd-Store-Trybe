@@ -10,17 +10,20 @@ export default class ProductDetails extends Component {
       loading: true,
       shoppingCart: [],
     };
+
+    this.addOnCart = this.addOnCart.bind(this);
+    this.checkStorage = this.checkStorage.bind(this);
   }
 
   componentDidMount() {
     this.getProductId();
+    this.checkStorage();
   }
 
-  async getProductId() {
-    const { match: { params: { id } } } = this.props;
-    const url = `https://api.mercadolibre.com/items/${id}`;
-    const { title, attributes, thumbnail, price } = await fetch(url)
-      .then((response) => response.json());
+  getProductId() {
+    const {
+      location: { state: { id, price, thumbnail, title, attributes } },
+    } = this.props;
     this.setState({
       title,
       attributes,
@@ -29,6 +32,15 @@ export default class ProductDetails extends Component {
       loading: false,
       id,
     });
+  }
+
+  checkStorage() {
+    if (sessionStorage.shoppingCart) {
+      const cart = JSON.parse(sessionStorage.shoppingCart);
+      this.setState({
+        shoppingCart: [...cart],
+      });
+    }
   }
 
   addOnCart(title, id, price) {
@@ -47,7 +59,7 @@ export default class ProductDetails extends Component {
         <div>Loading...</div>
       );
     }
-    const { title, attributes, thumbnail, price, id } = this.state;
+    const { title, attributes, thumbnail, price, id, shoppingCart } = this.state;
     return (
       <div>
         <div className="productContainer">
@@ -65,7 +77,13 @@ export default class ProductDetails extends Component {
             Adicionar ao Carrinho
           </button>
           <Link to="/shoppingCart">
-            <button type="button" data-testid="shopping-cart-button">ShoppingCart</button>
+            <button
+              type="button"
+              data-testid="shopping-cart-button"
+            >
+              ShoppingCart
+              <span data-testid="shopping-cart-size">{` - ${shoppingCart.length}`}</span>
+            </button>
           </Link>
           <ul>
             {attributes.map((attribute) => (
@@ -82,9 +100,13 @@ export default class ProductDetails extends Component {
 }
 
 ProductDetails.propTypes = {
-  match: PropTypes.shape({
-    params: PropTypes.shape({
+  location: PropTypes.shape({
+    state: PropTypes.shape({
       id: PropTypes.string,
+      price: PropTypes.number,
+      thumbnail: PropTypes.string,
+      title: PropTypes.string,
+      attributes: PropTypes.arrayOf(PropTypes.object),
     }),
   }).isRequired,
 };

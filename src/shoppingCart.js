@@ -17,6 +17,7 @@ class shoppingCart extends React.Component {
     this.updateQuantities = this.updateQuantities.bind(this);
     this.removeFromCart = this.removeFromCart.bind(this);
     this.renderTotalValue = this.renderTotalValue.bind(this);
+    this.emptyCart = this.emptyCart.bind(this);
   }
 
   componentDidMount() {
@@ -84,6 +85,15 @@ class shoppingCart extends React.Component {
     });
   }
 
+  emptyCart() {
+    this.setState({
+      shoppingCartIdList: [],
+    }, () => {
+      sessionStorage.removeItem('shoppingCart');
+      this.renderTotalValue();
+    });
+  }
+
   renderEmptyCart() {
     return (
       <p data-testid="shopping-cart-empty-message">
@@ -143,10 +153,12 @@ class shoppingCart extends React.Component {
           Valor total: R$
           { totalValue }
         </h3>
+        <button type="button" onClick={ this.emptyCart }>Esvaziar Carrinho</button>
         <Link to={ { pathname: '/checkout', state: { ...this.state } } }>
           <button
             type="button"
             data-testid="checkout-products"
+            disabled={ shoppingCartIdList.length < 1 }
           >
             Finalize sua Compra
           </button>
