@@ -4,11 +4,12 @@ import { Link } from 'react-router-dom';
 
 class ProductCard extends React.Component {
   render() {
-    const { product: { title, thumbnail, price }, product, onClick } = this.props;
+    const { product, onClick, cartProducts } = this.props;
+    const { title, thumbnail, price } = product;
     return (
       <div data-testid="product">
         <Link
-          to={ { pathname: '/product-details', state: { product } } }
+          to={ { pathname: '/product-details', state: { product, cartProducts } } }
           data-testid="product-detail-link"
         >
           <img src={ thumbnail } alt={ title } />

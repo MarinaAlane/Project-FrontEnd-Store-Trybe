@@ -1,4 +1,5 @@
 import React from 'react';
+import { arrayOf, object } from 'prop-types';
 import CartProduct from '../components/CartProduct';
 
 class ShoppingCart extends React.Component {
@@ -22,5 +23,9 @@ class ShoppingCart extends React.Component {
     );
   }
 }
+
+ShoppingCart.propTypes = {
+  cartProducts: arrayOf(object),
+}.isRequired;
 
 export default ShoppingCart;

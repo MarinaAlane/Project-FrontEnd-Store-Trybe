@@ -85,7 +85,7 @@ class ProductList extends Component {
   }
 
   renderProducts() {
-    const { renderProductList, productList } = this.state;
+    const { renderProductList, productList, cartProducts } = this.state;
     if (!renderProductList) {
       return (
         <h1 data-testid="home-initial-message">
@@ -105,6 +105,7 @@ class ProductList extends Component {
             <ProductCard
               key={ product.id }
               product={ product }
+              cartProducts={ cartProducts }
               onClick={ this.addProductToCart }
             />
           </div>
