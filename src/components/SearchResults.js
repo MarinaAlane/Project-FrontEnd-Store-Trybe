@@ -2,47 +2,47 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import LoadingMsg from './LoadingMsg';
 import ProductCard from './ProductCard';
+import AddToCartButton from './AddToCartButton';
 
 require('./SearchResults.css');
 
 export default class SearchResults extends Component {
-  mapProducts(products) {
-    return products.map(({ title, thumbnail, price, id, attributes }) => {
-      attributes = attributes.map(({ name, value_name: value }) => {
-        const obj = {
-          name,
-          value,
-        };
-        return obj;
-      });
-
+  reshapeObjects(products) {
+    return products.map(({
+      title,
+      thumbnail,
+      price,
+      id,
+      attributes,
+      available_quantity: availableQuantity,
+    }) => {
+      attributes = attributes.map(({ name, value_name: value }) => ({ name, value }));
       return {
         id,
         title,
         thumbnail,
         price,
         attributes,
+        availableQuantity,
       };
     });
   }
 
   render() {
     const { results, loading } = this.props;
-    const products = this.mapProducts(results);
+    const products = this.reshapeObjects(results);
 
     return (
       <div className="list">
         { loading
           ? <LoadingMsg />
-          : products.map(({ title, thumbnail, price, id, attributes }) => (
+          : products.map((product) => (
             <ProductCard
-              key={ id }
-              id={ id }
-              title={ title }
-              thumbnail={ thumbnail }
-              price={ price }
-              attributes={ attributes }
-            />
+              product={ product }
+              key={ product.id }
+            >
+              <AddToCartButton product={ product } testid="product-add-to-cart" />
+            </ProductCard>
           ))}
       </div>
     );
