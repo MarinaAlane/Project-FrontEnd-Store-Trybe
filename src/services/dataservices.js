@@ -6,8 +6,6 @@ export function incrementProduct(newProduct) {
     .find((product) => product.productId === newProduct.productId);
   if (!findProduct) {
     ProductsAtCart.push({ title, image, price, productId, quantity: 1 });
-  } else {
-    findProduct.quantity += 1;
   }
 }
 
