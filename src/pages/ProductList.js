@@ -33,7 +33,6 @@ class ProductList extends Component {
 
   getProducts(categoryId) {
     const { query } = this.state;
-    console.log(categoryId);
     const result = Api.getProductsFromCategoryAndQuery(categoryId, query);
     result.then((res) => {
       this.setState((props) => ({
@@ -79,7 +78,7 @@ class ProductList extends Component {
                   id={ category.id }
                   type="radio"
                   name="category"
-                  onClick={ this.getProducts(category.id) }
+                  onClick={ () => this.getProducts(category.id) }
                 />
                 { category.name }
               </label>
