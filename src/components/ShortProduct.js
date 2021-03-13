@@ -19,7 +19,7 @@ class ShortProduct extends Component {
   }
 
   render() {
-    const { id, title, thumbnail, price } = this.props;
+    const { id, title, thumbnail, price, addProductToCart } = this.props;
 
     return (
       <div data-testid="product" className="products">
@@ -34,6 +34,11 @@ class ShortProduct extends Component {
             <p className="products-price">{ price }</p>
           </div>
         </Link>
+        <button data-testid="product-add-to-cart"
+          type="button"
+          onClick={() => addProductToCart({ id, title, price, thumbnail })}>
+          Adicionar ao carrinho
+        </button>
       </div>
     );
   }

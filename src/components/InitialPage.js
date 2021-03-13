@@ -57,6 +57,7 @@ class InitialPage extends React.Component {
 
   render() {
     const { categories, butttonClicked, query, categoryId } = this.state;
+    const { addProductToCart } = this.props;
     return (
       <div className="list-products">
         <input
@@ -74,7 +75,10 @@ class InitialPage extends React.Component {
         >
           Pesquisar
         </button>
-        { butttonClicked ? <ListProducts categoryId={ categoryId } query={ query } />
+        { butttonClicked ? <ListProducts
+          categoryId={ categoryId }
+          query={ query }
+          addProductToCart={ addProductToCart } />
           : (
             <p data-testid="home-initial-message">
               Digite algum termo de pesquisa ou escolha uma categoria.

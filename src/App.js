@@ -28,7 +28,8 @@ class App extends React.Component {
       <div>
         <BrowserRouter>
           <Switch>
-            <Route exact path="/" render={() => <InitialPage />} />
+            <Route exact path="/"
+              render={() => <InitialPage addProductToCart={this.addProductToCart} />} />
             <Route exact path="/cart"
               render={() => <ShoppingCart cartProducts={cartProducts} />} />
             <Route path="/product/:id/"
