@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import shopCart from '../images/shopCart.png';
 import previous from '../images/previous.png';
+import ProductEvaluation from '../components/ProductEvaluation';
 
 class ProductDetails extends Component {
   constructor(props) {
@@ -44,11 +45,14 @@ class ProductDetails extends Component {
             className="shop-cart-shop"
           />
         </div>
+
         <div>
           <img src={ thumbnail } alt={ `Imagem de ${title}` } />
           <h2 data-testid="product-detail-name">{ title }</h2>
           <p>{ price }</p>
         </div>
+
+        <ProductEvaluation />
       </>
     );
   }
