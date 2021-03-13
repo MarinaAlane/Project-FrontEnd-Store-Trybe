@@ -7,13 +7,22 @@ export default class ReviewForm extends Component {
     return (
       <form>
         <FormGroup
-          dataTestId
+          dataTestId={ false }
           label="E-mail"
           type="email"
+          id="email-input"
+        />
+        <FormGroup
+          dataTestId
+          label="Mensagem (opicional)"
+          type="textarea"
           id="product-detail-evaluation"
         />
         <Button
+          dataTestId={ false }
           submit
+          id="submit-review-btn"
+          onHandleClick={ () => {} }
         >
           Avaliar
         </Button>

@@ -10,11 +10,25 @@ export default class FormGroup extends Component {
         htmlFor={ id }
       >
         { label }
-        <input
-          dataTestId={ dataTestId ? id : '' }
-          type={ type }
-          id={ id }
-        />
+        {
+          type === 'textarea'
+            ? (
+              <textarea
+                data-testid={ dataTestId ? id : '' }
+                type={ type }
+                id={ id }
+                rows="4"
+                cols="50"
+              />
+            )
+            : (
+              <input
+                data-testid={ dataTestId ? id : '' }
+                type={ type }
+                id={ id }
+              />
+            )
+        }
       </label>
     );
   }
