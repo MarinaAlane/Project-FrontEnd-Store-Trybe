@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
 class ProductEvaluation extends Component {
-
   renderEmailInput() {
     return (
       <div>
@@ -30,7 +29,7 @@ class ProductEvaluation extends Component {
     return (
       <button
         type="button"
-        onClick={ () => { console.log('L32 - button') } }
+        onClick={ () => { } }
       >
         Enviar
       </button>

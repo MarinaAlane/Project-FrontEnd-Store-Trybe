@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import shopCart from '../images/shopCart.png';
 import previous from '../images/previous.png';
-import ProductEvaluation from '../components/ProductEvaluation';
+import ProductEvaluation from './ProductEvaluation';
 
 class ProductDetails extends Component {
   constructor(props) {
