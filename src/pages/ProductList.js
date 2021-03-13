@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import * as Api from '../services/api';
 import CardProduct from '../components/ProductCard';
 import CartButton from '../components/CartButton';
@@ -25,18 +24,11 @@ class ProductList extends Component {
   }
 
   handleChange({ target }) {
-    if (target.type === 'radio') {
-      this.setState((props) => ({
-        ...props,
-        categoryId: target.id,
-      }));
-    } else {
-      const { value } = target;
-      this.setState((props) => ({
-        ...props,
-        query: value,
-      }));
-    }
+    const { value } = target;
+    this.setState((props) => ({
+      ...props,
+      query: value,
+    }));
   }
 
   getProducts(categoryId) {
@@ -78,25 +70,21 @@ class ProductList extends Component {
           </button>
           <CartButton />
         </header>
-
         <aside>
           <span>Categorias:</span>
-          {categories.map((category) => (
+          { categories.map((category) => (
             <div key={ category.id }>
               <label data-testid="category" htmlFor={ category.id }>
                 <input
                   id={ category.id }
                   type="radio"
                   name="category"
-                  onClick={ (event) => {
-                    this.handleChange(event);
-                    this.getProducts(category.id);
-                  } }
+                  onClick={ this.getProducts(category.id) }
                 />
                 { category.name }
               </label>
             </div>
-          ))}
+          )) }
         </aside>
 
         {products.length !== 0 ? (

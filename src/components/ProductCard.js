@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+
 class ProductCard extends Component {
   render() {
     const { product } = this.props;
