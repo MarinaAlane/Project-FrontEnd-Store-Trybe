@@ -47,7 +47,7 @@ class ProductList extends Component {
           <input
             value={ query }
             onChange={ this.userInput }
-            data-test-id="query-input"
+            data-testid="query-input"
             type="text"
           />
           <button data-testid="query-button" onClick={ this.loadProducts } type="button">
@@ -63,7 +63,7 @@ class ProductList extends Component {
               image={ product.thumbnail }
             />
           )) : (
-            <p>Digite algum termo de pesquisa ou escolha uma categoria.</p>
+            <p data-testid="home-initial-message">Digite algum termo de pesquisa ou escolha uma categoria.</p>
           )
         }
       </main>
