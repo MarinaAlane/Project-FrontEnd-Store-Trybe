@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import './shoppingCart.css';
 
 class shoppingCart extends React.Component {
   constructor(props) {
@@ -149,7 +150,8 @@ class shoppingCart extends React.Component {
   render() {
     const { shoppingCartIdList, totalValue } = this.state;
     return (
-      <div>
+      <div className="cart-container">
+        <Link to="/">Home</Link>
         {shoppingCartIdList.length > 0 ? this.renderCartItems() : this.renderEmptyCart()}
         <h3>
           Valor total: R$

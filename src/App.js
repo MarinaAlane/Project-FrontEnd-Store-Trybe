@@ -9,14 +9,25 @@ import './App.css';
 class App extends Component {
   render() {
     return (
-      <BrowserRouter>
-        <Switch>
-          <Route path="/checkout" component={ Checkout } />
-          <Route path="/shoppingCart" component={ shoppingCart } />
-          <Route path="/productdetails/:id" component={ ProductDetails } />
-          <Route exact path="/" component={ Home } />
-        </Switch>
-      </BrowserRouter>
+      <div>
+        <header>
+          <h1>Frontend Online Store - TrybeNiners - Group 8</h1>
+        </header>
+        <BrowserRouter>
+          <Switch>
+            <Route path="/checkout" component={ Checkout } />
+            <Route path="/shoppingCart" component={ shoppingCart } />
+            <Route path="/productdetails/:id" component={ ProductDetails } />
+            <Route exact path="/" component={ Home } />
+          </Switch>
+        </BrowserRouter>
+        <footer>
+          <h3>
+            Desenvolvido por:
+            Diego Vinicius, Gabriel Lennox, Henrique Elias e Tiago Yoneda
+          </h3>
+        </footer>
+      </div>
     );
   }
 }

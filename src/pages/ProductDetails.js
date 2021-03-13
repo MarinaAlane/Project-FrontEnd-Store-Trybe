@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import RatingForm from '../components/RatingForm';
+import './ProductDetails.css';
 
 export default class ProductDetails extends Component {
   constructor() {
@@ -67,7 +68,8 @@ export default class ProductDetails extends Component {
       attributes,
       thumbnail, price, id, shoppingCart, availableQuantity, freeShipping } = this.state;
     return (
-      <div>
+      <div className="details-container">
+        <Link to="/">Home</Link>
         <div className="productContainer">
           <h2 data-testid="product-detail-name">{ title }</h2>
           {freeShipping && <p data-testid="free-shipping">Frete grátis</p>}
@@ -92,7 +94,7 @@ export default class ProductDetails extends Component {
               <span data-testid="shopping-cart-size">{` - ${shoppingCart.length}`}</span>
             </button>
           </Link>
-          <ul>
+          <ul className="attributes-list">
             {attributes.map((attribute) => (
               <li key={ attribute.id }>
                 { `${attribute.name} -> ${attribute.value_name}` }
