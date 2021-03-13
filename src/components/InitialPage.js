@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import ListOfCategories from './ListOfCategories';
 import { getCategories } from '../services/api';
 import ListProducts from './ListProducts';
@@ -78,7 +79,8 @@ class InitialPage extends React.Component {
         { butttonClicked ? <ListProducts
           categoryId={ categoryId }
           query={ query }
-          addProductToCart={ addProductToCart } />
+          addProductToCart={ addProductToCart }
+        />
           : (
             <p data-testid="home-initial-message">
               Digite algum termo de pesquisa ou escolha uma categoria.
@@ -101,5 +103,9 @@ class InitialPage extends React.Component {
     );
   }
 }
+
+InitialPage.propTypes = {
+  addProductToCart: PropTypes.func.isRequired,
+};
 
 export default InitialPage;

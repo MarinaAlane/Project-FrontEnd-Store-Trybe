@@ -38,7 +38,8 @@ class ListProducts extends Component {
 
     return (
       <div>
-        {products.map((product) => (<ShortProduct addProductToCart={ addProductToCart }
+        {products.map((product) => (<ShortProduct
+          addProductToCart={ addProductToCart }
           key={ product.id }
           id={ product.id }
           title={ product.title }

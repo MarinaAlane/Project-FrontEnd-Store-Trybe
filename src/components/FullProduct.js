@@ -19,10 +19,12 @@ class FullProduct extends Component {
             {price}
           </span>
         </div>
-        <img className="products-image" src={thumbnail} alt={title} />
-        <button data-testid="product-detail-add-to-cart"
+        <img className="products-image" src={ thumbnail } alt={ title } />
+        <button
+          data-testid="product-detail-add-to-cart"
           type="button"
-          onClick={() => addProductToCart({ id, title, price, thumbnail })}>
+          onClick={ () => addProductToCart({ id, title, price, thumbnail }) }
+        >
           Adicionar ao carrinho
         </button>
       </div>
@@ -36,6 +38,7 @@ FullProduct.propTypes = {
       id: PropTypes.string,
     }),
   }).isRequired,
+  addProductToCart: PropTypes.func.isRequired,
 };
 
 export default FullProduct;

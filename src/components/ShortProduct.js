@@ -34,9 +34,11 @@ class ShortProduct extends Component {
             <p className="products-price">{ price }</p>
           </div>
         </Link>
-        <button data-testid="product-add-to-cart"
+        <button
+          data-testid="product-add-to-cart"
           type="button"
-          onClick={() => addProductToCart({ id, title, price, thumbnail })}>
+          onClick={ () => addProductToCart({ id, title, price, thumbnail }) }
+        >
           Adicionar ao carrinho
         </button>
       </div>

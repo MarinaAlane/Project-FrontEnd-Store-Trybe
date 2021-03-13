@@ -12,28 +12,39 @@ class App extends React.Component {
 
     this.state = {
       cartProducts: [],
-    }
+    };
   }
 
   addProductToCart(newProduct) {
-    const { cartProducts } = this.state
+    const { cartProducts } = this.state;
     this.setState({
-      cartProducts: [...cartProducts, newProduct]
+      cartProducts: [...cartProducts, newProduct],
     });
   }
 
   render() {
-    const { cartProducts } = this.state
+    const { cartProducts } = this.state;
     return (
       <div>
         <BrowserRouter>
           <Switch>
-            <Route exact path="/"
-              render={() => <InitialPage addProductToCart={this.addProductToCart} />} />
-            <Route exact path="/cart"
-              render={() => <ShoppingCart cartProducts={cartProducts} />} />
-            <Route path="/product/:id/"
-              render={ (props) => <FullProduct {...props} addProductToCart={this.addProductToCart} /> } />
+            <Route
+              exact
+              path="/"
+              render={ () => <InitialPage addProductToCart={ this.addProductToCart } /> }
+            />
+            <Route
+              exact
+              path="/cart"
+              render={ () => <ShoppingCart cartProducts={ cartProducts } /> }
+            />
+            <Route
+              path="/product/:id/"
+              render={ (props) => (<FullProduct
+                { ...props }
+                addProductToCart={ this.addProductToCart }
+              />) }
+            />
           </Switch>
         </BrowserRouter>
       </div>
