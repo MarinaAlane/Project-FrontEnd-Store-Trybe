@@ -50,19 +50,20 @@ export default class ProductCard extends Component {
           data-testid="product-detail-link"
           onClick={ this.goToDetails }
           onKeyDown={ this.goToDetails }
-          // data-testid="product"
           tabIndex="0"
           role="button"
         >
-          <section className="title-card">
-            <p>{ title }</p>
-          </section>
-          <section className="body-card">
-            <img src={ thumbnail } alt={ title } />
-            <p>
-              { `R$ ${price}` }
-            </p>
-          </section>
+          <div data-testid="product">
+            <section className="title-card">
+              <p>{ title }</p>
+            </section>
+            <section className="body-card">
+              <img src={ thumbnail } alt={ title } />
+              <p>
+                { `R$ ${price}` }
+              </p>
+            </section>
+          </div>
         </div>
         { children }
       </section>
