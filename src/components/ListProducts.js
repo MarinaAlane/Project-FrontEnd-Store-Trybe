@@ -28,6 +28,7 @@ class ListProducts extends Component {
 
   render() {
     const { products } = this.state;
+    const { addProductToCart } = this.props;
 
     if (products.length === 0) {
       return (
@@ -38,6 +39,7 @@ class ListProducts extends Component {
     return (
       <div>
         {products.map((product) => (<ShortProduct
+          addProductToCart={ addProductToCart }
           key={ product.id }
           id={ product.id }
           title={ product.title }
