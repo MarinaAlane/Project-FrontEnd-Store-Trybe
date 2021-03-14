@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar as farStar } from '@fortawesome/free-regular-svg-icons';
 import { faStar as fasStar } from '@fortawesome/free-solid-svg-icons';
+import { func } from 'prop-types';
 import './style.css';
 
 export default class Rating extends Component {
@@ -31,16 +32,28 @@ export default class Rating extends Component {
 
   swapToRegular() {
     const { rating } = this.state;
-    if (rating) this.setState({ onHover: false, hoverRating: 0, rated: true });
+    console.log(rating === true);
+    if (rating) {
+      this.setState({ onHover: false, hoverRating: 0, rated: true });
+    } else {
+      this.setState({ onHover: false, hoverRating: 0 });
+    }
   }
 
   updateRating(event) {
     const { key: ratingOnClick } = event.target.dataset;
     const { rating: ratingState } = this.state;
+    const { onHandleRatingUpdate } = this.props;
     if (parseInt(ratingOnClick, 10) === (ratingState - 1)) {
-      this.setState({ rating: 0, onHover: false });
+      this.setState(
+        { rating: 0, onHover: false },
+        () => onHandleRatingUpdate(0),
+      );
     } else {
-      this.setState({ rating: parseInt(ratingOnClick, 10) + 1, rated: true });
+      this.setState(
+        { rating: parseInt(ratingOnClick, 10) + 1, rated: true },
+        () => onHandleRatingUpdate(parseInt(ratingOnClick, 10) + 1),
+      );
     }
   }
 
@@ -89,3 +102,7 @@ export default class Rating extends Component {
     );
   }
 }
+
+Rating.propTypes = {
+  onHandleRatingUpdate: func.isRequired,
+};

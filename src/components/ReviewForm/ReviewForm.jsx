@@ -9,21 +9,25 @@ export default class ReviewForm extends Component {
     this.state = {
       emailInput: '',
       messageInput: '',
-      rating: 0,
     };
     this.handleInput = this.handleInput.bind(this);
+    this.handleRatingUpdate = this.handleRatingUpdate.bind(this);
   }
 
   handleInput(parentState, value) {
     this.setState({ [parentState]: value });
   }
 
+  handleRatingUpdate(rating) {
+    this.setState({ rating });
+  }
+
   render() {
-    const { emailInput, messageInput, rating } = this.state;
+    const { emailInput, messageInput } = this.state;
 
     return (
       <form>
-        <Rating value={ rating } />
+        <Rating onHandleRatingUpdate={ this.handleRatingUpdate } />
         <FormGroup
           dataTestId={ false }
           label="E-mail"
