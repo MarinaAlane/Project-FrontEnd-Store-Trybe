@@ -41,7 +41,7 @@ class ProductDetails extends React.Component {
   render() {
     const { product, shoppingCart } = this.state; 
     const { title, thumbnail, price } = product;
-    console.log(this.props);
+    
     return (
       <div>
         <p>
@@ -88,4 +88,5 @@ ProductDetails.propTypes = {
     }).isRequired,
   }).isRequired,
 };
+
 export default ProductDetails;
