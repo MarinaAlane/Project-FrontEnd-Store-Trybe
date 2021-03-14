@@ -61,3 +61,7 @@
 .button-assessments {
   align-self: flex-start;
 }
+
+.form-checkout {
+  display: flex;
+}

@@ -1,10 +1,11 @@
 import React from 'react';
+import './Pages.css';
 
 class Checkout extends React.Component {
   render() {
     return (
       <div>
-        <form>
+        <form className="form-checkout">
           <label htmlFor="fullname">
             Nome Completo:
             <input type="text" name="fullname" data-testid="checkout-fullname" />
