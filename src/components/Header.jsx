@@ -6,10 +6,13 @@ import CartIcon from '../images/carrinho.png';
 
 class Header extends React.Component {
   render() {
-    const { getProductsFromQuery } = this.props;
+    const { getProductsFromQuery, getInputValue } = this.props;
     return (
       <header>
-        <Search getProductsFromQuery={ getProductsFromQuery } />
+        <Search
+          getProductsFromQuery={ getProductsFromQuery }
+          getInputValue={ getInputValue }
+        />
         <Link data-testid="shopping-cart-button" to="/cartPage">
           <img src={ CartIcon } alt="cart" />
         </Link>

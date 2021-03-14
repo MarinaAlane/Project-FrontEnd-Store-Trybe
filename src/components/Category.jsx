@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 
 class Category extends React.Component {
   render() {
-    const { name } = this.props;
+    const { name, id, getProductsFromQuery, inputValue } = this.props;
     return (
-      <li data-testid="category">{ name }</li>
+      <li data-testid="category">
+        <button type="button" onClick={ () => getProductsFromQuery(id, inputValue) }>{ name }</button>
+      </li>
     );
   }
 }

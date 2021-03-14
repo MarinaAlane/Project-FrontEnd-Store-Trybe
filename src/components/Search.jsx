@@ -6,16 +6,19 @@ class Search extends React.Component {
     super(props);
     this.state = {
       inputValue: '',
+      getInputValue: props.getInputValue,
     };
     this.HandleInput = this.HandleInput.bind(this);
   }
 
   HandleInput({ target }) {
+    const { getInputValue } = this.state;
     const { value } = target;
     this.setState((lastState) => ({
       ...lastState,
       inputValue: value,
     }));
+    getInputValue(value);
   }
 
   render() {
@@ -33,7 +36,7 @@ class Search extends React.Component {
         <button
           data-testid="query-button"
           type="button"
-          onClick={ () => getProductsFromQuery(inputValue) }
+          onClick={ () => getProductsFromQuery('', inputValue) }
         >
           Buscar
         </button>

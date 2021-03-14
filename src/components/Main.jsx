@@ -27,7 +27,6 @@ class Main extends React.Component {
 
 Main.propTypes = {
   productsFromQuery: PropTypes.arrayOf(PropTypes.object).isRequired,
-  isFetchingFromQuery: PropTypes.bool.isRequired,
 };
 
 export default Main;

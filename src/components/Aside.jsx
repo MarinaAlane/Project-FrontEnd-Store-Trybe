@@ -4,13 +4,19 @@ import Category from './Category';
 
 class Aside extends React.Component {
   render() {
-    const { categories } = this.props;
+    const { categories, getProductsFromQuery, inputValue } = this.props;
     return (
       <aside>
         <h2>Category</h2>
         <ul>
           {categories.map((category) => (
-            <Category name={ category.name } key={ category.name } />
+            <Category
+              name={ category.name }
+              key={ category.name }
+              id={ category.id }
+              inputValue={ inputValue }
+              getProductsFromQuery={ getProductsFromQuery }
+            />
           ))}
         </ul>
       </aside>
