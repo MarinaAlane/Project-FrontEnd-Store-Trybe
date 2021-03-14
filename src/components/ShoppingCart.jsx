@@ -17,16 +17,32 @@ class ShoppingCart extends React.Component {
 
   increaseProductQuantity(id) {
     const { listOfProducts } = this.state;
+    listOfProducts.find((product) => product.id === id).quantity += 1;
+    this.setState({
+      listOfProducts,
+    });
+  }
+
+  decreaseProductQuantity(id) {
+    const { listOfProducts } = this.state;
     const item = listOfProducts.find((product) => product.id === id);
-    console.log(item);
+    if (item.quantity !== 0) {
+      item.quantity -= 1;
+    }
+    this.setState({
+      listOfProducts,
+    });
   }
 
-  decreaseProductQuantity() {
-    console.log('clicou');
-  }
+  deleteProduct(id) {
+    const { listOfProducts } = this.state;
+    const removeItem = listOfProducts.find((product) => product.id === id);
+    const index = listOfProducts.indexOf(removeItem);
+    listOfProducts.splice(index, 1);
 
-  deleteProduct() {
-    console.log('clicou');
+    this.setState({
+      listOfProducts,
+    });
   }
 
   renderEmptyCart() {
@@ -39,7 +55,7 @@ class ShoppingCart extends React.Component {
     );
   }
 
-  // COLOCAR O PRECO TOTAL E O PRECO POR ITEM...
+  // COLOCAR O PRECO TOTAL...
 
   render() {
     const { listOfProducts } = this.state;
@@ -48,11 +64,11 @@ class ShoppingCart extends React.Component {
     return (
       <div>
         {
-          listOfProducts.map(({ title, thumbnail, quantity, id }) => (
+          listOfProducts.map(({ title, thumbnail, quantity, id, price }) => (
             <div key={ id }>
               <button
                 type="button"
-                onClick={ this.deleteProduct }
+                onClick={ () => this.deleteProduct(id) }
               >
                 X
               </button>
@@ -64,24 +80,30 @@ class ShoppingCart extends React.Component {
               <div>
                 <button
                   type="button"
+                  data-testid="product-decrease-quantity"
+                  onClick={ () => this.decreaseProductQuantity(id) }
+                >
+                  -
+                </button>
+                <p data-testid="shopping-cart-product-quantity">{ quantity }</p>
+                <button
+                  type="button"
                   data-testid="product-increase-quantity"
                   onClick={ () => this.increaseProductQuantity(id) }
                 >
                   +
                 </button>
-                <p data-testid="shopping-cart-product-quantity">{ quantity }</p>
-                <button
-                  type="button"
-                  data-testid="product-decrease-quantity"
-                  onClick={ this.decreaseProductQuantity }
-                >
-                  -
-                </button>
-                <p>Preço do produto: </p>
+                <span>
+                  R$
+                  { price }
+                </span>
               </div>
             </div>
           ))
         }
+        <p>
+          O valor total da compra: R$
+        </p>
       </div>
     );
   }
