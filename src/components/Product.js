@@ -6,20 +6,20 @@ class Product extends React.Component {
   constructor(props) {
     super(props);
     const { product } = this.props;
-    const { title, thumbnail, price, id } = product;
+    const { title, thumbnail, price, id, quantity } = product;
     this.state = {
       title,
       thumbnail,
       price,
       id,
-      quantity: 0,
+      quantity,
     };
-    this.handleClick = this.handleClick.bind(this);
-    this.validateDataFromStorage = this.validateDataFromStorage.bind(this);
+    this.addToCart = this.addToCart.bind(this);
+    this.increaseProductQuantity = this.increaseProductQuantity.bind(this);
   }
 
-  handleClick() {
-    this.saveStorage();
+  addToCart() {
+    this.saveProductToLocalStorage();
   }
 
   constructObjectToSave() {
@@ -28,7 +28,7 @@ class Product extends React.Component {
     return obj;
   }
 
-  async validateDataFromStorage() {
+  async increaseProductQuantity() {
     const data = JSON.parse(localStorage.getItem('cart'));
     for (let outsideIndex = 0; outsideIndex < data.length; outsideIndex += 1) {
       let counter = 0;
@@ -38,37 +38,67 @@ class Product extends React.Component {
         }
       }
       data[outsideIndex].quantity = counter;
+      this.setState({ quantity: counter });
     }
     localStorage.setItem('cart', JSON.stringify(data));
   }
 
-  saveStorage() {
+  saveProductToLocalStorage() {
     if (!localStorage.getItem('cart')) {
       localStorage.setItem('cart', JSON.stringify([]));
     }
     const products = JSON.parse(localStorage.getItem('cart'));
     products.push(this.constructObjectToSave());
     localStorage.setItem('cart', JSON.stringify(products));
-    this.validateDataFromStorage();
+    this.increaseProductQuantity();
+  }
+
+  async removeProductFromLocalStorage() {
+    const data = JSON.parse(localStorage.getItem('cart'));
+    const { title, quantity } = this.state;
+    for (let index = 0; index < data.length; index += 1) {
+      if (data[index].title === title) {
+        data.splice(index, 1);
+        const newQuantity = quantity - 1;
+        this.setState({ quantity: newQuantity });
+        break;
+      }
+    }
+    localStorage.setItem('cart', JSON.stringify(data));
   }
 
   render() {
     const { product, tag } = this.props;
+    const { quantity } = this.state;
     return (
       <div data-testid="product">
         <h1 data-testid="shopping-cart-product-name">{ product.title }</h1>
         <img src={ product.thumbnail } alt="product" />
         <div>{product.price}</div>
         <button
-          onClick={ this.handleClick }
+          onClick={ this.addToCart }
           type="button"
           data-testid={ tag }
         >
           add carrinho
         </button>
         <p type="number" data-testid="shopping-cart-product-quantity">
-          { product.quantity }
+          { quantity }
         </p>
+        <button
+          type="button"
+          onClick={ () => this.saveProductToLocalStorage() }
+          data-testid="product-increase-quantity"
+        >
+          +
+        </button>
+        <button
+          type="button"
+          onClick={ () => this.removeProductFromLocalStorage() }
+          data-testid="product-decrease-quantity"
+        >
+          -
+        </button>
         <Link
           to={ {
             pathname: `/details/${product.id}`,

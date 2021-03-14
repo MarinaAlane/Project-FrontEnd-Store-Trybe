@@ -10,6 +10,7 @@ class ShoppingCart extends React.Component {
   }
 
   componentDidMount() {
+    // this.removeDuplicatesAndSaveStorage();
     this.getDataFromLocalStorage();
   }
 
@@ -17,6 +18,12 @@ class ShoppingCart extends React.Component {
     const data = JSON.parse(localStorage.getItem('cart'));
     this.setState({ products: data });
   }
+
+  // removeDuplicatesAndSaveStorage() {
+  //   const data = JSON.parse(localStorage.getItem('cart'));
+  //   const newData = data.filter((product, index, self) => index === self.findIndex((t) => (t.title === product.title)));
+  //   localStorage.setItem('cart', JSON.stringify(newData));
+  // }
 
   render() {
     const { products } = this.state;
