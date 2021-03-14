@@ -14,6 +14,7 @@ class Product extends React.Component {
     );
   }
 }
+
 Product.propTypes = {
   array: PropTypes.shape({
     title: PropTypes.string,
