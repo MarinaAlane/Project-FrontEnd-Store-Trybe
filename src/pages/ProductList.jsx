@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import CategoryList from '../components/CategoryList';
 import ProductCard from '../components/ProductCard';
 import SearchBar from '../components/SearchBar';
@@ -12,12 +13,17 @@ class ProductList extends React.Component {
     this.getProductsAndOrCategory = this.getProductsAndOrCategory.bind(this);
     this.onSearchTextChange = this.onSearchTextChange.bind(this);
     this.getCategoryId = this.getCategoryId.bind(this);
+    this.onDetails = this.onDetails.bind(this);
 
     this.state = {
       products: [],
       searchText: '',
       categoryId: '',
     };
+  }
+
+  onDetails(product) {
+    console.log(product);
   }
 
   onSearchTextChange(event) {
@@ -47,6 +53,7 @@ class ProductList extends React.Component {
   }
 
   render() {
+    const { getProductFromCard } = this.props;
     const { products, searchText } = this.state;
     const mensagem = 'Digite algum termo de pesquisa ou escolha uma categoria.';
     return (
@@ -65,6 +72,7 @@ class ProductList extends React.Component {
               <ProductCard
                 key={ product.id }
                 product={ product }
+                getProductFromCard={ getProductFromCard }
               />
             ))
             : <p data-testid="home-initial-message">{ mensagem }</p> }
@@ -73,5 +81,9 @@ class ProductList extends React.Component {
     );
   }
 }
+
+ProductList.propTypes = {
+  getProductFromCard: PropTypes.func.isRequired,
+};
 
 export default ProductList;

@@ -4,29 +4,34 @@ import PropTypes from 'prop-types';
 import './ProductCard.css';
 
 class ProductCard extends React.Component {
-  constructor(props) {
-    super(props);
-    this.onDetails = this.onDetails.bind(this);
-  }
-
-  onDetails(product) {
-    console.log(product);
-  }
-
   render() {
-    const { product } = this.props;
+    const { product, getProductFromCard } = this.props;
     const { title, thumbnail, price } = product;
     return (
       <div className="product" data-testid="product">
+        <button
+          type="button"
+          className="shopping-card"
+          onClick={ (event) => getProductFromCard(event, product) }
+          data-testid="product-add-to-cart"
+        >
+          Adicionar ao Carrinho
+        </button>
+
         <Link
-          to={ { pathname: '/product-details', state: { product } } }
+          to="/product-details"
+          className="product-detail"
           data-testid="product-detail-link"
+          // referencia para uso do evento - https://stackoverflow.com/questions/37639122/using-event-target-with-react-components
+          onClick={ (event) => getProductFromCard(event, product) }
         >
           DETALHES
         </Link>
+
         <p>{ title }</p>
         <img src={ thumbnail } alt="imagem do produto" />
         <p>{ price }</p>
+
       </div>
     );
   }
@@ -38,6 +43,7 @@ ProductCard.propTypes = {
     thumbnail: PropTypes.string,
     price: PropTypes.number,
   }).isRequired,
+  getProductFromCard: PropTypes.func.isRequired,
 };
 
 export default ProductCard;

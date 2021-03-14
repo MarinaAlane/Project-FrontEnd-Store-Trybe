@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 
 class ProductDetails extends React.Component {
   render() {
-    const { location } = this.props;
-    const { state } = location;
-    const { product } = state;
+    const { product } = this.props;
     const { title, thumbnail, price } = product;
     return (
       <div>
