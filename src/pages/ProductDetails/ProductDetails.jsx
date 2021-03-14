@@ -50,8 +50,8 @@ export default class ProductDetails extends Component {
               ))
             }
           </ul>
-          <ReviewForm />
         </section>
+        <ReviewForm />
       </>
     );
   }

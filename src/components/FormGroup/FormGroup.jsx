@@ -1,9 +1,20 @@
 import React, { Component } from 'react';
-import { bool, string } from 'prop-types';
+import { bool, string, func } from 'prop-types';
 
 export default class FormGroup extends Component {
+  constructor(props) {
+    super(props);
+    this.controllInput = this.controllInput.bind(this);
+  }
+
+  controllInput(event) {
+    const { value } = event.target;
+    const { onHandleChange, parentState } = this.props;
+    onHandleChange(parentState, value);
+  }
+
   render() {
-    const { dataTestId, label, type, id } = this.props;
+    const { dataTestId, label, type, id, value } = this.props;
 
     return (
       <label
@@ -17,6 +28,8 @@ export default class FormGroup extends Component {
                 data-testid={ dataTestId ? id : '' }
                 type={ type }
                 id={ id }
+                value={ value }
+                onChange={ this.controllInput }
                 rows="4"
                 cols="50"
               />
@@ -26,6 +39,8 @@ export default class FormGroup extends Component {
                 data-testid={ dataTestId ? id : '' }
                 type={ type }
                 id={ id }
+                value={ value }
+                onChange={ this.controllInput }
               />
             )
         }
@@ -39,4 +54,7 @@ FormGroup.propTypes = {
   label: string.isRequired,
   type: string.isRequired,
   id: string.isRequired,
+  value: string.isRequired,
+  onHandleChange: func.isRequired,
+  parentState: string.isRequired,
 };
