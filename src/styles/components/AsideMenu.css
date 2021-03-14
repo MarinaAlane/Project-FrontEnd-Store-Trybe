@@ -8,13 +8,12 @@ ul {
   border: 1px solid rgb(230, 230, 230);
   display: flex;
   flex-flow: column wrap;
+  height: 100%;
   left: 0;
-  min-height: 100%;
   overflow-x: hidden;
   padding-top: 20px;
-  position: absolute;
   top: 0;
-  width: 260px;
+  width: 17%;
   z-index: 1;
 }
 
@@ -27,27 +26,15 @@ ul {
   text-decoration: none;
 }
 
+.categories-content li > button {
+  background-color: inherit;
+  border: none;
+  color: inherit;
+  font-size: inherit;
+  text-decoration: none;
+}
+
 .categories-content li:hover {
   color: black;
   cursor: pointer;
-}
-
-.inactiveMenu {
-  align-self: flex-start;
-  background: url('/images/icons8-cardápio-96.png') no-repeat;
-  background-size: contain;
-  border: none;
-  height: 40px;
-  margin-left: 20px;
-  width: 40px;
-}
-
-.activeMenu {
-  align-self: flex-start;
-  background: url('/images/icons8-x-90.png') no-repeat;
-  background-size: contain;
-  border: none;
-  height: 40px;
-  margin-left: 20px;
-  width: 40px;
 }

@@ -1,0 +1,46 @@
+.search-bar-container {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin-left: auto;
+  max-height: 100px;
+  width: 100%;
+}
+
+.search-bar-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: auto;
+  text-align: center;
+}
+
+.search-bar-wrapper > div > input {
+  margin-top: 20px;
+  width: 400px;
+}
+
+.search-bar-container > :nth-child( 2 ) {
+  width: 40px;
+}
+
+.search-bar-container > :nth-child( 2 ) > button {
+  background: url('https://image.flaticon.com/icons/png/512/126/126083.png') no-repeat;
+  background-size: contain;
+  border: none;
+  height: 40px;
+  margin-left: 20px;
+  width: 40px;
+}
+
+.search-bar-container > :nth-child( 2 ) > button:hover {
+  cursor: pointer;
+}
+
+@media only screen and ( max-width : 1000px ) {
+
+  .search-bar-container {
+    width: 70%;
+  }
+
+}

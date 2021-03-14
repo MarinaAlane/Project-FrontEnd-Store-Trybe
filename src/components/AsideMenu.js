@@ -4,48 +4,33 @@ import '../styles/components/AsideMenu.css';
 
 class AsideMenu extends Component {
   render() {
-    const { menuActive, categories, handleCategoryClick, handleMenuClick } = this.props;
+    const { categories, handleCategoryClick } = this.props;
     return (
       <aside className="categories-content">
-        { !(menuActive) ? (
-          <button
-            type="button"
-            className="inactiveMenu"
-            onClick={ handleMenuClick }
-            alt="close menu"
-          />
-        ) : (
-          <button
-            type="button"
-            className="activeMenu"
-            onClick={ handleMenuClick }
-            alt="hamburguer menu"
-          />
-        ) }
-        { (menuActive) && (
-          <ul className="list-categories">
-            {categories.map((categoria) => (
-              <li
+        <ul className="list-categories">
+          {categories.map((categoria) => (
+            <li key={ categoria.id }>
+              <button
+                type="button"
                 data-testid="category"
                 key={ categoria.id }
                 onClick={ handleCategoryClick }
+                onKeyDown={ handleCategoryClick }
               >
                 { categoria.name }
-              </li>))}
-          </ul>
-        ) }
+              </button>
+            </li>))}
+        </ul>
       </aside>
     );
   }
 }
 
 AsideMenu.propTypes = {
-  menuActive: PropTypes.bool.isRequired,
   categories: PropTypes.arrayOf(
     PropTypes.object.isRequired,
   ).isRequired,
   handleCategoryClick: PropTypes.func.isRequired,
-  handleMenuClick: PropTypes.func.isRequired,
 };
 
 export default AsideMenu;
