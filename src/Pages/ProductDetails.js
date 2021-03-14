@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { getProductsFromCategoryAndQuery } from '../services/api';
 import ButtonShoppingCart from '../components/ButtonShoppingCart';
+import ReactStars from '../../node_modules/react-rating-stars-component';
 
 class ProductDetails extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // id: 0,
       title: '',
       thumbnail: '',
       price: '',
@@ -40,7 +40,9 @@ class ProductDetails extends React.Component {
 
   render() {
     const { title, thumbnail, price, attributes, loading } = this.state;
-
+    const ratingChanged = (newRating) => {
+      console.log(newRating);
+    };
     if (loading) return <p>Carregando...</p>;
 
     return (
@@ -57,6 +59,14 @@ class ProductDetails extends React.Component {
             {attributes.length > 0 && attributes.map(({ id, name, values }) => (
               <li key={ id }>{`${name} : ${values[0].name}`}</li>))}
           </ol>
+          <input placeholder="Email" />
+          <ReactStars
+            count={ 5 }
+            onChange={ ratingChanged }
+            size={ 24 }
+            activeColor="#ffd700"
+          />
+          <textarea data-testid="product-detail-evaluation" />
         </div>
       </div>
     );
