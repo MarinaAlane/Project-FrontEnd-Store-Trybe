@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import Button from '../Button';
 import FormGroup from '../FormGroup/FormGroup';
+import Rating from '../Rating';
 
 export default class ReviewForm extends Component {
   render() {
     return (
       <form>
+        <Rating />
         <FormGroup
           dataTestId={ false }
           label="E-mail"
@@ -14,7 +16,7 @@ export default class ReviewForm extends Component {
         />
         <FormGroup
           dataTestId
-          label="Mensagem (opicional)"
+          label="Mensagem (opcional)"
           type="textarea"
           id="product-detail-evaluation"
         />
