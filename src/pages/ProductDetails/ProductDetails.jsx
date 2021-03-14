@@ -51,7 +51,13 @@ export default class ProductDetails extends Component {
             }
           </ul>
         </section>
-        <ReviewForm />
+        <InputContext.Consumer>
+          {
+            ({ saveNewReview }) => (
+              <ReviewForm id={ id } onSubmitForm={ saveNewReview } />
+            )
+          }
+        </InputContext.Consumer>
       </>
     );
   }

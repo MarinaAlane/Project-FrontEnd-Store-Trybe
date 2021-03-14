@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import { func, string } from 'prop-types';
 import Button from '../Button';
-import FormGroup from '../FormGroup/FormGroup';
+import FormGroup from '../FormGroup';
 import Rating from '../Rating';
 
 export default class ReviewForm extends Component {
@@ -27,12 +28,18 @@ export default class ReviewForm extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    const { onSubmitForm, id } = this.props;
     const { emailInput, messageInput, rating } = this.state;
     if (!emailInput.length) {
       this.setState({ emptyEmailInput: true });
     } else {
-      this.setState({ emptyEmailInput: false });
-      console.log({ emailInput, messageInput, rating });
+      this.setState({
+        emptyEmailInput: false,
+        emailInput: '',
+        messageInput: '',
+        rating: 0,
+      });
+      onSubmitForm({ id, review: { email: emailInput, message: messageInput, rating } });
     }
   }
 
@@ -77,3 +84,8 @@ export default class ReviewForm extends Component {
     );
   }
 }
+
+ReviewForm.propTypes = {
+  onSubmitForm: func.isRequired,
+  id: string.isRequired,
+};
