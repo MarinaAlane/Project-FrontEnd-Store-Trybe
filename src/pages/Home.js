@@ -14,6 +14,7 @@ class Home extends Component {
       categoriesInput: '',
       shoppingCart: [],
       loaded: false,
+      clicked: {},
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -47,6 +48,10 @@ class Home extends Component {
   addOnCart(title, id, price, availableQuantity) {
     this.setState((state) => ({
       shoppingCart: [...state.shoppingCart, { title, id, price, availableQuantity }],
+      clicked: {
+        ...state.clicked,
+        [id]: true,
+      },
     }), () => {
       const { shoppingCart } = this.state;
       sessionStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
@@ -96,7 +101,7 @@ class Home extends Component {
   }
 
   renderProductList() {
-    const { productList } = this.state;
+    const { productList, clicked } = this.state;
     return (
       productList
         .map(({ id,
@@ -136,6 +141,7 @@ class Home extends Component {
                 type="button"
                 data-testid="product-add-to-cart"
                 onClick={ () => this.addOnCart(title, id, price, availableQuantity) }
+                disabled={ clicked[id] }
               >
                 Adicionar ao Carrinho
               </button>

@@ -10,6 +10,7 @@ export default class ProductDetails extends Component {
     this.state = {
       loading: true,
       shoppingCart: [],
+      clicked: false,
     };
 
     this.addOnCart = this.addOnCart.bind(this);
@@ -50,10 +51,25 @@ export default class ProductDetails extends Component {
   addOnCart(title, id, price, availableQuantity) {
     this.setState((state) => ({
       shoppingCart: [...state.shoppingCart, { title, id, price, availableQuantity }],
+      clicked: true,
     }), () => {
       const { shoppingCart } = this.state;
       sessionStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
     });
+  }
+
+  renderAddToCartButton() {
+    const { title, id, price, availableQuantity, clicked } = this.state;
+    return (
+      <button
+        type="button"
+        data-testid="product-detail-add-to-cart"
+        onClick={ () => this.addOnCart(title, id, price, availableQuantity) }
+        disabled={ clicked }
+      >
+        Adicionar ao Carrinho
+      </button>
+    );
   }
 
   render() {
@@ -66,7 +82,7 @@ export default class ProductDetails extends Component {
     const {
       title,
       attributes,
-      thumbnail, price, id, shoppingCart, availableQuantity, freeShipping } = this.state;
+      thumbnail, price, shoppingCart, freeShipping } = this.state;
     return (
       <div className="details-container">
         <Link to="/">Home</Link>
@@ -78,13 +94,7 @@ export default class ProductDetails extends Component {
             R$
             { price }
           </p>
-          <button
-            type="button"
-            data-testid="product-detail-add-to-cart"
-            onClick={ () => this.addOnCart(title, id, price, availableQuantity) }
-          >
-            Adicionar ao Carrinho
-          </button>
+          { this.renderAddToCartButton() }
           <Link to="/shoppingCart">
             <button
               type="button"
