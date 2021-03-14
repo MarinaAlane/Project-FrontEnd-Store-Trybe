@@ -76,12 +76,14 @@ export default class CartShop extends React.Component {
         <div className="CartShop__List">
           { cartIsEmpty
             ? <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
-            : <CartList
-              items={ items }
-              total={ total }
-              changeQuantity={ this.changeItemQuantity }
-              removeItem={ this.removeItem }
-            />}
+            : (
+              <CartList
+                items={ items }
+                total={ total }
+                changeQuantity={ this.changeItemQuantity }
+                removeItem={ this.removeItem }
+              />
+            )}
         </div>
         <Link to="/">Continuar comprando</Link>
       </main>
