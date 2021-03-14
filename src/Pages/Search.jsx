@@ -70,8 +70,6 @@ class Search extends React.Component {
   render() {
     const { searchText, products, cardList, digite, categories } = this.state;
     const { totalCart, totalCartNumber } = this.props;
-    console.log(categories);
-    if (categories.length === 0) return <Redirect to="/404" />;
 
     return (
       <div className="main" data-testid="home-initial-message">
