@@ -9,6 +9,7 @@ class MovieCard extends Component {
     return (
       <div className="movie-card" data-testid="product">
         <img src={ thumbnail } alt={ `${title}` } />
+     <div>
         <p>{ title }</p>
         <p>{ `R$ ${price}` }</p>
       </div>
