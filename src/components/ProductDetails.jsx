@@ -81,6 +81,9 @@ class ProductDetails extends React.Component {
 }
 
 ProductDetails.propTypes = {
+  location: PropTypes.shape({
+    state: PropTypes.arrayOf(),
+  }).isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       categoryID: PropTypes.string,
