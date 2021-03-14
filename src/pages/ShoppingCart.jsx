@@ -4,11 +4,38 @@ import PropTypes from 'prop-types';
 class ShoppingCart extends React.Component {
   constructor(props) {
     super(props);
-    this.renderShopCart = this.renderShopCart.bind(this);
+    this.renderShoppingCart = this.renderShoppingCart.bind(this);
+    this.productIncrease = this.productIncrease.bind(this);
+    this.productDecrease = this.productDecrease.bind(this);
+    this.state = {
+      shoppingCart: props.shoppingCart,
+    };
   }
 
-  renderShopCart() {
-    const { shoppingCart } = this.props;
+  productIncrease(product) {
+    const { shoppingCart } = this.state;
+    const newCart = shoppingCart.map((obj) => {
+      if (obj.id === product.id) {
+        obj.quantity += 1;
+      }
+      return obj;
+    });
+    this.setState({ shoppingCart: newCart });
+  }
+
+  productDecrease(product) {
+    const { shoppingCart } = this.state;
+    const newCart = shoppingCart.map((obj) => {
+      if (obj.id === product.id) {
+        obj.quantity -= 1;
+      }
+      return obj;
+    });
+    this.setState({ shoppingCart: newCart });
+  }
+
+  renderShoppingCart() {
+    const { shoppingCart } = this.state;
     if (shoppingCart.length === 0) {
       return (
         <span data-testid="shopping-cart-empty-message">
@@ -17,11 +44,25 @@ class ShoppingCart extends React.Component {
       );
     }
 
-    return shoppingCart.map(({ title }) => (
+    return shoppingCart.map((product) => (
       <div key={ Math.random() }>
-        <span data-testid="shopping-cart-product-name">{ title }</span>
-        <span> - </span>
-        <span data-testid="shopping-cart-product-quantity">{ shoppingCart.length }</span>
+        <button type="button">x</button>
+        <span data-testid="shopping-cart-product-name">{ product.title }</span>
+        <button
+          type="button"
+          data-testid="product-decrease-quantity"
+          onClick={ () => this.productDecrease(product) }
+        >
+          -
+        </button>
+        <span data-testid="shopping-cart-product-quantity">{ product.quantity }</span>
+        <button
+          type="button"
+          data-testid="product-increase-quantity"
+          onClick={ () => this.productIncrease(product) }
+        >
+          +
+        </button>
       </div>
     ));
   }
@@ -29,7 +70,7 @@ class ShoppingCart extends React.Component {
   render() {
     return (
       <div>
-        { this.renderShopCart() }
+        { this.renderShoppingCart() }
       </div>
     );
   }

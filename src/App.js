@@ -27,6 +27,7 @@ class App extends React.Component {
 
   addToCart() {
     const { shoppingCart, product } = this.state;
+    product.quantity = 1;
     this.setState({ shoppingCart: [...shoppingCart, product] });
   }
 
@@ -49,7 +50,11 @@ class App extends React.Component {
               <Route
                 path="/shopping-cart"
                 render={ (props) => (
-                  <ShoppingCart { ...props } shoppingCart={ shoppingCart } />) }
+                  <ShoppingCart
+                    { ...props }
+                    shoppingCart={ shoppingCart }
+                  />
+                ) }
               />
               <Route
                 path="/product-details"
