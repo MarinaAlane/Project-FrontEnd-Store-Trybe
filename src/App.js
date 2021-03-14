@@ -11,27 +11,27 @@ class App extends React.Component {
     this.addToCart = this.addToCart.bind(this);
     this.getProductFromCard = this.getProductFromCard.bind(this);
     this.state = {
-      productState: {},
+      product: {},
       shoppingCart: [],
     };
   }
 
-  getProductFromCard(event, product) {
+  getProductFromCard(event, currentProduct) {
     if (event.target.className === 'shopping-card') {
       this.setState({
-        productState: product,
+        product: currentProduct,
       }, () => this.addToCart());
     }
-    this.setState({ productState: product });
+    this.setState({ product: currentProduct });
   }
 
   addToCart() {
-    const { shoppingCart, productState } = this.state;
-    this.setState({ shoppingCart: [...shoppingCart, productState] });
+    const { shoppingCart, product } = this.state;
+    this.setState({ shoppingCart: [...shoppingCart, product] });
   }
 
   render() {
-    const { shoppingCart, productState } = this.state;
+    const { shoppingCart, product } = this.state;
     return (
       <BrowserRouter>
         <div className="App">
@@ -54,7 +54,11 @@ class App extends React.Component {
               <Route
                 path="/product-details"
                 render={ (props) => (
-                  <ProductDetails { ...props } product={ productState } />) }
+                  <ProductDetails
+                    { ...props }
+                    product={ product }
+                    getProductFromCard={ this.getProductFromCard }
+                  />) }
               />
             </Switch>
           </Route>

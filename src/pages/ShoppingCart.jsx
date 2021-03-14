@@ -17,8 +17,8 @@ class ShoppingCart extends React.Component {
       );
     }
 
-    return shoppingCart.map(({ id, title }) => (
-      <div key={ id }>
+    return shoppingCart.map(({ title }) => (
+      <div key={ Math.random() }>
         <span data-testid="shopping-cart-product-name">{ title }</span>
         <span> - </span>
         <span data-testid="shopping-cart-product-quantity">{ shoppingCart.length }</span>
