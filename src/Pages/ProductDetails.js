@@ -38,6 +38,34 @@ class ProductDetails extends React.Component {
     });
   }
 
+  starScoreRender() {
+    return (
+      <div className="estrelas">
+        <input type="radio" id="cm_star-empty" name="fb" value="" checked />
+        <label htmlFor="cm_star-1">
+          <i className="fa" />
+          <input type="radio" id="cm_star-1" name="fb" value="1" />
+        </label>
+        <label htmlFor="cm_star-2">
+          <i className="fa" />
+          <input type="radio" id="cm_star-2" name="fb" value="2" />
+        </label>
+        <label htmlFor="cm_star-3">
+          <i className="fa" />
+          <input type="radio" id="cm_star-3" name="fb" value="3" />
+        </label>
+        <label htmlFor="cm_star-4">
+          <i className="fa" />
+          <input type="radio" id="cm_star-4" name="fb" value="4" />
+        </label>
+        <label htmlFor="cm_star-5">
+          <i className="fa" />
+          <input type="radio" id="cm_star-5" name="fb" value="5" />
+        </label>
+      </div>
+    );
+  }
+
   render() {
     const { title, thumbnail, price, attributes, loading } = this.state;
 
@@ -57,6 +85,15 @@ class ProductDetails extends React.Component {
             {attributes.length > 0 && attributes.map(({ id, name, values }) => (
               <li key={ id }>{`${name} : ${values[0].name}`}</li>))}
           </ol>
+          <form>
+            <input placeholder="Email" />
+          </form>
+          <link
+            rel="stylesheet"
+            href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
+          />
+          {this.starScoreRender()}
+          <textarea data-testid="product-detail-evaluation" />
         </div>
       </div>
     );
