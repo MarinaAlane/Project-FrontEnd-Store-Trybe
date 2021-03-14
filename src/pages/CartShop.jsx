@@ -23,7 +23,8 @@ export default class CartShop extends React.Component {
 
   getTotalValue(items) {
     const total = items.reduce(
-      (amount, { price, quantity}) => amount + price * quantity, 0
+      (amount, { price, quantity }) => (amount + price * quantity),
+      0,
     );
     return parseFloat(total.toFixed(2));
   }
@@ -76,11 +77,11 @@ export default class CartShop extends React.Component {
           { cartIsEmpty
             ? <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
             : <CartList
-                items={ items }
-                total={ total }
-                changeQuantity={ this.changeItemQuantity }
-                removeItem={ this.removeItem }
-              />}
+              items={ items }
+              total={ total }
+              changeQuantity={ this.changeItemQuantity }
+              removeItem={ this.removeItem }
+            />}
         </div>
         <Link to="/">Continuar comprando</Link>
       </main>
