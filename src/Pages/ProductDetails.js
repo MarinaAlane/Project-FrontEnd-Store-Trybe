@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { getProductsFromCategoryAndQuery } from '../services/api';
 import ButtonShoppingCart from '../components/ButtonShoppingCart';
+import ReactStars from '../../node_modules/react-rating-stars-component';
 
 class ProductDetails extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // id: 0,
       title: '',
       thumbnail: '',
       price: '',
@@ -38,37 +38,11 @@ class ProductDetails extends React.Component {
     });
   }
 
-  starScoreRender() {
-    return (
-      <div className="estrelas">
-        <input type="radio" id="cm_star-empty" name="fb" value="" checked />
-        <label htmlFor="cm_star-1">
-          <i className="fa" />
-          <input type="radio" id="cm_star-1" name="fb" value="1" />
-        </label>
-        <label htmlFor="cm_star-2">
-          <i className="fa" />
-          <input type="radio" id="cm_star-2" name="fb" value="2" />
-        </label>
-        <label htmlFor="cm_star-3">
-          <i className="fa" />
-          <input type="radio" id="cm_star-3" name="fb" value="3" />
-        </label>
-        <label htmlFor="cm_star-4">
-          <i className="fa" />
-          <input type="radio" id="cm_star-4" name="fb" value="4" />
-        </label>
-        <label htmlFor="cm_star-5">
-          <i className="fa" />
-          <input type="radio" id="cm_star-5" name="fb" value="5" />
-        </label>
-      </div>
-    );
-  }
-
   render() {
     const { title, thumbnail, price, attributes, loading } = this.state;
-
+    const ratingChanged = (newRating) => {
+      console.log(newRating);
+    };
     if (loading) return <p>Carregando...</p>;
 
     return (
@@ -85,14 +59,13 @@ class ProductDetails extends React.Component {
             {attributes.length > 0 && attributes.map(({ id, name, values }) => (
               <li key={ id }>{`${name} : ${values[0].name}`}</li>))}
           </ol>
-          <form>
-            <input placeholder="Email" />
-          </form>
-          <link
-            rel="stylesheet"
-            href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
+          <input placeholder="Email" />
+          <ReactStars
+            count={ 5 }
+            onChange={ ratingChanged }
+            size={ 24 }
+            activeColor="#ffd700"
           />
-          {this.starScoreRender()}
           <textarea data-testid="product-detail-evaluation" />
         </div>
       </div>
