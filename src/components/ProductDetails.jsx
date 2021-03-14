@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import * as api from '../services/api';
 import RatingForm from './RatingForm';
-
+// Teste
 class ProductDetails extends React.Component {
   constructor() {
     super();
