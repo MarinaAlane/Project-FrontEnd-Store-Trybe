@@ -11,6 +11,7 @@ class AsideMenu extends Component {
           {categories.map((categoria) => (
             <li key={ categoria.id }>
               <button
+                id={ categoria.id }
                 type="button"
                 data-testid="category"
                 key={ categoria.id }

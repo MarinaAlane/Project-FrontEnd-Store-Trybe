@@ -43,12 +43,10 @@ class Home extends React.Component {
   }
 
   async handleCategoryClick({ target }) {
-    const { innerText } = target;
-    const { categories } = this.state;
-    const selectedCategory = categories.find((category) => category.name === innerText);
-    const products = await api.getProductsFromCategoryAndQuery(selectedCategory.id, '');
+    const { id } = target;
+    const selectedProducts = await api.getProductsFromCategoryAndQuery(id, '');
     this.setState({
-      products: products.results,
+      products: selectedProducts.results,
     });
   }
 
