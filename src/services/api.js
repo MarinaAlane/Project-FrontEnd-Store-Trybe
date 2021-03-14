@@ -6,9 +6,7 @@ export async function getCategories() {
 }
 
 export async function getProductsFromCategoryAndQuery(categoryId, query) {
-  let result = await (await fetch(`${baseURL}search?category=${categoryId}`)).json();
-  if (result.results && result.results.length === 0) {
-    result = await (await fetch(`${baseURL}search?q=${query}`)).json();
-  }
-  return result;
+  const response = await fetch(`${baseURL}search?category=${categoryId}&q=${query}`);
+  const resultObj = await (response).json();
+  return resultObj;
 }
