@@ -18,9 +18,13 @@ class App extends React.Component {
 
   getProductFromCard(event, currentProduct) {
     if (event.target.className === 'shopping-card') {
-      this.setState({
-        product: currentProduct,
-      }, () => this.addToCart());
+      const { shoppingCart } = this.state;
+      const product = shoppingCart.some((obj) => obj.id === currentProduct.id);
+      if (!product) {
+        this.setState({
+          product: currentProduct,
+        }, () => this.addToCart());
+      }
     }
     this.setState({ product: currentProduct });
   }
