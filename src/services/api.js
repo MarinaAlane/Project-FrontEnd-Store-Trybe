@@ -1,7 +1,7 @@
 async function fetchURL(searchCat) {
   const response = await fetch(`https://api.mercadolibre.com/sites/MLB/${searchCat}`);
   const json = await response.json();
-
+  console.log(json);
   return json;
 }
 
