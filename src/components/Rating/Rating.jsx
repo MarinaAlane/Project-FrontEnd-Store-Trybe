@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar as farStar } from '@fortawesome/free-regular-svg-icons';
 import { faStar as fasStar } from '@fortawesome/free-solid-svg-icons';
-import { func } from 'prop-types';
+import { func, number } from 'prop-types';
 import './style.css';
 
 export default class Rating extends Component {
@@ -12,7 +12,6 @@ export default class Rating extends Component {
       maxRating: 5,
       onHover: false,
       hoverRating: 0,
-      rating: 0,
       rated: false,
     };
     this.swapToSolid = this.swapToSolid.bind(this);
@@ -31,7 +30,7 @@ export default class Rating extends Component {
   }
 
   swapToRegular() {
-    const { rating } = this.state;
+    const { value: rating } = this.props;
     if (rating) {
       this.setState({ onHover: false, hoverRating: 0, rated: true });
     } else {
@@ -41,16 +40,16 @@ export default class Rating extends Component {
 
   updateRating(event) {
     const { key: ratingOnClick } = event.target.dataset;
-    const { rating: ratingState } = this.state;
+    const { value: ratingState } = this.props;
     const { onHandleRatingUpdate } = this.props;
     if (parseInt(ratingOnClick, 10) === (ratingState - 1)) {
       this.setState(
-        { rating: 0, onHover: false },
+        { onHover: false, rated: false },
         () => onHandleRatingUpdate(0),
       );
     } else {
       this.setState(
-        { rating: parseInt(ratingOnClick, 10) + 1, rated: true },
+        { rated: true },
         () => onHandleRatingUpdate(parseInt(ratingOnClick, 10) + 1),
       );
     }
@@ -62,7 +61,8 @@ export default class Rating extends Component {
   }
 
   isInRatedRange(index) {
-    const { rating, rated } = this.state;
+    const { value: rating } = this.props;
+    const { rated } = this.state;
     return [rated, index < rating].every((condition) => condition === true);
   }
 
@@ -104,4 +104,5 @@ export default class Rating extends Component {
 
 Rating.propTypes = {
   onHandleRatingUpdate: func.isRequired,
+  value: number.isRequired,
 };

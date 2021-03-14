@@ -37,11 +37,11 @@ export default class ReviewForm extends Component {
   }
 
   render() {
-    const { emailInput, messageInput, emptyEmailInput } = this.state;
+    const { emailInput, messageInput, emptyEmailInput, rating } = this.state;
 
     return (
       <form>
-        <Rating onHandleRatingUpdate={ this.handleRatingUpdate } />
+        <Rating onHandleRatingUpdate={ this.handleRatingUpdate } value={ rating } />
         {
           emptyEmailInput
             ? <p>Este campo é obrigatório!</p>
