@@ -2,13 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import * as api from '../services/api';
+import RatingForm from './RatingForm';
 
 class ProductDetails extends React.Component {
   constructor() {
     super();
     this.fetchCategory = this.fetchCategory.bind(this);
     this.addToCart = this.addToCart.bind(this);
-
     this.state = {
       product: [],
       shoppingCart: [],
@@ -24,7 +24,6 @@ class ProductDetails extends React.Component {
     const productObj = await api.getProductsFromCategoryAndQuery(categoryID, '');
     const productDetails = productObj.results
       .find((product) => product.id === id);
-
     this.setState({
       product: productDetails,
     });
@@ -58,6 +57,7 @@ class ProductDetails extends React.Component {
           </span>
         </p>
         <img src={ thumbnail } alt="product-thumbnail" />
+        <RatingForm />
         <Link
           data-testid="shopping-cart-button"
           to={ {
