@@ -13,6 +13,7 @@ class MovieCard extends Component {
      <div>
         <p>{ title }</p>
         <p>{ `R$ ${price}` }</p>
+     </div>
       </div>
     );
   }
