@@ -1,7 +1,7 @@
 import React from 'react';
 import { FiShoppingCart } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
-import CartList from '../components/CartList';
+import CartItem from '../components/CartItem';
 import CartStorage from '../services/cart';
 
 require('./CartShop.css');
@@ -67,6 +67,8 @@ export default class CartShop extends React.Component {
   render() {
     const { items, total } = this.state;
     const cartIsEmpty = items.length === 0;
+    const formattedTotal = total.toFixed(2).replace('.', ',');
+
     return (
       <main>
         <h1>
@@ -77,12 +79,18 @@ export default class CartShop extends React.Component {
           { cartIsEmpty
             ? <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
             : (
-              <CartList
-                items={ items }
-                total={ total }
-                changeQuantity={ this.changeItemQuantity }
-                removeItem={ this.removeItem }
-              />
+              <div>
+                { items.map((item, index) => (
+                  <CartItem
+                    key={ item.id }
+                    index={ index }
+                    item={ item }
+                    changeQuantity={ this.changeItemQuantity }
+                    removeItem={ this.removeItem }
+                  />))}
+                <strong>Valor Total da Compra:</strong>
+                { ` R$ ${formattedTotal}` }
+              </div>
             )}
         </div>
         <Link to="/">Continuar comprando</Link>
