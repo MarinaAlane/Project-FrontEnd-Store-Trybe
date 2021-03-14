@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import './FullProduct.css';
 
 class FullProduct extends Component {
   render() {
@@ -10,17 +11,23 @@ class FullProduct extends Component {
 
     return (
       <div>
-        <Link to="/">Voltar</Link>
-        <Link data-testid="shopping-cart-button" to="/cart">Carrinho</Link>
+        <Link className="back" to="/">Voltar</Link>
+        <Link
+          className="cart"
+          data-testid="shopping-cart-button"
+          to="/cart"
+        >
+          Carrinho
+        </Link>
         <div className="title" data-testid="product-detail-name">
-          <span>{title}</span>
-          <span className="title">
-            - R$
-            {price}
-          </span>
+          <span className="title">{title}</span>
+          <span className="separator">-</span>
+          <span className="currency">R$</span>
+          <span className="price">{parseFloat(price).toFixed(2)}</span>
         </div>
-        <img className="products-image" src={ thumbnail } alt={ title } />
+        <img className="products-image-full" src={ thumbnail } alt={ title } />
         <button
+          className="button-cart-full"
           data-testid="product-detail-add-to-cart"
           type="button"
           onClick={ () => addProductToCart({ id, title, price, thumbnail }) }

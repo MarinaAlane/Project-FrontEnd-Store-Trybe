@@ -31,10 +31,11 @@ class ShortProduct extends Component {
           <div>
             <p className="products-title">{ title }</p>
             <img className="products-image" src={ thumbnail } alt={ title } />
-            <p className="products-price">{ price }</p>
+            <p className="products-price">{ parseFloat(price).toFixed(2) }</p>
           </div>
         </Link>
         <button
+          className="button-cart"
           data-testid="product-add-to-cart"
           type="button"
           onClick={ () => addProductToCart({ id, title, price, thumbnail }) }

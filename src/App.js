@@ -16,10 +16,18 @@ class App extends React.Component {
   }
 
   addProductToCart(newProduct) {
-    const { cartProducts } = this.state;
-    this.setState({
-      cartProducts: [...cartProducts, newProduct],
-    });
+    const { id } = newProduct;
+    const storage = 'ShoppingCart';
+    let cart = [];
+    if (localStorage.getItem(storage) != null) {
+      cart = JSON.parse(localStorage.getItem(storage));
+    }
+    cart.push({ id, quantity: 1 });
+    localStorage.setItem(storage, JSON.stringify(cart));
+    // const { cartProducts } = this.state;
+    // this.setState({
+    //   cartProducts: [...cartProducts, newProduct],
+    // });
   }
 
   render() {
