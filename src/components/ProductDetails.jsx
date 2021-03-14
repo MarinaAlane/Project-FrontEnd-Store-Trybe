@@ -37,11 +37,10 @@ class ProductDetails extends React.Component {
       shoppingCart: [product],
     });
   }
-  
+
   render() {
-    const { product, shoppingCart } = this.state; 
+    const { product, shoppingCart } = this.state;
     const { title, thumbnail, price } = product;
-    
     return (
       <div>
         <p>
