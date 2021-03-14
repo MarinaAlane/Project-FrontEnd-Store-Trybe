@@ -55,7 +55,7 @@ export default class Rating extends Component {
   }
 
   render() {
-    const { maxRating, rating, rated } = this.state;
+    const { maxRating } = this.state;
 
     return (
       <div
