@@ -69,7 +69,7 @@ class Search extends React.Component {
 
   render() {
     const { searchText, products, cardList, digite, categories } = this.state;
-    const { totalCart } = this.props;
+    const { totalCart, totalCartNumber } = this.props;
 
     return (
       <div className="main" data-testid="home-initial-message">
@@ -100,6 +100,7 @@ class Search extends React.Component {
               value="Buscar"
               onClick={ this.renderCard }
             />
+            {totalCartNumber()}
             <Link data-testid="shopping-cart-button" to="/carrinho">
               <img src={ botaoCarrinho } alt="botãoCarrinhoVazio" />
             </Link>
@@ -117,6 +118,7 @@ class Search extends React.Component {
 
 Search.propTypes = {
   totalCart: PropTypes.func.isRequired,
+  totalCartNumber: PropTypes.func.isRequired,
 };
 
 export default Search;

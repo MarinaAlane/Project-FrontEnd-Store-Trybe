@@ -11,17 +11,18 @@ class Card extends React.Component {
     return (
       <div data-testid="product" className="card">
         <p className="card-title">{title}</p>
+        <img className="card-img" src={ thumbnail } alt={ title } />
         <Link
           to={ { pathname: `/productDetails/${id}`, state: { product } } }
           data-testid="product-detail-link"
         >
-          <img className="card-img" src={ thumbnail } alt={ title } />
+          Detalhe do Produto
         </Link>
         <p className="card-price">{`R$ ${price}`}</p>
         <button
           type="button"
           data-testid="product-add-to-cart"
-          onClick={ () => totalCart(product) }
+          onClick={ () => totalCart(product, id) }
         >
           Adicionar no Carrinho
         </button>
