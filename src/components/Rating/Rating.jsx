@@ -32,7 +32,6 @@ export default class Rating extends Component {
 
   swapToRegular() {
     const { rating } = this.state;
-    console.log(rating === true);
     if (rating) {
       this.setState({ onHover: false, hoverRating: 0, rated: true });
     } else {

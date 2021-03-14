@@ -9,9 +9,12 @@ export default class ReviewForm extends Component {
     this.state = {
       emailInput: '',
       messageInput: '',
+      rating: 0,
+      emptyEmailInput: false,
     };
     this.handleInput = this.handleInput.bind(this);
     this.handleRatingUpdate = this.handleRatingUpdate.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleInput(parentState, value) {
@@ -22,12 +25,28 @@ export default class ReviewForm extends Component {
     this.setState({ rating });
   }
 
+  handleSubmit(event) {
+    event.preventDefault();
+    const { emailInput, messageInput, rating } = this.state;
+    if (!emailInput.length) {
+      this.setState({ emptyEmailInput: true });
+    } else {
+      this.setState({ emptyEmailInput: false });
+      console.log({ emailInput, messageInput, rating });
+    }
+  }
+
   render() {
-    const { emailInput, messageInput } = this.state;
+    const { emailInput, messageInput, emptyEmailInput } = this.state;
 
     return (
       <form>
         <Rating onHandleRatingUpdate={ this.handleRatingUpdate } />
+        {
+          emptyEmailInput
+            ? <p>Este campo é obrigatório!</p>
+            : null
+        }
         <FormGroup
           dataTestId={ false }
           label="E-mail"
@@ -50,7 +69,7 @@ export default class ReviewForm extends Component {
           dataTestId={ false }
           submit
           id="submit-review-btn"
-          onHandleClick={ () => {} }
+          onHandleClick={ this.handleSubmit }
         >
           Avaliar
         </Button>
