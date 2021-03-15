@@ -7,7 +7,7 @@ class ProductCard extends React.Component {
     const { title, thumbnail, price } = data;
     if (Object.keys(data).length) {
       return (
-        <div data-testid="product">
+        <div data-testid="product" className="products">
           <h2>{ title }</h2>
           <img src={ thumbnail } alt={ title } />
           <p>{`R$ ${price}` }</p>
