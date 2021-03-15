@@ -38,9 +38,8 @@ class ProductDetailed extends Component {
         <Link to="/ShoppingCart">
           <ButtonCart />
         </Link>
-        return (
-        <section data-testid="product-detail-name">
-          <h3>{ product.title }</h3>
+        <section>
+          <h3 data-testid="product-detail-name">{ product.title }</h3>
           <img src={ product.thumbnail } alt="Imagem do Produto" />
           <p>{ product.price }</p>
         </section>
@@ -49,7 +48,7 @@ class ProductDetailed extends Component {
   }
 }
 
-ProductCard.propTypes = {
+ProductDetailed.propTypes = {
   math: PropTypes.string,
 };
 
