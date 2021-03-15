@@ -14,6 +14,7 @@ class ProductList extends React.Component {
       json: undefined,
       searchText: '',
       categories: [],
+      selectedCategories: '',
     };
 
     this.changeText = this.changeText.bind(this);
@@ -21,21 +22,42 @@ class ProductList extends React.Component {
     this.renderProducts = this.renderProducts.bind(this);
     this.LoadCategories = this.LoadCategories.bind(this);
     this.renderCategories = this.renderCategories.bind(this);
+    this.clickCategory = this.clickCategory.bind(this);
+    this.loadProduct = this.loadProduct.bind(this);
   }
 
   componentDidMount() {
     this.LoadCategories();
+    this.loadProduct();
+  }
+
+  componentDidUpdate(prevProp, prevState) {
+    const { selectedCategories } = this.state;
+    if (prevState.selectedCategories !== selectedCategories) return this.handleSearch();
   }
 
   async handleSearch() {
-    const { searchText } = this.state;
+    const { searchText, selectedCategories } = this.state;
     this.setState({ loading: true });
-    const SearchJson = await Api
-      .getProductsFromCategoryAndQuery('book', searchText);
-    // book is a dummy category
+    const searchJson = await Api
+      .getProductsFromCategoryAndQuery(selectedCategories, searchText);
     this.setState({
       loading: false,
-      json: SearchJson,
+      json: searchJson,
+    });
+  }
+
+  async loadProduct() {
+    const searchJson = await Api.getProductsFromCategoryAndQuery();
+    this.setState({
+      loading: false,
+      json: searchJson,
+    });
+  }
+
+  clickCategory({ target }) {
+    this.setState({
+      selectedCategories: target.id,
     });
   }
 
@@ -44,6 +66,7 @@ class ProductList extends React.Component {
       .getCategories();
     this.setState({
       categories: allCategories,
+      loading: false,
     });
   }
 
@@ -54,6 +77,7 @@ class ProductList extends React.Component {
   }
 
   renderProducts(json) {
+    if (!json) return;
     const { results } = json;
     return (
       <section className="product-list">
@@ -73,7 +97,12 @@ class ProductList extends React.Component {
           ? <span>Nenhuma categoria foi encontrada</span>
           : categories
             .map((category) => (
-              <CategoryList key={ category.id } name={ category.name } />
+              <CategoryList
+                key={ category.id }
+                name={ category.name }
+                category={ category.id }
+                clickCategory={ this.clickCategory }
+              />
             ))}
       </section>
     );
@@ -81,7 +110,7 @@ class ProductList extends React.Component {
 
   render() {
     const { loading, json } = this.state;
-    const checkLoading = !json ? <p>Loading...</p> : this.renderProducts(json);
+    const checkLoading = loading ? <p>Loading...</p> : this.renderProducts(json);
     return (
       <div className="home">
         <input
@@ -105,7 +134,7 @@ class ProductList extends React.Component {
             Digite algum termo de pesquisa ou escolha uma categoria.
           </span>
           { this.renderCategories() }
-          { !loading && !json ? null : checkLoading }
+          { checkLoading }
         </div>
       </div>
     );
