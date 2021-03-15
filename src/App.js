@@ -40,8 +40,9 @@ class App extends React.Component {
     this.setState(({ cartProducts }) => {
       const indexOfProduct = cartProducts.reverse()
         .findIndex(({ id: productId }) => id === productId);
+      const correctedIndex = (cartProducts.length - 1) - indexOfProduct;
       return {
-        cartProducts: cartProducts.filter((_, index) => index !== indexOfProduct),
+        cartProducts: cartProducts.filter((_, index) => index !== correctedIndex),
       };
     });
   }
