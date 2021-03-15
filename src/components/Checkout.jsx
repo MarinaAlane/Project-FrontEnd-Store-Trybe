@@ -21,7 +21,7 @@ class Checkout extends React.Component {
           </div>
           <div>
             <p> E-mail </p>
-            <input type="email" data-testid="checkout-email" />
+            <input type="email" maxLength="90" data-testid="checkout-email" />
           </div>
           <div>
             <p> CPF </p>
