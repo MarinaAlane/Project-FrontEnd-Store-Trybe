@@ -111,11 +111,28 @@ class OrderSummary extends React.Component {
           />
         </label>
         <label htmlFor="creditcard">
+          Cartão de crédito
           <input
             id="creditcard"
             type="radio"
             name="payment"
+            value="visa"
           />
+          Visa
+          <input
+            id="creditcard"
+            type="radio"
+            name="payment"
+            value="mastercard"
+          />
+          MasterCard
+          <input
+            id="creditcard"
+            type="radio"
+            name="payment"
+            value="elo"
+          />
+          Elo
         </label>
       </div>
     );
@@ -126,7 +143,12 @@ class OrderSummary extends React.Component {
       <form>
         { this.buyerInfos() }
         { this.paymentMethod() }
-        <button type="button">Finalizar a Compra!</button>
+        <button
+          type="button"
+          onClick={ () => console.log('XABLAU!') }
+        >
+          Finalizar a Compra!
+        </button>
       </form>
     );
   }
@@ -135,7 +157,7 @@ class OrderSummary extends React.Component {
     return (
       <div>
         { this.productsReview() }
-        { this.buyerInfos() }
+        { this.renderForm() }
       </div>
     );
   }
