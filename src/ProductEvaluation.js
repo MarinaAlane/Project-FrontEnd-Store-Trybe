@@ -24,7 +24,7 @@ class ProductEvaluation extends React.Component {
   }
 
   getEvaluationsFromStorage() {
-    const evaluations = JSON.parse(localStorage.getItem('evaluations'));
+    const evaluations = JSON.parse(localStorage.getItem('evaluations' || '[]'));
     if (evaluations) {
       this.setState({
         evaluations,
