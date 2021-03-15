@@ -48,7 +48,11 @@ export default class ReviewForm extends Component {
 
     return (
       <form>
-        <Rating onHandleRatingUpdate={ this.handleRatingUpdate } value={ rating } />
+        <Rating
+          readOnly={ false }
+          onHandleRatingUpdate={ this.handleRatingUpdate }
+          value={ rating }
+        />
         {
           emptyEmailInput
             ? <p>Este campo é obrigatório!</p>

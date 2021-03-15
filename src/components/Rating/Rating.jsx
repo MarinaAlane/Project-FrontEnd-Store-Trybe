@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faStar as farStar } from '@fortawesome/free-regular-svg-icons';
 import { faStar as fasStar } from '@fortawesome/free-solid-svg-icons';
-import { func, number } from 'prop-types';
+import { func, number, bool } from 'prop-types';
 import './style.css';
 
 export default class Rating extends Component {
@@ -13,6 +13,7 @@ export default class Rating extends Component {
       onHover: false,
       hoverRating: 0,
       rated: false,
+      readOnly: props.readOnly,
     };
     this.swapToSolid = this.swapToSolid.bind(this);
     this.swapToRegular = this.swapToRegular.bind(this);
@@ -66,8 +67,23 @@ export default class Rating extends Component {
     return [rated, index < rating].every((condition) => condition === true);
   }
 
+  isInRatingRange(index) {
+    const { readOnly } = this.state;
+    const { value: rating } = this.props;
+    return [readOnly, index < rating].every((condition) => condition === true);
+  }
+
+  mustBeSolid(index) {
+    const conditions = [
+      this.isInHoverRange(index),
+      this.isInRatedRange(index),
+      this.isInRatingRange(index),
+    ];
+    return conditions.some((condition) => condition === true);
+  }
+
   render() {
-    const { maxRating } = this.state;
+    const { maxRating, readOnly } = this.state;
 
     return (
       <div
@@ -80,11 +96,11 @@ export default class Rating extends Component {
               data-key={ index }
               htmlFor={ `checkbox${index}` }
               className="rate-star"
-              onMouseEnter={ this.swapToSolid }
-              onMouseLeave={ this.swapToRegular }
+              onMouseEnter={ readOnly ? null : this.swapToSolid }
+              onMouseLeave={ readOnly ? null : this.swapToRegular }
             >
               {
-                this.isInHoverRange(index) || this.isInRatedRange(index)
+                this.mustBeSolid(index)
                   ? <FontAwesomeIcon icon={ fasStar } />
                   : <FontAwesomeIcon icon={ farStar } />
               }
@@ -92,7 +108,7 @@ export default class Rating extends Component {
                 type="checkbox"
                 id={ `checkbox${index}` }
                 data-key={ index }
-                onClick={ this.updateRating }
+                onClick={ readOnly ? null : this.updateRating }
               />
             </label>
           ))
@@ -105,4 +121,5 @@ export default class Rating extends Component {
 Rating.propTypes = {
   onHandleRatingUpdate: func.isRequired,
   value: number.isRequired,
+  readOnly: bool.isRequired,
 };

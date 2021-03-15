@@ -13,7 +13,7 @@ class App extends React.Component {
       inputValue: '',
       selectedCategory: '',
       cartProducts: [],
-      reviews: [],
+      reviews: localStorage.length ? JSON.parse(localStorage.getItem('reviews')) : [],
       setInputValue: this.setInputValue.bind(this),
       setSelectedCategory: this.setSelectedCategory.bind(this),
       addProductToCart: this.addProductToCart.bind(this),
