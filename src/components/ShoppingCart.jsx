@@ -90,6 +90,8 @@ class ShoppingCart extends React.Component {
     );
   }
 
+  // VQV!
+
   render() {
     const { listOfProducts } = this.state;
     const emptyCart = this.renderEmptyCart();
