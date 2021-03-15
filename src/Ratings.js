@@ -20,7 +20,6 @@ class Ratings extends React.Component {
 Ratings.propTypes = {
   ratings: PropTypes.shape({
     email: PropTypes.string,
-    rating: PropTypes.string,
     message: PropTypes.string,
   }).isRequired,
 };
