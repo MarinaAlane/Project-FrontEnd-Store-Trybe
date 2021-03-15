@@ -7,8 +7,26 @@ class ProductDetails extends Component {
     super(props);
     this.state = {
       cartProducts: props.location.state.cartProducts,
+      textArea: '',
+      email: '',
+      evaluation: [],
     };
     this.addProductToCart = this.addProductToCart.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+    this.renderForms = this.renderForms.bind(this);
+  }
+
+  handleChange(event) {
+    const { target } = event;
+    const { value, name } = target;
+    this.setState({ [name]: value });
+  }
+
+  handleClick() {
+    const { textArea, email } = this.state;
+    this.setState((state) => ({ evaluation:
+      [...state.evaluation, { email, textArea }] }));
   }
 
   addProductToCart(product) {
@@ -29,10 +47,45 @@ class ProductDetails extends Component {
     }
   }
 
+  renderForms() {
+    const { textArea, email } = this.state;
+    return (
+      <form>
+        <label htmlFor="detailEvaluation">
+          <h2>Avalie nossos produtos</h2>
+          <input
+            type="email"
+            name="email"
+            onChange={ this.handleChange }
+            value={ email }
+            id="detailEvaluation"
+          />
+          <textarea
+            value={ textArea }
+            onChange={ this.handleChange }
+            name="textArea"
+            id="detailEvaluation"
+            data-testid="product-detail-evaluation"
+          />
+        </label>
+        <button type="button" onClick={ this.handleClick }> Avaliar</button>
+      </form>
+    );
+  }
+
+  // renderEvaluation() {
+  //   const { evaluation } = this.state;
+  //   return (
+  //     <p>
+  //       {evaluation.map((item) => `${item.email} ${item.textArea}`)}
+  //     </p>
+  //   );
+  // }
+
   render() {
     const { location: { state: { product } } } = this.props;
     const { title, thumbnail, price, attributes } = product;
-    const { cartProducts } = this.state;
+    const { cartProducts, evaluation } = this.state;
     return (
       <div>
         <img src={ thumbnail } alt={ title } />
@@ -57,6 +110,12 @@ class ProductDetails extends Component {
         >
           Carrinho de compras
         </Link>
+        <div>
+          {this.renderForms()}
+        </div>
+        <div>
+          {evaluation.map((item) => `${item.email} ${item.textArea}`)}
+        </div>
       </div>
     );
   }
