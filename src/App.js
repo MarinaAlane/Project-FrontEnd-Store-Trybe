@@ -12,8 +12,10 @@ class App extends React.Component {
     this.state = {
       inputValue: '',
       selectedCategory: '',
-      cartProducts: [],
-      reviews: localStorage.length ? JSON.parse(localStorage.getItem('reviews')) : [],
+      cartProducts: Object.keys(localStorage).includes('cartProducts')
+        ? JSON.parse(localStorage.getItem('cartProducts')) : [],
+      reviews: Object.keys(localStorage).includes('reviews')
+        ? JSON.parse(localStorage.getItem('reviews')) : [],
       setInputValue: this.setInputValue.bind(this),
       setSelectedCategory: this.setSelectedCategory.bind(this),
       addProductToCart: this.addProductToCart.bind(this),
@@ -31,20 +33,32 @@ class App extends React.Component {
   }
 
   addProductToCart(newProduct) {
-    this.setState((prevState) => (
-      { cartProducts: [...prevState.cartProducts, newProduct] }
-    ));
+    this.setState(
+      (prevState) => (
+        { cartProducts: [...prevState.cartProducts, newProduct] }
+      ),
+      () => {
+        const { cartProducts } = this.state;
+        localStorage.setItem('cartProducts', JSON.stringify(cartProducts));
+      },
+    );
   }
 
   removeProductFromCart(id) {
-    this.setState(({ cartProducts }) => {
-      const indexOfProduct = cartProducts.reverse()
-        .findIndex(({ id: productId }) => id === productId);
-      const correctedIndex = (cartProducts.length - 1) - indexOfProduct;
-      return {
-        cartProducts: cartProducts.filter((_, index) => index !== correctedIndex),
-      };
-    });
+    this.setState(
+      ({ cartProducts }) => {
+        const indexOfProduct = cartProducts.reverse()
+          .findIndex(({ id: productId }) => id === productId);
+        const correctedIndex = (cartProducts.length - 1) - indexOfProduct;
+        return {
+          cartProducts: cartProducts.filter((_, index) => index !== correctedIndex),
+        };
+      },
+      () => {
+        const { cartProducts } = this.state;
+        localStorage.setItem('cartProducts', JSON.stringify(cartProducts));
+      },
+    );
   }
 
   saveNewReview({ id, review }) {
