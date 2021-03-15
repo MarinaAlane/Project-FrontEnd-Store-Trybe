@@ -18,12 +18,13 @@ class ProductDetails extends React.Component {
   }
 
   render() {
-    const { location: { state }, totalCart } = this.props;
+    const { location: { state }, totalCart, totalCartNumber } = this.props;
     if (!state) return <Redirect to="/" />;
     const { title, price, thumbnail, id } = state.product;
 
     return (
       <div className="main-details">
+        {totalCartNumber()}
         <div className="nav-details">
           <Link to="/">&#8678;</Link>
           <Link data-testid="shopping-cart-button" to="/carrinho">
@@ -76,6 +77,7 @@ ProductDetails.propTypes = {
     }),
   }).isRequired,
   totalCart: PropTypes.func.isRequired,
+  totalCartNumber: PropTypes.func.isRequired,
 };
 
 export default ProductDetails;

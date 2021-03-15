@@ -15,6 +15,8 @@ class CardShoppingCart extends React.Component {
 
   handleChangeAdd() {
     const { unit } = this.state;
+    const { product: { available_quantity: availableQuantity } } = this.props;
+    if (unit >= availableQuantity) return;
     this.setState({ unit: (unit + 1) });
   }
 
@@ -32,21 +34,23 @@ class CardShoppingCart extends React.Component {
         <p data-testid="shopping-cart-product-name">{title}</p>
         <p>{price}</p>
         <img src={ thumbnail } alt={ title } />
-        <button
-          type="button"
-          onClick={ this.handleChangeDrop }
-          data-testid="product-decrease-quantity"
-        >
-          -
-        </button>
-        <p data-testid="shopping-cart-product-quantity">{ unit }</p>
-        <button
-          type="button"
-          onClick={ this.handleChangeAdd }
-          data-testid="product-increase-quantity"
-        >
-          +
-        </button>
+        <div>
+          <button
+            type="button"
+            onClick={ this.handleChangeDrop }
+            data-testid="product-decrease-quantity"
+          >
+            -
+          </button>
+          <p data-testid="shopping-cart-product-quantity">{ unit }</p>
+          <button
+            type="button"
+            onClick={ this.handleChangeAdd }
+            data-testid="product-increase-quantity"
+          >
+            +
+          </button>
+        </div>
       </div>
     );
   }
@@ -57,6 +61,7 @@ CardShoppingCart.propTypes = {
     title: PropTypes.string,
     price: PropTypes.number,
     thumbnail: PropTypes.string,
+    available_quantity: PropTypes.number,
   }).isRequired,
 };
 

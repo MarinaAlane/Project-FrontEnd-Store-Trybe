@@ -12,7 +12,6 @@ class CardShoppingCartList extends React.Component {
 
     return (
       <div className="container-card">
-        <p>{totalShoppingCart.length}</p>
         {totalShoppingCart.map((product, index) => (
           <CardShoppingCart
             key={ index }
