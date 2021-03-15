@@ -1,4 +1,4 @@
-.movie-card {
+.product-card {
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -9,11 +9,26 @@
   width: 200px;
 }
 
-.movie-card:hover {
+.product-card:hover {
   cursor: pointer;
 }
 
-.movie-card > img {
-  height: 90px;
+.product-card > img {
+  min-height: 90px;
   width: 90px;
+}
+
+.product-card > :nth-child( 2 ) {
+  min-height: 80px;
+}
+
+.product-card > :nth-child( 3 ) {
+  height: 80px;
+}
+
+.product-card > button {
+  background-color: green;
+  border: none;
+  color: white;
+  font-weight: 700;
 }
