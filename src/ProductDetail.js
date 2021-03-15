@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import ProductEvaluation from './ProductEvaluation';
 
 class ProductDetail extends React.Component {
   render() {
@@ -30,6 +31,7 @@ class ProductDetail extends React.Component {
               </li>))
           }
         </ul>
+        <ProductEvaluation />
       </div>
     );
   }
