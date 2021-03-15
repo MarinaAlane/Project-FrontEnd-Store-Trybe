@@ -8,6 +8,20 @@ class ItemsCart extends Component {
     this.state = {
       quantity: 1,
     };
+    this.increaseQuantity = this.increaseQuantity.bind(this);
+    this.decreaseQuantity = this.decreaseQuantity.bind(this);
+  }
+
+  increaseQuantity() {
+    this.setState((estadoAnterior) => ({
+      quantity: estadoAnterior.quantity + 1,
+    }));
+  }
+
+  decreaseQuantity() {
+    this.setState((estadoAnterior) => (
+      estadoAnterior.quantity !== 0 && { quantity: estadoAnterior.quantity - 1 }
+    ));
   }
 
   render() {
@@ -19,6 +33,18 @@ class ItemsCart extends Component {
         <img src={ thumbnail } alt={ title } />
         <p>{`R$ ${price}`}</p>
         <span data-testid="shopping-cart-product-quantity">{ quantity }</span>
+        <button
+          data-testid="product-increase-quantity"
+          type="button"
+          onClick={ this.increaseQuantity }>
+          +
+        </button>
+        <button
+          type="button" 
+          data-testid="product-decrease-quantity" 
+          onClick={ this.decreaseQuantity }>
+          -
+        </button>
       </div>
     );
   }

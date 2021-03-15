@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Home from './components/Home';
 import Carrinho from './components/Carrinho';
 import Detalhes from './components/Detalhes';
+import Checkout from './components/Checkout';
 
 class App extends Component {
   constructor(props) {
@@ -30,6 +31,10 @@ class App extends Component {
             <Route
               path="/carrinho"
               render={ () => <Carrinho products={ cartItems } /> }
+            />
+            <Route
+              path="/checkout"
+              render={ () => <Checkout products={ cartItems } /> }
             />
             <Route
               path="/:id/detalhes"

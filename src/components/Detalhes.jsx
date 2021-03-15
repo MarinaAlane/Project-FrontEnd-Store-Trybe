@@ -21,6 +21,24 @@ class Detalhes extends React.Component {
         >
           Adicionar ao carrinho
         </button>
+        <form>
+          <div>
+            <p> Avaliação </p>
+            <input type="radio" />
+            1
+            <input type="radio" />
+            2
+            <input type="radio" />
+            3
+            <input type="radio" />
+            4
+            <input type="radio" />
+            5
+          </div>
+          <div>
+            <textarea data-testid="product-detail-evaluation" cols="30" rows="5" maxLength="1000"> </textarea>
+          </div>
+        </form>
       </div>
     );
   }
