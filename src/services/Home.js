@@ -66,6 +66,7 @@ class Home extends React.Component {
 
   render() {
     const { products, productsArrive, category } = this.state;
+    localStorage.setItem('shoppingCartList', JSON.stringify([]));
     return (
       <>
         <SearchBar category={ category } sentProducts={ this.getProducts } />
