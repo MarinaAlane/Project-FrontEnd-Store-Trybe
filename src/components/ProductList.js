@@ -30,6 +30,11 @@ class ProductList extends React.Component {
     this.LoadCategories();
     this.loadProduct();
   }
+  
+  componentDidUpdate(prevProp, prevState) {
+    const { selectedCategories } = this.state;
+    if (prevState.selectedCategories !== selectedCategories) return this.handleSearch();
+  }
 
   async handleSearch() {
     const { searchText, selectedCategories } = this.state;
