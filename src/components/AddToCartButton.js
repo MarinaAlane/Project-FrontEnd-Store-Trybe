@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import CartHandler from '../services/cart';
+import CartStorage from '../services/cart';
 
 export default class AddToCartButton extends Component {
   render() {
@@ -11,7 +11,7 @@ export default class AddToCartButton extends Component {
       <button
         type="submit"
         data-testid={ testid }
-        onClick={ () => { CartHandler.add(product); } }
+        onClick={ () => { CartStorage.add(product); } }
       >
         Adicionar ao Carrinho
       </button>

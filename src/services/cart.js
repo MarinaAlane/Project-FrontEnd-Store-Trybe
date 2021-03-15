@@ -1,4 +1,4 @@
-class CartHandler {
+class CartStorage {
   constructor() {
     this.exists = Object.keys(sessionStorage).includes('cart');
     this.items = [];
@@ -34,4 +34,4 @@ class CartHandler {
   }
 }
 
-export default new CartHandler();
+export default new CartStorage();
