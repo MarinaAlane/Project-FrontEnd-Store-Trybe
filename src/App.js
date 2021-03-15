@@ -13,10 +13,12 @@ class App extends React.Component {
       inputValue: '',
       selectedCategory: '',
       cartProducts: [],
+      reviews: localStorage.length ? JSON.parse(localStorage.getItem('reviews')) : [],
       setInputValue: this.setInputValue.bind(this),
       setSelectedCategory: this.setSelectedCategory.bind(this),
       addProductToCart: this.addProductToCart.bind(this),
       removeProductFromCart: this.removeProductFromCart.bind(this),
+      saveNewReview: this.saveNewReview.bind(this),
     };
   }
 
@@ -44,26 +46,53 @@ class App extends React.Component {
     });
   }
 
+  saveNewReview({ id, review }) {
+    const { reviews } = this.state;
+    review = [review];
+    for (let index = 0; index < reviews.length; index += 1) {
+      const { id: stateID, reviews: stateReviews } = reviews[index];
+      if (id === stateID) {
+        review = [stateReviews, review].flat();
+        reviews.splice(index, 1);
+        break;
+      }
+    }
+    this.setState(
+      (prevState) => (
+        { reviews: [...prevState.reviews, { id, reviews: review }] }
+      ),
+      () => {
+        const { reviews: updatedReviews } = this.state;
+        localStorage.setItem('reviews', JSON.stringify(updatedReviews));
+      },
+    );
+  }
+
   render() {
     const {
       inputValue,
       setInputValue,
       cartProducts,
+      reviews,
       selectedCategory,
       setSelectedCategory,
       addProductToCart,
       removeProductFromCart,
+      saveNewReview,
     } = this.state;
+
     return (
       <InputContext.Provider
         value={ {
           inputValue,
           setInputValue,
           cartProducts,
+          reviews,
           selectedCategory,
           setSelectedCategory,
           addProductToCart,
-          removeProductFromCart } }
+          removeProductFromCart,
+          saveNewReview } }
       >
         <Router>
           <Header />
