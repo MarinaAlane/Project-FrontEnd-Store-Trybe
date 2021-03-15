@@ -140,7 +140,15 @@ class ShoppingCart extends React.Component {
           <span>{ parseFloat(totalValue).toFixed(2) }</span>
         </div>
         <div>
-          <button className="button-finish" type="button">Finalizar Compra</button>
+          <Link to="/checkout">
+            <button
+              data-testid="checkout-products"
+              className="button-finish"
+              type="button"
+            >
+              Finalizar Compra
+            </button>
+          </Link>
         </div>
       </div>
     );
