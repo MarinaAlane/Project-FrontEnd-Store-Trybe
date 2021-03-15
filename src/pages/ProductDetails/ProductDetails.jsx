@@ -54,7 +54,7 @@ export default class ProductDetails extends Component {
                 <ReviewForm id={ id } onSubmitForm={ saveNewReview } />
                 <ReviewsBoard
                   reviews={ reviews
-                    .find(({ id: reviewId }) => id === reviewId) }
+                    .find(({ id: reviewId }) => id === reviewId) || { reviews: [] } }
                 />
               </section>
             </>
