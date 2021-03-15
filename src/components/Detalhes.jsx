@@ -21,6 +21,7 @@ class Detalhes extends React.Component {
         >
           Adicionar ao carrinho
         </button>
+<<<<<<< HEAD
         <form>
           <div>
             <p> Avaliação </p>
@@ -39,6 +40,8 @@ class Detalhes extends React.Component {
             <textarea data-testid="product-detail-evaluation" cols="30" rows="5" maxLength="1000"> </textarea>
           </div>
         </form>
+=======
+>>>>>>> 0889567ab420733feb2f20a4be759fb6a4f57e0d
       </div>
     );
   }
