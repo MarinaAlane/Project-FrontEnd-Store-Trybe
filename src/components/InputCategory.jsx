@@ -13,7 +13,7 @@ class InputCategory extends React.Component {
   }
 
   render() {
-    const { labelText, value, id } = this.props;
+    const { labelText, value, id, onChange } = this.props;
     return (
       <label htmlFor="Category" key={ value }>
         <input
@@ -21,7 +21,7 @@ class InputCategory extends React.Component {
           value={ value }
           data-testid={ id }
           type="radio"
-          onChange={ this.handleOptionChange }
+          onChange={ onChange }
         />
         { labelText }
       </label>
@@ -39,6 +39,7 @@ InputCategory.propTypes = {
   labelText: PropTypes.string,
   id: PropTypes.string,
   value: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default InputCategory;

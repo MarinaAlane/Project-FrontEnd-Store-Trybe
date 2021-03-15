@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { getCategories } from '../services/api';
 import InputCategory from './InputCategory';
 
@@ -26,6 +27,7 @@ class Categories extends React.Component {
 
   render() {
     const { promisse, categories } = this.state;
+    const { onChange } = this.props;
     if (promisse === true) {
       return (
         <section className="categories-list">
@@ -37,6 +39,7 @@ class Categories extends React.Component {
                 id="category"
                 labelText={ category.name }
                 value={ category.id }
+                onChange={ onChange }
               />
             )) }
         </section>
@@ -45,4 +48,9 @@ class Categories extends React.Component {
     return <ol />;
   }
 }
+
+Categories.propTypes = {
+  onChange: PropTypes.func.isRequired,
+};
+
 export default Categories;
