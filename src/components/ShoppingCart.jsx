@@ -33,9 +33,16 @@ class ShoppingCart extends React.Component {
 
   increaseProductQuantity(id) {
     const { listOfProducts } = this.state;
-    listOfProducts.find((product) => product.id === id).quantity += 1;
+    const newCart = listOfProducts.map((item) => {
+      const { available_quantity: availableQuantity } = item;
+      if (item.id === id && availableQuantity > item.quantity) {
+        item.quantity += 1;
+        return item;
+      }
+      return item;
+    });
     this.setState({
-      listOfProducts,
+      listOfProducts: newCart,
     });
     this.totalPrice();
   }
