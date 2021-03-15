@@ -8,7 +8,6 @@ const InputContext = createContext({
   setInputValue: () => {},
   setSelectedCategory: () => {},
   addProductToCart: () => {},
-  removeProductFromCart: () => {},
   saveNewRaview: () => {},
 });
 export default InputContext;

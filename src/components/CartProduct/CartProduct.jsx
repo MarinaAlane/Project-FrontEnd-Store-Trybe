@@ -7,14 +7,14 @@ class CartProduct extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      quantityItems: props.info.quantity,
+      quantityItems: 1,
     };
     this.incrementOnClick = this.incrementOnClick.bind(this);
-    this.decrementOnClick = this.decrementOnClick.bind(this);
+    this.incrementOnClick = this.incrementOnClick.bind(this);
   }
 
-  incrementOnClick() {
-    this.setState((prevState) => ({ quantityItems: prevState.quantityItems + 1 }));
+  incrementOnClick(value) {
+    this.setState((prevState) => ({ quantityItems: prevState.quantityItems + value }));
   }
 
   decrementOnClick() {
@@ -26,27 +26,21 @@ class CartProduct extends Component {
 
   render() {
     const { info } = this.props;
-    const { title, thumbnail, price, id } = info;
+    const { title, thumbnail, price, quantity } = info;
     const { quantityItems } = this.state;
     const result = price * quantityItems;
     return (
       <InputContext.Consumer>
         {
-          ({ addProductToCart, removeProductFromCart }) => (
+          () => (
             <section>
               <p data-testid="shopping-cart-product-name">{title}</p>
               <img src={ thumbnail } alt={ title } />
               <p>{Math.round(result * 100) / 100}</p>
               <p data-testid="shopping-cart-product-quantity">{ quantityItems }</p>
               <IncrementDecrementButton
-                decreaseOnClick={ () => {
-                  this.decrementOnClick();
-                  removeProductFromCart(id);
-                } }
-                increaseOnClick={ () => {
-                  this.incrementOnClick();
-                  addProductToCart({ title, id, thumbnail, price });
-                } }
+                increaseOnClick={ () => this.incrementOnClick(quantity) }
+                decreaseOnClick={ () => this.decrementOnClick() }
               />
             </section>
           )
