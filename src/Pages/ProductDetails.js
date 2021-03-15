@@ -13,8 +13,11 @@ class ProductDetails extends React.Component {
       thumbnail: '',
       price: '',
       loading: true,
+      storedProducts: [],
+      productObj: undefined,
     };
     this.fetchProduct = this.fetchProduct.bind(this);
+    this.addProductsToCart = this.addProductsToCart.bind(this);
   }
 
   componentDidMount() {
@@ -29,17 +32,37 @@ class ProductDetails extends React.Component {
     const product = requestProduct.results.find(({ id }) => id === idProduct);
     console.log(product);
     this.setState({
-      // id: requestProduct.id,
       title: product.title,
       thumbnail: product.thumbnail,
       price: product.price,
       attributes: product.attributes,
       loading: false,
+      productObj: product,
     });
   }
 
+  addProductsToCart() {
+    this.setState(({ storedProducts, productObj }) => ({
+      storedProducts: [...storedProducts, productObj],
+    }));
+  }
+
+  renderLinkToCart(cartProductsId) {
+    return (
+      <Link
+        data-testid="shopping-cart-button"
+        to={ {
+          pathname: '/shopping-cart',
+          state: { cartProductsId },
+        } }
+      >
+        <ButtonShoppingCart />
+      </Link>
+    );
+  }
+
   render() {
-    const { title, thumbnail, price, attributes, loading } = this.state;
+    const { title, thumbnail, price, attributes, loading, storedProducts } = this.state;
     const ratingChanged = (newRating) => {
       console.log(newRating);
     };
@@ -59,6 +82,13 @@ class ProductDetails extends React.Component {
             {attributes.length > 0 && attributes.map(({ id, name, values }) => (
               <li key={ id }>{`${name} : ${values[0].name}`}</li>))}
           </ol>
+          <button
+            type="button"
+            data-testid="product-detail-add-to-cart"
+            onClick={ this.addProductsToCart }
+          >
+            Adicionar ao carrinho
+          </button>
           <input placeholder="Email" />
           <ReactStars
             count={ 5 }
@@ -68,6 +98,7 @@ class ProductDetails extends React.Component {
           />
           <textarea data-testid="product-detail-evaluation" />
         </div>
+        {this.renderLinkToCart(storedProducts)}
       </div>
     );
   }
