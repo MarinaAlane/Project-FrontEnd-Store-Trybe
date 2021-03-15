@@ -12,7 +12,7 @@ class ProductList extends Component {
     };
 
     this.userInput = this.userInput.bind(this);
-    this.loadProducts= this.loadProducts.bind(this);
+    this.loadProducts = this.loadProducts.bind(this);
   }
 
   userInput({ target }) {
@@ -22,8 +22,7 @@ class ProductList extends Component {
         ...props,
         query: value,
       }
-      ));
-      console.log(value);
+    ));
   }
 
   loadProducts() {
@@ -32,7 +31,7 @@ class ProductList extends Component {
     result.then(
       (res) => {
         console.log(res);
-        this.setState((props) => ({
+        this.setState(() => ({
           ...res,
           products: res.results,
         }));
@@ -46,26 +45,27 @@ class ProductList extends Component {
       <main>
         <header>
           <input
-            value={query}
-            onChange={this.userInput}
-            data-test-id="query-input"
+            value={ query }
+            onChange={ this.userInput }
+            data-testid="query-input"
             type="text"
           />
-          <button data-testid="query-button" onClick={this.loadProducts} type="button">
+          <button data-testid="query-button" onClick={ this.loadProducts } type="button">
             Buscar
           </button>
         </header>
         {
           products.length !== 0 ? products.map((product) => (
             <ProductItem
-              key={product.id}
-              title={product.title}
-              price={product.price}
-              image={product.thumbnail}
+              key={ product.id }
+              title={ product.title }
+              price={ product.price }
+              image={ product.thumbnail }
             />
-            
           )) : (
-              <p>Digite algum termo de pesquisa ou escolha uma categoria.</p>
+            <p data-testid="home-initial-message">
+              Digite algum termo de pesquisa ou escolha uma categoria.
+            </p>
           )
         }
       </main>
