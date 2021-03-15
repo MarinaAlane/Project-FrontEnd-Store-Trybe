@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import * as functions from './functions';
 import ShoppingCartBtn from './ShoppingCartBtn';
+import RateProducts from './RateProducts';
 
 class ProductDetails extends React.Component {
   constructor(props) {
@@ -29,6 +30,7 @@ class ProductDetails extends React.Component {
         >
           ADICIONAR AO CARRINHO
         </button>
+        <RateProducts />
       </div>
     );
   }
