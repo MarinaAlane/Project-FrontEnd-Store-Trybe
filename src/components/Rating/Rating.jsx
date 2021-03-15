@@ -109,6 +109,7 @@ export default class Rating extends Component {
                 id={ `checkbox${index}` }
                 data-key={ index }
                 onClick={ readOnly ? null : this.updateRating }
+                className="rating-input"
               />
             </label>
           ))

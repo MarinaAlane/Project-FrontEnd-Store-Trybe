@@ -8,6 +8,6 @@
   padding: 0 5px;
 }
 
-input[type="checkbox"] {
+.rating-input {
   display: none;
 }
