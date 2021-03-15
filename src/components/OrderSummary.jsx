@@ -1,11 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class OrderSummary extends React.Component {
   constructor(props) {
     super(props);
-    const { listOfProducts } = this.props;
+    const { location } = this.props;
+    const { state } = location;
     this.state = {
-      order: listOfProducts,
+      order: [...state],
       totalPrice: 0,
     };
     this.productsReview = this.productsReview.bind(this);
@@ -15,26 +17,33 @@ class OrderSummary extends React.Component {
   }
 
   productsReview() {
-    const { listOfProducts, totalPrice } = this.state;
+    const { order, totalPrice } = this.state;
     return (
       <div>
         <h1>Revise seus Produtos</h1>
         {
-          listOfProducts.map(({ title, thumbnail, quantity, id, price }) => (
+          order.map(({ title, thumbnail, quantity, id, price }) => (
             <div key={ id }>
               <img src={ thumbnail } alt={ `foto ${title}` } />
               <span>{ title }</span>
-              <span>{ price * quantity }</span>
+              <span>
+                R$
+                { price * quantity }
+              </span>
             </div>
           ))
         }
-        <p>{ totalPrice }</p>
+        <p>
+          Preço Total: R$
+          { totalPrice }
+        </p>
       </div>
     );
   }
 
   totalPrice() {
-    const total = listOfProducts
+    const { order } = this.state;
+    const total = order
       .reduce((acc, product) => acc + (product.price * product.quantity), 0);
     this.setState({
       totalPrice: total,
@@ -101,13 +110,13 @@ class OrderSummary extends React.Component {
             name="payment"
           />
         </label>
-        <label>
-
+        <label htmlFor="creditcard">
+          <input
+            id="creditcard"
+            type="radio"
+            name="payment"
+          />
         </label>
-        <input
-          type="radio"
-          name="payment"
-        />
       </div>
     );
   }
@@ -131,5 +140,11 @@ class OrderSummary extends React.Component {
     );
   }
 }
+
+OrderSummary.propTypes = {
+  location: PropTypes.shape({
+    state: PropTypes.arrayOf(),
+  }).isRequired,
+};
 
 export default OrderSummary;
