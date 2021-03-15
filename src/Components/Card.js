@@ -6,6 +6,7 @@ import './Card.css';
 class Card extends React.Component {
   render() {
     const { product, totalCart } = this.props;
+    // eslint-disable-next-line camelcase
     const { title, thumbnail, price, id, shipping: { free_shipping } } = product;
 
     return (
