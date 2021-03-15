@@ -36,7 +36,12 @@ class Detalhes extends React.Component {
             5
           </div>
           <div>
-            <textarea data-testid="product-detail-evaluation" cols="30" rows="5" maxLength="1000"> </textarea>
+            <textarea
+              data-testid="product-detail-evaluation"
+              cols="30"
+              rows="5"
+              maxLength="1000"
+            />
           </div>
         </form>
       </div>

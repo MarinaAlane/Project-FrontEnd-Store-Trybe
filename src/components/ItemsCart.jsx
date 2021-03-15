@@ -41,7 +41,7 @@ class ItemsCart extends Component {
           +
         </button>
         <button
-          type="button" 
+          type="button"
           data-testid="product-decrease-quantity"
           onClick={ this.decreaseQuantity }
         >
