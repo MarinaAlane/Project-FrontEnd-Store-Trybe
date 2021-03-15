@@ -6,6 +6,19 @@ export async function getCategories() {
 }
 
 export async function getProductsFromCategoryAndQuery(categoryId, query) {
+  if (!categoryId) {
+    const endPointForQuery = `https://api.mercadolibre.com/sites/MLB/search?q=${query}`;
+    const fetchReturn = await fetch(endPointForQuery);
+    const jsonReturn = await fetchReturn.json();
+    return jsonReturn;
+  }
+  if (!query) {
+    const endPointForCategoryId = `https://api.mercadolibre.com/sites/MLB/search?category=${categoryId}`;
+    const fetchReturn = await fetch(endPointForCategoryId);
+    const jsonReturn = await fetchReturn.json();
+    return jsonReturn;
+  }
+
   const endPointForTerm = `https://api.mercadolibre.com/sites/MLB/search?category=${categoryId}_ID&q=${query}`;
   const fetchResul = await fetch(endPointForTerm);
   const jsonResult = await fetchResul.json();
@@ -16,6 +29,5 @@ export async function getProductsFromTerm(term) {
   const endPointForTerm = `https://api.mercadolibre.com/sites/MLB/search?q=${term}`;
   const fetchResul = await fetch(endPointForTerm);
   const jsonResult = await fetchResul.json();
-  console.log(jsonResult.results);
   return jsonResult.results;
 }

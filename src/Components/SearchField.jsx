@@ -16,11 +16,7 @@ class SearchField extends Component {
   }
 
   componentDidMount() {
-    this.handleMatch();
-  }
-
-  componentDidUpdate() {
-    this.handleMatch();
+    this.searchResults();
   }
 
   async handleMatch() {
@@ -35,7 +31,7 @@ class SearchField extends Component {
   searchTermChange({ target }) {
     this.setState({
       searchTerm: target.value,
-    });
+    }, () => this.handleMatch());
   }
 
   searchResults() {
@@ -61,9 +57,8 @@ class SearchField extends Component {
           type="text"
           onChange={ this.searchTermChange }
         />
-        {/* <button type="submit" onClick={ this.searchResults }>Pesquisar</button> */}
+        <button type="button" onClick={ () => (this.searchResults) }>Pesquisar</button>
         <ButtonCart />
-        {this.searchResults()}
         <ListCategorie />
       </div>
     );
