@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -7,8 +6,12 @@ import './Card.css';
 class Card extends React.Component {
   render() {
     const { product, totalCart } = this.props;
-    // eslint-disable-next-line camelcase
-    const { title, thumbnail, price, id, shipping: { free_shipping } } = product;
+    const {
+      title,
+      thumbnail,
+      price,
+      id,
+      shipping: { free_shipping: freeShipping } } = product;
 
     return (
       <div data-testid="product" className="card">
@@ -18,7 +21,7 @@ class Card extends React.Component {
           to={ { pathname: `/productDetails/${id}`, state: { product } } }
           data-testid="product-detail-link"
         >
-          { free_shipping && <p data-testid="free-shipping">Frete Grátis</p>}
+          { freeShipping && <p data-testid="free-shipping">Frete Grátis</p>}
           Detalhe do Produto
         </Link>
         <p className="card-price">{`R$ ${price}`}</p>

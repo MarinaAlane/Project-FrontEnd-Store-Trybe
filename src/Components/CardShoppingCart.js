@@ -15,10 +15,8 @@ class CardShoppingCart extends React.Component {
 
   handleChangeAdd() {
     const { unit } = this.state;
-    // eslint-disable-next-line camelcase
-    const { product: { available_quantity } } = this.props;
-    // eslint-disable-next-line camelcase
-    if (unit >= available_quantity) return;
+    const { product: { available_quantity: availableQuantity } } = this.props;
+    if (unit >= availableQuantity) return;
     this.setState({ unit: (unit + 1) });
   }
 
