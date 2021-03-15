@@ -21,7 +21,10 @@ class Home extends React.Component {
     const showInput = true;
     return (
       <div>
-        <Header showInput={ showInput } onChangeProducts={ (newProducts) => this.handleProducts(newProducts) } />
+        <Header
+          showInput={ showInput }
+          onChangeProducts={ (newProducts) => this.handleProducts(newProducts) }
+        />
         <Main products={ products } />
         <ProductCategories />
       </div>

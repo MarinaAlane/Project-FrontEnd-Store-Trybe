@@ -16,8 +16,17 @@ class Header extends React.Component {
     const { showInput } = this.props;
     return (
       <header className="header">
-        {showInput && <input data-testid="query-input" type="search" name="" id="" className="input-search" />}
-      <button
+        {
+          showInput
+          && <input
+            data-testid="query-input"
+            type="search"
+            name=""
+            id=""
+            className="input-search"
+          />
+        }
+        <button
           type="button"
           onClick={ () => this.fetchProducts() }
           data-testid="query-button"
