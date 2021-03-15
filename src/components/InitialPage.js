@@ -61,11 +61,6 @@ class InitialPage extends React.Component {
     const { addProductToCart } = this.props;
     return (
       <div className="list-products">
-        <div>
-          <Link data-testid="shopping-cart-button" to="/cart">
-            <button type="button">Carrinho de compras</button>
-          </Link>
-        </div>
         <input
           data-testid="query-input"
           type="text"
@@ -101,7 +96,9 @@ class InitialPage extends React.Component {
             />
           ))}
         </div>
-
+        <Link data-testid="shopping-cart-button" to="/cart">
+          <button type="button">Carrinho de compras</button>
+        </Link>
       </div>
     );
   }
