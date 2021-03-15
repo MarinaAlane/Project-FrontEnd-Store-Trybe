@@ -12,8 +12,21 @@ class Header extends React.Component {
     onChangeProducts(products);
   }
 
+  searchButton() {
+    return (
+      <button
+        type="button"
+        onClick={ () => this.fetchProducts() }
+        data-testid="query-button"
+      >
+        Buscar
+      </button>
+    );
+  }
+
   render() {
     const { showInput } = this.props;
+    const { showSearchButton } = this.props;
     return (
       <header className="header">
         {
@@ -26,13 +39,10 @@ class Header extends React.Component {
             className="input-search"
           />
         }
-        <button
-          type="button"
-          onClick={ () => this.fetchProducts() }
-          data-testid="query-button"
-        >
-          Buscar
-        </button>
+        {
+          showSearchButton
+          && this.searchButton()
+        }
         <ButtonShoppingCart />
       </header>
     );
@@ -42,6 +52,7 @@ class Header extends React.Component {
 Header.propTypes = {
   onChangeProducts: PropTypes.func.isRequired,
   showInput: PropTypes.bool.isRequired,
+  showSearchButton: PropTypes.bool.isRequired,
 };
 
 export default Header;
