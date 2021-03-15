@@ -8,11 +8,27 @@ class ShoppingCart extends React.Component {
     const { state } = location;
     this.state = {
       listOfProducts: [...state],
+      totalPrice: 0,
     };
+    this.totalPrice = this.totalPrice.bind(this);
     this.increaseProductQuantity = this.increaseProductQuantity.bind(this);
     this.decreaseProductQuantity = this.decreaseProductQuantity.bind(this);
     this.deleteProduct = this.deleteProduct.bind(this);
     this.renderEmptyCart = this.renderEmptyCart.bind(this);
+    this.renderTotalPrice = this.renderTotalPrice.bind(this);
+  }
+
+  componentDidMount() {
+    this.totalPrice();
+  }
+
+  totalPrice() {
+    const { listOfProducts } = this.state;
+    const total = listOfProducts
+      .reduce((acc, product) => acc + (product.price * product.quantity), 0);
+    this.setState({
+      totalPrice: total,
+    });
   }
 
   increaseProductQuantity(id) {
@@ -21,6 +37,7 @@ class ShoppingCart extends React.Component {
     this.setState({
       listOfProducts,
     });
+    this.totalPrice();
   }
 
   decreaseProductQuantity(id) {
@@ -32,6 +49,7 @@ class ShoppingCart extends React.Component {
     this.setState({
       listOfProducts,
     });
+    this.totalPrice();
   }
 
   deleteProduct(id) {
@@ -39,10 +57,10 @@ class ShoppingCart extends React.Component {
     const removeItem = listOfProducts.find((product) => product.id === id);
     const index = listOfProducts.indexOf(removeItem);
     listOfProducts.splice(index, 1);
-
     this.setState({
       listOfProducts,
     });
+    this.totalPrice();
   }
 
   renderEmptyCart() {
@@ -55,7 +73,15 @@ class ShoppingCart extends React.Component {
     );
   }
 
-  // COLOCAR O PRECO TOTAL...
+  renderTotalPrice() {
+    const { totalPrice } = this.state;
+    return (
+      <p>
+        O valor total da compra: R$
+        { totalPrice }
+      </p>
+    );
+  }
 
   render() {
     const { listOfProducts } = this.state;
@@ -101,9 +127,7 @@ class ShoppingCart extends React.Component {
             </div>
           ))
         }
-        <p>
-          O valor total da compra: R$
-        </p>
+        { this.renderTotalPrice() }
       </div>
     );
   }
