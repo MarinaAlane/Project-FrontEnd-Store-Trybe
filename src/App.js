@@ -38,7 +38,7 @@ class App extends React.Component {
 
   removeProductFromCart(id) {
     this.setState(({ cartProducts }) => {
-      const indexOfProduct = cartProducts
+      const indexOfProduct = cartProducts.reverse()
         .findIndex(({ id: productId }) => id === productId);
       return {
         cartProducts: cartProducts.filter((_, index) => index !== indexOfProduct),
