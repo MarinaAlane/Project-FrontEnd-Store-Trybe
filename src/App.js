@@ -16,6 +16,7 @@ class App extends React.Component {
       setInputValue: this.setInputValue.bind(this),
       setSelectedCategory: this.setSelectedCategory.bind(this),
       addProductToCart: this.addProductToCart.bind(this),
+      removeProductFromCart: this.removeProductFromCart.bind(this),
     };
   }
 
@@ -33,6 +34,16 @@ class App extends React.Component {
     ));
   }
 
+  removeProductFromCart(id) {
+    this.setState(({ cartProducts }) => {
+      const indexOfProduct = cartProducts
+        .findIndex(({ id: productId }) => id === productId);
+      return {
+        cartProducts: cartProducts.filter((_, index) => index !== indexOfProduct),
+      };
+    });
+  }
+
   render() {
     const {
       inputValue,
@@ -41,6 +52,7 @@ class App extends React.Component {
       selectedCategory,
       setSelectedCategory,
       addProductToCart,
+      removeProductFromCart,
     } = this.state;
     return (
       <InputContext.Provider
@@ -50,7 +62,8 @@ class App extends React.Component {
           cartProducts,
           selectedCategory,
           setSelectedCategory,
-          addProductToCart } }
+          addProductToCart,
+          removeProductFromCart } }
       >
         <Router>
           <Header />
