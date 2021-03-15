@@ -1,24 +1,42 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Home from './Home';
 import Cart from './Cart';
 import ProductDetail from './ProductDetail';
 
-function App() {
-  return (
-    <div>
-      <BrowserRouter>
-        <Switch>
-          <Route exact path="/" render={ (props) => <Home { ...props } /> } />
-          <Route
-            path="/product-detail/:id"
-            render={ (props) => <ProductDetail { ...props } /> }
-          />
-          <Route path="/shopping-cart" render={ (props) => <Cart { ...props } /> } />
-        </Switch>
-      </BrowserRouter>
-    </div>
-  );
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      itemsCart: [],
+    };
+    this.handleProduct = this.handleProduct.bind(this);
+  }
+
+  handleProduct(item) {
+    const { itemsCart } = this.state;
+    this.setState({
+      itemsCart: [...itemsCart, item],
+    });
+  }
+
+  render() {
+    const { itemsCart } = this.state;
+    return (
+      <div>
+        <BrowserRouter>
+          <Switch>
+            <Route exact path="/" render={ () => <Home handleProduct={ this.handleProduct } /> } />
+            <Route
+              path="/product-detail/:id"
+              render={ (props) => <ProductDetail handleProduct={ this.handleProduct } location={ props.location } /> }
+            />
+            <Route path="/shopping-cart" render={ () => <Cart itemsCart={ itemsCart } /> } />
+          </Switch>
+        </BrowserRouter>
+      </div>
+    );
+  }
 }
 
 export default App;
