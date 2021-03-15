@@ -15,6 +15,8 @@ class CardShoppingCart extends React.Component {
 
   handleChangeAdd() {
     const { unit } = this.state;
+    const { product: { available_quantity } } = this.props;
+    if (unit >= available_quantity) return;
     this.setState({ unit: (unit + 1) });
   }
 
@@ -59,6 +61,7 @@ CardShoppingCart.propTypes = {
     title: PropTypes.string,
     price: PropTypes.number,
     thumbnail: PropTypes.string,
+    available_quantity: PropTypes.number,
   }).isRequired,
 };
 

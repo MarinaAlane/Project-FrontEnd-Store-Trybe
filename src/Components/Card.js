@@ -6,7 +6,7 @@ import './Card.css';
 class Card extends React.Component {
   render() {
     const { product, totalCart } = this.props;
-    const { title, thumbnail, price, id } = product;
+    const { title, thumbnail, price, id, shipping: { free_shipping } } = product;
 
     return (
       <div data-testid="product" className="card">
@@ -16,6 +16,7 @@ class Card extends React.Component {
           to={ { pathname: `/productDetails/${id}`, state: { product } } }
           data-testid="product-detail-link"
         >
+          { free_shipping && <p data-testid="free-shipping">Frete Grátis</p>}
           Detalhe do Produto
         </Link>
         <p className="card-price">{`R$ ${price}`}</p>
@@ -37,6 +38,9 @@ Card.propTypes = {
     title: PropTypes.string,
     thumbnail: PropTypes.string,
     price: PropTypes.number,
+    shipping: PropTypes.shape({
+      free_shipping: PropTypes.bool,
+    }),
   }).isRequired,
   totalCart: PropTypes.func.isRequired,
 };
