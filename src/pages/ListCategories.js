@@ -31,15 +31,17 @@ class ListCategories extends React.Component {
         <p>Categorias:</p>
         <div onChange={ this.handleClick }>
           {categories.map((category) => (
-            <label htmlFor="category" key={ category.id }>
+            <label htmlFor={ category.id } key={ category.id }>
               <input
                 type="radio"
                 value={ category.id }
                 key={ category.id }
                 name="category"
+                id={ category.id }
                 data-testid="category"
               />
               { category.name }
+              <br />
             </label>
           ))}
         </div>

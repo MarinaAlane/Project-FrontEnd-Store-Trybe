@@ -1,6 +1,6 @@
 import './styles/style.css';
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 class Card extends Component {
@@ -21,31 +21,15 @@ class Card extends Component {
 
   render() {
     const { product, testid } = this.props;
-    const { title, thumbnail, price, id } = product;
+    const { title, thumbnail, price } = product;
     return (
       <div data-testid="product">
-        <h4 data-testid={ testid }>{ title }</h4>
         <img className="imgProduct" src={ thumbnail } alt="pictyre" />
+        <h4 data-testid={ testid }>{ title }</h4>
         <p>
           R$:
           { price }
         </p>
-        <div>
-          <button
-            type="button"
-            data-testid="product-add-to-cart"
-            onClick={ () => this.handleClick(product) }
-          >
-            Adicionar
-          </button>
-          <Link
-            data-testid="product-detail-link"
-            key={ id }
-            to={ { pathname: `/product/${id}`, state: { product } } }
-          >
-            Ver detalhes
-          </Link>
-        </div>
       </div>
     );
   }

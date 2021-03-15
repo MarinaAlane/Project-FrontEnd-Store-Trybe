@@ -1,5 +1,6 @@
+import '../components/styles/style.css';
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import EvaluationForm from '../components/EvaluationForm';
 import Evaluations from '../components/Evaluations';
@@ -38,15 +39,23 @@ class ProductDetais extends Component {
     if (!state) return <Redirect to="/" />;
     const { product } = state;
     const { title, price, thumbnail, attributes } = product;
+    const arrow = ('https://cdn.iconscout.com/icon/free/png-512/reply-all-1578267-1341736.png');
     return (
       <>
+        <Link to="/cart" data-testid="shopping-cart-button">
+          <img
+            src={ arrow }
+            alt="cart"
+            className="button"
+          />
+        </Link>
         <h3 data-testid="product-detail-name">
           { title }
           - R$:
           { price }
         </h3>
         <div>
-          <img src={ thumbnail } alt="Product" />
+          <img className="imgProduct" src={ thumbnail } alt="Product" />
           <div>
             <p>Especificações Técnicas:</p>
             {attributes

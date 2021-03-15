@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { getProductsFromCategoryAndQuery } from '../services/api';
 import ListCategories from './ListCategories';
 // import ProductDetais from './ProductDetais';
@@ -53,6 +54,13 @@ class LandingPage extends React.Component {
         >
           Pesquisar
         </button>
+        <Link to="/cart" data-testid="shopping-cart-button">
+          <img
+            src="https://www.pinclipart.com/picdir/big/10-108329_cart-clip-art-at-clker-com-vector-shopping.png"
+            alt="cart"
+            className="button"
+          />
+        </Link>
       </>
     );
   }
