@@ -21,22 +21,22 @@ export default class Header extends Component {
   render() {
     const { inputValue } = this.state;
     return (
-      <header>
-        <InputContext.Consumer value={ inputValue }>
-          {({ setInputValue }) => (
+      <InputContext.Consumer value={ inputValue }>
+        {({ setInputValue, cartProducts }) => (
+          <header>
             <SearchBar
               getInputValue={ this.getInputValue }
               handleClick={ () => setInputValue(inputValue) }
             />
-          )}
-        </InputContext.Consumer>
-        <Button submit={ false } id="shopping-cart-button" dataTestId={ false }>
-          <Link to="/cart" data-testid="shopping-cart-button">
-            <ShoppingCartSVG />
-            Carrinho
-          </Link>
-        </Button>
-      </header>
+            <Button submit={ false } id="shopping-cart-button" dataTestId={ false }>
+              <Link to="/cart" data-testid="shopping-cart-button">
+                <ShoppingCartSVG />
+                <span data-testid="shopping-cart-size">{ cartProducts.length}</span>
+              </Link>
+            </Button>
+          </header>
+        )}
+      </InputContext.Consumer>
     );
   }
 }

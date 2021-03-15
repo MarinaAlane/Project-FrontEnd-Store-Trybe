@@ -17,6 +17,7 @@ class App extends React.Component {
       setInputValue: this.setInputValue.bind(this),
       setSelectedCategory: this.setSelectedCategory.bind(this),
       addProductToCart: this.addProductToCart.bind(this),
+      removeProductFromCart: this.removeProductFromCart.bind(this),
       saveNewReview: this.saveNewReview.bind(this),
     };
   }
@@ -33,6 +34,17 @@ class App extends React.Component {
     this.setState((prevState) => (
       { cartProducts: [...prevState.cartProducts, newProduct] }
     ));
+  }
+
+  removeProductFromCart(id) {
+    this.setState(({ cartProducts }) => {
+      const indexOfProduct = cartProducts.reverse()
+        .findIndex(({ id: productId }) => id === productId);
+      const correctedIndex = (cartProducts.length - 1) - indexOfProduct;
+      return {
+        cartProducts: cartProducts.filter((_, index) => index !== correctedIndex),
+      };
+    });
   }
 
   saveNewReview({ id, review }) {
@@ -66,8 +78,10 @@ class App extends React.Component {
       selectedCategory,
       setSelectedCategory,
       addProductToCart,
+      removeProductFromCart,
       saveNewReview,
     } = this.state;
+
     return (
       <InputContext.Provider
         value={ {
@@ -78,6 +92,7 @@ class App extends React.Component {
           selectedCategory,
           setSelectedCategory,
           addProductToCart,
+          removeProductFromCart,
           saveNewReview } }
       >
         <Router>
