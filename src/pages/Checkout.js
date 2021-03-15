@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import './Checkout.css';
 
 class Checkout extends Component {
   constructor(props) {
@@ -30,7 +32,7 @@ class Checkout extends Component {
   renderBuyerInformation() {
     const { fullName, email, cpf, phone, cep } = this.state;
     return (
-      <div>
+      <div className="buyer-information-container">
         <h3>Informações do Comprador</h3>
         <input
           data-testid="checkout-fullname"
@@ -94,7 +96,7 @@ class Checkout extends Component {
   renderPaymentMethod() {
     const { paymentMethod } = this.state;
     return (
-      <div>
+      <div className="payment-method-container">
         <h3>Método de Pagamento</h3>
         <p>Boleto</p>
         <label htmlFor="boleto">
@@ -142,13 +144,14 @@ class Checkout extends Component {
     const {
       location: { state: { quantity, shoppingCartIdList, totalValue } } } = this.props;
     return (
-      <div>
-        <div>
+      <div className="checkout-container">
+        <div className="product-overview-container">
           <h3>Revise seus Produtos</h3>
           <ul>
             { shoppingCartIdList.map(({ title, id, price }) => (
               <li
                 key={ id }
+                className="list-item"
               >
                 {`Produto: ${title} -- Valor: R$ ${price} -- Quantidade: ${quantity[id]}`}
               </li>
@@ -162,7 +165,9 @@ class Checkout extends Component {
         </div>
         { this.renderBuyerInformation() }
         { this.renderPaymentMethod() }
-        <button type="button">Finalizar Compra</button>
+        <Link to="./">
+          <button type="button" className="finish-buy-btn">Finalizar Compra</button>
+        </Link>
       </div>
     );
   }

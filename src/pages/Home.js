@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import * as api from '../services/api';
+import './Home.css';
 
 class Home extends Component {
   constructor(props) {
@@ -13,6 +14,7 @@ class Home extends Component {
       categoriesInput: '',
       shoppingCart: [],
       loaded: false,
+      clicked: {},
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -43,9 +45,13 @@ class Home extends Component {
       }));
   }
 
-  addOnCart(title, id, price) {
+  addOnCart(title, id, price, availableQuantity) {
     this.setState((state) => ({
-      shoppingCart: [...state.shoppingCart, { title, id, price }],
+      shoppingCart: [...state.shoppingCart, { title, id, price, availableQuantity }],
+      clicked: {
+        ...state.clicked,
+        [id]: true,
+      },
     }), () => {
       const { shoppingCart } = this.state;
       sessionStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
@@ -95,83 +101,111 @@ class Home extends Component {
   }
 
   renderProductList() {
-    const { productList } = this.state;
+    const { productList, clicked } = this.state;
     return (
-      productList.map(({ id, title, price, thumbnail, attributes }) => (
-        <div key={ id } data-testid="product">
-          <h3>{ title }</h3>
-          <img src={ thumbnail } alt={ title } />
-          <p>
-            R$
-            { price }
-          </p>
-          <Link
-            data-testid="product-detail-link"
-            to={ {
-              pathname: `/productdetails/${id}`,
-              state: { id, title, price, thumbnail, attributes },
-            } }
-          >
-            Detalhes do Produto
-          </Link>
-          <button
-            type="button"
-            data-testid="product-add-to-cart"
-            onClick={ () => this.addOnCart(title, id, price) }
-          >
-            Adicionar ao Carrinho
-          </button>
+      productList
+        .map(({ id,
+          title,
+          price,
+          thumbnail,
+          attributes,
+          available_quantity: availableQuantity,
+          shipping: { free_shipping: freeShipping },
+        }) => (
+          <div key={ id } data-testid="product" className="product-box">
+            <h3>{ title }</h3>
+            {freeShipping && <p data-testid="free-shipping">Frete grátis</p>}
+            <img src={ thumbnail } alt={ title } />
+            <p>
+              R$
+              { price }
+            </p>
+            <div className="detail-add-cart">
+              <Link
+                data-testid="product-detail-link"
+                to={ {
+                  pathname: `/productdetails/${id}`,
+                  state: {
+                    id,
+                    title,
+                    price,
+                    thumbnail,
+                    attributes,
+                    availableQuantity,
+                    freeShipping },
+                } }
+              >
+                Detalhes do Produto
+              </Link>
+              <button
+                type="button"
+                data-testid="product-add-to-cart"
+                onClick={ () => this.addOnCart(title, id, price, availableQuantity) }
+                disabled={ clicked[id] }
+              >
+                Adicionar ao Carrinho
+              </button>
+            </div>
+          </div>
+        ))
+    );
+  }
 
-        </div>
-      ))
+  renderShoppingCart() {
+    const { shoppingCart } = this.state;
+    return (
+      <Link to="/shoppingCart">
+        <button
+          type="button"
+          data-testid="shopping-cart-button"
+          className="cart-button"
+        >
+          ShoppingCart
+          <span data-testid="shopping-cart-size">{` - ${shoppingCart.length}`}</span>
+        </button>
+      </Link>
     );
   }
 
   render() {
-    const { productsInput, productList, shoppingCart } = this.state;
+    const { productsInput, productList } = this.state;
     return (
-      <div>
+      <div className="home-container">
         <aside>
           <div>
             { this.mapCategory() }
           </div>
         </aside>
-        <Link to="/shoppingCart">
+        <div className="main-container">
+          <div className="search-cart-container">
+            <input
+              type="text"
+              placeholder="Digite aqui"
+              value={ productsInput }
+              onChange={ this.handleChange }
+              data-testid="query-input"
+              name="productsInput"
+              className="search-input"
+            />
+            { this.renderShoppingCart() }
+          </div>
+          <p data-testid="home-initial-message">
+            Digite algum termo de pesquisa ou escolha uma categoria.
+          </p>
           <button
             type="button"
-            data-testid="shopping-cart-button"
+            onClick={ this.handleClick }
+            data-testid="query-button"
           >
-            ShoppingCart
-            <span data-testid="shopping-cart-size">{` - ${shoppingCart.length}`}</span>
+            Pesquise o Produto
           </button>
-        </Link>
-
-        <input
-          type="text"
-          placeholder="Digite aqui"
-          value={ productsInput }
-          onChange={ this.handleChange }
-          data-testid="query-input"
-          name="productsInput"
-        />
-
-        <p data-testid="home-initial-message">
-          Digite algum termo de pesquisa ou escolha uma categoria.
-        </p>
-
-        <button
-          type="button"
-          onClick={ this.handleClick }
-          data-testid="query-button"
-        >
-          Pesquise o Produto
-        </button>
-
-        {
-          (productList.length > 0)
-            ? this.renderProductList() : this.checkSearchResult()
-        }
-
+          <div className="product-list-container">
+            {
+              (productList.length > 0)
+                ? this.renderProductList() : this.checkSearchResult()
+            }
+          </div>
+        </div>
       </div>
     );
   }

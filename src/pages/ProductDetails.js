@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import RatingForm from '../components/RatingForm';
+import './ProductDetails.css';
 
 export default class ProductDetails extends Component {
   constructor() {
@@ -9,6 +10,7 @@ export default class ProductDetails extends Component {
     this.state = {
       loading: true,
       shoppingCart: [],
+      clicked: false,
     };
 
     this.addOnCart = this.addOnCart.bind(this);
@@ -22,7 +24,8 @@ export default class ProductDetails extends Component {
 
   getProductId() {
     const {
-      location: { state: { id, price, thumbnail, title, attributes } },
+      location: { state: {
+        id, price, thumbnail, title, attributes, availableQuantity, freeShipping } },
     } = this.props;
     this.setState({
       title,
@@ -31,6 +34,8 @@ export default class ProductDetails extends Component {
       price,
       loading: false,
       id,
+      availableQuantity,
+      freeShipping,
     });
   }
 
@@ -43,13 +48,28 @@ export default class ProductDetails extends Component {
     }
   }
 
-  addOnCart(title, id, price) {
+  addOnCart(title, id, price, availableQuantity) {
     this.setState((state) => ({
-      shoppingCart: [...state.shoppingCart, { title, id, price }],
+      shoppingCart: [...state.shoppingCart, { title, id, price, availableQuantity }],
+      clicked: true,
     }), () => {
       const { shoppingCart } = this.state;
       sessionStorage.setItem('shoppingCart', JSON.stringify(shoppingCart));
     });
+  }
+
+  renderAddToCartButton() {
+    const { title, id, price, availableQuantity, clicked } = this.state;
+    return (
+      <button
+        type="button"
+        data-testid="product-detail-add-to-cart"
+        onClick={ () => this.addOnCart(title, id, price, availableQuantity) }
+        disabled={ clicked }
+      >
+        Adicionar ao Carrinho
+      </button>
+    );
   }
 
   render() {
@@ -59,23 +79,22 @@ export default class ProductDetails extends Component {
         <div>Loading...</div>
       );
     }
-    const { title, attributes, thumbnail, price, id, shoppingCart } = this.state;
+    const {
+      title,
+      attributes,
+      thumbnail, price, shoppingCart, freeShipping } = this.state;
     return (
-      <div>
+      <div className="details-container">
+        <Link to="/">Home</Link>
         <div className="productContainer">
           <h2 data-testid="product-detail-name">{ title }</h2>
+          {freeShipping && <p data-testid="free-shipping">Frete grátis</p>}
           <img src={ thumbnail } alt={ title } />
           <p>
             R$
             { price }
           </p>
-          <button
-            type="button"
-            data-testid="product-detail-add-to-cart"
-            onClick={ () => this.addOnCart(title, id, price) }
-          >
-            Adicionar ao Carrinho
-          </button>
+          { this.renderAddToCartButton() }
           <Link to="/shoppingCart">
             <button
               type="button"
@@ -85,7 +104,7 @@ export default class ProductDetails extends Component {
               <span data-testid="shopping-cart-size">{` - ${shoppingCart.length}`}</span>
             </button>
           </Link>
-          <ul>
+          <ul className="attributes-list">
             {attributes.map((attribute) => (
               <li key={ attribute.id }>
                 { `${attribute.name} -> ${attribute.value_name}` }
@@ -107,6 +126,8 @@ ProductDetails.propTypes = {
       thumbnail: PropTypes.string,
       title: PropTypes.string,
       attributes: PropTypes.arrayOf(PropTypes.object),
+      availableQuantity: PropTypes.number,
+      freeShipping: PropTypes.bool,
     }),
   }).isRequired,
 };
