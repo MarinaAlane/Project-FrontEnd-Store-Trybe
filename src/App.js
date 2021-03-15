@@ -15,8 +15,9 @@ class App extends Component {
     this.removeItem = this.removeItem.bind(this);
   }
 
-  addToCart(product) {
+  addToCart(product, event) {
     const { cartItems } = this.state;
+    event.target.disabled = true;
     if (cartItems.length > 0) {
       return cartItems.every(({ id }) => id !== product.id)
         && this.setState({ cartItems: [...cartItems, product] });

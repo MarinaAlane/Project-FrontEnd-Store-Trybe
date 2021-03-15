@@ -24,7 +24,7 @@ class SearchCard extends Component {
           <button
             data-testid="product-add-to-cart"
             type="button"
-            onClick={ () => addToCart({ title, thumbnail, price, id }) }
+            onClick={ (event) => addToCart({ title, thumbnail, price, id }, event) }
           >
             Adicionar ao carrinho
           </button>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import ProductRating from './ProductRating';
 
 class Detalhes extends React.Component {
   render() {
@@ -21,6 +22,7 @@ class Detalhes extends React.Component {
         >
           Adicionar ao carrinho
         </button>
+        <ProductRating />
       </div>
     );
   }
