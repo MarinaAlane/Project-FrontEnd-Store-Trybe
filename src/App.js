@@ -26,12 +26,22 @@ class App extends Component {
       <div>
         <BrowserRouter>
           <Switch>
-            <Route exact path="/" render={ () => <Home handleProduct={ this.handleProduct } /> } />
+            <Route
+              exact
+              path="/"
+              render={ () => <Home handleProduct={ this.handleProduct } /> }
+            />
             <Route
               path="/product-detail/:id"
-              render={ (props) => <ProductDetail handleProduct={ this.handleProduct } location={ props.location } /> }
+              render={ (props) => (<ProductDetail
+                handleProduct={ this.handleProduct }
+                location={ props.location }
+              />) }
             />
-            <Route path="/shopping-cart" render={ () => <Cart itemsCart={ itemsCart } /> } />
+            <Route
+              path="/shopping-cart"
+              render={ () => <Cart itemsCart={ itemsCart } /> }
+            />
           </Switch>
         </BrowserRouter>
       </div>
