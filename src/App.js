@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import InitialPage from './components/InitialPage';
 import ShoppingCart from './components/ShoppingCart';
 import FullProduct from './components/FullProduct';
+import Checkout from './components/Checkout';
 
 class App extends React.Component {
   constructor(props) {
@@ -24,10 +25,9 @@ class App extends React.Component {
     }
     cart.push({ id, quantity: 1 });
     localStorage.setItem(storage, JSON.stringify(cart));
-    // const { cartProducts } = this.state;
-    // this.setState({
-    //   cartProducts: [...cartProducts, newProduct],
-    // });
+    this.setState({
+      cartProducts: cart,
+    });
   }
 
   render() {
@@ -52,6 +52,10 @@ class App extends React.Component {
                 { ...props }
                 addProductToCart={ this.addProductToCart }
               />) }
+            />
+            <Route
+              path="/checkout"
+              render={ () => <Checkout /> }
             />
           </Switch>
         </BrowserRouter>
