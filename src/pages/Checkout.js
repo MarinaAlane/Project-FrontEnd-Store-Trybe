@@ -1,8 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import * as API from './serviceAPI';
 import CheckoutProductReview from '../components/CheckoutProductReview';
 import CheckoutPaymentMethod from '../components/CheckoutPaymentMethod';
+import '../style/Checkout.css';
 
 class Checkout extends React.Component {
   constructor() {
@@ -49,6 +49,7 @@ class Checkout extends React.Component {
         name="fullName"
         onChange={ this.onChange }
         value={ fullName }
+        className="buyerInput"
         required
       />
     );
@@ -63,6 +64,7 @@ class Checkout extends React.Component {
         name="cpf"
         onChange={ this.onChange }
         value={ cpf }
+        className="buyerInput"
         required
       />
     );
@@ -77,6 +79,7 @@ class Checkout extends React.Component {
         name="email"
         onChange={ this.onChange }
         value={ email }
+        className="buyerInput"
         required
       />
     );
@@ -91,6 +94,7 @@ class Checkout extends React.Component {
         name="phone"
         onChange={ this.onChange }
         value={ phone }
+        className="buyerInput"
         required
       />
     );
@@ -105,6 +109,7 @@ class Checkout extends React.Component {
         name="cep"
         onChange={ this.onChange }
         value={ cep }
+        className="buyerInput"
         required
       />
     );
@@ -119,6 +124,7 @@ class Checkout extends React.Component {
         name="address"
         onChange={ this.onChange }
         value={ address }
+        className="buyerInput"
         required
       />
     );
@@ -133,6 +139,7 @@ class Checkout extends React.Component {
         name="complement"
         onChange={ this.onChange }
         value={ complement }
+        className="buyerInput"
         required
       />
     );
@@ -146,8 +153,18 @@ class Checkout extends React.Component {
         name="city"
         onChange={ this.onChange }
         value={ city }
+        className="buyerInput"
         required
       />
+    );
+  }
+
+  stateInput(states) {
+    return (
+      <select className="buyerInput" required name="states">
+        <option>Selecione</option>
+        { states.map(({ nome, id }) => (<option key={ id }>{ nome }</option>)) }
+      </select>
     );
   }
 
@@ -165,26 +182,24 @@ class Checkout extends React.Component {
     } = this.state;
     return (
       <div>
-        <div>
+        <div className="checkoutPage">
           <CheckoutProductReview />
-          <fieldset>
-            <legend>Informações do Comprador</legend>
-            { this.fullNameInput(fullName) }
-            { this.cpfInput(cpf) }
-            { this.emailInput(email) }
-            { this.phoneInput(phone) }
-            { this.cepInput(cep) }
-            { this.addressInput(address) }
-            { this.complementInput(complement) }
-            { this.cityInput(city) }
-            <select required name="states">
-              <option>Selecione</option>
-              { states.map(({ nome, id }) => (<option key={ id }>{ nome }</option>)) }
-            </select>
-          </fieldset>
-          <CheckoutPaymentMethod />
+          <div className="checkoutPageRight">
+            <fieldset className="buyerFormField">
+              <legend className="checkoutLegend">Informações do Comprador</legend>
+              { this.fullNameInput(fullName) }
+              { this.cpfInput(cpf) }
+              { this.emailInput(email) }
+              { this.phoneInput(phone) }
+              { this.cepInput(cep) }
+              { this.addressInput(address) }
+              { this.complementInput(complement) }
+              { this.cityInput(city) }
+              { this.stateInput(states) }
+            </fieldset>
+            <CheckoutPaymentMethod />
+          </div>
         </div>
-        <Link to="/"><button type="submit">Finalizar Compra</button></Link>
       </div>
     );
   }

@@ -9,11 +9,11 @@ class CheckoutProductReview extends React.Component {
   productCartReview() {
     const storedProducts = JSON.parse(localStorage.getItem('itens'));
     return (
-      <div>
+      <div className="cartReviewField">
         <fieldset>
-          <legend>Revise seus Produtos</legend>
+          <legend className="checkoutLegend">Revise seus Produtos</legend>
           { storedProducts.map(((product) => (
-            <div key={ `${product.id}` }>
+            <div className="cartReviewProduct" key={ `${product.id}` }>
               <img alt="Product" src={ product.thumbnail } />
               <p data-testid="shopping-cart-product-name">{ product.title }</p>
               <p data-testid="shopping-cart-product-quantity">{ product.quantity }</p>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 class CheckoutPaymentMethod extends React.Component {
   constructor() {
@@ -8,7 +9,7 @@ class CheckoutPaymentMethod extends React.Component {
 
   creditCardPaymentMethod() {
     return (
-      <div>
+      <div className="cardPaymentMethodField">
         <label htmlFor="payment">
           <p>Visa</p>
           <input
@@ -46,8 +47,8 @@ class CheckoutPaymentMethod extends React.Component {
   paymentMethod() {
     return (
       <div>
-        <fieldset>
-          <legend>Método de pagamento</legend>
+        <fieldset className="paymentMethodField">
+          <legend className="checkoutLegend">Método de pagamento</legend>
           <label htmlFor="payment">
             <p>Boleto</p>
             <input
@@ -58,11 +59,14 @@ class CheckoutPaymentMethod extends React.Component {
               onChange={ this.onChange }
             />
           </label>
-          <fieldset>
-            <legend>Cartão de Crédito</legend>
+          <fieldset className="creditCardFieldset">
+            <legend className="checkoutLegend">Cartão de Crédito</legend>
             { this.creditCardPaymentMethod() }
           </fieldset>
         </fieldset>
+        <Link to="/">
+          <button className="cartBtn" type="submit">Finalizar Compra</button>
+        </Link>
       </div>
     );
   }

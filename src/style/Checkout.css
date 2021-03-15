@@ -1,0 +1,54 @@
+* {
+  font-family: '"Inter"' , sans-serif;
+}
+
+.checkoutPage {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.paymentMethodField {
+  display: flex;
+}
+
+fieldset {
+  border: 1px solid rgb(94, 92, 92);
+  border-radius: 10px;
+  box-shadow: 0 0 15px 4px rgba(8, 8, 8, 0.06);
+}
+
+.creditCardFieldset {
+  border: 0;
+}
+
+.cardPaymentMethodField {
+  display: flex;
+  flex-flow: row , nowrap;
+}
+
+.checkoutPageRight {
+  flex-basis: 50%;
+}
+
+.cartReviewField {
+  flex-basis: 50%;
+}
+
+.buyerInput {
+  border: 2px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px 4px rgba(8, 8, 8, 0.06);
+  margin: 5px;
+  padding: 5px;
+}
+
+.cartBtn {
+  appearance: none;
+  background-color: #3f51b5;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-weight: 600;
+  padding: 10px;
+  width: 100%;
+}
