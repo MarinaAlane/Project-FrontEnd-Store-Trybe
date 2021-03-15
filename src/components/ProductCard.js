@@ -9,7 +9,7 @@ export default class ProductCard extends Component {
     super();
 
     this.state = {
-      redirectTo: '',
+      redirectTo: false,
     };
 
     this.goToDetails = this.goToDetails.bind(this);
@@ -23,23 +23,20 @@ export default class ProductCard extends Component {
       return false;
     }
 
-    const { id } = this.props;
-
-    this.setState({
-      redirectTo: id,
-    });
+    this.setState({ redirectTo: true });
   }
 
   render() {
-    const { title, thumbnail, price } = this.props;
+    const { product, children } = this.props;
+    const { title, thumbnail, price, id } = product;
     const { redirectTo } = this.state;
 
-    if (redirectTo !== '') {
+    if (redirectTo) {
       return (
         <Redirect
           to={ {
-            pathname: `/product-details/${redirectTo}`,
-            state: { ...this.props },
+            pathname: `/product-details/${id}`,
+            state: { ...product },
           } }
         />
       );
@@ -47,41 +44,41 @@ export default class ProductCard extends Component {
 
     return (
       <section
-        data-testid="product-detail-link"
-        onClick={ this.goToDetails }
-        onKeyDown={ this.goToDetails }
-        tabIndex="0"
-        role="button"
+        className="product-card"
       >
         <div
-          className="product-card"
-          data-testid="product"
+          data-testid="product-detail-link"
+          onClick={ this.goToDetails }
+          onKeyDown={ this.goToDetails }
+          tabIndex="0"
+          role="button"
         >
-          <section className="title-card">
-            <p>{ title }</p>
-          </section>
-          <section className="body-card">
-            <img src={ thumbnail } alt={ title } />
-            <p>
-              R$
-              { price }
-            </p>
-          </section>
+          <div data-testid="product">
+            <section className="title-card">
+              <p>{ title }</p>
+            </section>
+            <section className="body-card">
+              <img src={ thumbnail } alt={ title } />
+              <p>
+                { `R$ ${price}` }
+              </p>
+            </section>
+          </div>
         </div>
+        { children }
       </section>
     );
   }
 }
 
 ProductCard.propTypes = {
-  id: PropTypes.string.isRequired,
-  title: PropTypes.string,
-  thumbnail: PropTypes.string,
-  price: PropTypes.number,
-};
-
-ProductCard.defaultProps = {
-  title: '',
-  thumbnail: '',
-  price: 0,
+  product: PropTypes.shape({
+    attributes: PropTypes.arrayOf(PropTypes.object),
+    id: PropTypes.string,
+    price: PropTypes.number,
+    thumbnail: PropTypes.string,
+    title: PropTypes.string,
+    availableQuantity: PropTypes.number,
+  }).isRequired,
+  children: PropTypes.node.isRequired,
 };

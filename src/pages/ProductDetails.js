@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import CartIcon from './CartIcon';
+import CartIcon from '../components/CartIcon';
+import AddToCartButton from '../components/AddToCartButton';
 
 require('./ProductDetails.css');
 
 export default class ProductDetails extends Component {
   render() {
-    const { location } = this.props;
-    const { state } = location;
+    const { location: { state } } = this.props;
     const { id, title, price, thumbnail, attributes } = state;
     const titleToHtml = `${title} - R$ ${price}`;
     return (
@@ -23,28 +23,31 @@ export default class ProductDetails extends Component {
               data-testid="product-detail-name"
               className="title-product"
             >
-              <b>
+              <strong>
                 { titleToHtml }
-              </b>
+              </strong>
             </p>
             <img src={ thumbnail } alt={ title } />
           </section>
           <section className="body-product">
-            <p><b>Especificações Técnicas</b></p>
+            <p><strong>Especificações Técnicas</strong></p>
             <ul>
-              { attributes.map((attribute) => {
-                const { name, value } = attribute;
-                return (
-                  <li
-                    key={ `${id}-${name}` }
-                  >
-                    { name }
-                    { `: ${value}` }
-                  </li>
-                );
-              })}
+              { attributes
+                ? attributes.map((attribute) => {
+                  const { name, value } = attribute;
+                  return (
+                    <li
+                      key={ `${id}-${name}` }
+                    >
+                      { name }
+                      { `: ${value}` }
+                    </li>
+                  );
+                })
+                : <span />}
             </ul>
           </section>
+          <AddToCartButton product={ state } testid="product-detail-add-to-cart" />
         </div>
       </div>
     );
@@ -58,6 +61,7 @@ ProductDetails.propTypes = {
       title: PropTypes.string.isRequired,
       price: PropTypes.number.isRequired,
       thumbnail: PropTypes.string.isRequired,
+      availableQuantity: PropTypes.number.isRequired,
       attributes: PropTypes.arrayOf(
         PropTypes.objectOf(PropTypes.string.isRequired),
       ),

@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import CartShop from './pages/CartShop';
 import ProductList from './pages/ProductList';
-import ProductDetails from './components/ProductDetails';
+import ProductDetails from './pages/ProductDetails';
 
 function App() {
   return (
