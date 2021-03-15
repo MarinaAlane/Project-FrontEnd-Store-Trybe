@@ -32,7 +32,7 @@ export default class ProductDetails extends Component {
                 dataTestId
                 submit={ false }
                 id="product-detail-add-to-cart"
-                onHandleClick={() => addProductToCart({ title, id, thumbnail, price })}
+                onHandleClick={ () => addProductToCart({ title, id, thumbnail, price }) }
               >
                 Adicionar ao carrinho
               </Button>
