@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import FormDetails from './FormDetails';
 
 class ProductDetails extends Component {
   constructor() {
@@ -39,6 +40,7 @@ class ProductDetails extends Component {
 
   render() {
     const { attributes, title, pictures, price } = this.state;
+    const { match: { params: { id } } } = this.props;
     return (
       <div>
         <div>
@@ -58,6 +60,23 @@ class ProductDetails extends Component {
                 { currentValue.name }
               </li>)) }
           </ul>
+        </div>
+        <div>
+          <button
+            id={ id }
+            type="button"
+            data-testid="product-detail-add-to-cart"
+            onClick={ () => {
+              const storageIds = JSON.parse(localStorage.getItem('productId'));
+              storageIds.push(id);
+              localStorage.setItem('productId', JSON.stringify(storageIds));
+            } }
+          >
+            Adicionar ao Carrinho
+          </button>
+        </div>
+        <div>
+          <FormDetails id={ id } />
         </div>
       </div>
     );
