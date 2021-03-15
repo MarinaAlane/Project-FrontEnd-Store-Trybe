@@ -8,7 +8,7 @@ class Main extends React.Component {
     // [product1, product2]
     const { products } = this.props;
     return (
-      <main>
+      <main className="main">
         <p data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>

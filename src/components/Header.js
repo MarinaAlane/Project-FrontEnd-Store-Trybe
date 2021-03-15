@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import { getProductsFromCategoryAndQuery } from '../services/api';
+import ButtonShoppingCart from './ButtonShoppingCart';
 
 class Header extends React.Component {
   async fetchProducts() {
@@ -13,16 +13,18 @@ class Header extends React.Component {
   }
 
   render() {
+    const { showInput } = this.props;
     return (
-      <header>
-        <input data-testid="query-input" type="search" name="" id="" />
-        <button
+      <header className="header">
+        {showInput && <input data-testid="query-input" type="search" name="" id="" className="input-search" />}
+      <button
           type="button"
           onClick={ () => this.fetchProducts() }
           data-testid="query-button"
         >
           Buscar
         </button>
+        <ButtonShoppingCart />
       </header>
     );
   }
@@ -30,6 +32,7 @@ class Header extends React.Component {
 
 Header.propTypes = {
   onChangeProducts: PropTypes.func.isRequired,
+  showInput: PropTypes.bool.isRequired,
 };
 
 export default Header;
