@@ -8,13 +8,15 @@ class ProductDetails extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // id: 0,
       title: '',
       thumbnail: '',
       price: '',
       loading: true,
+      storedProducts: [],
+      productObj: undefined,
     };
     this.fetchProduct = this.fetchProduct.bind(this);
+    this.addProductsToCart = this.addProductsToCart.bind(this);
   }
 
   componentDidMount() {
@@ -27,27 +29,43 @@ class ProductDetails extends React.Component {
     const { idCategory, idProduct } = match.params;
     const requestProduct = await getProductsFromCategoryAndQuery(idCategory, '');
     const product = requestProduct.results.find(({ id }) => id === idProduct);
-    console.log(product);
     this.setState({
-      // id: requestProduct.id,
       title: product.title,
       thumbnail: product.thumbnail,
       price: product.price,
       attributes: product.attributes,
       loading: false,
+      productObj: product,
     });
   }
 
+  addProductsToCart() {
+    this.setState(({ storedProducts, productObj }) => ({
+      storedProducts: [...storedProducts, productObj],
+    }));
+  }
+
+  renderLinkToCart(cartProductsId) {
+    return (
+      <Link
+        data-testid="shopping-cart-button"
+        to={ {
+          pathname: '/shopping-cart',
+          state: { cartProductsId },
+        } }
+      >
+        <ButtonShoppingCart />
+      </Link>
+    );
+  }
+
   render() {
-    const { title, thumbnail, price, attributes, loading } = this.state;
+    const { title, thumbnail, price, attributes, loading, storedProducts } = this.state;
 
     if (loading) return <p>Carregando...</p>;
-
     return (
       <div>
-        <Link to="/shopping-cart">
-          <ButtonShoppingCart />
-        </Link>
+        <Link exact to="/">Home</Link>
 
         <div>
           <h2 data-testid="product-detail-name">{title}</h2>
@@ -57,7 +75,15 @@ class ProductDetails extends React.Component {
             {attributes.length > 0 && attributes.map(({ id, name, values }) => (
               <li key={ id }>{`${name} : ${values[0].name}`}</li>))}
           </ol>
+          <button
+            type="button"
+            data-testid="product-detail-add-to-cart"
+            onClick={ this.addProductsToCart }
+          >
+            Adicionar ao carrinho
+          </button>
         </div>
+        {this.renderLinkToCart(storedProducts)}
       </div>
     );
   }

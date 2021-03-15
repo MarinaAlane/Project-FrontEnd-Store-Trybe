@@ -82,6 +82,7 @@ class ProductsShowcase extends React.Component {
           Busca
         </button>
         {this.renderLinkToCart(cartProductsId)}
+        {console.log(cartProductsId)}
 
         <p data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
