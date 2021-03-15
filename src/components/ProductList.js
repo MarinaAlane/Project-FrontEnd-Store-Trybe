@@ -50,11 +50,10 @@ class ProductList extends React.Component {
     });
   }
 
-  async clickCategory({ target }) {
-    await this.setState({
+  clickCategory({ target }) {
+    this.setState({
       selectedCategories: target.id,
     });
-    await this.handleSearch();
   }
 
   async LoadCategories() {
