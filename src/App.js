@@ -25,10 +25,9 @@ class App extends React.Component {
     }
     cart.push({ id, quantity: 1 });
     localStorage.setItem(storage, JSON.stringify(cart));
-    // const { cartProducts } = this.state;
-    // this.setState({
-    //   cartProducts: cartProducts.concat(cart),
-    // });
+    this.setState({
+      cartProducts: cart,
+    });
   }
 
   render() {
@@ -56,7 +55,7 @@ class App extends React.Component {
             />
             <Route
               path="/checkout"
-              component={ Checkout }
+              render={ () => <Checkout /> }
             />
           </Switch>
         </BrowserRouter>

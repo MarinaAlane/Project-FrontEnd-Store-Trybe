@@ -11,6 +11,7 @@ class Checkout extends React.Component {
       cep: '',
       address: '',
       paymentMethod: '',
+      cartProducts: [],
     };
 
     this.updateForm = this.updateForm.bind(this);
@@ -18,6 +19,18 @@ class Checkout extends React.Component {
     this.renderEmailAndPhone = this.renderEmailAndPhone.bind(this);
     this.renderFullNameAndCpf = this.renderFullNameAndCpf.bind(this);
     this.renderPaymentMethod = this.renderPaymentMethod.bind(this);
+    this.getCart = this.getCart.bind(this);
+  }
+
+  componentDidMount() {
+    this.getCart();
+  }
+
+  getCart() {
+    const cart = localStorage.getItem('ShoppingCart');
+    this.setState({
+      cartProducts: cart,
+    });
   }
 
   updateForm(field, newValue) {
@@ -129,10 +142,12 @@ class Checkout extends React.Component {
   }
 
   render() {
+    const { cartProducts } = this.state;
     return (
       <div>
         <div>
           <h2>Revise seus Produtos</h2>
+          {cartProducts}
         </div>
         <h2>Informações do Comprador</h2>
         <form className="buyer-info">
