@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ProductDetails from '../components/ProductDetails';
 import Evaluation from '../components/Evaluation';
-import * as api from '../services/api';
 
 class Details extends React.Component {
   constructor(props) {
@@ -14,7 +13,7 @@ class Details extends React.Component {
       textComment: '',
       productId: props.match.params.id,
     };
-    
+
     this.handleChangeEmail = this.handleChangeEmail.bind(this);
     this.handleChangeTextComent = this.handleChangeTextComent.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
