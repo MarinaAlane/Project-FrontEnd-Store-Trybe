@@ -13,6 +13,8 @@ class Home extends Component {
     this.renderItems = this.renderItems.bind(this);
     this.renderNoItemsMessage = this.renderNoItemsMessage.bind(this);
     this.searchItemsByCategorie = this.searchItemsByCategorie.bind(this);
+    this.putOnLocalStorage = this.putOnLocalStorage.bind(this);
+    this.getFromLocalStorage = this.getFromLocalStorage.bind(this);
 
     this.state = {
       searchQuery: '',
@@ -24,6 +26,7 @@ class Home extends Component {
 
   componentDidMount() {
     this.fetchCategories();
+    this.getFromLocalStorage();
   }
 
   handleState({ target }) {
@@ -38,10 +41,27 @@ class Home extends Component {
     });
   }
 
-  async fetchCategories() {
-    const categories = await fetchFunctions.getCategories();
+  getFromLocalStorage() {
+    if (localStorage.getItem('cartItems')) {
+      const items = localStorage.getItem('cartItems');
+      return JSON.parse(items);
+    }
+    return [];
+  }
+
+  putOnLocalStorage(product) {
+    const products = [...this.getFromLocalStorage()];
+    products.push(product);
+    console.log(products);
+    localStorage.setItem('cartItems', JSON.stringify(products));
+  }
+
+  async searchItemsByCategorie() {
+    const { categorieSet } = this.state;
+    const items = await fetchFunctions
+      .getProductsFromCategoryAndQuery(categorieSet, undefined);
     this.setState({
-      categories,
+      products: items.results,
     });
   }
 
@@ -54,39 +74,12 @@ class Home extends Component {
     });
   }
 
-  async searchItemsByCategorie() {
-    const { categorieSet } = this.state;
-    const items = await fetchFunctions
-      .getProductsFromCategoryAndQuery(categorieSet, undefined);
+  async fetchCategories() {
+    const categories = await fetchFunctions.getCategories();
     this.setState({
-      products: items.results,
+      categories,
     });
   }
-
-  renderItems() {
-    const { products } = this.state;
-    return products.map((product) => (
-      <div data-testid="product" key={ product.id }>
-        <p>{product.title}</p>
-        <img alt="" src={ product.thumbnail } />
-        <p>{product.price}</p>
-        <Link
-          to={ {
-            pathname: '/productdetails',
-            state: product,
-          } }
-          data-testid="product-detail-link"
-          product={ product }
-        >
-          Detalhes
-        </Link>
-      </div>
-    ));
-  }
-
-  // renderItemsByCategorie() {
-  //   this.searchItemsByCategorie();
-  // }
 
   renderNoItemsMessage() {
     return (
@@ -114,6 +107,35 @@ class Home extends Component {
     );
   }
 
+  renderItems() {
+    const { products } = this.state;
+    return products.map((product) => (
+      <div data-testid="product" key={ product.id }>
+        <p>{product.title}</p>
+        <img alt="" src={ product.thumbnail } />
+        <p>{product.price}</p>
+        <Link
+          to={ {
+            pathname: '/productdetails',
+            state: product,
+          } }
+          data-testid="product-detail-link"
+          product={ product }
+        >
+          Detalhes
+        </Link>
+        <button
+          type="button"
+          props={ product }
+          data-testid="product-add-to-cart"
+          onClick={ () => this.putOnLocalStorage(product) }
+        >
+          Adicionar ao carrinho
+        </button>
+      </div>
+    ));
+  }
+
   render() {
     const { products } = this.state;
     return (
@@ -137,7 +159,10 @@ class Home extends Component {
             >
               Buscar
             </button>
-            <Link to="/cart" data-testid="shopping-cart-button">
+            <Link
+              to="/cart"
+              data-testid="shopping-cart-button"
+            >
               <img src="cart-icon.png" alt="cart-icon" />
             </Link>
           </div>
