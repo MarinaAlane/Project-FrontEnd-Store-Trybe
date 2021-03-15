@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import creditCard from '../icons/creditCard.png';
 
 class CheckoutPaymentMethod extends React.Component {
   constructor() {
@@ -11,6 +12,17 @@ class CheckoutPaymentMethod extends React.Component {
     return (
       <div className="cardPaymentMethodField">
         <label htmlFor="payment">
+          <p>Boleto</p>
+          <input
+            name="payment"
+            id="boleto"
+            value="boleto"
+            type="radio"
+            onChange={ this.onChange }
+          />
+          <img src={ creditCard } alt="card" width="50px" />
+        </label>
+        <label className="cardOption" htmlFor="payment">
           <p>Visa</p>
           <input
             name="payment"
@@ -19,6 +31,7 @@ class CheckoutPaymentMethod extends React.Component {
             type="radio"
             onChange={ this.onChange }
           />
+          <img src={ creditCard } alt="card" width="50px" />
         </label>
         <label htmlFor="payment">
           <p>MasterCard</p>
@@ -29,6 +42,7 @@ class CheckoutPaymentMethod extends React.Component {
             type="radio"
             onChange={ this.onChange }
           />
+          <img src={ creditCard } alt="card" width="50px" />
         </label>
         <label htmlFor="payment">
           <p>Elo</p>
@@ -39,6 +53,7 @@ class CheckoutPaymentMethod extends React.Component {
             type="radio"
             onChange={ this.onChange }
           />
+          <img src={ creditCard } alt="card" width="50px" />
         </label>
       </div>
     );
@@ -49,20 +64,7 @@ class CheckoutPaymentMethod extends React.Component {
       <div>
         <fieldset className="paymentMethodField">
           <legend className="checkoutLegend">Método de pagamento</legend>
-          <label htmlFor="payment">
-            <p>Boleto</p>
-            <input
-              name="payment"
-              id="boleto"
-              value="boleto"
-              type="radio"
-              onChange={ this.onChange }
-            />
-          </label>
-          <fieldset className="creditCardFieldset">
-            <legend className="checkoutLegend">Cartão de Crédito</legend>
-            { this.creditCardPaymentMethod() }
-          </fieldset>
+          { this.creditCardPaymentMethod() }
         </fieldset>
         <Link to="/">
           <button className="cartBtn" type="submit">Finalizar Compra</button>

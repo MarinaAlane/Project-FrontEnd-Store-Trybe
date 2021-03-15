@@ -4,8 +4,11 @@ class CheckoutProductReview extends React.Component {
   constructor() {
     super();
     this.productCartReview = this.productCartReview.bind(this);
+    this.state = {
+      cart: JSON.parse(localStorage.getItem('itens')),
+    };
   }
-
+  
   productCartReview() {
     const storedProducts = JSON.parse(localStorage.getItem('itens'));
     return (
