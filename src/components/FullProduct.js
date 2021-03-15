@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import './FullProduct.css';
+import RatingForm from './RatingForm';
 
 class FullProduct extends Component {
   render() {
@@ -34,11 +35,11 @@ class FullProduct extends Component {
         >
           Adicionar ao carrinho
         </button>
+        <RatingForm />
       </div>
     );
   }
 }
-
 FullProduct.propTypes = {
   match: PropTypes.shape({
     params: PropTypes.shape({
