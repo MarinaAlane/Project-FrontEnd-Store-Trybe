@@ -5,15 +5,74 @@ import CartProduct from '../components/CartProduct';
 class ShoppingCart extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-    };
+    const { location: { state: { cartProducts } } } = props;
+    this.state = { cartProducts };
+    this.addItem = this.addItem.bind(this);
+    this.removeItem = this.removeItem.bind(this);
+    this.removeCartProduct = this.removeCartProduct.bind(this);
+    this.sumPrices = this.sumPrices.bind(this);
+  }
+
+  sumPrices() {
+    const { cartProducts } = this.state;
+    const totalPrice = cartProducts
+      .reduce((total, { quantity, price }) => {
+        total += quantity * price;
+        return total;
+      }, 0);
+    return totalPrice.toFixed(2);
+  }
+
+  removeCartProduct(product) {
+    const { cartProducts } = this.state;
+    const newCart = cartProducts.filter((cartProduct) => cartProduct !== product);
+    this.setState({ cartProducts: newCart });
+  }
+
+  addItem(product) {
+    const { cartProducts } = this.state;
+    const newCart = cartProducts.map((cartProduct) => {
+      if (cartProduct.id === product.id) {
+        return { ...cartProduct, quantity: cartProduct.quantity + 1 };
+      }
+      return cartProduct;
+    });
+    this.setState({ cartProducts: newCart });
+  }
+
+  removeItem(product) {
+    const { cartProducts } = this.state;
+    const newCart = cartProducts.map((cartProduct) => {
+      if (cartProduct.id === product.id && cartProduct.quantity === 1) {
+        return { ...cartProduct, quantity: 1 };
+      } if (cartProduct.id === product.id) {
+        return { ...cartProduct, quantity: cartProduct.quantity - 1 };
+      }
+      return cartProduct;
+    });
+    this.setState({ cartProducts: newCart });
   }
 
   render() {
-    const { location: { state: { cartProducts } } } = this.props;
+    const { cartProducts } = this.state;
     if (cartProducts.length !== 0) {
-      return cartProducts
-        .map((product) => <CartProduct key={ product.id } product={ product } />);
+      return (
+        <div>
+          {
+            cartProducts
+              .map((product) => (<CartProduct
+                key={ product.id }
+                product={ product }
+                addItem={ this.addItem }
+                removeItem={ this.removeItem }
+                removeCartProduct={ this.removeCartProduct }
+              />))
+          }
+          <p>
+            {`Valor total: R$ ${this.sumPrices()}`}
+          </p>
+        </div>
+      );
     }
 
     return (
