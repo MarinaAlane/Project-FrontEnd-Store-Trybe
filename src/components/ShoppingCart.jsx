@@ -16,6 +16,7 @@ class ShoppingCart extends React.Component {
     this.deleteProduct = this.deleteProduct.bind(this);
     this.renderEmptyCart = this.renderEmptyCart.bind(this);
     this.renderTotalPrice = this.renderTotalPrice.bind(this);
+    this.renderCheckoutButton = this.renderCheckoutButton.bind(this);
   }
 
   componentDidMount() {
@@ -90,7 +91,16 @@ class ShoppingCart extends React.Component {
     );
   }
 
-  // VQV!
+  renderCheckoutButton() {
+    return (
+      <button
+        type="button"
+        data-testid="checkout-products"
+      >
+        Finalizar Compra
+      </button>
+    );
+  }
 
   render() {
     const { listOfProducts } = this.state;
@@ -137,6 +147,7 @@ class ShoppingCart extends React.Component {
           ))
         }
         { this.renderTotalPrice() }
+        { this.renderCheckoutButton() }
       </div>
     );
   }
