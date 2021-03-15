@@ -4,8 +4,24 @@ import { getProductsFromCategoryAndQuery } from '../services/api';
 import ButtonShoppingCart from './ButtonShoppingCart';
 
 class Header extends React.Component {
-  async fetchProducts() {
-    const response = await getProductsFromCategoryAndQuery();
+  constructor(props) {
+    super(props);
+    this.state = {
+      searchValue: '',
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(event) {
+    const { name, value } = event.target;
+    this.setState({
+      [name]: value,
+    });
+  }
+
+  async fetchProducts(categoryId, query) {
+    const response = await getProductsFromCategoryAndQuery(categoryId, query);
 
     const { onChangeProducts } = this.props;
     const products = response.results;
@@ -13,10 +29,11 @@ class Header extends React.Component {
   }
 
   searchButton() {
+    const { searchValue } = this.state;
     return (
       <button
         type="button"
-        onClick={ () => this.fetchProducts() }
+        onClick={ () => this.fetchProducts('', searchValue) }
         data-testid="query-button"
       >
         Buscar
@@ -27,6 +44,7 @@ class Header extends React.Component {
   render() {
     const { showInput } = this.props;
     const { showSearchButton } = this.props;
+    const { searchValue } = this.state;
     return (
       <header className="header">
         {
@@ -34,9 +52,11 @@ class Header extends React.Component {
           && <input
             data-testid="query-input"
             type="search"
-            name=""
+            name="searchValue"
             id=""
             className="input-search"
+            value={ searchValue }
+            onChange={ this.handleChange }
           />
         }
         {

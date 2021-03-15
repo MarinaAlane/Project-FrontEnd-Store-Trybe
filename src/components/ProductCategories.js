@@ -24,8 +24,8 @@ class ProductCategories extends React.Component {
     return (
       <li key={ category.id }>
         <input
-          type="checkbox"
-          name={ category.name }
+          type="radio"
+          name="category"
           id={ category.id }
         />
         <label htmlFor={ category.id } data-testid="category">{category.name}</label>
