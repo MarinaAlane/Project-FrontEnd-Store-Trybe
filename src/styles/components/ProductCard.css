@@ -23,6 +23,12 @@
   width: 90px;
 }
 
+.product-card > a {
+  color: rgb(99, 99, 99);
+  cursor: pointer;
+  text-decoration: none;
+}
+
 .product-card > :nth-child( 2 ) {
   min-height: 80px;
 }
