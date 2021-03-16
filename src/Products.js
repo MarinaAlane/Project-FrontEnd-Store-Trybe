@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 class Produtcs extends React.Component {
   render() {
     const { product: { id, thumbnail, price, title } } = this.props;
-    const { product } = this.props;
+    const { product, handleProduct } = this.props;
     const detailsLinkUrl = `/product-detail/${id}`;
     return (
       <div data-testid="product">
@@ -21,6 +21,13 @@ class Produtcs extends React.Component {
             { price }
           </h5>
         </Link>
+        <button
+          type="button"
+          data-testid="product-add-to-cart"
+          onClick={ () => handleProduct(product) }
+        >
+          Adicionar ao Carrinho
+        </button>
       </div>
     );
   }
@@ -32,7 +39,8 @@ Produtcs.propTypes = {
     thumbnail: PropTypes.string,
     price: PropTypes.number,
     title: PropTypes.string,
-  }).isRequired,
-};
+  }),
+  handleProduct: PropTypes.func,
+}.isRequired;
 
 export default Produtcs;
