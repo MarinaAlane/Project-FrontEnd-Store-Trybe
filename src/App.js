@@ -4,7 +4,6 @@ import './App.css';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import ShoppingCart from './components/shopping_cart/ShoppingCart';
 import ProductList from './ProductList';
-import AsideCategoriesList from './components/AsideCategoriesList';
 
 function App() {
   return (

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import * as marketAPI from '../services/api';
 import './AsideCategoriesList.css';
 
@@ -17,12 +17,6 @@ class AsideCategoriesList extends Component {
     this.loadCategories();
   }
 
-  // handleCatChange(event, name) {
-  //   const { id } = event.target;
-  //   console.log(name);
-  //   this.setState({ [name]: id });
-  // }
-
   loadCategories() {
     marketAPI.getCategories().then((categories) => this.setState({ categories }));
   }
@@ -32,26 +26,29 @@ class AsideCategoriesList extends Component {
     const { changeCategory } = this.props;
     const categoriesList = categories
       .map(({ name, id }, index) => (
-        <li
+        <button
+          type="button"
           key={ index }
           data-testid="category"
-          onClick={ () => changeCategory(id) }
+          value={ id }
+          onClick={ changeCategory }
         >
           {/* quando clica passa o id pra changeCat */}
           { name }
-        </li>
+        </button>
       ));
     return (
       <div className="d-flex">
         <aside className="aside categories-list">
           Categorias:
-          <ul>
-            {categoriesList}
-          </ul>
+          {categoriesList}
         </aside>
       </div>
     );
   }
 }
 
+AsideCategoriesList.propTypes = {
+  changeCategory: PropTypes.func.isRequired,
+};
 export default AsideCategoriesList;

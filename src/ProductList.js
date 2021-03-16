@@ -10,7 +10,7 @@ class ProductList extends Component {
 
     this.state = {
       searchedText: '',
-      categoryID: '',
+      categoryID: 'MLB',
       products: [],
       loaded: false,
     };
@@ -20,9 +20,10 @@ class ProductList extends Component {
     this.handleCategory = this.handleCategory.bind(this);
   }
 
-  handleCategory(cat) {
-    this.setState({ categoryID: cat });
-    console.log(cat);
+  async handleCategory({ target }) {
+    const { value } = target;
+    await this.setState({ categoryID: value });
+    this.getProductsFromAPI();
   }
 
   handleInputChange(event) {
