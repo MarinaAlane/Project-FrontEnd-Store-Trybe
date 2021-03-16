@@ -8,21 +8,21 @@
 }
 
 .button-search-bar {
-      background: #white;
-      border: 1px solid #9dc2ff;
-      border-radius: 99px;
-      color: #2264d1;
-      font-size: 14px;
-      font-weight: 700;
-      height: 36px;
-      line-height: 143%;
-      margin-left: 15px;
-      width: 88px;
+  background:white;
+  border: 1px solid #9dc2ff;
+  border-radius: 99px;
+  color: #2264d1;
+  font-size: 14px;
+  font-weight: 700;
+  height: 36px;
+  line-height: 143%;
+  margin-left: 15px;
+  width: 88px;
 }
 
 .container-search-bar {
-      align-items: center;
-      display: flex;
-      justify-content: center;
-      margin-top: 16px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin-top: 16px;
 }
