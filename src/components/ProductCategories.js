@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import * as ApiMercadoLivre from '../services/api';
 
 class ProductCategories extends React.Component {
@@ -21,14 +22,20 @@ class ProductCategories extends React.Component {
   categoryItemList(category) {
     //  https://stackoverflow.com/questions/1229856/what-is-the-best-way-to-style-a-list-of-checkboxes
     //  https://developer.mozilla.org/pt-BR/docs/Web/HTML/Element/Input/checkbox
+
+    const { updateCategoryValue } = this.props;
     return (
       <li key={ category.id }>
         <input
           type="radio"
-          name="category"
-          id={ category.id }
+          name="categoryValue"
+          value={ category.id }
+          onChange={ updateCategoryValue }
+          data-testid="category"
         />
-        <label htmlFor={ category.id } data-testid="category">{category.name}</label>
+        <label htmlFor={ category.id } data-testid="category">
+          {category.name}
+        </label>
       </li>
     );
   }
@@ -45,5 +52,9 @@ class ProductCategories extends React.Component {
     );
   }
 }
+
+ProductCategories.propTypes = {
+  updateCategoryValue: PropTypes.func.isRequired,
+};
 
 export default ProductCategories;

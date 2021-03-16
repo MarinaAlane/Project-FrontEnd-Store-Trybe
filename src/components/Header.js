@@ -4,22 +4,6 @@ import { getProductsFromCategoryAndQuery } from '../services/api';
 import ButtonShoppingCart from './ButtonShoppingCart';
 
 class Header extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      searchValue: '',
-    };
-
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleChange(event) {
-    const { name, value } = event.target;
-    this.setState({
-      [name]: value,
-    });
-  }
-
   async fetchProducts(categoryId, query) {
     const response = await getProductsFromCategoryAndQuery(categoryId, query);
 
@@ -29,11 +13,11 @@ class Header extends React.Component {
   }
 
   searchButton() {
-    const { searchValue } = this.state;
+    const { searchValue, categoryValue } = this.props;
     return (
       <button
         type="button"
-        onClick={ () => this.fetchProducts('', searchValue) }
+        onClick={ () => this.fetchProducts(categoryValue, searchValue) }
         data-testid="query-button"
       >
         Buscar
@@ -42,9 +26,9 @@ class Header extends React.Component {
   }
 
   render() {
-    const { showInput } = this.props;
+    const { showInput, searchValue } = this.props;
     const { showSearchButton } = this.props;
-    const { searchValue } = this.state;
+    const { upDateSearchValue } = this.props;
     return (
       <header className="header">
         {
@@ -56,7 +40,7 @@ class Header extends React.Component {
             id=""
             className="input-search"
             value={ searchValue }
-            onChange={ this.handleChange }
+            onChange={ upDateSearchValue }
           />
         }
         {
@@ -73,6 +57,9 @@ Header.propTypes = {
   onChangeProducts: PropTypes.func.isRequired,
   showInput: PropTypes.bool.isRequired,
   showSearchButton: PropTypes.bool.isRequired,
+  searchValue: PropTypes.string.isRequired,
+  upDateSearchValue: PropTypes.string.isRequired,
+  categoryValue: PropTypes.string.isRequired,
 };
 
 export default Header;
