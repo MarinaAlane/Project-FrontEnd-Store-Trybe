@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import Search from './Search';
 import CartIcon from '../images/carrinho.png';
-import './Header.css';
+import '../componentStyles/Header.css';
 
 class Header extends React.Component {
   render() {

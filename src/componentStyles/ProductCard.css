@@ -2,17 +2,19 @@
   background-color: rgb(250, 250, 250);
   border-radius: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
-  padding: 10px 30px;
-  max-height: 400px;
   margin: 10px;
-  transform: 400ms;
+  max-height: 400px;
+  min-width: 200px;
   outline: transparent;
+  padding: 10px 30px;
+  transition: 800ms;
 }
 
 .product-card img {
-  max-width: 60%;  
+  max-width: 100%;  
 }
 
 .product-card:hover {
-  transform: scale(1.03)
+  transform: scale(1.03);
+  transition: 500ms;
 }

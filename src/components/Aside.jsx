@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Category from './Category';
-import './Aside.css';
+import '../componentStyles/Aside.css';
 
 class Aside extends React.Component {
   render() {

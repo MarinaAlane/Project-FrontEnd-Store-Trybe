@@ -7,31 +7,31 @@
 }
 
 .form {
-  width: 80%;
   margin-top: 20px;
+  width: 80%;
 }
 
 .form input {
   border: 1.5px solid rgb(100, 100, 100);
   border-radius: 30px;
-  outline: transparent;
-  width: 60%;
-  height: 30px;
   font-size: 16px;
+  height: 30px;
+  outline: transparent;
   text-align: center;
+  width: 60%;
 }
 
 .form button {
   background-color: #4CAF50; /* Green */
   border: none;
+  border-radius: 20px;
   color: white;
+  cursor: pointer;
   text-align: center;
   transition-duration: 0.4s;
-  padding: 7px 20px;
-  cursor: pointer;
-  border-radius: 20px;
   margin-left: 10px;
   outline: transparent;
+  padding: 7px 20px;
   position: absolute;
 }
 
