@@ -18,18 +18,19 @@ class CheckoutProductReview extends React.Component {
           <legend className="checkoutLegend">1 - Revise seus Produtos</legend>
           { storedProducts.map(((product) => (
             <div className="cartReviewProduct" key={ `${product.id}` }>
-              <img alt={ product.title } src={ product.thumbnail } />
+              <p data-testid="shopping-cart-product-quantity">{ product.quantity }</p>
               <p
                 className="title"
                 data-testid="shopping-cart-product-name"
               >
                 { product.title }
               </p>
-              <p data-testid="shopping-cart-product-quantity">{ product.quantity }</p>
+              <img alt={ product.title } src={ product.thumbnail } />
               <p>
                 R$
                 { product.price }
               </p>
+              <hr></hr>
             </div>
           ))) }
         </fieldset>

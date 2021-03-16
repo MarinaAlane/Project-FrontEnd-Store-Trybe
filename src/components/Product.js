@@ -30,7 +30,7 @@ class Product extends React.Component {
         </Link>
         <AddToCartButton
           datatestid="product-add-to-cart"
-          productData={ { id, title, price, availableQuantity } }
+          productData={ { id, title, price, thumbnail, availableQuantity } }
         />
       </div>
 
