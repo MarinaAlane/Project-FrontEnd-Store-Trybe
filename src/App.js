@@ -5,6 +5,7 @@ import HomePage from './pages/HomePage';
 import InputContext from './components/InputContext';
 import ProductDetails from './pages/ProductDetails';
 import Header from './components/Header';
+import CheckoutPage from './pages/CheckoutPage/CheckoutPage';
 
 class App extends React.Component {
   constructor(props) {
@@ -113,6 +114,7 @@ class App extends React.Component {
           <Header />
           <Switch>
             <Route exact path="/" component={ HomePage } />
+            <Route path="/cart/checkout" component={ CheckoutPage } />
             <Route path="/cart" component={ CartPage } />
             <Route
               path="/details/:id"
