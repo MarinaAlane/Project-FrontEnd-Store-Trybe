@@ -14,7 +14,8 @@
 }
 
 .product-card:hover {
-  cursor: pointer;
+  border-radius: 3px;
+  box-shadow: 1px 2px 6px rgb(99, 99, 99);
 }
 
 .product-card > img {
