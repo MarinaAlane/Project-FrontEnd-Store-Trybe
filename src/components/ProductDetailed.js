@@ -20,7 +20,7 @@ class ProductDetailed extends Component {
   }
 
   getProductFromAPI() {
-    const { id } = this.props.match.params;
+    const { id } = match.params;
     marketAPI.getProductFromID(id)
       .then((product) => {
         this.setState({ product });
