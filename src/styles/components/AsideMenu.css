@@ -38,3 +38,12 @@ ul {
   color: black;
   cursor: pointer;
 }
+
+@media only screen and ( max-width : 1400px ) {
+
+  .categories-content {
+    position: absolute;
+    padding: 0;
+  }
+
+}
