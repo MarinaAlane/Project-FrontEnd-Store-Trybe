@@ -9,7 +9,7 @@ class ProductDetails extends Component {
       cartProducts: props.location.state.cartProducts,
       textArea: '',
       email: '',
-      evaluation: [],
+      reviews: [],
     };
     this.addProductToCart = this.addProductToCart.bind(this);
     this.handleChange = this.handleChange.bind(this);
