@@ -10,12 +10,20 @@ class ProductList extends Component {
 
     this.state = {
       searchedText: '',
+      categoryID: 'MLB',
       products: [],
       loaded: false,
     };
 
     this.getProductsFromAPI = this.getProductsFromAPI.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleCategory = this.handleCategory.bind(this);
+  }
+
+  async handleCategory({ target }) {
+    const { value } = target;
+    await this.setState({ categoryID: value });
+    this.getProductsFromAPI();
   }
 
   handleInputChange(event) {
@@ -30,8 +38,8 @@ class ProductList extends Component {
 
   getProductsFromAPI() {
     this.setState({ loaded: false });
-    const { searchedText } = this.state;
-    marketAPI.getProductsFromCategoryAndQuery('MLB', searchedText)
+    const { searchedText, categoryID } = this.state;
+    marketAPI.getProductsFromCategoryAndQuery(categoryID, searchedText)
       .then((products) => {
         this.setState({ products });
         this.setState({ loaded: true });
@@ -67,10 +75,10 @@ class ProductList extends Component {
           onClick={ this.getProductsFromAPI }
           data-testid="query-button"
         >
-          search
+          Search
         </button>
         <ButtonCart />
-        <AsideCategoriesList />
+        <AsideCategoriesList changeCategory={ this.handleCategory } />
         <p data-testid="home-initial-message" className="product-list-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>
