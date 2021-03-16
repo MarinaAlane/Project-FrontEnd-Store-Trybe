@@ -19,6 +19,7 @@ class Cart extends React.Component {
               <button data-testid="shopping-cart-button" type="button">voltar</button>
               <span data-testid="shopping-cart-product-name">Pequeno Principe, O</span>
               <span data-testid="shopping-cart-product-quantity">1</span>
+              <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
             </div>
           )}
 
