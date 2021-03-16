@@ -125,14 +125,14 @@ class ProductList extends React.Component {
         >
           Search
         </button>
+        <Link to="/cart" data-testid="shopping-cart-button">CARRINHO</Link>
+        <p
+          data-testid="home-initial-message"
+          className="home-initial-message"
+        >
+          Digite algum termo de pesquisa ou escolha uma categoria.
+        </p>
         <div className="home-results">
-          <Link to="/cart" data-testid="shopping-cart-button">CARRINHO</Link>
-          <span
-            data-testid="home-initial-message"
-            className="home-initial-message"
-          >
-            Digite algum termo de pesquisa ou escolha uma categoria.
-          </span>
           { this.renderCategories() }
           { checkLoading }
         </div>
