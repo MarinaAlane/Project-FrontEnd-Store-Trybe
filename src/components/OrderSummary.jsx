@@ -61,7 +61,7 @@ class OrderSummary extends React.Component {
           required
         />
         <input
-          type="number"
+          type="text"
           name="CPF"
           data-testid="checkout-cpf"
           placeholder="CPF"
@@ -75,14 +75,14 @@ class OrderSummary extends React.Component {
           required
         />
         <input
-          type="number"
+          type="text"
           name="telefone"
           data-testid="checkout-phone"
           placeholder="Telefone"
           required
         />
         <input
-          type="number"
+          type="text"
           name="CEP"
           data-testid="checkout-cep"
           placeholder="CEP"
