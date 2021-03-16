@@ -5,7 +5,7 @@ aside {
 
 .category-button {
   background-color: white;
-  border: 2px solid #555555;
+  border: 2px solid #555;
   border-radius: 10px;
   color: black;
   cursor: pointer;
@@ -18,7 +18,7 @@ aside {
 }
 
 .category-button:hover {
-  background-color: #555555;
+  background-color: #555;
   color: white;
 }
 

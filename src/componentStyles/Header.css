@@ -22,14 +22,14 @@
 }
 
 .form button {
-  background-color: #4CAF50; /* Green */
+  background-color: #4caf50; /* Green */
   border: none;
   border-radius: 20px;
   color: white;
   cursor: pointer;
+  margin-left: 10px;
   text-align: center;
   transition-duration: 0.4s;
-  margin-left: 10px;
   outline: transparent;
   padding: 7px 20px;
   position: absolute;
@@ -37,8 +37,8 @@
 
 .form button:hover {
   background-color: rgb(230, 253, 235);
-  border: 1px solid #4CAF50;
-  color: #4CAF50;
+  border: 1px solid #4caf50;
+  color: #4caf50;
   overflow: hidden;
 }
 
