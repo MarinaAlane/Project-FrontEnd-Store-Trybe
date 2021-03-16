@@ -9,6 +9,7 @@ class CartItem extends React.Component {
         <h3 data-testid="shopping-cart-product-name">{ product.title }</h3>
         <img src={ product.thumbnail } alt="Imagem do Produto" />
         <p>{ product.price }</p>
+        <p data-testid="shopping-cart-product-quantity">1</p>
       </section>
     );
   }

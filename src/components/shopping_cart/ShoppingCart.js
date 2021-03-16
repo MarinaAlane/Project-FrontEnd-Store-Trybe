@@ -28,7 +28,14 @@ class ShoppingCart extends React.Component {
   render() {
     const { products } = this.state;
     const cartList = products.length === 0
-      ? (<p data-testid="shopping-cart-empty-message" className="message">Seu carrinho está vazio</p>)
+      ? (
+        <p
+          data-testid="shopping-cart-empty-message"
+          className="message"
+        >
+          Seu carrinho está vazio
+        </p>
+      )
       : products
         .map((product) => (<CartItem key={ product.id } product={ product } />));
     return (
