@@ -1,0 +1,37 @@
+.container-list {
+    margin-left: 150px;
+}
+
+.category-name {
+    height: 56px;
+    width: 304px;
+    border-radius: 8px;
+    background: white;
+    border: 1px solid #9DC2FF;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 150%;
+    color: #2264D1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.list-category {
+color: #19191D;
+font-style: normal;
+font-weight: 500;
+font-size: 16px;
+line-height: 150%;
+list-style:none;
+width: 304px;
+}
+
+.list-category:hover {
+color: #2264D1;
+}
+
+.link-list-category {
+text-decoration: none;
+}

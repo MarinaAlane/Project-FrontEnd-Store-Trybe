@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { func } from 'prop-types';
 import * as Api from '../services/api';
+import '../styles/CategoriesList.css';
 
 export default class CategoriesList extends Component {
   constructor() {
@@ -27,15 +28,20 @@ export default class CategoriesList extends Component {
     const { categories } = this.state;
     const { handlerQueryByCategory } = this.props;
     return (
-      <div>
+      <div className="container-list">
+        <div className="category-name">
+          Departamentos
+        </div>
         <ul>
           { categories.map((category) => (
             <Link
+              className="link-list-category"
               to="/"
               key={ category.id }
               onClick={ () => handlerQueryByCategory(category.id) }
             >
               <li
+                className="list-category"
                 key={ category.id }
                 data-testid="category"
               >

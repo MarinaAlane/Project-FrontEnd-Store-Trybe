@@ -26,3 +26,9 @@
   justify-content: center;
   margin-top: 16px;
 }
+
+.message-search {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
