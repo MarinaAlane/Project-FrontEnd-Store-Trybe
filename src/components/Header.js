@@ -4,16 +4,31 @@ import { getProductsFromCategoryAndQuery } from '../services/api';
 import ButtonShoppingCart from './ButtonShoppingCart';
 
 class Header extends React.Component {
-  async fetchProducts() {
-    const response = await getProductsFromCategoryAndQuery();
+  async fetchProducts(categoryId, query) {
+    const response = await getProductsFromCategoryAndQuery(categoryId, query);
 
     const { onChangeProducts } = this.props;
     const products = response.results;
     onChangeProducts(products);
   }
 
+  searchButton() {
+    const { searchValue, categoryValue } = this.props;
+    return (
+      <button
+        type="button"
+        onClick={ () => this.fetchProducts(categoryValue, searchValue) }
+        data-testid="query-button"
+      >
+        Buscar
+      </button>
+    );
+  }
+
   render() {
-    const { showInput } = this.props;
+    const { showInput, searchValue } = this.props;
+    const { showSearchButton } = this.props;
+    const { upDateSearchValue } = this.props;
     return (
       <header className="header">
         {
@@ -21,18 +36,17 @@ class Header extends React.Component {
           && <input
             data-testid="query-input"
             type="search"
-            name=""
+            name="searchValue"
             id=""
             className="input-search"
+            value={ searchValue }
+            onChange={ upDateSearchValue }
           />
         }
-        <button
-          type="button"
-          onClick={ () => this.fetchProducts() }
-          data-testid="query-button"
-        >
-          Buscar
-        </button>
+        {
+          showSearchButton
+          && this.searchButton()
+        }
         <ButtonShoppingCart />
       </header>
     );
@@ -42,6 +56,10 @@ class Header extends React.Component {
 Header.propTypes = {
   onChangeProducts: PropTypes.func.isRequired,
   showInput: PropTypes.bool.isRequired,
+  showSearchButton: PropTypes.bool.isRequired,
+  searchValue: PropTypes.string.isRequired,
+  upDateSearchValue: PropTypes.string.isRequired,
+  categoryValue: PropTypes.string.isRequired,
 };
 
 export default Header;
