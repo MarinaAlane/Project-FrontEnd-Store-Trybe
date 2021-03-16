@@ -51,21 +51,21 @@ class ProductDetails extends Component {
     const { textArea, email } = this.state;
     return (
       <form>
-        <label htmlFor="detailEvaluation">
+        <label htmlFor="detailReviews">
           <h2>Avalie nossos produtos</h2>
           <input
             type="email"
             name="email"
             onChange={ this.handleChange }
             value={ email }
-            id="detailEvaluation"
+            id="detailReviews"
           />
           <textarea
             value={ textArea }
             onChange={ this.handleChange }
             name="textArea"
-            id="detailEvaluation"
-            data-testid="product-detail-evaluation"
+            id="detailReviews"
+            data-testid="product-detail-reviews"
           />
         </label>
         <button type="button" onClick={ this.handleClick }> Avaliar</button>
@@ -85,7 +85,7 @@ class ProductDetails extends Component {
   render() {
     const { location: { state: { product } } } = this.props;
     const { title, thumbnail, price, attributes } = product;
-    const { cartProducts, evaluation } = this.state;
+    const { cartProducts, reviews } = this.state;
     return (
       <div>
         <img src={ thumbnail } alt={ title } />
