@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import cart from '../services/cart';
+import RatingForm from './RatingForm';
 
 class ProductDetails extends React.Component {
   constructor() {
@@ -40,6 +41,7 @@ class ProductDetails extends React.Component {
             </Link>
           </button>
         </div>
+        <RatingForm />
       </div>
     );
   }
