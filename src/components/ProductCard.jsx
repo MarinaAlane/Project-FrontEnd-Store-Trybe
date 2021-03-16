@@ -4,21 +4,31 @@ import { Link } from 'react-router-dom';
 
 class ProductCard extends React.Component {
   render() {
-    const { products } = this.props;
+    const { products, addItemToCart } = this.props;
 
     return (
       <section className="products-container">
         { products.length !== 0
           ? products.map((product) => (
             <div key={ product.id } className="product-card" data-testid="product">
-              <span>{product.title}</span>
-              <img src={ product.thumbnail } alt={ product.title } />
-              <p>{`R$ ${product.price}`}</p>
               <Link
                 to={ { pathname: `/product/${product.id}`, state: { product } } }
                 data-testid="product-detail-link"
               >
-                Ver detalhes
+                <p>{product.title}</p>
+                <img src={ product.thumbnail } alt={ product.title } />
+                <p>{`R$ ${product.price}`}</p>
+              </Link>
+              <Link
+                to={ { pathname: '/cart', state: { product } } }
+                data-testid="product-add-to-cart"
+              >
+                <input
+                  type="button"
+                  value="Adicionar ao Carrinho"
+                  data-testid="shopping-cart-button"
+                  onClick={ () => addItemToCart(product) }
+                />
               </Link>
             </div>))
           : (
@@ -40,6 +50,7 @@ ProductCard.propTypes = {
       price: PropTypes.number,
     }),
   ),
+  addItemToCart: PropTypes.func,
 };
 
 ProductCard.defaultProps = {
@@ -52,6 +63,7 @@ ProductCard.defaultProps = {
       price: PropTypes.number,
     }),
   ),
+  addItemToCart: PropTypes.func,
 };
 
 export default ProductCard;

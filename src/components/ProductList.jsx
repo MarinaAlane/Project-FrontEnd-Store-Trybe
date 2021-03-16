@@ -6,8 +6,8 @@ import * as api from '../services/api';
 import '../css/productList.css';
 
 class ProductList extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.handleChange = this.handleChange.bind(this);
     this.searchProduct = this.searchProduct.bind(this);
 
@@ -39,6 +39,7 @@ class ProductList extends React.Component {
 
   render() {
     const { categories, products, hasFetched } = this.state;
+    const { addItemToCart } = this.props;
     const message = 'Digite algum termo de pesquisa ou escolha uma categoria.';
 
     return (
@@ -62,7 +63,7 @@ class ProductList extends React.Component {
           />
 
           {hasFetched
-            ? <ProductCard products={ products.results } />
+            ? <ProductCard products={ products.results } addItemToCart={ addItemToCart } />
             : <p data-testid="home-initial-message">{message}</p>}
         </section>
       </main>
