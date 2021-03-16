@@ -20,11 +20,9 @@ class ProductDetailed extends Component {
   }
 
   getProductFromAPI() {
-    const { id } = match.params;
-    marketAPI.getProductFromID(id)
-      .then((product) => {
-        this.setState({ product });
-      });
+    const recebido = this.props;
+    const { id } = recebido.match.params;
+    marketAPI.getProductFromID(id).then((product) => this.setState({ product }));
   }
 
   render() {
