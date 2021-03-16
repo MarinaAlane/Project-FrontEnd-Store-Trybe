@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { string } from 'prop-types';
-import '../styles/ShoppingCartButton.css'
+import '../styles/ShoppingCartButton.css';
 
 class ShoppingCartButton extends React.Component {
   render() {
