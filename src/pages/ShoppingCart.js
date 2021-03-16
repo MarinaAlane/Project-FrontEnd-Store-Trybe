@@ -2,20 +2,64 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class ShoppingCart extends Component {
+  constructor(props) {
+    super(props);
+    this.changeQuantity = this.changeQuantity.bind(this);
+    this.state = {}
+  }
+
+  componentDidMount() {
+    const { cartList } = this.props.location.state;
+    const newList = cartList.map((cartItem) => {
+      cartItem['quantity'] = 1;
+      return {
+        ...cartItem,
+      }
+    });
+    this.setState(
+      {
+        items: newList,
+      }
+    )
+  }
+
+  changeQuantity(item, operation) {
+    if (item.quantity > 0 && operation === 'sub') {
+      item.quantity -= 1;
+    }
+    if (operation === 'sum') {
+      item.quantity += 1;
+    }
+    this.setState((prev) => (
+      {
+        ...prev,
+          item,
+      }
+    ));
+  }
+
   render() {
-    const {
-      location: {
-        state: { cartList },
-      },
-    } = this.props;
-    return cartList.length !== 0 ? (
-      cartList.map((cartItem) => (
-        <div key={ cartItem.id }>
+    const { items } = this.state;
+    return items?.length !== 0 && items !== undefined ? (
+      items.map((item) => (
+        <div key={ item.id }>
           <div>
-            <p data-testid="shopping-cart-product-name">{ cartItem.title }</p>
-            <img src={ cartItem.thumbnail } alt="product" />
-            <p>{ cartItem.price }</p>
-            <p data-testid="shopping-cart-product-quantity">Quantidade: 1</p>
+            <p data-testid="shopping-cart-product-name">{ item.title }</p>
+            <img src={ item.thumbnail } alt="product" />
+            <p>{ item.price }</p>
+            <button
+              data-testid="product-increase-quantity"
+              onClick={ () => this.changeQuantity(item, 'sum') }
+            >
+              +
+            </button>
+            <p data-testid="shopping-cart-product-quantity">{ item.quantity }</p>
+            <button
+              data-testid="product-decrease-quantity"
+              onClick={ () => this.changeQuantity(item, 'sub') }
+            >
+              -
+            </button>
           </div>
         </div>
       ))
