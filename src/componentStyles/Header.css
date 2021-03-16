@@ -28,11 +28,11 @@
   color: white;
   cursor: pointer;
   margin-left: 10px;
-  text-align: center;
-  transition-duration: 0.4s;
   outline: transparent;
   padding: 7px 20px;
   position: absolute;
+  text-align: center;
+  transition-duration: 0.4s;
 }
 
 .form button:hover {
