@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Categories from './Categories';
 import SearchProduct from './SearchProduct';
@@ -63,12 +64,24 @@ class ProductList extends React.Component {
           />
 
           {hasFetched
-            ? <ProductCard products={ products.results } addItemToCart={ addItemToCart } />
+            ? (
+              <ProductCard
+                products={ products.results }
+                addItemToCart={ addItemToCart }
+              />)
             : <p data-testid="home-initial-message">{message}</p>}
         </section>
       </main>
     );
   }
 }
+
+ProductList.propTypes = {
+  addItemToCart: PropTypes.func,
+};
+
+ProductList.defaultProps = {
+  addItemToCart: PropTypes.func,
+};
 
 export default ProductList;

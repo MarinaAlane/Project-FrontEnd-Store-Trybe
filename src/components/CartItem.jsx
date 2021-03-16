@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 class CartItem extends React.Component {
   render() {
-    const { item: { title, thumbnail, price } } = this.props;
+    const { item: { title } } = this.props;
     return (
       <li>
         <span data-testid="shopping-cart-product-name">{title}</span>
@@ -19,15 +19,15 @@ class CartItem extends React.Component {
 }
 
 CartItem.propTypes = {
-  productInfo: PropTypes.shape({
+  item: PropTypes.shape({
     title: PropTypes.string,
-    thumbnail: PropTypes.string,
-    price: PropTypes.number,
   }),
 };
 
 CartItem.defaultProps = {
-  productInfo: {},
+  item: PropTypes.shape({
+    title: PropTypes.string,
+  }),
 };
 
 export default CartItem;
