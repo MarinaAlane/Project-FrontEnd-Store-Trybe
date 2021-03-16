@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class PaymentMehod extends Component {
   render() {
     return (
-      <forms>
+      <form>
         <fieldset>
           <legend>Formas de Pagamento</legend>
           <label htmlFor="boleto">
@@ -28,7 +28,7 @@ class PaymentMehod extends Component {
             Master
           </label>
         </fieldset>
-      </forms>
+      </form>
     );
   }
 }
