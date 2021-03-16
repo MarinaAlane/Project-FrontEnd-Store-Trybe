@@ -1,42 +1,33 @@
 import React, { Component } from 'react';
-import * as api from '../services/api';
+import PropTypes from 'prop-types';
 
 class ListCategorie extends Component {
-  constructor() {
-    super();
-    this.SearchCategorie = this.SearchCategorie.bind(this);
-    this.state = {
-      categories: [],
-    };
-  }
-
-  componentDidMount() {
-    this.SearchCategorie();
-  }
-
-  SearchCategorie() {
-    api.getCategories().then((cat) => this.setState({
-      categories: cat,
-    }));
-  }
-
   render() {
-    const { categories } = this.state;
-    if (categories.length === 0) return <h1>carregando</h1>;
+    const { categories, onChange, onClick } = this.props;
+    if (categories.length === 0) return null;
 
     return (
-      <ol>
+      <select onChange={ onChange }>
+        <option value="">selecione uma categoria</option>
         {categories.map((categorie, index) => (
-          <li
+          <option
             data-testid="category"
             key={ index }
+            value={ categorie.id }
+            onClick={ onClick }
           >
             { categorie.name }
-          </li>
+          </option>
         ))}
-      </ol>
+      </select>
     );
   }
 }
+
+ListCategorie.propTypes = {
+  categories: PropTypes.arrayOf({}).isRequired,
+  onChange: PropTypes.func.isRequired,
+  onClick: PropTypes.func.isRequired,
+};
 
 export default ListCategorie;
