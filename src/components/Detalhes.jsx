@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import ProductRating from './ProductRating';
 
 class Detalhes extends React.Component {
   render() {
@@ -17,33 +18,11 @@ class Detalhes extends React.Component {
         <button
           data-testid="product-detail-add-to-cart"
           type="button"
-          onClick={ () => addToCart({ title, thumbnail, price, id }) }
+          onClick={ (event) => addToCart({ title, thumbnail, price, id }, event) }
         >
           Adicionar ao carrinho
         </button>
-        <form>
-          <div>
-            <p> Avaliação </p>
-            <input type="radio" />
-            1
-            <input type="radio" />
-            2
-            <input type="radio" />
-            3
-            <input type="radio" />
-            4
-            <input type="radio" />
-            5
-          </div>
-          <div>
-            <textarea
-              data-testid="product-detail-evaluation"
-              cols="30"
-              rows="5"
-              maxLength="1000"
-            />
-          </div>
-        </form>
+        <ProductRating />
       </div>
     );
   }

@@ -1,44 +1,73 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ItemsCart from './ItemsCart';
+// import ItemsCart from './ItemsCart';
 
 class Checkout extends React.Component {
-  render() {
+  constructor() {
+    super();
+    this.state = {
+      fullname: '',
+      email: '',
+      cpf: '',
+      phone: '',
+      cep: '',
+      address: '',
+    };
+    this.userInfoState = this.userInfoState.bind(this);
+  }
+
+  userInfoState(id, event) {
+    const { value } = event.target;
+    this.setState({ [id]: value });
+  }
+
+  productsInfo() {
     const { products } = this.props;
     return (
-      <section>
-        { products.map((item) => (
-          <ItemsCart key={ item.id } productInfo={ item } />
+      <fieldset>
+        <h3>Revise seus produtos</h3>
+        { products.map(({ id, thumbnail, title, price}) => (
+          <div key={ id }>
+            <h4 data-testid="shopping-cart-product-name">{ title }</h4>
+            <img src={ thumbnail } alt={ title } />
+            <span>{`R$ ${price}`}</span>
+          </div>
         ))}
         <div>
           Preço Total:
-          { products.reduce((total, item) => total + (item.price), 0)}
+          {` R$ ${products.reduce((total, item) => total + (item.price), 0)}`}
         </div>
+      </fieldset>
+    );
+  }
+
+  userInfo(id, placeholder) {
+    return (
+      <label htmlFor={ `${id}` }>
+        <input
+          type="text"
+          data-testid={ `checkout-${id}` }
+          placeholder={ `${placeholder}` }
+          onChange={ (event) => this.userInfoState(id, event) }
+        />
+      </label>
+    );
+  }
+
+  render() {
+    return (
+      <section>
         <form>
-          <div>
-            <p> Nome Completo </p>
-            <input type="text" data-testid="checkout-fullname" />
-          </div>
-          <div>
-            <p> E-mail </p>
-            <input type="email" maxLength="90" data-testid="checkout-email" />
-          </div>
-          <div>
-            <p> CPF </p>
-            <input type="text" data-testid="checkout-cpf" />
-          </div>
-          <div>
-            <p> Telefone </p>
-            <input type="text" data-testid="checkout-phone" />
-          </div>
-          <div>
-            <p> CEP </p>
-            <input type="text" data-testid="checkout-cep" />
-          </div>
-          <div>
-            <p> Endereço </p>
-            <input type="text" data-testid="checkout-address" />
-          </div>
+          { this.productsInfo() }
+          <fieldset>
+            <h3>Informações do comprador</h3>
+            { this.userInfo('fullname', 'Nome Completo') }
+            { this.userInfo('email', 'Email') }
+            { this.userInfo('cpf', 'CPF') }
+            { this.userInfo('phone', 'Telefone') }
+            { this.userInfo('cep', 'CEP') }
+            { this.userInfo('address', 'Endereço') }
+          </fieldset>
         </form>
       </section>
     );

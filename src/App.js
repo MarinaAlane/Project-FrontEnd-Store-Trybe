@@ -13,13 +13,24 @@ class App extends Component {
     };
 
     this.addToCart = this.addToCart.bind(this);
+    this.removeItem = this.removeItem.bind(this);
   }
 
-  addToCart(product) {
+  addToCart(product, event) {
     const { cartItems } = this.state;
-    this.setState({
-      cartItems: [...cartItems, product],
-    });
+    event.target.disabled = true;
+    if (cartItems.length > 0) {
+      return cartItems.every(({ id }) => id !== product.id)
+        && this.setState({ cartItems: [...cartItems, product] });
+    }
+    this.setState({ cartItems: [...cartItems, product] });
+  }
+
+  removeItem(itemTitle) {
+    const { cartItems } = this.state;
+    const item = cartItems.find(({ title }) => title === itemTitle);
+    cartItems.splice(cartItems.indexOf(item), 1);
+    this.setState({ cartItems });
   }
 
   render() {
@@ -30,7 +41,11 @@ class App extends Component {
           <Switch>
             <Route
               path="/carrinho"
-              render={ () => <Carrinho products={ cartItems } /> }
+              render={ () => (
+                <Carrinho
+                  products={ cartItems }
+                  removeProduct={ this.removeItem }
+                />) }
             />
             <Route
               path="/checkout"

@@ -25,14 +25,21 @@ class ItemsCart extends Component {
   }
 
   render() {
-    const { productInfo: { title, thumbnail, price } } = this.props;
+    const { productInfo: { title, thumbnail, price }, removeProduct } = this.props;
     const { quantity } = this.state;
     return (
       <div data-testid="product">
         <h4 data-testid="shopping-cart-product-name">{ title }</h4>
-        <img src={ thumbnail } alt={ title } />
+        <button
+          type="button"
+          onClick={ () => removeProduct(title) }
+        >
+          X
+        </button>
+        <div>
+          <img src={ thumbnail } alt={ title } />
+        </div>
         <p>{`R$ ${price}`}</p>
-        <span data-testid="shopping-cart-product-quantity">{ quantity }</span>
         <button
           data-testid="product-increase-quantity"
           type="button"
@@ -40,9 +47,10 @@ class ItemsCart extends Component {
         >
           +
         </button>
+        <span data-testid="shopping-cart-product-quantity">{ quantity }</span>
         <button
-          type="button"
           data-testid="product-decrease-quantity"
+          type="button"
           onClick={ this.decreaseQuantity }
         >
           -
@@ -58,6 +66,7 @@ ItemsCart.propTypes = {
     thumbnail: PropTypes.string,
     price: PropTypes.number,
   }),
+  removeProduct: PropTypes.func.isRequired,
 };
 
 ItemsCart.defaultProps = {
