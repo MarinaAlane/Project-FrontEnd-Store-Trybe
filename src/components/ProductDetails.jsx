@@ -12,7 +12,6 @@ class ProductDetails extends React.Component {
 
   productRender() {
     const { location } = this.props;
-    console.log(location);
     const { state } = location;
     const { title, image, price, productId } = state;
     return (

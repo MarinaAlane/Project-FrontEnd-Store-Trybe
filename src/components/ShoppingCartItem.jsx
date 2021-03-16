@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ProductsAtCart from '../services/data';
 
 class ShoppingCartItem extends React.Component {
   constructor() {
@@ -9,24 +10,47 @@ class ShoppingCartItem extends React.Component {
     this.state = { counter: 1 };
   }
 
-  subtractQuantity() {
+  subtractQuantity(product) {
     const { counter } = this.state;
     if (counter <= 0) {
       this.setState({
         counter: 0,
       });
+      if (ProductsAtCart.some((element) => element.productId === product.productId)) {
+        ProductsAtCart.forEach((element) => {
+          if (element.productId === product.productId) {
+            element.quantity = 0;
+          }
+        });
+      }
     } else {
       this.setState({
         counter: counter - 1,
       });
+      if (ProductsAtCart.some((element) => element.productId === product.productId)) {
+        ProductsAtCart.forEach((element) => {
+          if (element.productId === product.productId) {
+            element.quantity -= 1;
+          }
+        });
+      }
     }
+    console.log(ProductsAtCart);
   }
 
-  sumQuantity() {
+  sumQuantity(product) {
     const { counter } = this.state;
     this.setState({
       counter: counter + 1,
     });
+    if (ProductsAtCart.some((element) => element.productId === product.productId)) {
+      ProductsAtCart.forEach((element) => {
+        if (element.productId === product.productId) {
+          element.quantity += 1;
+        }
+      });
+    }
+    console.log(ProductsAtCart);
   }
 
   render() {
@@ -35,8 +59,8 @@ class ShoppingCartItem extends React.Component {
     const { counter } = this.state;
     return (
       <div data-testid="shopping-cart-product-name" key={ id }>
-        <img src={ image } alt={ title } />
         <h1>{ title }</h1>
+        <img src={ image } alt={ title } />
         <p>{ price }</p>
         <p>
           Valor total:
@@ -47,7 +71,7 @@ class ShoppingCartItem extends React.Component {
           <button
             type="button"
             data-testid="product-decrease-quantity"
-            onClick={ this.subtractQuantity }
+            onClick={ () => this.subtractQuantity(product) }
           >
             -
           </button>
@@ -55,7 +79,7 @@ class ShoppingCartItem extends React.Component {
           <button
             type="button"
             data-testid="product-increase-quantity"
-            onClick={ this.sumQuantity }
+            onClick={ () => this.sumQuantity(product) }
           >
             +
           </button>
