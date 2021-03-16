@@ -1,6 +1,7 @@
 ul {
   list-style-type: none;
-  padding: 0;
+  margin: 0;
+  padding: 10px 0;
 }
 
 .categories-content {
@@ -13,7 +14,6 @@ ul {
   overflow-x: hidden;
   padding-top: 20px;
   top: 0;
-  width: 17%;
   z-index: 1;
 }
 
@@ -21,7 +21,7 @@ ul {
   color: #818181;
   display: block;
   font-size: 15px;
-  padding: 6px 8px 6px 40px;
+  padding: 6px 8px 6px 10px;
   text-align: left;
   text-decoration: none;
 }
@@ -37,4 +37,13 @@ ul {
 .categories-content li:hover {
   color: black;
   cursor: pointer;
+}
+
+@media only screen and ( max-width : 1400px ) {
+
+  .categories-content {
+    padding: 0;
+    position: absolute;
+  }
+
 }
