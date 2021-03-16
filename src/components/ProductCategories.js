@@ -32,11 +32,8 @@ class ProductCategories extends React.Component {
           id={ category.id }
           value={ category.id }
           onChange={ updateCategoryValue }
-          data-testid="category"
         />
-        <label htmlFor={ category.id } data-testid="category">
-          {category.name}
-        </label>
+        <label htmlFor={ category.id } data-testid="category">{category.name}</label>
       </li>
     );
   }
