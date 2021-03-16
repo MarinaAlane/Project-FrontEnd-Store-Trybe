@@ -3,31 +3,31 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ProductEvaluation from './ProductEvaluation';
 import CartQuantity from './CartQuantity';
+import carticon from './cartIcon.svg';
 
 class ProductDetail extends React.Component {
   render() {
-    const { location: { state } } = this.props;
-    const { product: { attributes, thumbnail, price, title } } = state;
+    const { handleProduct, location: { state: { product } } } = this.props;
     return (
       <div>
         <Link to="/">Voltar</Link>
-        <Link to="/shopping-cart">
-          Carrinho
-          <CartQuantity totalProducts={ 10 } />
+        <Link to="/shopping-cart" data-testid="shopping-cart-button">
+          <img style={ { height: '25px' } } src={ carticon } alt="Cart icon" />
+          <CartQuantity totalProducts={ 10 }/>
         </Link>
         <h4 data-testid="product-detail-name">
-          { title }
+          { product.title }
         </h4>
-        <img src={ thumbnail } alt="imagemDoProduto" />
+        <img src={ product.thumbnail } alt="imagemDoProduto" />
         <h5>
-          { price }
+          { product.price }
         </h5>
         <h6>
           Especificações Técnicas:
         </h6>
         <ul>
           {
-            attributes.map((attribute) => (
+            product.attributes.map((attribute) => (
               <li key={ attribute.id }>
                 { attribute.name }
                 :
@@ -36,6 +36,13 @@ class ProductDetail extends React.Component {
           }
         </ul>
         <ProductEvaluation />
+        <button
+          type="button"
+          data-testid="product-detail-add-to-cart"
+          onClick={ () => handleProduct(product) }
+        >
+          Adicionar ao Carrinho
+        </button>
       </div>
     );
   }
@@ -52,5 +59,6 @@ ProductDetail.propTypes = {
       }).isRequired,
     }).isRequired,
   }).isRequired,
+  handleProduct: PropTypes.func.isRequired,
 };
 export default ProductDetail;
