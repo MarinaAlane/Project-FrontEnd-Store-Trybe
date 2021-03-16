@@ -29,6 +29,7 @@ class ProductCategories extends React.Component {
         <input
           type="radio"
           name="categoryValue"
+          id={ category.id }
           value={ category.id }
           onChange={ updateCategoryValue }
           data-testid="category"
