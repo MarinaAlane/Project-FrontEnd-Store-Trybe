@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ItemCart from './ItemCart';
 
@@ -11,6 +12,9 @@ class Cart extends React.Component {
     return (
       <div>
         {itemsCart.map((item) => <ItemCart key={ item.id } item={ item } />)}
+        <Link to="/checkout" className="button-link" data-testid="checkout-products">
+          Finalizar Compra
+        </Link>
       </div>
     );
   }
