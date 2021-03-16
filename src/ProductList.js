@@ -20,6 +20,11 @@ class ProductList extends Component {
     this.handleCategory = this.handleCategory.bind(this);
   }
 
+  handleCategory(cat) {
+    this.setState({ categoryID: cat });
+    console.log(cat);
+  }
+
   handleInputChange(event) {
     const { target } = event;
     const value = target.type === 'checkbox' ? target.checked : target.value;
@@ -32,8 +37,8 @@ class ProductList extends Component {
 
   getProductsFromAPI() {
     this.setState({ loaded: false });
-    const { searchedText } = this.state;
-    marketAPI.getProductsFromCategoryAndQuery('MLB', searchedText)
+    const { searchedText, categoryID } = this.state;
+    marketAPI.getProductsFromCategoryAndQuery(categoryID, searchedText)
       .then((products) => {
         this.setState({ products });
         this.setState({ loaded: true });
@@ -51,10 +56,6 @@ class ProductList extends Component {
             .map((product) => <ProductCard key={ product.id } product={ product } />)}
       </section>
     );
-  }
-
-  handleCategory(cat) {
-    this.setState({ categoryID: cat });
   }
 
   render() {
@@ -76,7 +77,7 @@ class ProductList extends Component {
           Search
         </button>
         <ButtonCart />
-        <AsideCategoriesList changeCat={ this.handleCategory } />
+        <AsideCategoriesList changeCategory={ this.handleCategory } />
         <p data-testid="home-initial-message" className="product-list-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>

@@ -29,12 +29,13 @@ class AsideCategoriesList extends Component {
 
   render() {
     const { categories } = this.state;
-    const { changeCat } = this.props;
+    const { changeCategory } = this.props;
     const categoriesList = categories
       .map(({ name, id }, index) => (
         <li
           key={ index }
           data-testid="category"
+          onClick={ () => changeCategory(id) }
         >
           {/* quando clica passa o id pra changeCat */}
           { name }
