@@ -13,6 +13,12 @@ class ProductCard extends React.Component {
               <span>{title}</span>
               <img src={ thumbnail } alt={ title } />
               <p>{`R$ ${price}`}</p>
+              <button
+                type="button"
+                data-testid="product-add-to-cart"
+              >
+                Add to cart
+              </button>
             </div>))
           : (
             <h1>
