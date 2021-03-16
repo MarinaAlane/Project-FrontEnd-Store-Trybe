@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import * as Api from '../services/api';
+import SearchBar from '../components/SearchBar';
 import CardProduct from '../components/ProductCard';
 import CartButton from '../components/CartButton';
+import CategoriesList from '../components/CategoriesList';
 
 class ProductList extends Component {
   constructor(props) {
@@ -12,11 +14,13 @@ class ProductList extends Component {
       products: [],
       query: '',
       categoryId: '',
+      cartList: [],
     };
 
     this.fetchCategories = this.fetchCategories.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.getProducts = this.getProducts.bind(this);
+    this.addProductToCart = this.addProductToCart.bind(this);
   }
 
   componentDidMount() {
@@ -42,6 +46,13 @@ class ProductList extends Component {
     });
   }
 
+  addProductToCart(product) {
+    const { cartList } = this.state;
+    if (!cartList.includes(product)) {
+      this.setState({ cartList: [...cartList, product] });
+    }
+  }
+
   async fetchCategories() {
     const categoriesResponse = await Api.getCategories();
 
@@ -49,52 +60,20 @@ class ProductList extends Component {
   }
 
   render() {
-    const { query, categories, products } = this.state;
+    const { query, categories, products, cartList } = this.state;
 
     return (
       <main>
         <header>
-          <input
-            value={ query }
-            onChange={ this.handleChange }
-            data-testid="query-input"
-            type="text"
+          <SearchBar
+            query={ query }
+            getProducts={ this.getProducts }
+            handleChange={ this.handleChange }
           />
-          <button
-            data-testid="query-button"
-            onClick={ this.getProducts }
-            type="button"
-          >
-            Buscar
-          </button>
-          <CartButton />
+          <CartButton cartList={ cartList } />
         </header>
-        <aside>
-          <span>Categorias:</span>
-          { categories.map((category) => (
-            <div key={ category.id }>
-              <label data-testid="category" htmlFor={ category.id }>
-                <input
-                  id={ category.id }
-                  type="radio"
-                  name="category"
-                  onClick={ () => this.getProducts(category.id) }
-                />
-                { category.name }
-              </label>
-            </div>
-          )) }
-        </aside>
-
-        {products.length !== 0 ? (
-          products.map((product) => (
-            <CardProduct key={ product.id } product={ product } />
-          ))
-        ) : (
-          <p data-testid="home-initial-message">
-            Digite algum termo de pesquisa ou escolha uma categoria.
-          </p>
-        )}
+        <CategoriesList categories={ categories } getProducts={ this.getProducts } />
+        <CardProduct products={ products } addProduct={ this.addProductToCart } />
       </main>
     );
   }
