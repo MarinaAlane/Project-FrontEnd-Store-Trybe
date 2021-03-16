@@ -14,8 +14,8 @@
 .form-personal-info {
   border: 1px solid;
   display: flex;
-  flex-direction: column;
   flex-basis: column;
+  flex-direction: column;
   margin: 5px 10px;
   padding: 10px;
 }
@@ -25,10 +25,10 @@ input {
 }
 
 .form-payment input {
-  padding: 10px;
   margin: 0 20px;
+  padding: 10px;
 }
 
-.product-image-list{
+.product-image-list {
   size: 120px;
 }
