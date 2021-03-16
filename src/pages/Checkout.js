@@ -1,8 +1,10 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { FaAngleDoubleLeft } from 'react-icons/fa';
 import * as API from './serviceAPI';
 import CheckoutProductReview from '../components/CheckoutProductReview';
 import CheckoutPaymentMethod from '../components/CheckoutPaymentMethod';
-import '../style/Checkout.css';
+import '../styles/Checkout.css';
 
 class Checkout extends React.Component {
   constructor() {
@@ -182,11 +184,14 @@ class Checkout extends React.Component {
     } = this.state;
     return (
       <div>
+        <div className="backArrow">
+          <Link to="/"><FaAngleDoubleLeft size={ 40 } /></Link>
+        </div>
         <div className="checkoutPage">
           <CheckoutProductReview />
           <div className="checkoutPageRight">
             <fieldset className="buyerFormField">
-              <legend className="checkoutLegend">Informações do Comprador</legend>
+              <legend className="checkoutLegend">2 - Informações do Comprador</legend>
               { this.fullNameInput(fullName) }
               { this.cpfInput(cpf) }
               { this.emailInput(email) }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import creditCard from '../icons/creditCard.png';
+import { FaCreditCard, FaBarcode } from 'react-icons/fa';
 
 class CheckoutPaymentMethod extends React.Component {
   constructor() {
@@ -20,7 +20,7 @@ class CheckoutPaymentMethod extends React.Component {
             type="radio"
             onChange={ this.onChange }
           />
-          <img src={ creditCard } alt="card" width="50px" />
+          <FaBarcode size={ 50 } />
         </label>
         <label className="cardOption" htmlFor="payment">
           <p>Visa</p>
@@ -31,7 +31,7 @@ class CheckoutPaymentMethod extends React.Component {
             type="radio"
             onChange={ this.onChange }
           />
-          <img src={ creditCard } alt="card" width="50px" />
+          <FaCreditCard size={ 50 } />
         </label>
         <label htmlFor="payment">
           <p>MasterCard</p>
@@ -42,7 +42,7 @@ class CheckoutPaymentMethod extends React.Component {
             type="radio"
             onChange={ this.onChange }
           />
-          <img src={ creditCard } alt="card" width="50px" />
+          <FaCreditCard size={ 50 } />
         </label>
         <label htmlFor="payment">
           <p>Elo</p>
@@ -53,7 +53,7 @@ class CheckoutPaymentMethod extends React.Component {
             type="radio"
             onChange={ this.onChange }
           />
-          <img src={ creditCard } alt="card" width="50px" />
+          <FaCreditCard size={ 50 } />
         </label>
       </div>
     );
@@ -63,7 +63,7 @@ class CheckoutPaymentMethod extends React.Component {
     return (
       <div>
         <fieldset className="paymentMethodField">
-          <legend className="checkoutLegend">Método de pagamento</legend>
+          <legend className="checkoutLegend">3 - Método de pagamento</legend>
           { this.creditCardPaymentMethod() }
         </fieldset>
         <Link to="/">

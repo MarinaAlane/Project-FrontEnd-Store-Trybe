@@ -1,11 +1,16 @@
 * {
-  background-color: #ffff;
+  background-color: white;
   font-family: '"Inter"' , sans-serif;
 }
 
 .checkoutPage {
   display: flex;
   justify-content: space-evenly;
+}
+
+.backArrow {
+  margin-left: 60px;
+  margin-top: 20px;
 }
 
 fieldset {
@@ -15,10 +20,25 @@ fieldset {
   margin: 20px 0;
 }
 
+fieldset legend {
+  color: #3f51b5;
+  font-weight: 600;
+}
+
+.title {
+  font-weight: 600;
+}
+
 .cardPaymentMethodField {
   display: flex;
   flex-flow: row , nowrap;
   justify-content: space-evenly;
+}
+
+.cardPaymentMethodField p {
+  margin-bottom: 5px;
+  margin-left: 15px;
+  text-align: center;
 }
 
 .checkoutPageRight {
