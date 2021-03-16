@@ -29,7 +29,9 @@ class ShoppingCart extends React.Component {
         <Link to="/">Voltar</Link>
         <div>
           { ProductsAtCart.length === 0 ? this.emptyMessage() : this.renderCardItem() }
-          <Link to="/checkout" data-testid="checkout-products"><button type="button">Finalizar Compra</button></Link>
+          <Link to="/checkout" data-testid="checkout-products">
+            <button type="button">Finalizar Compra</button>
+          </Link>
         </div>
       </div>
     );
