@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import AddToCartButton from './AddToCartButton';
 
 class ProductCard extends Component {
   render() {
-    const { products } = this.props;
+    const { products, addProduct } = this.props;
     return (
       <div>
         {products.length !== 0 ? (
@@ -20,6 +21,10 @@ class ProductCard extends Component {
                   <p>{ product.price }</p>
                 </div>
               </Link>
+              <AddToCartButton
+                product={ product }
+                addProduct={ addProduct }
+              />
             </div>
           ))
         ) : (

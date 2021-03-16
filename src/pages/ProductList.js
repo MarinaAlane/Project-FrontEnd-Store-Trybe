@@ -14,11 +14,13 @@ class ProductList extends Component {
       products: [],
       query: '',
       categoryId: '',
+      cartList: [],
     };
 
     this.fetchCategories = this.fetchCategories.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.getProducts = this.getProducts.bind(this);
+    this.addProductToCart = this.addProductToCart.bind(this);
   }
 
   componentDidMount() {
@@ -44,6 +46,13 @@ class ProductList extends Component {
     });
   }
 
+  addProductToCart(product) {
+    const { cartList } = this.state;
+    if (!cartList.includes(product)) {
+      this.setState({ cartList: [...cartList, product] });
+    }
+  }
+
   async fetchCategories() {
     const categoriesResponse = await Api.getCategories();
 
@@ -51,7 +60,7 @@ class ProductList extends Component {
   }
 
   render() {
-    const { query, categories, products } = this.state;
+    const { query, categories, products, cartList } = this.state;
 
     return (
       <main>
@@ -61,10 +70,10 @@ class ProductList extends Component {
             getProducts={ this.getProducts }
             handleChange={ this.handleChange }
           />
-          <CartButton />
+          <CartButton cartList={ cartList } />
         </header>
         <CategoriesList categories={ categories } getProducts={ this.getProducts } />
-        <CardProduct products={ products } />
+        <CardProduct products={ products } addProduct={ this.addProductToCart } />
       </main>
     );
   }
