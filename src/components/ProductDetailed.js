@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import ButtonCart from './shopping_cart/ButtonCart';
 import ArrowBack from './shopping_cart/logo_arrow_back.svg';
 import * as marketAPI from '../services/api';
-import PropTypes from 'prop-types';
-
 
 class ProductDetailed extends Component {
   constructor(props) {
@@ -39,8 +38,8 @@ class ProductDetailed extends Component {
           <ButtonCart />
         </Link>
         <section>
-          <h3 data-testid="product-detail-name">{ product.title }</h3>
           <img src={ product.thumbnail } alt="Imagem do Produto" />
+          <h3 data-testid="product-detail-name">{ product.title }</h3>
           <p>{ product.price }</p>
         </section>
       </section>
@@ -49,7 +48,7 @@ class ProductDetailed extends Component {
 }
 
 ProductDetailed.propTypes = {
-  math: PropTypes.string,
-};
+  match: PropTypes.string,
+}.isRequired;
 
 export default ProductDetailed;
