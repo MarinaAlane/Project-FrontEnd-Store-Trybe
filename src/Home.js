@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { getCategories, getProductsFromCategoryAndQuery } from './services/api';
 import Categories from './Categories';
 import Products from './Products';
-import CheckOut from './CheckOut';
 
 import './Home.css';
 
@@ -34,7 +34,6 @@ class Home extends Component {
   }
 
   async getProducts() {
-    console.log(this.state);
     const searchInput = document.querySelector('.searchInput').value;
     const { categoryId } = this.state;
     const productsArray = await getProductsFromCategoryAndQuery(categoryId, searchInput);
@@ -73,6 +72,7 @@ class Home extends Component {
       </h5>
     );
     const { categories, selectedProducts, productsApi } = this.state;
+    const { handleProduct } = this.props;
     return (
       <div>
         <input type="text" className="searchInput" data-testid="query-input" />
@@ -99,17 +99,19 @@ class Home extends Component {
         {
           !productsApi ? <p>Nenhum Produto Encontrado</p>
             : (selectedProducts.map((product) => (
-              <Products product={ product } key={ product.id } />
+              <Products
+                product={ product }
+                key={ product.id }
+                handleProduct={ handleProduct }
+              />
             )))
         }
-        <Link
-          to="/checkout"
-          className="button-link"
-        >
-          Finalizar Compra
-        </Link>
       </div>
     );
   }
 }
+
+Home.propTypes = {
+  handleProduct: PropTypes.func,
+}.isRequired;
 export default Home;

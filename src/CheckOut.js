@@ -1,6 +1,7 @@
 import React from 'react';
 import Proptypes from 'prop-types';
 import './CheckOut.css';
+import ItemCart from './ItemCart';
 
 class CheckOut extends React.Component {
   constructor(props) {
@@ -21,6 +22,16 @@ class CheckOut extends React.Component {
     this.setState({
       [{ name }]: value,
     });
+  }
+
+  listOfProducts() {
+    const { itemsCart } = this.props;
+    console.log(itemsCart);
+    return (
+      <li>
+        {itemsCart.map((item) => <ItemCart key={ item.id } item={ item } />)}
+      </li>
+    );
   }
 
   createFullname(fullname) {
@@ -59,7 +70,7 @@ class CheckOut extends React.Component {
         CPF
         <input
           data-testid="checkout-cpf"
-          type="number"
+          type="text"
           value={ cpf }
           onChange={ this.handleChange }
           id="checkout-cpf"
@@ -74,7 +85,7 @@ class CheckOut extends React.Component {
         Telefone
         <input
           data-testid="checkout-phone"
-          type="number"
+          type="text"
           value={ phone }
           onChange={ this.handleChange }
           id="checkout-phone"
@@ -89,7 +100,7 @@ class CheckOut extends React.Component {
         CEP
         <input
           data-testid="checkout-cep"
-          type="number"
+          type="text"
           value={ cep }
           onChange={ this.handleChange }
           id="checkout-cep"
@@ -100,10 +111,10 @@ class CheckOut extends React.Component {
 
   createAdress(adress) {
     return (
-      <label htmlFor="checkout-adress">
+      <label htmlFor="checkout-address">
         Endereço
         <input
-          data-testid="checkout-adress"
+          data-testid="checkout-address"
           type="text"
           value={ adress }
           onChange={ this.handleChange }
@@ -159,6 +170,10 @@ class CheckOut extends React.Component {
   render() {
     return (
       <div>
+        <h4>Finalize sua Compra</h4>
+        <session className="checkOut-product-list">
+          {this.listOfProducts()}
+        </session>
         <form>
           <session className="form-personal-info">
             {this.createFullname()}
