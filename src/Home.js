@@ -6,6 +6,7 @@ import Categories from './Categories';
 import Products from './Products';
 
 import './Home.css';
+import CartQuantity from './CartQuantity';
 
 class Home extends Component {
   constructor(props) {
@@ -72,7 +73,7 @@ class Home extends Component {
       </h5>
     );
     const { categories, selectedProducts, productsApi } = this.state;
-    const { handleProduct } = this.props;
+    const { handleProduct, totalProducts } = this.props;
     return (
       <div>
         <input type="text" className="searchInput" data-testid="query-input" />
@@ -86,6 +87,7 @@ class Home extends Component {
           className="button-link"
         >
           Adicionar ao Carrinho
+          <CartQuantity totalProducts={ totalProducts } />
         </Link>
         {
           categories.map(({ id, name }) => (
@@ -113,5 +115,6 @@ class Home extends Component {
 
 Home.propTypes = {
   handleProduct: PropTypes.func,
+  totalProducts: PropTypes.string,
 }.isRequired;
 export default Home;

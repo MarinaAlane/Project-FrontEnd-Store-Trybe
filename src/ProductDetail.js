@@ -2,16 +2,18 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ProductEvaluation from './ProductEvaluation';
+import CartQuantity from './CartQuantity';
 import carticon from './cartIcon.svg';
 
 class ProductDetail extends React.Component {
   render() {
-    const { handleProduct, location: { state: { product } } } = this.props;
+    const { totalProducts, handleProduct, location: { state: { product } } } = this.props;
     return (
       <div>
         <Link to="/">Voltar</Link>
         <Link to="/shopping-cart" data-testid="shopping-cart-button">
           <img style={ { height: '25px' } } src={ carticon } alt="Cart icon" />
+          <CartQuantity totalProducts={ totalProducts } />
         </Link>
         <h4 data-testid="product-detail-name">
           { product.title }
@@ -58,5 +60,6 @@ ProductDetail.propTypes = {
     }).isRequired,
   }).isRequired,
   handleProduct: PropTypes.func.isRequired,
+  totalProducts: PropTypes.string.isRequired,
 };
 export default ProductDetail;
