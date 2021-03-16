@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { getCategories, getProductsFromCategoryAndQuery } from './services/api';
 import Categories from './Categories';
 import Products from './Products';
+import CheckOut from './CheckOut';
 
 import './Home.css';
 
@@ -101,6 +102,12 @@ class Home extends Component {
               <Products product={ product } key={ product.id } />
             )))
         }
+        <Link
+          to="/checkout"
+          className="button-link"
+        >
+          Finalizar Compra
+        </Link>
       </div>
     );
   }

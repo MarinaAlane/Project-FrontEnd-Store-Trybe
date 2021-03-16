@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Home from './Home';
 import Cart from './Cart';
+import CheckOut from './CheckOut';
 import ProductDetail from './ProductDetail';
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
             render={ (props) => <ProductDetail { ...props } /> }
           />
           <Route path="/shopping-cart" render={ (props) => <Cart { ...props } /> } />
+          <Route path="/checkout" render={ (props) => <CheckOut { ...props } /> } />
         </Switch>
       </BrowserRouter>
     </div>
