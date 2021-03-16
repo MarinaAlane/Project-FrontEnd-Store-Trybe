@@ -30,7 +30,7 @@ class CheckoutProductReview extends React.Component {
                 R$
                 { product.price }
               </p>
-              <hr></hr>
+              <hr />
             </div>
           ))) }
         </fieldset>
