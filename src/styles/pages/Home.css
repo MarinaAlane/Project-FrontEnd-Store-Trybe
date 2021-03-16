@@ -1,74 +1,11 @@
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-.categories-content {
-  background-color: rgb(252, 252, 252);
-  border: 1px solid rgb(230, 230, 230);
-  height: 100%;
-  left: 0;
-  overflow-x: hidden;
-  padding-top: 20px;
-  position: absolute;
-  top: 0;
-  width: 260px;
-  z-index: 1;
-}
-
-.categories-content li {
-  color: #818181;
-  display: block;
-  font-size: 15px;
-  padding: 6px 8px 6px 40px;
-  text-align: left;
-  text-decoration: none;
-}
-
-.categories-content li:hover {
-  color: black;
-}
-
-.home-header-container {
-  align-items: center;
+.home-container {
   display: flex;
-  justify-content: center;
-  margin-left: auto;
-  width: 90%;
 }
 
-.search-bar-container {
+.main-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  height: 100%;
+  width: 80%;
 }
 
-.search-bar-container > input {
-  margin-top: 20px;
-  width: 500px;
-}
-
-.home-header-container > :nth-child( 2 ) {
-  width: 40px;
-}
-
-.home-header-container > :nth-child( 2 ) > button {
-  background: url('https://image.flaticon.com/icons/png/512/126/126083.png') no-repeat;
-  background-size: contain;
-  border: none;
-  height: 40px;
-  margin-left: 70%;
-  width: 40px;
-}
-
-.home-header-container > :nth-child( 2 ) > button:hover {
-  cursor: pointer;
-}
-
-@media only screen and ( max-width : 1000px ) {
-
-  .home-header-container {
-    width: 70%;
-  }
-
-}

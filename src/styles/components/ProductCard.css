@@ -1,0 +1,19 @@
+.movie-card {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 250px;
+  justify-content: center;
+  margin: 50px;
+  text-align: center;
+  width: 200px;
+}
+
+.movie-card:hover {
+  cursor: pointer;
+}
+
+.movie-card > img {
+  height: 90px;
+  width: 90px;
+}
