@@ -6,7 +6,7 @@ import ItemCart from './ItemCart';
 class Cart extends React.Component {
   render() {
     const { itemsCart } = this.props;
-    if (itemsCart.lenght < 1) {
+    if (!itemsCart.length) {
       return <div data-testid="shopping-cart-empty-message">Seu carrinho está vazio</div>;
     }
     return (

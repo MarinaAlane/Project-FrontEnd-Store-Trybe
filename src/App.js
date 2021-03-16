@@ -12,6 +12,18 @@ class App extends Component {
       itemsCart: [],
     };
     this.handleProduct = this.handleProduct.bind(this);
+    this.getLocalStorageData = this.getLocalStorageData.bind(this);
+  }
+
+  componentDidMount() {
+    this.getLocalStorageData();
+  }
+
+  componentDidUpdate() {
+    const { itemsCart } = this.state;
+    if (itemsCart !== null) {
+      localStorage.setItem('itemsCart', JSON.stringify(itemsCart));
+    }
   }
 
   handleProduct(item) {
@@ -21,8 +33,16 @@ class App extends Component {
     });
   }
 
+  getLocalStorageData() {
+    const itemsCartStorage = JSON.parse(localStorage.getItem('itemsCart' || []));
+    if (itemsCartStorage !== null) {
+      this.setState({ itemsCart: itemsCartStorage });
+    }
+  }
+
   render() {
     const { itemsCart } = this.state;
+    const itemsQuantity = itemsCart === null ? 0 : itemsCart.length;
     return (
       <div>
         <BrowserRouter>
@@ -30,12 +50,18 @@ class App extends Component {
             <Route
               exact
               path="/"
-              render={ () => <Home handleProduct={ this.handleProduct } /> }
+              render={
+                () => (<Home
+                  handleProduct={ this.handleProduct }
+                  totalProducts={ itemsQuantity }
+                />)
+              }
             />
             <Route
               path="/product-detail/:id"
               render={ (props) => (<ProductDetail
                 handleProduct={ this.handleProduct }
+                totalProducts={ itemsQuantity }
                 location={ props.location }
               />) }
             />
