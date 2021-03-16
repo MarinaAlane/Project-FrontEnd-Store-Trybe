@@ -20,6 +20,17 @@ class Cart extends React.Component {
               <span data-testid="shopping-cart-product-name">Pequeno Principe, O</span>
               <span data-testid="shopping-cart-product-quantity">1</span>
               <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
+              <button
+                type="button"
+                data-testid="product-add-to-cart"
+                onClick={ () => console.log('teste') }
+                /* erro do requisito - no console.log acima
+                /* Unable to fire a "click" event - please provide a DOM element
+                /* [SUGESTÃO] receber e colocar no state os items do carrinho
+                /* para manipulalos */
+              >
+                Finalizar Compra
+              </button>
             </div>
           )}
 
