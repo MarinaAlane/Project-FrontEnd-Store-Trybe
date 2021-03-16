@@ -121,12 +121,16 @@ class ShoppingCart extends Component {
       <>
         <Link to="/">Voltar</Link>
         <section>
+<<<<<<< HEAD
           {this.renderCartItem()}
           <button type="button">
             <Link to="/checkout" data-testid="checkout-products">
               Checkout
             </Link>
           </button>
+=======
+          { this.renderCartItem() }
+>>>>>>> 391902e534a71e01771eb8bd577726ce2ded11b3
         </section>
       </>
     );
