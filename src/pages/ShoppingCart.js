@@ -40,7 +40,7 @@ class ShoppingCart extends Component {
 
   render() {
     const { items } = this.state;
-    return items?.length !== 0 && items !== undefined ? (
+    return items !== undefined && items.length !== 0 ? (
       items.map((item) => (
         <div key={ item.id }>
           <div>
