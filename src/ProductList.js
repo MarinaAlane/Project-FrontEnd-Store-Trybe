@@ -17,6 +17,7 @@ class ProductList extends Component {
 
     this.getProductsFromAPI = this.getProductsFromAPI.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleCategory = this.handleCategory.bind(this);
   }
 
   handleInputChange(event) {
@@ -52,6 +53,10 @@ class ProductList extends Component {
     );
   }
 
+  handleCategory(cat) {
+    this.setState({ categoryID: cat });
+  }
+
   render() {
     const { loaded } = this.state;
     return (
@@ -71,7 +76,7 @@ class ProductList extends Component {
           Search
         </button>
         <ButtonCart />
-        <AsideCategoriesList />
+        <AsideCategoriesList changeCat={ this.handleCategory } />
         <p data-testid="home-initial-message" className="product-list-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>

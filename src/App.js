@@ -14,7 +14,6 @@ function App() {
           exact
           path="/"
           component={ ProductList }
-          render={ (props) => <AsideCategoriesList { ...props } /> }
         />
         <Route path="/ShoppingCart" component={ ShoppingCart } />
       </Switch>
