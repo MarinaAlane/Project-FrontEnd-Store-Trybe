@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import * as api from '../services/api';
 import './home.css';
 import Product from '../components/Product';
+import Category from '../components/Category';
 
 class Home extends React.Component {
   constructor(props) {
@@ -10,17 +11,22 @@ class Home extends React.Component {
     this.state = {
       categories: [],
       value: '',
-      // categoryId: '',
       products: [],
     };
     this.fetchCategories = this.fetchCategories.bind(this);
     this.HandleClick = this.HandleClick.bind(this);
     this.fetchQuery = this.fetchQuery.bind(this);
     this.HandleChange = this.HandleChange.bind(this);
+    this.handleCategory = this.handleCategory.bind(this);
   }
 
   componentDidMount() {
     this.fetchCategories();
+  }
+
+  handleCategory(NewCategory) {
+    // this.setState({ categoryId: NewCategory });
+    this.fetchQuery(NewCategory, '');
   }
 
   fetchQuery(categoryId, value) {
@@ -28,8 +34,8 @@ class Home extends React.Component {
       .then(({ results }) => this.setState({ products: results }));
   }
 
-  fetchCategories() {
-    api.getCategories().then((category) => this.setState({ categories: category }));
+  async fetchCategories() {
+    await api.getCategories().then((category) => this.setState({ categories: category }));
   }
 
   HandleChange(event) {
@@ -43,6 +49,7 @@ class Home extends React.Component {
 
   render() {
     const { products, categories } = this.state;
+    console.log(categories);
     return (
       <div>
         <header className="home-header">
@@ -68,16 +75,8 @@ class Home extends React.Component {
             Digite algum termo de pesquisa ou escolha uma categoria.
           </p>
         </main>
+        <Category categories={ categories } handleCategory={ this.handleCategory } />
         <div>
-          <ul>
-            {(categories.length > 0) && (
-              categories
-                .map(({ id, name }) => <li key={ id } data-testid="category">{name}</li>)
-            )}
-          </ul>
-        </div>
-        <div>
-          {/* {products.map(product => product.title)} */}
           {(products.length === 0) ? (<p>Nenhum produto encontrado</p>) : (
             products.map((product) => <Product key={ product.id } array={ product } />)
           )}
