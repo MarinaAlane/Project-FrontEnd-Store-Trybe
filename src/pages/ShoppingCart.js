@@ -5,22 +5,27 @@ class ShoppingCart extends Component {
   constructor(props) {
     super(props);
     this.changeQuantity = this.changeQuantity.bind(this);
-    this.state = {}
+    this.updateState = this.updateState.bind(this);
+    this.state = {};
   }
 
   componentDidMount() {
-    const { cartList } = this.props.location.state;
-    const newList = cartList.map((cartItem) => {
-      cartItem['quantity'] = 1;
+    const { location } = this.props;
+    const newList = location.state.cartList.map((cartItem) => {
+      cartItem.quantity = 1;
       return {
         ...cartItem,
-      }
+      };
     });
+    this.updateState(newList);
+  }
+
+  updateState(content) {
     this.setState(
       {
-        items: newList,
-      }
-    )
+        items: content,
+      },
+    );
   }
 
   changeQuantity(item, operation) {
@@ -33,7 +38,7 @@ class ShoppingCart extends Component {
     this.setState((prev) => (
       {
         ...prev,
-          item,
+        item,
       }
     ));
   }
@@ -48,6 +53,7 @@ class ShoppingCart extends Component {
             <img src={ item.thumbnail } alt="product" />
             <p>{ item.price }</p>
             <button
+              type="button"
               data-testid="product-increase-quantity"
               onClick={ () => this.changeQuantity(item, 'sum') }
             >
@@ -55,6 +61,7 @@ class ShoppingCart extends Component {
             </button>
             <p data-testid="shopping-cart-product-quantity">{ item.quantity }</p>
             <button
+              type="button"
               data-testid="product-decrease-quantity"
               onClick={ () => this.changeQuantity(item, 'sub') }
             >
