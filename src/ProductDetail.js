@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import ProductEvaluation from './ProductEvaluation';
 import carticon from './cartIcon.svg';
 
 class ProductDetail extends React.Component {
@@ -32,6 +33,7 @@ class ProductDetail extends React.Component {
               </li>))
           }
         </ul>
+        <ProductEvaluation />
         <button
           type="button"
           data-testid="product-detail-add-to-cart"
