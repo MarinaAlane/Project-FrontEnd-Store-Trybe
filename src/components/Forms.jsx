@@ -43,7 +43,7 @@ class Forms extends Component {
 
   render() {
     return (
-      <forms>
+      <form>
         <fieldset>
           <legend>Dados Cadastrais</legend>
           <input
@@ -61,7 +61,7 @@ class Forms extends Component {
           <input type="text" placeholder="Cidade" />
           { this.renderStates }
         </fieldset>
-      </forms>
+      </form>
     );
   }
 }

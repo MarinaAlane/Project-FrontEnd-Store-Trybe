@@ -5,17 +5,18 @@ class AddToCart extends Component {
   constructor() {
     super();
 
-    this.addToLocalStorage = this.addToLocalStorage.bind(this);
+    this.addItemToCart = this.addItemToCart.bind(this);
   }
 
-  addToLocalStorage() {
-    const { itemCart } = this.props;
+  addItemToCart() {
+    const { itemCart, update } = this.props;
     const initialQuatity = { quant: 1 };
     const customID = { custom: `${itemCart.id}_itemCart_${localStorage.length}` };
     localStorage.setItem(
       `${itemCart.id}_itemCart_${localStorage.length}`,
       `${JSON.stringify({ ...customID, ...initialQuatity, ...itemCart })}`,
     );
+    update();
   }
 
   render() {
@@ -24,7 +25,7 @@ class AddToCart extends Component {
       <button
         type="button"
         data-testid={ testId }
-        onClick={ this.addToLocalStorage }
+        onClick={ this.addItemToCart }
       >
         Adicionar ao Carrinho
       </button>
@@ -35,6 +36,7 @@ class AddToCart extends Component {
 AddToCart.propTypes = {
   itemCart: PropTypes.shape().isRequired,
   testId: PropTypes.string.isRequired,
+  update: PropTypes.func.isRequired,
 };
 
 export default AddToCart;
