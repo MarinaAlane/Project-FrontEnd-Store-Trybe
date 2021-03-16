@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-class AddButton extends React.Component {
+class AddButtonDetail extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -23,7 +23,11 @@ class AddButton extends React.Component {
   render() {
     return (
       <div>
-        <button onClick={ this.addItem } type="submit" data-testid="product-add-to-cart">
+        <button
+          onClick={ this.addItem }
+          type="submit"
+          data-testid="product-detail-add-to-cart"
+        >
           Adiciona ao carrinho
         </button>
       </div>
@@ -31,7 +35,7 @@ class AddButton extends React.Component {
   }
 }
 
-AddButton.propTypes = {
+AddButtonDetail.propTypes = {
   product: PropTypes.shape({
     id: PropTypes.string,
     title: PropTypes.string,
@@ -40,4 +44,4 @@ AddButton.propTypes = {
   }).isRequired,
 };
 
-export default AddButton;
+export default AddButtonDetail;

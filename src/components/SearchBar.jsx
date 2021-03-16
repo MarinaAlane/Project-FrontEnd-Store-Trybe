@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import shopCart from '../images/shopCart.png';
 import ListCategories from './ListCategories';
 
-import { getProductsFromCategoryAndQuery } from '../services/api';
+import * as api from '../services/api';
 import CreateCard from './CreateCard';
 import AddButton from './AddButton';
 
@@ -12,14 +12,16 @@ class SearchBar extends React.Component {
     super();
 
     this.state = {
-      productList: undefined,
-      searchQuery: '',
-      searchCategory: '',
+      productList: '',
+      getQuery: '',
+      getCategory: '',
     };
 
     this.getQuery = this.getQuery.bind(this);
     this.getCategory = this.getCategory.bind(this);
     this.blankField = this.blankField.bind(this);
+    this.createCards = this.createCards.bind(this);
+    this.requestListByCategory = this.requestListByCategory.bind(this);
   }
 
   componentDidMount() {
@@ -29,26 +31,36 @@ class SearchBar extends React.Component {
   // Altera o estado de search para o valor contido na searchBar
   async getQuery(event) {
     await this.setState({
-      searchQuery: event.target.value,
+      getQuery: event.target.value,
     });
-    // console.log(this.state.searchQuery);
+    // console.log(this.state.getQuery);
   }
 
   async getCategory(event) {
     await this.setState({
-      searchCategory: event.target.value,
+      getCategory: event.target.value,
     });
-    this.requestList();
-    // console.log(this.state.searchCategory);
   }
 
   async requestList() {
-    const { searchCategory, searchQuery } = this.state;
-    const reqList = await getProductsFromCategoryAndQuery(searchCategory, searchQuery);
+    const { getCategory, getQuery } = this.state;
+    const reqList = await api.getProductsFromCategoryAndQuery(getCategory, getQuery);
     this.setState({
       productList: reqList,
     });
     localStorage.setItem('productObj', JSON.stringify(reqList));
+    this.createCards();
+  }
+
+  async requestListByCategory() {
+    const { getCategory } = this.state;
+    // console.log(this.state.getCategory);
+    const reqList = await api.getProductsFromCategory(getCategory);
+    this.setState({
+      productList: reqList,
+    });
+    console.log(reqList);
+    localStorage.setItem('productCategObj', JSON.stringify(reqList));
   }
 
   blankField() {
@@ -57,8 +69,19 @@ class SearchBar extends React.Component {
     );
   }
 
-  render() {
+  createCards() {
     const { productList } = this.state;
+    return (
+      !productList ? this.blankField()
+        : productList.results.map((product) => (
+          <div className="card" key={ product.id }>
+            <CreateCard product={ product } />
+            <AddButton product={ product } />
+          </div>))
+    );
+  }
+
+  render() {
     return (
       <div className="master-container">
         <div className="content-category">
@@ -96,12 +119,7 @@ class SearchBar extends React.Component {
           </h4>
 
           <div className="card-container">
-            { !productList ? this.blankField()
-              : productList.results.map((product) => (
-                <div className="card" key={ product.id }>
-                  <CreateCard product={ product } />
-                  <AddButton product={ product } />
-                </div>)) }
+            { this.createCards() }
           </div>
         </div>
       </div>
