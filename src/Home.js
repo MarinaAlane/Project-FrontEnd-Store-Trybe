@@ -5,6 +5,7 @@ import Categories from './Categories';
 import Products from './Products';
 
 import './Home.css';
+import CartQuantity from './CartQuantity';
 
 class Home extends Component {
   constructor(props) {
@@ -85,6 +86,7 @@ class Home extends Component {
           className="button-link"
         >
           Adicionar ao Carrinho
+          <CartQuantity totalProducts={ 10 } />
         </Link>
         {
           categories.map(({ id, name }) => (
