@@ -8,7 +8,9 @@ import ProductDetails from './components/ProductDetails';
 function App() {
   return (
     <Router>
-      <div className="page-title">Frontend Online Store</div>
+      <div className="page-title">
+        <h1>FrontEnd Online Store</h1>
+      </div>
       <Switch>
         <Route exact path="/" component={ Home } />
         <Route path="/cart" component={ ShoppingCart } />

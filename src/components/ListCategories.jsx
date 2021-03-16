@@ -5,7 +5,7 @@ class ListCategories extends React.Component {
   render() {
     const { categories, handleInputCategories } = this.props;
     return (
-      <div>
+      <div className="categories">
         {categories.map(({ name, id }) => (
           <div key={ id }>
             <label htmlFor={ id }>
