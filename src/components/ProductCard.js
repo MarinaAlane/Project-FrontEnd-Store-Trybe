@@ -29,7 +29,13 @@ class ProductCard extends React.Component {
         <h3>{ product.title }</h3>
         <img src={ product.thumbnail } alt="Imagem do Produto" />
         <p>{ product.price }</p>
-        <button type="button" onClick={ this.handleAddCart }>Adicionar ao Carrinho</button>
+        <button
+          data-testid="product-add-to-cart"
+          type="button"
+          onClick={ this.handleAddCart }
+        >
+          Adicionar ao Carrinho
+        </button>
       </section>
     );
   }
