@@ -5,8 +5,17 @@ import '../CSS/ProductList.css';
 import { Link } from 'react-router-dom';
 
 class ProductCard extends React.Component {
+  constructor(props) {
+    super(props);
+    const { cartItens } = this.props;
+    this.state = {
+      shoppingCart: [...cartItens],
+    };
+  }
+
   render() {
     const { products, onClick } = this.props;
+    const { shoppingCart } = this.state;
     const isFreeShipping = <span data-testid="free-shipping">Frete Gratis!</span>;
     return (
       <div>
@@ -33,7 +42,10 @@ class ProductCard extends React.Component {
                   Comprar
                 </button>
                 <Link
-                  to={ `product-detail/${categoryId}/${id}` }
+                  to={ {
+                    pathname: `product-detail/${categoryId}/${id}`,
+                    state: shoppingCart,
+                  } }
                   data-testid="product-detail-link"
                 >
                   Ver detalhes
