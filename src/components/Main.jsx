@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ProductsList from './ProductList';
+import './Main.css';
 
 class Main extends React.Component {
   render() {
@@ -16,7 +17,7 @@ class Main extends React.Component {
     }
     if (isFetchingFromQuery) {
       return (
-        <main>
+        <main className="main">
           <ProductsList productsFromQuery={ productsFromQuery } />
         </main>
       );
@@ -27,6 +28,7 @@ class Main extends React.Component {
 
 Main.propTypes = {
   productsFromQuery: PropTypes.arrayOf(PropTypes.object).isRequired,
+  isFetchingFromQuery: PropTypes.bool.isRequired,
 };
 
 export default Main;

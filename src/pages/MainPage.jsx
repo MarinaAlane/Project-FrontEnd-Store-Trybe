@@ -3,6 +3,7 @@ import { getCategories, getProductsFromCategoryAndQuery } from '../services/api'
 import Header from '../components/Header';
 import Main from '../components/Main';
 import Aside from '../components/Aside';
+import './MainPage.css';
 
 class MainPage extends React.Component {
   constructor(props) {
@@ -27,7 +28,7 @@ class MainPage extends React.Component {
   }
 
   async getProductsFromQuery(categoryId, query) {
-    await getProductsFromCategoryAndQuery(categoryId, query)
+    getProductsFromCategoryAndQuery(categoryId, query)
       .then((data) => this.setState((lastState) => ({
         ...lastState,
         productsFromQuery: data.results,
@@ -43,7 +44,6 @@ class MainPage extends React.Component {
   }
 
   render() {
-    getProductsFromCategoryAndQuery();
     const { categories, productsFromQuery, isFetchingFromQuery, inputValue } = this.state;
     return (
       <>
@@ -51,15 +51,17 @@ class MainPage extends React.Component {
           getProductsFromQuery={ this.getProductsFromQuery }
           getInputValue={ this.getInputValue }
         />
-        <Main
-          productsFromQuery={ productsFromQuery }
-          isFetchingFromQuery={ isFetchingFromQuery }
-        />
-        <Aside
-          categories={ categories }
-          getProductsFromQuery={ this.getProductsFromQuery }
-          inputValue={ inputValue }
-        />
+        <div className="main-container">
+          <Aside
+            categories={ categories }
+            getProductsFromQuery={ this.getProductsFromQuery }
+            inputValue={ inputValue }
+          />
+          <Main
+            productsFromQuery={ productsFromQuery }
+            isFetchingFromQuery={ isFetchingFromQuery }
+          />
+        </div>
       </>
     );
   }
