@@ -1,0 +1,19 @@
+.cart-item {
+  align-items: center;
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 50px;
+}
+
+.cart-item > img {
+  min-height: 90px;
+  width: 90px;
+}
+
+.cart-item > * {
+  margin: 0 30px;
+}
+
+.cart-item > :nth-child( 2 ) {
+  width: 300px;
+}

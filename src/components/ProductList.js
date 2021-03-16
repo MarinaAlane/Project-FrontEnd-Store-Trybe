@@ -5,11 +5,14 @@ import '../styles/components/ProductList.css';
 
 class ProductList extends Component {
   render() {
-    const { products } = this.props;
+    const { products, addProductToCart } = this.props;
     return (
       <div className="product-list-container">
-        { products
-          .map((product) => <ProductCard key={ product.id } product={ product } />) }
+        { products.map((product) => (<ProductCard
+          key={ product.id }
+          product={ product }
+          addProductToCart={ addProductToCart }
+        />)) }
       </div>
     );
   }
@@ -19,6 +22,7 @@ ProductList.propTypes = {
   products: PropTypes.arrayOf(
     PropTypes.object,
   ).isRequired,
+  addProductToCart: PropTypes.func.isRequired,
 };
 
 export default ProductList;
