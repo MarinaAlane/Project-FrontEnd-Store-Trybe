@@ -6,13 +6,17 @@ import AddToCart from './AddToCart';
 
 class ItemCard extends Component {
   render() {
-    const { title, thumbnail, price, result } = this.props;
+    const { title, thumbnail, price, result, update } = this.props;
     return (
       <section data-testid="product" className="item-card">
         <h1>{ title }</h1>
         <img src={ thumbnail } alt={ title } />
         <div>{price}</div>
-        <AddToCart testId="product-add-to-cart" itemCart={ result } />
+        <AddToCart
+          testId="product-add-to-cart"
+          itemCart={ result }
+          update={ update }
+        />
         <Link
           data-testid="product-detail-link"
           to={ { pathname: '/item-details', state: { result } } }
@@ -29,6 +33,7 @@ ItemCard.propTypes = {
   thumbnail: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   result: PropTypes.shape().isRequired,
+  update: PropTypes.func.isRequired,
 };
 
 export default ItemCard;

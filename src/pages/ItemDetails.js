@@ -1,13 +1,46 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+
 import AddToCart from '../components/AddToCart';
 import CartButton from '../components/CartButton';
 import ProductsEvaluation from '../components/ProductsEvaluation';
 
 class ItemDetails extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      cartCount: 0,
+    };
+
+    this.handleLocalStorage = this.handleLocalStorage.bind(this);
+    this.updateCartCount = this.updateCartCount.bind(this);
+  }
+
+  componentDidMount() {
+    this.handleLocalStorage();
+  }
+
+  handleLocalStorage() {
+    const keys = Object.keys(localStorage)
+      .filter((item) => item.includes('_itemCart_'));
+
+    this.setState({
+      cartCount: keys.length,
+    });
+  }
+
+  updateCartCount() {
+    this.setState((prev) => ({
+      cartCount: prev.cartCount + 1,
+    }));
+  }
+
   render() {
     const { location: { state: { result } } } = this.props;
     const { title, thumbnail, price, id } = result;
+    const { cartCount } = this.state;
     return (
       <main>
         <h2 data-testid="product-detail-name">{ title }</h2>
@@ -16,8 +49,13 @@ class ItemDetails extends Component {
           <p>{ price }</p>
           <p>detalhes do item</p>
         </div>
-        <AddToCart testId="product-detail-add-to-cart" itemCart={ result } />
-        <CartButton />
+        <Link to="/">Voltar</Link>
+        <AddToCart
+          testId="product-detail-add-to-cart"
+          itemCart={ result }
+          update={ this.updateCartCount }
+        />
+        <CartButton cart={ cartCount } />
         <ProductsEvaluation itemId={ id } />
       </main>
     );
