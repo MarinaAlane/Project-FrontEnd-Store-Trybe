@@ -17,7 +17,7 @@ class ProductDetail extends React.Component {
         >
           <button
             type="button"
-            data-testid="shopping-cart-button"
+            data-testid="product-detail-add-to-cart"
           >
             Adicionar ao Carrinho
           </button>
