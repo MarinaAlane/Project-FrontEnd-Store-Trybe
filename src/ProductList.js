@@ -10,6 +10,7 @@ class ProductList extends Component {
 
     this.state = {
       searchedText: '',
+      categoryID: '',
       products: [],
       loaded: false,
     };
@@ -67,7 +68,7 @@ class ProductList extends Component {
           onClick={ this.getProductsFromAPI }
           data-testid="query-button"
         >
-          search
+          Search
         </button>
         <ButtonCart />
         <AsideCategoriesList />
