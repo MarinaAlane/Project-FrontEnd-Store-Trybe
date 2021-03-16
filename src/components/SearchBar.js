@@ -57,6 +57,7 @@ export default class SearchBar extends Component {
       <div>
         <section className="container-search-bar">
           <input
+            placeholder="Buscar produtos, marcas e muito mais…"
             className="input-search-bar"
             type="text"
             data-testid="query-input"
@@ -76,7 +77,7 @@ export default class SearchBar extends Component {
         { products.length !== 0
           ? this.showProducts()
           : (
-            <p data-testid="home-initial-message">
+            <p data-testid="home-initial-message" className="message-search">
               Digite algum termo de pesquisa ou escolha uma categoria.
             </p>
           )}
