@@ -42,8 +42,8 @@ ul {
 @media only screen and ( max-width : 1400px ) {
 
   .categories-content {
-    position: absolute;
     padding: 0;
+    position: absolute;
   }
 
 }
