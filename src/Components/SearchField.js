@@ -10,16 +10,26 @@ class SearchField extends Component {
     this.searchTermChange = this.searchTermChange.bind(this);
     this.searchResults = this.searchResults.bind(this);
     this.onClickSearch = this.onClickSearch.bind(this);
+    this.addIdCategorie = this.addIdCategorie.bind(this);
     this.state = {
       searchTerm: '',
+      idCategorie: '',
       matchItens: [],
       sucess: true,
+      categories: [],
     };
   }
 
+  componentDidMount() {
+    api.getCategories().then((cat) => this.setState({
+      categories: cat,
+    }));
+  }
+
   async onClickSearch() {
-    const { searchTerm } = this.state;
-    const requestItens = await api.getProductsFromCategoryAndQuery('', searchTerm);
+    const { idCategorie, searchTerm } = this.state;
+    let requestItens = '';
+    requestItens = await api.getProductsFromCategoryAndQuery(idCategorie, searchTerm);
     this.setState({ matchItens: requestItens.results });
     if (requestItens.results.length === 0) {
       this.setState({ sucess: false });
@@ -30,6 +40,10 @@ class SearchField extends Component {
     this.setState({
       searchTerm: target.value,
     });
+  }
+
+  addIdCategorie(event) {
+    this.setState({ idCategorie: event.target.value });
   }
 
   searchResults() {
@@ -44,7 +58,7 @@ class SearchField extends Component {
   }
 
   render() {
-    const { searchTerm } = this.state;
+    const { searchTerm, categories } = this.state;
     return (
       <div data-testid="home-initial-message">
         <input
@@ -63,9 +77,13 @@ class SearchField extends Component {
         <div>
           {!searchTerm
           && <div>Digite algum termo de pesquisa ou escolha uma categoria.</div>}
+          <ListCategorie
+            categories={ categories }
+            onChange={ this.addIdCategorie }
+            onClick={ this.onClickSearch }
+          />
           {this.searchResults()}
         </div>
-        <ListCategorie />
       </div>
     );
   }
