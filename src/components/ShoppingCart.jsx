@@ -10,6 +10,18 @@ class ShoppingCart extends Component {
     this.decreaseOrDelete = this.decreaseOrDelete.bind(this);
     this.deleteItem = this.deleteItem.bind(this);
     this.localStorageIsEmpty = this.localStorageIsEmpty.bind(this);
+    this.shoppingLimit = this.shoppingLimit.bind(this);
+  }
+
+  componentDidMount() {
+    const keys = Object.keys(localStorage)
+      .filter((item) => item.includes('_itemCart_'));
+    keys.map((key) => {
+      const item = JSON.parse(localStorage.getItem(key));
+      return (
+        this.setState({ [`${item.custom}`]: item })
+      );
+    });
   }
 
   increaseQuant(event) {
@@ -18,8 +30,7 @@ class ShoppingCart extends Component {
     localStorage.setItem(`${JSON.parse(event.target.value).custom}`,
       JSON.stringify(item));
     this.setState({
-      [`${JSON.parse(event.target.value).custom}`]:
-      JSON.stringify(item),
+      [`${JSON.parse(event.target.value).custom}`]: item,
     });
   }
 
@@ -35,8 +46,7 @@ class ShoppingCart extends Component {
     localStorage.setItem(`${JSON.parse(event.target.value).custom}`,
       JSON.stringify(item));
     this.setState({
-      [`${JSON.parse(event.target.value).custom}`]:
-      JSON.stringify(item),
+      [`${JSON.parse(event.target.value).custom}`]: item,
     });
   }
 
@@ -44,6 +54,13 @@ class ShoppingCart extends Component {
     localStorage.removeItem(`${JSON.parse(event.target.value).custom}`);
     this.setState({
       [`${JSON.parse(event.target.value).custom}`]: 0 });
+  }
+
+  shoppingLimit(quant, availableQuant) {
+    if (availableQuant <= quant) {
+      return true;
+    }
+    return false;
   }
 
   localStorageIsEmpty() {
@@ -75,6 +92,7 @@ class ShoppingCart extends Component {
               type="button"
               value={ JSON.stringify(item) }
               onClick={ this.increaseQuant }
+              disabled={ this.shoppingLimit(item.quant, item.available_quantity) }
             >
               +
             </button>
