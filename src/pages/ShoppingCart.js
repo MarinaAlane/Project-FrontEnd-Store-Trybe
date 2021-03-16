@@ -2,20 +2,71 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class ShoppingCart extends Component {
-  render() {
-    const {
-      location: {
-        state: { cartList },
+  constructor(props) {
+    super(props);
+    this.changeQuantity = this.changeQuantity.bind(this);
+    this.updateState = this.updateState.bind(this);
+    this.state = {};
+  }
+
+  componentDidMount() {
+    const { location } = this.props;
+    const newList = location.state.cartList.map((cartItem) => {
+      cartItem.quantity = 1;
+      return {
+        ...cartItem,
+      };
+    });
+    this.updateState(newList);
+  }
+
+  updateState(content) {
+    this.setState(
+      {
+        items: content,
       },
-    } = this.props;
-    return cartList.length !== 0 ? (
-      cartList.map((cartItem) => (
-        <div key={ cartItem.id }>
+    );
+  }
+
+  changeQuantity(item, operation) {
+    if (item.quantity > 0 && operation === 'sub') {
+      item.quantity -= 1;
+    }
+    if (operation === 'sum') {
+      item.quantity += 1;
+    }
+    this.setState((prev) => (
+      {
+        ...prev,
+        item,
+      }
+    ));
+  }
+
+  render() {
+    const { items } = this.state;
+    return items !== undefined && items.length !== 0 ? (
+      items.map((item) => (
+        <div key={ item.id }>
           <div>
-            <p data-testid="shopping-cart-product-name">{ cartItem.title }</p>
-            <img src={ cartItem.thumbnail } alt="product" />
-            <p>{ cartItem.price }</p>
-            <p data-testid="shopping-cart-product-quantity">Quantidade: 1</p>
+            <p data-testid="shopping-cart-product-name">{ item.title }</p>
+            <img src={ item.thumbnail } alt="product" />
+            <p>{ item.price }</p>
+            <button
+              type="button"
+              data-testid="product-increase-quantity"
+              onClick={ () => this.changeQuantity(item, 'sum') }
+            >
+              +
+            </button>
+            <p data-testid="shopping-cart-product-quantity">{ item.quantity }</p>
+            <button
+              type="button"
+              data-testid="product-decrease-quantity"
+              onClick={ () => this.changeQuantity(item, 'sub') }
+            >
+              -
+            </button>
           </div>
         </div>
       ))
