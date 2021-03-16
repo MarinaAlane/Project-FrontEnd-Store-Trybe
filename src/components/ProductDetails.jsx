@@ -66,6 +66,7 @@ class ProductDetails extends React.Component {
           } }
         >
           Ir para carrinho
+          <span data-testid="shopping-cart-size">{ shoppingCart.length }</span>
         </Link>
         <button
           type="button"

@@ -25,6 +25,10 @@ class Home extends React.Component {
       .then((response) => this.setState({ categories: response }));
   }
 
+  componentDidUpdate() {
+
+  }
+
   handleSearchTextChange({ target }) {
     const { value } = target;
     this.setState({
@@ -91,6 +95,7 @@ class Home extends React.Component {
           showMessage ? emptySearchMessage : <ProductCard
             products={ productsList }
             onClick={ this.addItemCart }
+            cartItens={ addItem }
           />
         }
 
@@ -103,6 +108,7 @@ class Home extends React.Component {
             data-testid="shopping-cart-button"
           >
             Carrinho
+            <span data-testid="shopping-cart-size">{ addItem.length }</span>
           </Link>
         </button>
       </div>

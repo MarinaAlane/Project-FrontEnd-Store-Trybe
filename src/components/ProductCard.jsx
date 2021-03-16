@@ -5,30 +5,47 @@ import '../CSS/ProductList.css';
 import { Link } from 'react-router-dom';
 
 class ProductCard extends React.Component {
+  constructor(props) {
+    super(props);
+    const { cartItens } = this.props;
+    this.state = {
+      shoppingCart: [...cartItens],
+    };
+  }
+
   render() {
     const { products, onClick } = this.props;
+    const { shoppingCart } = this.state;
+    const isFreeShipping = <span data-testid="free-shipping">Frete Gratis!</span>;
     return (
       <div>
         {
           products
-            .map(({ id, title, thumbnail, price, category_id: categoryId }) => (
+            .map(({
+              id,
+              title,
+              thumbnail,
+              price,
+              category_id: categoryId,
+              shipping: { free_shipping: freeShipping },
+            }) => (
               <div className="product" data-testid="product" key={ id }>
                 <p>{ title }</p>
                 <img src={ thumbnail } alt="produto" />
                 <p>{ price }</p>
-
+                { (freeShipping) ? isFreeShipping : '' }
                 <button
                   data-testid="product-add-to-cart"
                   type="button"
                   onClick={ () => onClick(id) }
                 >
-                  {/* <Redirect
-                    to="/shopping-cart"
-                  /> */}
                   Comprar
                 </button>
                 <Link
-                  to={ `product-detail/${categoryId}/${id}` }
+                  to={ {
+                    pathname: `product-detail/${categoryId}/${id}`,
+                    state: shoppingCart,
+                  } }
                   data-testid="product-detail-link"
                 >
                   Ver detalhes
