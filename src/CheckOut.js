@@ -6,14 +6,6 @@ import ItemCart from './ItemCart';
 class CheckOut extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      fullname:'',
-      email: '',
-      cpf:'',
-      phone: '',
-      cep: '',
-      adress: '',
-    };
     this.handleChange = this.handleChange.bind(this);
   }
 
@@ -160,8 +152,8 @@ class CheckOut extends React.Component {
 
   clearForm() {
     return (
-      // Falta completar a funcao que envia o pedido, 
-      // com os dados de produtos, cliente e metodo de pagamento. 
+      // Falta completar a funcao que envia o pedido,
+      // com os dados de produtos, cliente e metodo de pagamento.
       // Depois limpa os estados
       <span> cria funcao </span>
     );
