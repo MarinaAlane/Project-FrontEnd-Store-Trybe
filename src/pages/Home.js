@@ -28,7 +28,6 @@ class Home extends React.Component {
   }
 
   handleProducts(products) {
-    console.log(products);
     this.setState({ products });
   }
 
