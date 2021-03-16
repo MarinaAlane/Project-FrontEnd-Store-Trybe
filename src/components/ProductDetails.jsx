@@ -12,7 +12,6 @@ class ProductDetails extends React.Component {
 
   productRender() {
     const { location } = this.props;
-    console.log(location);
     const { state } = location;
     const { title, image, price, productId } = state;
     return (
@@ -35,6 +34,26 @@ class ProductDetails extends React.Component {
             Adicionar ao Carrinho
           </button>
         </div>
+        <p>Avalie o produto:</p>
+        <label htmlFor="evaluation-text">
+          Comentário:
+          <textarea
+            data-testid="product-detail-evaluation"
+            placeholder="Deixe seu comentário sobre o produto."
+            name="evaluation-text"
+          />
+        </label>
+        <label htmlFor="evaluation-note">
+          Avaliação:
+          <input
+            type="number"
+            name="evaluation-note"
+            min={ 1 }
+            max={ 5 }
+            step={ 0.1 }
+          />
+        </label>
+        <button type="button">Avaliar</button>
       </div>
     );
   }
