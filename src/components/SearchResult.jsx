@@ -5,6 +5,7 @@ import ItemCard from './ItemCard';
 
 class SearchResult extends Component {
   render() {
+    const { update } = this.props;
     const { result } = this.props;
     if (result.length !== 0) {
       return (
@@ -17,6 +18,7 @@ class SearchResult extends Component {
               thumbnail={ element.thumbnail }
               price={ element.price }
               result={ element }
+              update={ update }
             />
           ))}
         </section>
@@ -28,6 +30,7 @@ class SearchResult extends Component {
 
 SearchResult.propTypes = {
   result: PropTypes.arrayOf(Object).isRequired,
+  update: PropTypes.func.isRequired,
 };
 
 export default SearchResult;

@@ -1,35 +1,37 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
+import cartIcon from '../Images/cartIcon.png';
 
 class CartButton extends Component {
-  constructor() {
-    super();
-
-    this.state = {
-      redirect: false,
-    };
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleClick() {
-    this.setState({
-      redirect: true,
-    });
-  }
-
   render() {
-    const { redirect } = this.state;
-    if (redirect) return <Redirect to="/shopping-cart" />;
+    const { cart } = this.props;
     return (
-      <button
-        type="button"
-        data-testid="shopping-cart-button"
-        onClick={ this.handleClick }
-      >
-        Carrinho de compras
-      </button>
+      <section className="cart-button-container">
+        <Link
+          to="/shopping-cart"
+          data-testid="shopping-cart-button"
+        >
+          <img
+            alt="shopping-cart"
+            className="shopping-cart-img"
+            src={ cartIcon }
+          />
+        </Link>
+        <div
+          data-testid="shopping-cart-size"
+          className="cart-count"
+        >
+          {cart}
+        </div>
+      </section>
     );
   }
 }
+
+CartButton.propTypes = {
+  cart: PropTypes.number.isRequired,
+};
 
 export default CartButton;

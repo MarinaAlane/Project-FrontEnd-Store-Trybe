@@ -109,20 +109,21 @@ class ShoppingCart extends Component {
   render() {
     if (this.localStorageIsEmpty()) {
       return (
-        <h1 data-testid="shopping-cart-empty-message">
-          Seu carrinho está vazio
-        </h1>
+        <>
+          <Link to="/">Voltar</Link>
+          <h1 data-testid="shopping-cart-empty-message">
+            Seu carrinho está vazio
+          </h1>
+        </>
       );
     }
     return (
-      <section>
-        { this.renderCartItem() }
-        <button type="button">
-          <Link to="/checkout" data-testid="checkout-products">
-            checkout
-          </Link>
-        </button>
-      </section>
+      <>
+        <Link to="/">Voltar</Link>
+        <section>
+          { this.renderCartItem() }
+        </section>
+      </>
     );
   }
 }
