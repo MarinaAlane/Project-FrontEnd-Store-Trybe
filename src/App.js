@@ -4,6 +4,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import ShoppingCart from './pages/ShoppingCart';
 import * as api from './services/api';
+import ProductDetails from './components/ProductDetails';
 
 class App extends Component {
   constructor(props) {
@@ -71,6 +72,7 @@ class App extends Component {
 
   addProductToCart({ target }) {
     const { products } = this.state;
+    console.log(products);
     const product = products.find((item) => item.id === target.parentNode.id);
     this.setState((prevState) => ({
       cartItems: [...prevState.cartItems, product],
@@ -110,6 +112,10 @@ class App extends Component {
                 inputValue={ inputValue }
                 products={ products }
               />) }
+            />
+            <Route
+              path="/productDetails/:ship"
+              render={ (props) => <ProductDetails { ...props } products={ products } /> }
             />
           </Switch>
         </BrowserRouter>

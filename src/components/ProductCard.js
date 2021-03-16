@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '../styles/components/ProductCard.css';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 class ProductCard extends Component {
   render() {
@@ -9,8 +10,14 @@ class ProductCard extends Component {
     return (
       <div className="product-card" data-testid="product" id={ id }>
         <img src={ thumbnail } alt={ `${title}` } />
-        <p>{ title }</p>
-        <p>{ `R$ ${price}` }</p>
+        <Link
+          to={ `/productDetails/${id}` }
+          data-testid="product-detail-link"
+          product={ product }
+        >
+          <p>{ title }</p>
+          <p>{ `R$ ${price}` }</p>
+        </Link>
         <button
           type="button"
           data-testid="product-add-to-cart"
