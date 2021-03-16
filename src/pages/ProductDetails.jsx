@@ -25,8 +25,8 @@ class ProductDetails extends Component {
 
   handleClick() {
     const { textArea, email } = this.state;
-    this.setState((state) => ({ evaluation:
-      [...state.evaluation, { email, textArea }] }));
+    this.setState((state) => ({ reviews:
+      [...state.reviews, { email, textArea }] }));
   }
 
   addProductToCart(product) {
@@ -114,7 +114,7 @@ class ProductDetails extends Component {
           {this.renderForms()}
         </div>
         <div>
-          {evaluation.map((item) => `${item.email} ${item.textArea}`)}
+          {reviews.map((item) => `${item.email} ${item.textArea}`)}
         </div>
       </div>
     );
