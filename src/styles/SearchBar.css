@@ -1,5 +1,5 @@
 .input-search-bar {
-  background: url(../utils/images/lupa.svg) 15px no-repeat #ededf0;
+  background: url('../utils/images/lupa.svg') 15px no-repeat #ededf0;
   border: none;
   border-radius: 99px;
   height: 36px;
@@ -8,7 +8,7 @@
 }
 
 .button-search-bar {
-  background:white;
+  background: white;
   border: 1px solid #9dc2ff;
   border-radius: 99px;
   color: #2264d1;
