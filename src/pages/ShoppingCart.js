@@ -9,7 +9,13 @@ class ShoppingCart extends React.Component {
   render() {
     const showInput = false;
     const showSearchButton = false;
-    //const emptyCart = true;
+    const emptyCart = false;
+    const emptyCartScreen = (
+      <div>
+        <ShoppingIcon />
+        <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
+      </div>
+    );
     return (
       <>
         <ArrowBack />
@@ -18,9 +24,7 @@ class ShoppingCart extends React.Component {
           showSearchButton={ showSearchButton }
         />
         <main className="main">
-          <ShoppingIcon />
-          <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
-          <ProductsInCart />
+          {emptyCart ? emptyCartScreen : <ProductsInCart />}
         </main>
       </>
     );
