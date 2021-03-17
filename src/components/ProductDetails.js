@@ -2,6 +2,7 @@ import React from 'react';
 import { Redirect } from 'react-router';
 import PropTypes from 'prop-types';
 import '../styles/components/ProductDetails.css';
+import ProductEvaluation from './ProductEvaluation';
 
 class ProductDetails extends React.Component {
   constructor(props) {
@@ -44,6 +45,7 @@ class ProductDetails extends React.Component {
           <p>{title}</p>
           <p>{price}</p>
         </div>
+        <ProductEvaluation />
       </div>
     );
   }

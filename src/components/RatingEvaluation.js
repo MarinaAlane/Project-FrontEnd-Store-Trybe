@@ -1,31 +1,37 @@
 import React, { Component } from 'react';
+import { FaStar } from 'react-icons/fa';
 import PropTypes from 'prop-types';
 
 class RatingEvaluation extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
-    const { handleStorageRating } = this.props;
-    return(
+    const numberOfStars = 5;
+    const { rating, handleStorageRating } = this.props;
+    return (
       <div onChange={ handleStorageRating }>
-        <label htmlFor="rating">
-          Rate the movie:
-          <select id="rating" name="rating" >
-            <option value="1">1 estrela</option>
-            <option value="2">2 esltrelas</option>
-            <option value="3">3 estrelas</option>
-            <option value="4">4 estrelas</option>
-            <option value="5">5 estrelas</option>
-          </select>
-        </label>
+        {[...Array(numberOfStars)].map((star, i) => {
+          let starRating = i + 1;
+          return (
+            <label htmlFor={ `${ star }${ starRating }` } key={ i }>
+              <input
+                id={ `${ star }${ starRating }` }
+                name="star"
+                type="radio"
+                value={ starRating }
+              />
+              <FaStar
+                size={ 20 }
+                color={ starRating <= rating ? '#ffc107' : '#b1b8cf' }
+              />
+            </label>
+          );
+        })}
       </div>
     );
   }
 }
 
-RatingEvaluation.PropTypes = {
+RatingEvaluation.propTypes = {
+  rating: PropTypes.number.isRequired,
   handleStorageRating: PropTypes.func.isRequired,
 };
 

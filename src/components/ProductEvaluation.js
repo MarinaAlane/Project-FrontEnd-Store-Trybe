@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import RatingEvaluation from './components/RatingEvaluation';
+import RatingEvaluation from './RatingEvaluation';
 
 class ProductEvaluation extends Component {
   constructor(props) {
@@ -25,26 +25,22 @@ class ProductEvaluation extends Component {
     const { rating } = this.state;
     return(
       <div>
+        Avaliações
         <form>
-          Avaliações
-          <label htmlFor="email">
-            Email
-            <input id="email" type="email" required/>
-          </label>
-          <RatingEvaluation 
+          <fieldset>
+            <input placeholder="e-mail" type="email" required/>
+            <RatingEvaluation 
             rating={ rating }
             handleStorageRating={ this.handleStorageRating }
-          />
-          <label htmlFor="message">
-            Comentário(opcional):
-            <inpunt
-              id="message"
+            />
+            <input
+              placeholder="Comentário(opcional)"
               type="text"
               data-testid="product-detail-evaluation"
               name="message"
             />
-          </label>
-          <button type="submit">Avaliar</button>
+            <button type="submit">Avaliar</button>
+          </fieldset>
         </form>
       </div>
     );
