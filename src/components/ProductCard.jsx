@@ -13,7 +13,9 @@ class ProductCard extends React.Component {
           <div>
             <img src={ thumbnail } alt={ title } />
           </div>
-          <p>{`R$ ${price}`}</p>
+          <div className="price">
+            <p>{`R$ ${price}`}</p>
+          </div>
         </div>
       );
     }
