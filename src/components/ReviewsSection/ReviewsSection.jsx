@@ -29,4 +29,4 @@ export default class ReviewsSection extends Component {
 
 ReviewsSection.propTypes = {
   id: string.isRequired,
-}
+};
