@@ -2,6 +2,7 @@ import React from 'react';
 import Proptypes from 'prop-types';
 import ButtonCart from './ButtonCart';
 import * as api from '../services/api';
+import EvaluetProduct from './EvaluateProduct';
 
 class ProductDetails extends React.Component {
   constructor(props) {
@@ -49,6 +50,7 @@ class ProductDetails extends React.Component {
               {`${atribute.name}: ${atribute.value_name}`}
             </p>
           ))}
+        <EvaluetProduct />
         <ButtonCart />
       </div>
     );
