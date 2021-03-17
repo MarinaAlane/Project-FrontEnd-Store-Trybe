@@ -51,7 +51,7 @@ export default class ProductDetails extends Component {
           <AddToCartButton product={ state } testid="product-detail-add-to-cart" />
         </div>
         <div>
-          <EvaluationForms/>
+          <EvaluationForms />
         </div>
       </div>
     );
