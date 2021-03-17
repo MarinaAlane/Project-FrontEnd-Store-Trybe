@@ -9,6 +9,7 @@ class ProductDetails extends React.Component {
     this.requireToAPI = this.requireToAPI.bind(this);
     this.state = {
       product: '',
+      attributes: [],
     };
   }
 
@@ -27,19 +28,27 @@ class ProductDetails extends React.Component {
     const require = api.getProductsFromCategoryAndQuery(categori, term);
     require.then(({ results }) => {
       const objCorrect = results.find((currentValue) => (currentValue.id === productID));
-      this.setState({ product: objCorrect });
+      this.setState({
+        product: objCorrect,
+        attributes: objCorrect.attributes,
+      });
     });
   }
 
   render() {
-    const { product } = this.state;
+    const { product, attributes } = this.state;
     const { thumbnail, title, price } = product;
     return (
       <div>
         <h1 data-testid="product-detail-name">{ title }</h1>
         <img src={ thumbnail } alt="imagem do produto" />
-        <p>{ price }</p>
-        <p>Especificações técnicas:</p>
+        <p>{ `R$ ${price}` }</p>
+        {attributes
+          .map((atribute) => (
+            <p key={ atribute.id }>
+              {`${atribute.name}: ${atribute.value_name}`}
+            </p>
+          ))}
         <ButtonCart />
       </div>
     );
