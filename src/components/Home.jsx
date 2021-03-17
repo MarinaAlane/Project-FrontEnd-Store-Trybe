@@ -18,15 +18,16 @@ class Home extends React.Component {
     this.fetchApiSearch = this.fetchApiSearch.bind(this);
     this.fetchByCategoryId = this.fetchByCategoryId.bind(this);
     this.addItemCart = this.addItemCart.bind(this);
+    this.setCart = this.setCart.bind(this);
+    // Sintaxe localStorage
+    // localStorage.setItem('shoppingCart', JSON.stringify(addItem));
+    // JSON.parse(localStorage.getItem('shoppingCart'));
   }
 
   componentDidMount() {
     api.getCategories()
       .then((response) => this.setState({ categories: response }));
-  }
-
-  componentDidUpdate() {
-
+    this.setCart();
   }
 
   handleSearchTextChange({ target }) {
@@ -36,19 +37,30 @@ class Home extends React.Component {
     });
   }
 
+  setCart() {
+    if (localStorage.getItem('shoppingCart')) {
+      const shoppingCart = JSON.parse(localStorage.getItem('shoppingCart'));
+      this.setState({
+        addItem: shoppingCart,
+      });
+    }
+  }
+
   addItemCart(id) {
-    const { productsList, addItem } = this.state;
+    const { productsList } = this.state;
     const itemProduct = productsList.find((item) => id === item.id);
     itemProduct.quantity = 1;
-    this.setState({
-      addItem: [...addItem, itemProduct],
+    this.setState((prevState) => {
+      localStorage
+        .setItem('shoppingCart', JSON.stringify([...prevState.addItem, itemProduct]));
+      return ({
+        addItem: [...prevState.addItem, itemProduct],
+      });
     });
   }
 
   async fetchByCategoryId(categoryId) {
-    // console.log(categoryId);
     const fetchList = await api.getProductsFromCategoryAndQuery(categoryId, '');
-    // console.log(fetchList);
     this.setState({
       productsList: fetchList.results,
     });

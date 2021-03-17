@@ -1,21 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import { Redirect } from 'react-router-dom';
 import '../CSS/ProductList.css';
 import { Link } from 'react-router-dom';
 
 class ProductCard extends React.Component {
-  constructor(props) {
-    super(props);
-    const { cartItens } = this.props;
-    this.state = {
-      shoppingCart: [...cartItens],
-    };
-  }
-
   render() {
-    const { products, onClick } = this.props;
-    const { shoppingCart } = this.state;
+    const { products, onClick, cartItens } = this.props;
     const isFreeShipping = <span data-testid="free-shipping">Frete Gratis!</span>;
     return (
       <div>
@@ -44,7 +34,7 @@ class ProductCard extends React.Component {
                 <Link
                   to={ {
                     pathname: `product-detail/${categoryId}/${id}`,
-                    state: shoppingCart,
+                    state: [...cartItens],
                   } }
                   data-testid="product-detail-link"
                 >
@@ -60,6 +50,7 @@ class ProductCard extends React.Component {
 }
 
 ProductCard.propTypes = {
+  cartItens: PropTypes.arrayOf().isRequired,
   products: PropTypes.arrayOf().isRequired,
   onClick: PropTypes.func.isRequired,
 };
