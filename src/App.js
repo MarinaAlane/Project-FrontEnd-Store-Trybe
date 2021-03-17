@@ -21,6 +21,7 @@ class App extends Component {
     this.handleCategoryClick = this.handleCategoryClick.bind(this);
     this.handleSearchClick = this.handleSearchClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.removeItemFromCart = this.removeItemFromCart.bind(this);
   }
 
   componentDidMount() {
@@ -70,14 +71,36 @@ class App extends Component {
     }
   }
 
-  addProductToCart({ target }) {
-    const { products } = this.state;
-    console.log(products);
-    const product = products.find((item) => item.id === target.parentNode.id);
-    this.setState((prevState) => ({
-      cartItems: [...prevState.cartItems, product],
-      emptyCart: false,
-    }));
+  addProductToCart(productId) {
+    const { products, cartItems } = this.state;
+    const product = products.find((item) => item.id === productId);
+    if ((cartItems.some((item) => item.id === productId))) {
+      cartItems.forEach((item) => {
+        if (item.id === productId) {
+          item.amount += 1;
+        }
+      });
+    } else {
+      product.amount = 1;
+      this.setState((prevState) => ({
+        cartItems: [...prevState.cartItems, product],
+        emptyCart: false,
+      }));
+    }
+  }
+
+  removeItemFromCart(productId) {
+    const { cartItems } = this.state;
+    const newCartItems = cartItems
+      .filter((item) => (item.id !== productId) && item);
+    if (newCartItems.length === 0) {
+      this.setState({
+        emptyCart: true,
+      });
+    }
+    this.setState({
+      cartItems: newCartItems,
+    });
   }
 
   render() {
@@ -86,6 +109,7 @@ class App extends Component {
       handleSearchClick,
       handleCategoryClick,
       addProductToCart,
+      removeItemFromCart,
       state,
     } = this;
     const { emptyCart, cartItems, inputValue, products, categories } = state;
@@ -98,6 +122,7 @@ class App extends Component {
               render={ () => (<ShoppingCart
                 emptyCart={ emptyCart }
                 cartItems={ cartItems }
+                removeItemFromCart={ removeItemFromCart }
               />) }
             />
             <Route
