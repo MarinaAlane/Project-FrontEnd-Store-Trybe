@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 class CheckoutOrder extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { checkout: [] };
-  }
+  // constructor(props) {
+  //   super(props);
+  //   this.state = { checkout: [] };
+  // }
 
   render() {
     const { checkout } = this.props;
