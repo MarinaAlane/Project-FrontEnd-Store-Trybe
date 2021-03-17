@@ -18,3 +18,14 @@ export async function getProductsFromCategoryAndQuery(categorieId, query) {
     throw new Error('Failed to fetch API and get products');
   }
 }
+
+export async function getProductFromID(id) {
+  try {
+    const endpoint = `https://api.mercadolibre.com/items/${id}`;
+    const response = await fetch(endpoint);
+    const product = await response.json();
+    return product;
+  } catch (error) {
+    throw new Error('Failed to fetch API and get product');
+  }
+}
