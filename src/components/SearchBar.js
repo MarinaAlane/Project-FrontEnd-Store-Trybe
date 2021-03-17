@@ -13,7 +13,7 @@ export default class SearchBar extends Component {
     this.handlerQueryByCategory = this.handlerQueryByCategory.bind(this);
 
     this.state = {
-      query: '',
+      query: 'ofertas',
       products: [],
     };
   }
@@ -52,7 +52,8 @@ export default class SearchBar extends Component {
   }
 
   render() {
-    const { query, products } = this.state;
+    const { products } = this.state;
+    this.handlerClick();
     return (
       <div>
         <section className="container-search-bar">
@@ -61,7 +62,6 @@ export default class SearchBar extends Component {
             className="input-search-bar"
             type="text"
             data-testid="query-input"
-            value={ query }
             onChange={ this.handlerChange }
           />
           <button
@@ -74,14 +74,18 @@ export default class SearchBar extends Component {
           </button>
         </section>
         <ShoppingCartButton />
-        { products.length !== 0
-          ? this.showProducts()
-          : (
-            <p data-testid="home-initial-message" className="message-search">
-              Digite algum termo de pesquisa ou escolha uma categoria.
-            </p>
-          )}
-        <CategoriesList handlerQueryByCategory={ this.handlerQueryByCategory } />
+        <div className="content-and-seacrh-bar">
+          <CategoriesList handlerQueryByCategory={ this.handlerQueryByCategory } />
+          <div className="home-content">
+            { products.length !== 0
+              ? this.showProducts()
+              : (
+                <p data-testid="home-initial-message" className="message-search">
+                  Digite algum termo de pesquisa ou escolha uma categoria.
+                </p>
+              )}
+          </div>
+        </div>
       </div>
     );
   }

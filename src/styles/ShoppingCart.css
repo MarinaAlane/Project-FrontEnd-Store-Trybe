@@ -19,3 +19,7 @@
   text-decoration: none;
   width: 100%;
 }
+
+.thumbnail {
+  max-width: 130px;
+}
