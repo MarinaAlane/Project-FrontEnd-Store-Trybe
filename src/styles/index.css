@@ -1,8 +1,8 @@
 body {
   -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
   font-family: (-apple-system , BlinkMacSystemFont , Cantarell , Droid Sans , Fira Sans ,
-    Helvetica Neue , Oxygen , Roboto , Segoe UI , Ubuntu , sans-serif);
+  Helvetica Neue , Oxygen , Roboto , Segoe UI , Ubuntu , sans-serif);
+  -webkit-font-smoothing: antialiased;
   margin: 0;
 }
 
