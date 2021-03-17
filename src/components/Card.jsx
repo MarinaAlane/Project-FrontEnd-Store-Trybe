@@ -28,20 +28,20 @@ class Card extends Component {
           <p>{currentValue.title}</p>
           <img src={ currentValue.thumbnail } alt="product-sample" />
           <p>{currentValue.price}</p>
-          <button
-            id={ currentValue.id }
-            type="button"
-            data-testid="product-add-to-cart"
-            onClick={ () => {
-              const storageIds = JSON.parse(localStorage.getItem('productId'));
-              storageIds.push(currentValue.id);
-              localStorage.setItem('productId', JSON.stringify(storageIds));
-            } }
-          >
-            Adicionar ao Carrinho
-          </button>
-
         </Link>
+        <button
+          id={ currentValue.id }
+          type="button"
+          data-testid="product-add-to-cart"
+          onClick={ () => {
+            const storageIds = JSON.parse(localStorage.getItem('productId'));
+            storageIds.push(currentValue.id);
+            localStorage.setItem('productId', JSON.stringify(storageIds));
+          } }
+        >
+          Adicionar ao Carrinho
+        </button>
+
       </div>
     ));
 
