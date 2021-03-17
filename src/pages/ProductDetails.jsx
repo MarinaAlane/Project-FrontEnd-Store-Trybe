@@ -7,8 +7,8 @@ class ProductDetails extends React.Component {
     const {
       title, thumbnail,
       price, attributes,
-      sold_quantity: soldQuantity,
-      address, available_quantity: availableQuantity,
+      sold_quantity: soldQuantity, address,
+      available_quantity: availableQuantity,
     } = data;
     return (
       <div>
@@ -34,7 +34,10 @@ ProductDetails.propTypes = {
         price: PropTypes.number.isRequired,
         sold_quantity: PropTypes.number.isRequired,
         available_quantity: PropTypes.number.isRequired,
-        address: PropTypes.string.isRequired,
+        address: PropTypes.shape({
+          city_name: PropTypes.string.isRequired,
+          state_name: PropTypes.string.isRequired,
+        }),
         attributes: PropTypes.arrayOf(PropTypes.object).isRequired,
       }).isRequired,
     }).isRequired,

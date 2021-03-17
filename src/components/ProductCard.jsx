@@ -5,7 +5,7 @@ import '../componentStyles/ProductCard.css';
 
 class ProductCard extends React.Component {
   render() {
-    const { data } = this.props;
+    const { data, addProductToCart } = this.props;
     const { title, thumbnail, price, id } = data;
     if (Object.keys(data).length) {
       return (
@@ -22,6 +22,15 @@ class ProductCard extends React.Component {
           <div className="price">
             <p>{`R$ ${price}`}</p>
           </div>
+          <div>
+            <button
+              type="button"
+              data-testid="product-add-to-cart"
+              onClick={ () => addProductToCart(data) }
+            >
+              Adicionar ao Carrinho
+            </button>
+          </div>
         </div>
       );
     }
@@ -36,6 +45,7 @@ ProductCard.propTypes = {
     price: PropTypes.number,
     id: PropTypes.string,
   }).isRequired,
+  addProductToCart: PropTypes.func.isRequired,
 };
 
 export default ProductCard;

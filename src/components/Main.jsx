@@ -5,7 +5,7 @@ import '../componentStyles/Main.css';
 
 class Main extends React.Component {
   render() {
-    const { productsFromQuery, isFetchingFromQuery } = this.props;
+    const { productsFromQuery, isFetchingFromQuery, addProductToCart } = this.props;
     if (productsFromQuery.length <= 0) {
       return (
         <main className="not-found-msg">
@@ -18,7 +18,10 @@ class Main extends React.Component {
     if (isFetchingFromQuery) {
       return (
         <main className="main">
-          <ProductsList productsFromQuery={ productsFromQuery } />
+          <ProductsList
+            productsFromQuery={ productsFromQuery }
+            addProductToCart={ addProductToCart }
+          />
         </main>
       );
     }
@@ -29,6 +32,7 @@ class Main extends React.Component {
 Main.propTypes = {
   productsFromQuery: PropTypes.arrayOf(PropTypes.object).isRequired,
   isFetchingFromQuery: PropTypes.bool.isRequired,
+  addProductToCart: PropTypes.func.isRequired,
 };
 
 export default Main;

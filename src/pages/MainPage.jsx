@@ -10,12 +10,14 @@ class MainPage extends React.Component {
     super(props);
     this.state = {
       categories: [],
+      inputValue: '',
       productsFromQuery: [{}],
       isFetchingFromQuery: false,
-      inputValue: '',
+      itensAddToCart: [],
     };
     this.getProductsFromQuery = this.getProductsFromQuery.bind(this);
     this.getInputValue = this.getInputValue.bind(this);
+    this.addProductToCart = this.addProductToCart.bind(this);
   }
 
   async componentDidMount() {
@@ -43,13 +45,24 @@ class MainPage extends React.Component {
     }));
   }
 
+  addProductToCart(productObject) {
+    this.setState(({ itensAddToCart }) => ({
+      itensAddToCart: [...itensAddToCart, productObject],
+    }));
+  }
+
   render() {
-    const { categories, productsFromQuery, isFetchingFromQuery, inputValue } = this.state;
+    const {
+      categories, productsFromQuery,
+      isFetchingFromQuery, inputValue,
+      itensAddToCart,
+    } = this.state;
     return (
       <>
         <Header
           getProductsFromQuery={ this.getProductsFromQuery }
           getInputValue={ this.getInputValue }
+          itensAddToCart={ itensAddToCart }
         />
         <div className="main-container">
           <Aside
@@ -60,6 +73,7 @@ class MainPage extends React.Component {
           <Main
             productsFromQuery={ productsFromQuery }
             isFetchingFromQuery={ isFetchingFromQuery }
+            addProductToCart={ this.addProductToCart }
           />
         </div>
       </>
