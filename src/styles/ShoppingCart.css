@@ -8,14 +8,14 @@
 
 .cartBtn-finish {
   background-color: #3f51b5;
-  box-sizing: border-box;
   border: none;
+  box-sizing: border-box;
   border-radius: 5px;
   color: white;
   font-weight: 600;
   margin: 10px auto;
   padding: 10px;
-  text-decoration: none;
   text-align: center;
+  text-decoration: none;
   width: 100%;
 }
