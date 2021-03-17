@@ -50,7 +50,7 @@ class ProductDetailed extends Component {
         >
           Adicionar ao Carrinho
         </button>
-      <ReviewForm productID={ product.id } />
+        <ReviewForm productID={ product.id } />
       </section>
     );
   }
