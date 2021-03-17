@@ -36,7 +36,7 @@ export default class ProductCard extends Component {
         <Redirect
           to={ {
             pathname: `/product-details/${id}`,
-            state: { ...product },
+            state: { ...product, product },
           } }
         />
       );
