@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import '../styles/components/ProductDetails.css';
 import '../styles/pages/ShoppingCart.css';
 import { Link } from 'react-router-dom';
+import ProductEvaluation from './ProductEvaluation';
 
 class ProductDetails extends React.Component {
   constructor(props) {
@@ -52,8 +53,10 @@ class ProductDetails extends React.Component {
             <p>{title}</p>
             <p>{price}</p>
           </div>
-        </div>
-      </>
+        <ProductEvaluation />
+      </div>
+    </>
+
     );
   }
 }
