@@ -47,10 +47,15 @@ class SearchField extends Component {
   }
 
   searchResults() {
-    const { matchItens, sucess } = this.state;
+    const { matchItens, sucess, searchTerm, idCategorie } = this.state;
     if (matchItens.length > 0) {
-      return (matchItens.map(({ id, title, price, thumbnail }) => (
-        <ItemCard key={ id } title={ title } price={ price } thumbnail={ thumbnail } />
+      return (matchItens.map((matchItem) => (
+        <ItemCard
+          key={ matchItem.id }
+          product={ matchItem }
+          term={ searchTerm }
+          categorId={ idCategorie }
+        />
       )));
     } if (!sucess) {
       return <div>Nenhum produto foi encontrado</div>;
