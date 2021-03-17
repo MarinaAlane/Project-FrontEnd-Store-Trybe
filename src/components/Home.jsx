@@ -25,10 +25,6 @@ class Home extends React.Component {
       .then((response) => this.setState({ categories: response }));
   }
 
-  componentDidUpdate() {
-
-  }
-
   handleSearchTextChange({ target }) {
     const { value } = target;
     this.setState({
@@ -46,9 +42,7 @@ class Home extends React.Component {
   }
 
   async fetchByCategoryId(categoryId) {
-    // console.log(categoryId);
     const fetchList = await api.getProductsFromCategoryAndQuery(categoryId, '');
-    // console.log(fetchList);
     this.setState({
       productsList: fetchList.results,
     });
