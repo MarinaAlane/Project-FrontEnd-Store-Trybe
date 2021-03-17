@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import '../componentStyles/ProductCard.css';
 
 class ProductCard extends React.Component {
   render() {
@@ -7,10 +8,14 @@ class ProductCard extends React.Component {
     const { title, thumbnail, price } = data;
     if (Object.keys(data).length) {
       return (
-        <div data-testid="product">
-          <h2>{ title }</h2>
-          <img src={ thumbnail } alt={ title } />
-          <p>{`R$ ${price}` }</p>
+        <div data-testid="product" className="product-card">
+          <h2>{title}</h2>
+          <div>
+            <img src={ thumbnail } alt={ title } />
+          </div>
+          <div className="price">
+            <p>{`R$ ${price}`}</p>
+          </div>
         </div>
       );
     }

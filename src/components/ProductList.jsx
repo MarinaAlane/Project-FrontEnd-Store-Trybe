@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ProductCard from './ProductCard';
+import '../componentStyles/ProductList.css';
 
 class ProductsList extends React.Component {
   render() {
     const { productsFromQuery } = this.props;
     return (
-      <div>
+      <div className="products-list">
         { productsFromQuery
           .map((product) => (<ProductCard
             data={ product }

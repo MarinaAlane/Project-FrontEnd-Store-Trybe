@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ProductsList from './ProductList';
+import '../componentStyles/Main.css';
 
 class Main extends React.Component {
   render() {
     const { productsFromQuery, isFetchingFromQuery } = this.props;
     if (productsFromQuery.length <= 0) {
       return (
-        <main>
+        <main className="not-found-msg">
           <p>
             Nenhum produto foi encontrado
           </p>
@@ -16,7 +17,7 @@ class Main extends React.Component {
     }
     if (isFetchingFromQuery) {
       return (
-        <main>
+        <main className="main">
           <ProductsList productsFromQuery={ productsFromQuery } />
         </main>
       );
