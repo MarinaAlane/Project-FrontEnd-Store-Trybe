@@ -1,6 +1,7 @@
 .link-back {
-  margin: 0px 20px;
+  margin: 1px 20px;
 }
+
 .container-products {
   border: solid 0.5px;
   display: flex;
@@ -13,7 +14,7 @@
 .container-item {
   display: flex;
   justify-content: space-between;
-  padding: 5px 0px;
+  padding: 5px 1px;
 }
 
 .div-form {
@@ -36,7 +37,6 @@
   margin: 20px;
   padding: 10px;
   width: 800px;
-  
 }
 
 .btn-buy {
