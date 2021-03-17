@@ -1,0 +1,21 @@
+.container-products-carts {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  width: 40%;
+}
+
+.cartBtn-finish {
+  background-color: #3f51b5;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-weight: 600;
+  margin: 10px auto;
+  padding: 10px;
+  text-decoration: none;
+  text-align: center;
+  width: 100%;
+}

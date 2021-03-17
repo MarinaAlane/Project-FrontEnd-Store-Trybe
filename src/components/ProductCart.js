@@ -1,5 +1,6 @@
 import React from 'react';
 import { string, number, shape, func } from 'prop-types';
+import '../styles/ProductCart.css';
 
 export default class ProductCart extends React.Component {
   constructor(props) {
@@ -38,41 +39,48 @@ export default class ProductCart extends React.Component {
 
   render() {
     const { item } = this.props;
-    const { id, title, price } = item;
+    const { id, title, price, thumbnail } = item;
     const { quantity, availableQuantity, buttonDisabled } = this.state;
     const precisionDecimal = 4;
     return (
-      <article>
-        <p data-testid="shopping-cart-product-name">{ title }</p>
-        <p>{ parseFloat((price * quantity)).toPrecision(precisionDecimal) }</p>
-        <p>{ `Estoque: ${availableQuantity}` }</p>
-        <button
-          type="button"
-          data-testid="product-decrease-quantity"
-          onClick={ this.decreaseQuantity }
-        >
-          -
-        </button>
-        <span
-          data-testid="shopping-cart-product-quantity"
-        >
-          { `${quantity}`.padStart(2, '0') }
-        </span>
-        <button
-          type="button"
-          data-testid="product-increase-quantity"
-          disabled={ buttonDisabled }
-          onClick={ this.increaseQuantity }
-        >
-          +
-        </button>
-        <button
-          type="button"
-          value={ id }
-          onClick={ this.handleClickDelete }
-        >
-          Delete
-        </button>
+      <article className="product-cart">
+        <img className="thumbnail" src={ thumbnail } alt={ title } />
+        <div className="data-product-container">
+          <p data-testid="shopping-cart-product-name">{ title }</p>
+          <p>{ parseFloat((price * quantity)).toPrecision(precisionDecimal) }</p>
+          <p>{ `Estoque: ${availableQuantity}` }</p>
+          <button
+            type="button"
+            data-testid="product-decrease-quantity"
+            onClick={ this.decreaseQuantity }
+            className="button-circle"
+          >
+            -
+          </button>
+          <span
+            data-testid="shopping-cart-product-quantity"
+            className="text-quantity"
+          >
+            { `${quantity}`.padStart(2, '0') }
+          </span>
+          <button
+            type="button"
+            data-testid="product-increase-quantity"
+            disabled={ buttonDisabled }
+            onClick={ this.increaseQuantity }
+            className="button-circle"
+          >
+            +
+          </button>
+          <button
+            type="button"
+            value={ id }
+            onClick={ this.handleClickDelete }
+            className="cartBtn-del"
+          >
+            Apagar Item
+          </button>
+        </div>
       </article>
     );
   }

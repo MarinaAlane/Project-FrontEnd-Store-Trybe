@@ -1,7 +1,9 @@
 import React from 'react';
 import { shape, string } from 'prop-types';
 import { Link } from 'react-router-dom';
+import { FaAngleDoubleLeft } from 'react-icons/fa';
 import ProductCart from './ProductCart';
+import '../styles/ShoppingCart.css';
 
 class ShoppingCart extends React.Component {
   constructor(props) {
@@ -52,14 +54,18 @@ class ShoppingCart extends React.Component {
       : `/details/${idCategory}/${idProduct}`;
     return (
       <section>
-        <Link to={ { pathname: path, state: { product } } }>
-          <button type="button">VOLTAR</button>
+        <Link to={ { pathname: path, state: { product } } } className="backArrow">
+          <FaAngleDoubleLeft size={ 40 } />
         </Link>
-        <h1>Carrinho de Compras</h1>
-        { this.renderProducts() }
-        <Link to="/checkout" data-testid="checkout-products">
-          Finalizar a compra
-        </Link>
+        <fieldset className="container-products-carts">
+          <legend>Carrinho de Compras</legend>
+          <div>
+            { this.renderProducts() }
+          </div>
+          <Link to="/checkout" data-testid="checkout-products" className="cartBtn-finish">
+            Finalizar a compra
+          </Link>
+        </fieldset>
       </section>
     );
   }
