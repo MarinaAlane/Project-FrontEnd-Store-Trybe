@@ -8,7 +8,7 @@ class ProductDetails extends React.Component {
       title, thumbnail,
       price, attributes,
       sold_quantity: soldQuantity,
-      address, available_quantity: availableQuantity 
+      address, available_quantity: availableQuantity,
     } = data;
     return (
       <div>
