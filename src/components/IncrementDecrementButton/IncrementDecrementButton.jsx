@@ -5,37 +5,22 @@ import Button from '../Button';
 class IncrementDecrementButton extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      incDisabled: false,
-      decDisabled: false,
-    };
     this.increase = this.increase.bind(this);
     this.decrease = this.decrease.bind(this);
   }
 
   increase() {
-    const { value, maxValue, updateQuantity } = this.props;
-    if (value < maxValue) {
-      this.setState({ incDisabled: false });
-      updateQuantity(value + 1);
-    } else {
-      this.setState({ incDisabled: true });
-    }
+    const { updateQuantity, value } = this.props;
+    updateQuantity(value + 1);
   }
 
   decrease() {
-    const { value, updateQuantity } = this.props;
-    if (value > 0) {
-      this.setState({ decDisabled: false });
-      updateQuantity(value - 1);
-    } else {
-      this.setState({ decDisabled: true });
-    }
+    const { updateQuantity, value } = this.props;
+    updateQuantity(value - 1);
   }
 
   render() {
-    const { value } = this.props;
-    const { incDisabled, decDisabled } = this.state;
+    const { value, maxValue } = this.props;
     return (
       <section>
         <Button
@@ -43,7 +28,7 @@ class IncrementDecrementButton extends Component {
           submit={ false }
           id="product-decrease-quantity"
           onHandleClick={ this.decrease }
-          disabled={ decDisabled }
+          disabled={ value === 0 }
         >
           -
         </Button>
@@ -53,7 +38,7 @@ class IncrementDecrementButton extends Component {
           submit={ false }
           id="product-increase-quantity"
           onHandleClick={ this.increase }
-          disabled={ incDisabled }
+          disabled={ value === maxValue }
         >
           +
         </Button>
