@@ -7,7 +7,7 @@ class ProductEvaluation extends Component {
 
     const localEvaluation = localStorage.getItem('rating');
 
-    this.state ={
+    this.state = {
       rating: localEvaluation,
     };
 
@@ -23,15 +23,15 @@ class ProductEvaluation extends Component {
 
   render() {
     const { rating } = this.state;
-    return(
+    return (
       <div>
         Avaliações
         <form>
           <fieldset>
-            <input placeholder="e-mail" type="email" required/>
-            <RatingEvaluation 
-            rating={ rating }
-            handleStorageRating={ this.handleStorageRating }
+            <input placeholder="e-mail" type="email" required />
+            <RatingEvaluation
+              rating={ rating }
+              handleStorageRating={ this.handleStorageRating }
             />
             <input
               placeholder="Comentário(opcional)"
