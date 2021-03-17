@@ -5,7 +5,7 @@ import { incrementProduct } from '../services/dataservices';
 
 class ProductCard extends React.Component {
   render() {
-    const { title, image, price, productId } = this.props;
+    const { title, image, price, productId, availableQnt } = this.props;
     return (
       <div data-testid="product">
         <h1>{ title }</h1>
@@ -15,7 +15,9 @@ class ProductCard extends React.Component {
           type="button"
           data-testid="product-add-to-cart"
           onClick={ () => {
-            incrementProduct({ title, image, price, productId, quantity: 1 });
+            incrementProduct(
+              { title, image, price, productId, quantity: 1, availableQnt },
+            );
           } }
         >
           Adicionar ao Carrinho
@@ -38,6 +40,7 @@ ProductCard.propTypes = {
   image: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   productId: PropTypes.string.isRequired,
+  availableQnt: PropTypes.number.isRequired,
 };
 
 export default ProductCard;
