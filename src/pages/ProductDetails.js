@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import '../styles/ProductDetails.css';
 
 class ProductDetails extends Component {
   constructor(props) {
@@ -9,6 +10,7 @@ class ProductDetails extends Component {
     this.updateState = this.updateState.bind(this);
     this.getFromLocalStorage = this.getFromLocalStorage.bind(this);
     this.putOnLocalStorage = this.putOnLocalStorage.bind(this);
+    this.createForm = this.createForm.bind(this);
 
     this.state = {
       product: {},
@@ -51,6 +53,23 @@ class ProductDetails extends Component {
     });
   }
 
+  createForm() {
+    return (
+      <div>
+        <span className="span-evaluation">Avaliações</span>
+        <form className="container-form">
+          <input type="email" placeholder="Email" />
+          <textarea
+            data-testid="product-detail-evaluation"
+            rows="5"
+            placeholder="Mensagem (opcional)"
+          />
+          <button className="btn-evaluation" type="submit">Avaliar</button>
+        </form>
+      </div>
+    );
+  }
+
   render() {
     const { product } = this.state;
     return (
@@ -67,6 +86,7 @@ class ProductDetails extends Component {
         >
           Adicionar ao carrinho
         </button>
+        { this.createForm() }
       </div>
     );
   }
