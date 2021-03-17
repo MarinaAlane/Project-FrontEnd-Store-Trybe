@@ -44,7 +44,7 @@ class EvaluetProduct extends React.Component {
     return (
       <div>
         <div>
-          <h2>Coméntarios</h2>
+          <h2>Comentários</h2>
           {comments.map((comment, index) => (<p key={ index }>{comment}</p>))}
         </div>
         <form>
