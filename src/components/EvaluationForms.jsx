@@ -2,12 +2,13 @@ import React from 'react';
 
 require('./EvaluationForms.css');
 
-export default class EvaluationForms extends React.Component{
+export default class EvaluationForms extends React.Component {
   evaluator() {
-    console.log("teste");
+    console.log('teste');
   }
+
   render() {
-    return(
+    return (
       <div>
         <p>
           <b>
@@ -16,15 +17,15 @@ export default class EvaluationForms extends React.Component{
         </p>
         <section className="content">
           <input type="text" placeholder="E-mail" />
-          <br/>
+          <br />
           <textarea
             type="input"
             data-testid="product-detail-evaluation"
             className="evaluation-coment"
             placeholder="Mensagem (opcional)"
           />
-          <br/>
-          <button onClick={ this.evaluator }>Avaliar</button>
+          <br />
+          <button type="submit" onClick={ this.evaluator }>Avaliar</button>
         </section>
       </div>
     );
