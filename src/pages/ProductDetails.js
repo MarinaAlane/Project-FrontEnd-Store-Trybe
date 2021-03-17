@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import CartIcon from '../components/CartIcon';
 import AddToCartButton from '../components/AddToCartButton';
+import EvaluationForms from '../components/EvaluationForms';
 
 require('./ProductDetails.css');
 
@@ -48,6 +49,9 @@ export default class ProductDetails extends Component {
             </ul>
           </section>
           <AddToCartButton product={ state } testid="product-detail-add-to-cart" />
+        </div>
+        <div>
+          <EvaluationForms />
         </div>
       </div>
     );
