@@ -9,16 +9,19 @@ class Product extends Component {
   render() {
     const { product } = this.props;
     const {
-      title,
-      price,
-      thumbnail,
-      id,
-      attributes,
-      shipping,
+      title, price, thumbnail, id, attributes, shipping,
       available_quantity: availableQuantity,
     } = product;
     const { free_shipping: freeShipping } = shipping;
-    const info = { title, price, thumbnail, attributes, id, availableQuantity, freeShipping };
+    const info = {
+      title,
+      price,
+      thumbnail,
+      attributes,
+      id,
+      availableQuantity,
+      freeShipping,
+    };
     return (
       <InputContext.Consumer>
         {
