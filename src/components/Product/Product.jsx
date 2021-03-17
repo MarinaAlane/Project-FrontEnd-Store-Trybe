@@ -8,8 +8,20 @@ import FreeShipping from '../FreeShipping';
 class Product extends Component {
   render() {
     const { product } = this.props;
-    const { title, price, thumbnail, id, attributes, shipping } = product;
+    const {
+      title, price, thumbnail, id, attributes, shipping,
+      available_quantity: availableQuantity,
+    } = product;
     const { free_shipping: freeShipping } = shipping;
+    const info = {
+      title,
+      price,
+      thumbnail,
+      attributes,
+      id,
+      availableQuantity,
+      freeShipping,
+    };
     return (
       <InputContext.Consumer>
         {
@@ -19,7 +31,8 @@ class Product extends Component {
                 data-testid="product-detail-link"
                 to={ {
                   pathname: `/details/${id}`,
-                  state: { title, price, thumbnail, attributes, id, freeShipping },
+                  state: { ...info },
+
                 } }
               >
                 <p>{ title }</p>
@@ -33,7 +46,7 @@ class Product extends Component {
                 dataTestId
                 submit={ false }
                 id="product-add-to-cart"
-                onHandleClick={ () => addProductToCart({ title, id, thumbnail, price }) }
+                onHandleClick={ () => addProductToCart({ ...info }) }
               >
                 Adicionar ao carrinho
               </Button>

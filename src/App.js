@@ -33,10 +33,10 @@ class App extends React.Component {
     this.setState({ selectedCategory });
   }
 
-  addProductToCart(newProduct) {
+  addProductToCart(...newProduct) {
     this.setState(
       (prevState) => (
-        { cartProducts: [...prevState.cartProducts, newProduct] }
+        { cartProducts: [...prevState.cartProducts, ...newProduct] }
       ),
       () => {
         const { cartProducts } = this.state;

@@ -5,9 +5,9 @@ import InputContext from '../../components/InputContext';
 
 export default class CartPage extends Component {
   removeDuplicates(array) {
-    return array.filter((item, index) => (
-      index === array.findIndex((item2) => (
-        JSON.stringify(item2) === JSON.stringify(item)
+    return array.filter(({ id: id1 }, index) => (
+      index === array.findIndex(({ id: id2 }) => (
+        id1 === id2
       ))
     ));
   }
@@ -20,7 +20,6 @@ export default class CartPage extends Component {
           {
             ({ cartProducts }) => {
               const products = this.removeDuplicates(cartProducts);
-              console.log(products);
               return !cartProducts.length
                 ? (
                   <div data-testid="shopping-cart-empty-message">
