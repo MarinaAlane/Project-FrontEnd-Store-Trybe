@@ -4,7 +4,7 @@ import CategoryList from '../components/CategoryList';
 import ProductCard from '../components/ProductCard';
 import SearchBar from '../components/SearchBar';
 import * as api from '../services/api';
-import './ProductList.css';
+import '../styles/pages/ProductList.css';
 
 class ProductList extends React.Component {
   constructor(props) {

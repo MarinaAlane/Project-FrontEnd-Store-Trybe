@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import './ProductCard.css';
+import '../styles/components/ProductCard.css';
 
 class ProductCard extends React.Component {
   render() {
@@ -42,6 +42,7 @@ ProductCard.propTypes = {
     title: PropTypes.string,
     thumbnail: PropTypes.string,
     price: PropTypes.number,
+    available_quantity: PropTypes.number,
   }).isRequired,
   getProductFromCard: PropTypes.func.isRequired,
 };
