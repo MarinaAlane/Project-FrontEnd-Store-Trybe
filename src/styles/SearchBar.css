@@ -32,3 +32,7 @@
   display: flex;
   justify-content: center;
 }
+
+.content-and-seacrh-bar {
+  display: flex;
+}
