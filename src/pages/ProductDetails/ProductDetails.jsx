@@ -4,13 +4,22 @@ import Button from '../../components/Button';
 import InputContext from '../../components/InputContext';
 import ReviewForm from '../../components/ReviewForm/ReviewForm';
 import ReviewsBoard from '../../components/ReviewsBoard';
+import IncrementDecrementButton from '../../components/IncrementDecrementButton';
 
 export default class ProductDetails extends Component {
   constructor(props) {
     super(props);
     const { state: propsState } = props.location;
-    this.state = { ...propsState };
+    this.state = {
+      ...propsState,
+      quantityItems: 1,
+    };
     this.formatedPrice = this.formatedPrice.bind(this);
+    this.updateQuantityItems = this.updateQuantityItems.bind(this);
+  }
+
+  updateQuantityItems(quantityItems) {
+    this.setState({ quantityItems });
   }
 
   formatedPrice(price) {
@@ -18,7 +27,7 @@ export default class ProductDetails extends Component {
   }
 
   render() {
-    const { title, thumbnail, price, attributes, id, availableQuantity } = this.state;
+    const { title, thumbnail, price, attributes, id, availableQuantity, quantityItems } = this.state;
     const info = { title, price, thumbnail, attributes, id, availableQuantity };
 
     return (
@@ -29,25 +38,30 @@ export default class ProductDetails extends Component {
               <h2 data-testid="product-detail-name">{title}</h2>
               <h3>{this.formatedPrice(price)}</h3>
               <img src={ thumbnail } alt={ `Thumbnail of ${title}` } />
+              <IncrementDecrementButton
+                value={ quantityItems }
+                maxValue={ availableQuantity }
+                updateQuantity={ this.updateQuantityItems }
+              />
               <Button
                 dataTestId
                 submit={ false }
                 id="product-detail-add-to-cart"
-                onHandleClick={ () => addProductToCart({ ...info }) }
+                onHandleClick={ () => (
+                  addProductToCart(...Array.from({ length: quantityItems }, () => ({ ...info })))
+                ) }
               >
                 Adicionar ao carrinho
               </Button>
               <section>
                 <h4>Descrição</h4>
                 <ul>
-                  {
-                    attributes.map(({ name, value_name: value }) => (
-                      <li key={ name }>
-                        <strong>{`${name}: `}</strong>
-                        { value}
-                      </li>
-                    ))
-                  }
+                  { attributes.map(({ name, value_name: value }) => (
+                    <li key={ name }>
+                      <strong>{`${name}: `}</strong>
+                      { value}
+                    </li>
+                  )) }
                 </ul>
               </section>
               <section>
