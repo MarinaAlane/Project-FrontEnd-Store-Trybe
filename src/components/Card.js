@@ -7,21 +7,37 @@ class Card extends Component {
   constructor(props) {
     super(props);
 
+    this.state = { disableButton: false };
+
     this.handleClick = this.handleClick.bind(this);
   }
 
   handleClick(product) {
     const itemsInCart = JSON.parse(localStorage.getItem('NoMasterCart'));
-    if (!itemsInCart) localStorage.setItem('NoMasterCart', JSON.stringify([product]));
-    else {
-      const itemsToAdd = [...itemsInCart, product];
-      localStorage.setItem('NoMasterCart', JSON.stringify(itemsToAdd));
+    if (!itemsInCart) {
+      product = { ...product, quantityToOrder: 1 };
+      localStorage.setItem('NoMasterCart', JSON.stringify([product]));
+    } else {
+      const indexOfProduct = itemsInCart.findIndex((item) => item.id === product.id);
+      // console.log(indexOfProduct);
+      if (indexOfProduct >= 0) {
+        itemsInCart[indexOfProduct].quantityToOrder += 1;
+        localStorage.setItem('NoMasterCart', JSON.stringify(itemsInCart));
+      } else {
+        product = { ...product, quantityToOrder: 1 };
+        const itemsToAdd = [...itemsInCart, product];
+        localStorage.setItem('NoMasterCart', JSON.stringify(itemsToAdd));
+      }
     }
+    const { quantityToOrder, available_quantity: availableQuantity } = product;
+    if (quantityToOrder >= availableQuantity) this.setState({ disableButton: true });
   }
 
   render() {
     const { product, testid } = this.props;
+    const { disableButton } = this.state;
     const { title, thumbnail, price, id } = product;
+    // if (quantityToOrder >= availableQuantity) disableButton = true;
     return (
       <div data-testid="product">
         <h4 data-testid={ testid }>{ title }</h4>
@@ -35,6 +51,7 @@ class Card extends Component {
             type="button"
             data-testid="product-add-to-cart"
             onClick={ () => this.handleClick(product) }
+            disabled={ disableButton }
           >
             Adicionar
           </button>
