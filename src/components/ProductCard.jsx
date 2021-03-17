@@ -1,24 +1,35 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 class ProductCard extends React.Component {
   render() {
-    const { product } = this.props;
+    const { products, addItemToCart } = this.props;
 
     return (
       <section className="products-container">
-        { product.length !== 0
-          ? product.map(({ id, title, thumbnail, price }) => (
-            <div key={ id } className="product-card" data-testid="product">
-              <span>{title}</span>
-              <img src={ thumbnail } alt={ title } />
-              <p>{`R$ ${price}`}</p>
-              <button
-                type="button"
+        { products.length !== 0
+          ? products.map((product) => (
+            <div key={ product.id } className="product-card" data-testid="product">
+              <Link
+                to={ { pathname: `/product/${product.id}`, state: { product } } }
+                data-testid="product-detail-link"
+              >
+                <p>{product.title}</p>
+                <img src={ product.thumbnail } alt={ product.title } />
+                <p>{`R$ ${product.price}`}</p>
+              </Link>
+              <Link
+                to={ { pathname: '/cart', state: { product } } }
                 data-testid="product-add-to-cart"
               >
-                Add to cart
-              </button>
+                <input
+                  type="button"
+                  value="Adicionar ao Carrinho"
+                  data-testid="shopping-cart-button"
+                  onClick={ () => addItemToCart(product) }
+                />
+              </Link>
             </div>))
           : (
             <h1>
@@ -30,7 +41,7 @@ class ProductCard extends React.Component {
 }
 
 ProductCard.propTypes = {
-  product: PropTypes.arrayOf(
+  products: PropTypes.arrayOf(
     PropTypes.shape({
       map: PropTypes.func,
       id: PropTypes.string,
@@ -39,10 +50,11 @@ ProductCard.propTypes = {
       price: PropTypes.number,
     }),
   ),
+  addItemToCart: PropTypes.func,
 };
 
 ProductCard.defaultProps = {
-  product: PropTypes.arrayOf(
+  products: PropTypes.arrayOf(
     PropTypes.shape({
       map: PropTypes.func,
       id: PropTypes.string,
@@ -51,6 +63,7 @@ ProductCard.defaultProps = {
       price: PropTypes.number,
     }),
   ),
+  addItemToCart: PropTypes.func,
 };
 
 export default ProductCard;

@@ -60,3 +60,17 @@
   max-height: 125px;
   max-width: 125px;
 }
+
+.product-detail-container {
+  align-items: center;
+  border: 2px solid gray;
+  display: flex;
+  flex-flow: column;
+  font-size: 12px;
+  justify-content: space-evenly;
+  margin: 15px;
+  max-width: 200px;
+  min-height: 300px;
+  padding: 0 15px;
+  text-align: center;
+}
