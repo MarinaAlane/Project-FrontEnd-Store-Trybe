@@ -9,16 +9,7 @@ class Search extends React.Component {
       getInputValue: props.getInputValue,
     };
     this.HandleInput = this.HandleInput.bind(this);
-    // this.onEnter = this.onEnter.bind(this);
   }
-
-  // onEnter(event, callback, id, state) {
-  //   event.preventDefault();
-  //   if (event.key === 'Enter') {
-  //     callback(id, state);
-  //   }
-  //   // console.log(event.key);
-  // }
 
   HandleInput({ target }) {
     const { getInputValue } = this.state;

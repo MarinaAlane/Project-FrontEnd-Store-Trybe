@@ -3,7 +3,7 @@ import { getCategories, getProductsFromCategoryAndQuery } from '../services/api'
 import Header from '../components/Header';
 import Main from '../components/Main';
 import Aside from '../components/Aside';
-import './MainPage.css';
+import '../pageStyles/MainPage.css';
 
 class MainPage extends React.Component {
   constructor(props) {
