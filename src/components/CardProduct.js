@@ -12,7 +12,7 @@ class CardProduct extends React.Component {
         <span>
           {`R$ ${product.price}` }
         </span>
-        <AddProductToCartButton productId={ product.id } />
+        <AddProductToCartButton product={ product } />
       </section>
     );
   }

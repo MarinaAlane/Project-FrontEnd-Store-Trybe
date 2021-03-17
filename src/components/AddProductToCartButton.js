@@ -1,17 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cart from '../services/cart';
 
 export default class AddProductToCartButton extends React.Component {
   addToCart() {
-    const productsCartKey = 'cart-products';
-    const productsString = localStorage.getItem(productsCartKey);
-    let products = [];
-    if (productsString) {
-      products = JSON.parse(productsString);
-    }
-    const { productId } = this.props;
-    products.push(productId);
-    localStorage.setItem(productsCartKey, JSON.stringify(products));
+    const product = this.props;
+    cart.addToCart(product);
   }
 
   render() {
@@ -28,5 +22,10 @@ export default class AddProductToCartButton extends React.Component {
 }
 
 AddProductToCartButton.propTypes = {
-  productId: PropTypes.string.isRequired,
+  product: PropTypes.shape({
+    id: PropTypes.number,
+    title: PropTypes.string,
+    thumbnail: PropTypes.string,
+    price: PropTypes.number,
+  }).isRequired,
 };
