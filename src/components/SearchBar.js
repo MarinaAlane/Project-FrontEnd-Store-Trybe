@@ -70,7 +70,7 @@ export default class SearchBar extends Component {
             data-testid="query-button"
             onClick={ this.handlerClick }
           >
-            Search
+            Buscar
           </button>
         </section>
         <ShoppingCartButton />

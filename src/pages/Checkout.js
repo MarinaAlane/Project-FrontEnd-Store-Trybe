@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { FaAngleDoubleLeft } from 'react-icons/fa';
 import * as API from './serviceAPI';
 import CheckoutProductReview from '../components/CheckoutProductReview';
 import CheckoutPaymentMethod from '../components/CheckoutPaymentMethod';
+import '../styles/Checkout.css';
 
 class Checkout extends React.Component {
   constructor() {
@@ -49,6 +51,7 @@ class Checkout extends React.Component {
         name="fullName"
         onChange={ this.onChange }
         value={ fullName }
+        className="buyerInput"
         required
       />
     );
@@ -63,6 +66,7 @@ class Checkout extends React.Component {
         name="cpf"
         onChange={ this.onChange }
         value={ cpf }
+        className="buyerInput"
         required
       />
     );
@@ -77,6 +81,7 @@ class Checkout extends React.Component {
         name="email"
         onChange={ this.onChange }
         value={ email }
+        className="buyerInput"
         required
       />
     );
@@ -91,6 +96,7 @@ class Checkout extends React.Component {
         name="phone"
         onChange={ this.onChange }
         value={ phone }
+        className="buyerInput"
         required
       />
     );
@@ -105,6 +111,7 @@ class Checkout extends React.Component {
         name="cep"
         onChange={ this.onChange }
         value={ cep }
+        className="buyerInput"
         required
       />
     );
@@ -119,6 +126,7 @@ class Checkout extends React.Component {
         name="address"
         onChange={ this.onChange }
         value={ address }
+        className="buyerInput"
         required
       />
     );
@@ -133,6 +141,7 @@ class Checkout extends React.Component {
         name="complement"
         onChange={ this.onChange }
         value={ complement }
+        className="buyerInput"
         required
       />
     );
@@ -146,8 +155,18 @@ class Checkout extends React.Component {
         name="city"
         onChange={ this.onChange }
         value={ city }
+        className="buyerInput"
         required
       />
+    );
+  }
+
+  stateInput(states) {
+    return (
+      <select className="buyerInput" required name="states">
+        <option>Selecione</option>
+        { states.map(({ nome, id }) => (<option key={ id }>{ nome }</option>)) }
+      </select>
     );
   }
 
@@ -165,26 +184,27 @@ class Checkout extends React.Component {
     } = this.state;
     return (
       <div>
-        <div>
-          <CheckoutProductReview />
-          <fieldset>
-            <legend>Informações do Comprador</legend>
-            { this.fullNameInput(fullName) }
-            { this.cpfInput(cpf) }
-            { this.emailInput(email) }
-            { this.phoneInput(phone) }
-            { this.cepInput(cep) }
-            { this.addressInput(address) }
-            { this.complementInput(complement) }
-            { this.cityInput(city) }
-            <select required name="states">
-              <option>Selecione</option>
-              { states.map(({ nome, id }) => (<option key={ id }>{ nome }</option>)) }
-            </select>
-          </fieldset>
-          <CheckoutPaymentMethod />
+        <div className="backArrow">
+          <Link to="/"><FaAngleDoubleLeft size={ 40 } /></Link>
         </div>
-        <Link to="/"><button type="submit">Finalizar Compra</button></Link>
+        <div className="checkoutPage">
+          <CheckoutProductReview />
+          <div className="checkoutPageRight">
+            <fieldset className="buyerFormField">
+              <legend className="checkoutLegend">2 - Informações do Comprador</legend>
+              { this.fullNameInput(fullName) }
+              { this.cpfInput(cpf) }
+              { this.emailInput(email) }
+              { this.phoneInput(phone) }
+              { this.cepInput(cep) }
+              { this.addressInput(address) }
+              { this.complementInput(complement) }
+              { this.cityInput(city) }
+              { this.stateInput(states) }
+            </fieldset>
+            <CheckoutPaymentMethod />
+          </div>
+        </div>
       </div>
     );
   }

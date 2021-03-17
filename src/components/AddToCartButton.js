@@ -35,6 +35,7 @@ AddToCartButton.propTypes = {
     title: string,
     price: number,
     id: string,
+    thumbnail: string,
   }),
   datatestid: string.isRequired,
 };
