@@ -17,10 +17,9 @@ class Carrinho extends React.Component {
               removeProduct={ removeProduct }
             />
           ))}
-          <div>
-            Preço Total:
-            { products.reduce((total, item) => total + (item.price), 0)}
-          </div>
+          <h3>
+            {`Total: R$ ${products.reduce((total, item) => total + (item.price), 0)}`}
+          </h3>
           <Link to="/checkout" data-testid="checkout-products"> Finalizar Compra </Link>
         </section>
       );
