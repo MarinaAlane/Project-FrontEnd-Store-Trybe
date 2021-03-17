@@ -9,52 +9,46 @@ class CartProduct extends Component {
     this.state = {
       quantityItems: props.info.quantity,
     };
-    this.incrementOnClick = this.incrementOnClick.bind(this);
-    this.decrementOnClick = this.decrementOnClick.bind(this);
+    this.updateQuantityItems = this.updateQuantityItems.bind(this);
   }
 
-  incrementOnClick() {
-    this.setState((prevState) => ({ quantityItems: prevState.quantityItems + 1 }));
-  }
-
-  decrementOnClick() {
-    const { quantityItems } = this.state;
-    if (quantityItems > 0) {
-      this.setState((prevState) => ({ quantityItems: prevState.quantityItems - 1 }));
+  componentDidUpdate(_, { quantityItems: prevQuantity }) {
+    const { quantityItems: currQuantity } = this.state;
+    const { addProductToCart, removeProductFromCart } = this.context;
+    const { info } = this.props;
+    if (currQuantity > prevQuantity) {
+      addProductToCart({ ...info });
+    } else if (currQuantity < prevQuantity) {
+      const { id } = info;
+      removeProductFromCart(id);
     }
+  }
+
+  updateQuantityItems(quantityItems) {
+    this.setState({ quantityItems });
   }
 
   render() {
     const { info } = this.props;
-    const { title, thumbnail, price, id } = info;
+    const { title, thumbnail, price, availableQuantity } = info;
     const { quantityItems } = this.state;
     const result = price * quantityItems;
     return (
-      <InputContext.Consumer>
-        {
-          ({ addProductToCart, removeProductFromCart }) => (
-            <section>
-              <p data-testid="shopping-cart-product-name">{title}</p>
-              <img src={ thumbnail } alt={ title } />
-              <p>{Math.round(result * 100) / 100}</p>
-              <p data-testid="shopping-cart-product-quantity">{ quantityItems }</p>
-              <IncrementDecrementButton
-                decreaseOnClick={ () => {
-                  this.decrementOnClick();
-                  removeProductFromCart(id);
-                } }
-                increaseOnClick={ () => {
-                  this.incrementOnClick();
-                  addProductToCart({ title, id, thumbnail, price });
-                } }
-              />
-            </section>
-          )
-        }
-      </InputContext.Consumer>
+      <section>
+        <p data-testid="shopping-cart-product-name">{title}</p>
+        <img src={ thumbnail } alt={ title } />
+        <p>{Math.round(result * 100) / 100}</p>
+        <IncrementDecrementButton
+          value={ quantityItems }
+          maxValue={ availableQuantity }
+          updateQuantity={ this.updateQuantityItems }
+        />
+      </section>
     );
   }
 }
+
+CartProduct.contextType = InputContext;
 
 CartProduct.contextType = InputContext;
 

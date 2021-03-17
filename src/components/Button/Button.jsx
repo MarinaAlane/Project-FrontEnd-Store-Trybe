@@ -3,7 +3,7 @@ import { bool, string, oneOfType, element, func } from 'prop-types';
 
 export default class Button extends Component {
   render() {
-    const { submit, id, children, dataTestId, onHandleClick } = this.props;
+    const { submit, id, children, dataTestId, onHandleClick, disabled } = this.props;
 
     return (
       <button
@@ -11,6 +11,7 @@ export default class Button extends Component {
         type={ submit ? 'submit' : 'button' }
         id={ id }
         onClick={ onHandleClick }
+        disabled={ disabled }
       >
         { children }
       </button>
@@ -24,9 +25,11 @@ Button.propTypes = {
   dataTestId: bool.isRequired,
   children: oneOfType([string, element]),
   onHandleClick: func,
+  disabled: bool,
 };
 
 Button.defaultProps = {
   children: '',
   onHandleClick: () => {},
+  disabled: false,
 };

@@ -18,7 +18,8 @@ export default class ProductDetails extends Component {
   }
 
   render() {
-    const { title, thumbnail, price, attributes, id } = this.state;
+    const { title, thumbnail, price, attributes, id, availableQuantity } = this.state;
+    const info = { title, price, thumbnail, attributes, id, availableQuantity };
 
     return (
       <InputContext.Consumer>
@@ -32,7 +33,7 @@ export default class ProductDetails extends Component {
                 dataTestId
                 submit={ false }
                 id="product-detail-add-to-cart"
-                onHandleClick={ () => addProductToCart({ title, id, thumbnail, price }) }
+                onHandleClick={ () => addProductToCart({ ...info }) }
               >
                 Adicionar ao carrinho
               </Button>

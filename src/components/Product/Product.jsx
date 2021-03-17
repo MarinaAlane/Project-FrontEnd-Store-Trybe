@@ -7,7 +7,15 @@ import InputContext from '../InputContext';
 class Product extends Component {
   render() {
     const { product } = this.props;
-    const { title, price, thumbnail, id, attributes } = product;
+    const {
+      title,
+      price,
+      thumbnail,
+      id,
+      attributes,
+      available_quantity: availableQuantity,
+    } = product;
+    const info = { title, price, thumbnail, attributes, id, availableQuantity };
     return (
       <InputContext.Consumer>
         {
@@ -17,7 +25,7 @@ class Product extends Component {
                 data-testid="product-detail-link"
                 to={ {
                   pathname: `/details/${id}`,
-                  state: { title, price, thumbnail, attributes, id },
+                  state: { ...info },
                 } }
               >
                 <p>{ title }</p>
@@ -28,7 +36,7 @@ class Product extends Component {
                 dataTestId
                 submit={ false }
                 id="product-add-to-cart"
-                onHandleClick={ () => addProductToCart({ title, id, thumbnail, price }) }
+                onHandleClick={ () => addProductToCart({ ...info }) }
               >
                 Adicionar ao carrinho
               </Button>
