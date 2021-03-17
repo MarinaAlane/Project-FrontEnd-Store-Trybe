@@ -47,13 +47,14 @@ class SearchField extends Component {
   }
 
   searchResults() {
-    const { matchItens, sucess } = this.state;
+    const { matchItens, sucess, searchTerm, idCategorie } = this.state;
     if (matchItens.length > 0) {
-      return (matchItens.map((matchItem, index, arrayOfProducts) => (
+      return (matchItens.map((matchItem) => (
         <ItemCard
           key={ matchItem.id }
-          productObj={ matchItem }
-          productArray={ arrayOfProducts }
+          product={ matchItem }
+          term={ searchTerm }
+          categorId={ idCategorie }
         />
       )));
     } if (!sucess) {
