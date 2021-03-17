@@ -51,8 +51,17 @@ class Home extends Component {
 
   putOnLocalStorage(product) {
     const products = [...this.getFromLocalStorage()];
-    products.push(product);
-    console.log(products);
+    let status = true;
+    products.forEach((item) => {
+      if (item.id === product.id) {
+        item.qtd += 1;
+        status = false;
+      }
+    });
+    if (status) {
+      product = { ...product, qtd: 1 };
+      products.push(product);
+    }
     localStorage.setItem('cartItems', JSON.stringify(products));
   }
 
