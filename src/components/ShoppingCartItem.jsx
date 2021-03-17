@@ -7,7 +7,9 @@ class ShoppingCartItem extends React.Component {
     super();
     this.subtractQuantity = this.subtractQuantity.bind(this);
     this.sumQuantity = this.sumQuantity.bind(this);
-    this.state = { counter: 1 };
+    this.state = {
+      counter: 1,
+    };
   }
 
   subtractQuantity(product) {
@@ -35,22 +37,25 @@ class ShoppingCartItem extends React.Component {
         });
       }
     }
-    console.log(ProductsAtCart);
   }
 
   sumQuantity(product) {
+    const { product: { availableQnt } } = this.props;
     const { counter } = this.state;
-    this.setState({
-      counter: counter + 1,
-    });
+    if (counter < availableQnt) {
+      this.setState({
+        counter: counter + 1,
+      });
+    }
     if (ProductsAtCart.some((element) => element.productId === product.productId)) {
       ProductsAtCart.forEach((element) => {
-        if (element.productId === product.productId) {
+        if (element.productId === product.productId
+          && counter < availableQnt) {
           element.quantity += 1;
+          console.log('element dentro ', element);
         }
       });
     }
-    console.log(ProductsAtCart);
   }
 
   render() {
