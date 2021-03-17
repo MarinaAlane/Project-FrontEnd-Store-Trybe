@@ -8,8 +8,8 @@ class ProductDetails extends Component {
     this.state = {
       email: '',
       comment: '',
-      rating: undefined,
-      feedbacks: null,
+      rating: 5,
+      feedbacks: [],
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -40,15 +40,10 @@ class ProductDetails extends Component {
 
   handleFeedback() {
     const unsavedFeedback = JSON.parse(localStorage.getItem('unsavedFeedback'));
-    let { email } = unsavedFeedback;
-    const { comment, rating } = unsavedFeedback;
-    email = {
-      email: {
-        comment,
-        rating,
-      },
-    };
-    this.setState({ feedbacks: { ...email } });
+    console.log(unsavedFeedback);
+    const { feedbacks } = this.state;
+    console.log(feedbacks);
+    this.setState({ feedbacks: [...feedbacks, unsavedFeedback] });
   }
 
   checkStorage() {
@@ -61,7 +56,8 @@ class ProductDetails extends Component {
         rating: JSON.parse(unsavedFeedback).rating,
       });
     }
-    if (feedbackList !== undefined) {
+    if (JSON.parse(feedbackList) !== null) {
+      console.log(feedbackList);
       this.setState({
         feedbacks: JSON.parse(feedbackList),
       });
@@ -69,7 +65,13 @@ class ProductDetails extends Component {
   }
 
   renderFeedbacks(feedbacks) {
-    console.log(feedbacks);
+    return (feedbacks.map((feedback) => (
+      <div key={ feedback.email } className="feedback">
+        <h4>{ feedback.rating }</h4>
+        <p>{ feedback.comment }</p>
+        <p>{ feedback.email }</p>
+      </div>
+    )));
   }
 
   renderFeedbackSection() {
@@ -103,7 +105,7 @@ class ProductDetails extends Component {
           onChange={ this.handleChange }
         />
         <button type="button" onClick={ this.handleFeedback }>Avaliar</button>
-        { feedbacks ? this.renderFeedbacks(feedbacks) : null}
+        { feedbacks.length !== 0 ? this.renderFeedbacks(feedbacks) : null}
       </form>
     );
   }

@@ -11,6 +11,12 @@
   width: fit-content;
 }
 
+.feedback {
+  border: 1px solid lightgrey;
+  box-shadow: 5px 5px 5px lightgrey;
+  margin: 1rem 0;
+}
+
 .feedback-form {
   display: flex;
   flex-direction: column;
