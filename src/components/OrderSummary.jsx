@@ -9,11 +9,26 @@ class OrderSummary extends React.Component {
     this.state = {
       order: [...state],
       totalPrice: 0,
+      submit: false,
     };
     this.productsReview = this.productsReview.bind(this);
     this.buyerInfos = this.buyerInfos.bind(this);
     this.totalPrice = this.totalPrice.bind(this);
     this.paymentMethod = this.paymentMethod.bind(this);
+    this.submitPurchase = this.submitPurchase.bind(this);
+  }
+
+  componentDidMount() {
+    this.totalPrice();
+  }
+
+  submitPurchase() {
+    if (localStorage.getItem('shoppingCart')) {
+      localStorage.clear();
+      this.setState({
+        submit: true,
+      });
+    }
   }
 
   productsReview() {
@@ -145,7 +160,7 @@ class OrderSummary extends React.Component {
         { this.paymentMethod() }
         <button
           type="button"
-          onClick={ () => console.log('XABLAU!') }
+          onClick={ this.submitPurchase }
         >
           Finalizar a Compra!
         </button>
@@ -154,11 +169,13 @@ class OrderSummary extends React.Component {
   }
 
   render() {
-    console.log(this.props);
+    const { submit } = this.state;
+    const submitted = <h1>Obrigado por comprar conosco!</h1>;
     return (
       <div>
-        { this.productsReview() }
-        { this.renderForm() }
+        { !submit && this.productsReview() }
+        { !submit && this.renderForm() }
+        { submit && submitted }
       </div>
     );
   }
