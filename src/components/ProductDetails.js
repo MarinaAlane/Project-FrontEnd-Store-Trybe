@@ -2,6 +2,8 @@ import React from 'react';
 import { Redirect } from 'react-router';
 import PropTypes from 'prop-types';
 import '../styles/components/ProductDetails.css';
+import '../styles/pages/ShoppingCart.css';
+import { Link } from 'react-router-dom';
 
 class ProductDetails extends React.Component {
   constructor(props) {
@@ -36,15 +38,22 @@ class ProductDetails extends React.Component {
     const { title, thumbnail, price } = product;
 
     return (
-      <div data-testid="product-detail-name" className="card">
-        <div className="img-card">
-          <img src={ thumbnail } alt={ title } />
+      <>
+        <div className="cart-header-container">
+          <Link to="/">
+            <button type="button" alt="return-button" />
+          </Link>
         </div>
-        <div className="content-card">
-          <p>{title}</p>
-          <p>{price}</p>
+        <div data-testid="product-detail-name" className="card">
+          <div className="img-card">
+            <img src={ thumbnail } alt={ title } />
+          </div>
+          <div className="content-card">
+            <p>{title}</p>
+            <p>{price}</p>
+          </div>
         </div>
-      </div>
+      </>
     );
   }
 }
