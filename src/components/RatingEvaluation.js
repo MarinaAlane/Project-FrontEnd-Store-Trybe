@@ -11,9 +11,9 @@ class RatingEvaluation extends Component {
         {[...Array(numberOfStars)].map((star, i) => {
           const starRating = i + 1;
           return (
-            <label htmlFor={ `${ star } ${ starRating }` } key={ i }>
+            <label htmlFor={ `${star} ${starRating}` } key={ i }>
               <input
-                id={ `${ star } ${ starRating }` }
+                id={ `${star} ${starRating}` }
                 name="star"
                 type="radio"
                 value={ starRating }
