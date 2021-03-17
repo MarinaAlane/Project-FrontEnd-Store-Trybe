@@ -1,45 +1,50 @@
 import React from 'react';
 
-
 class EvaluetProduct extends React.Component {
-  constructor(){
+  constructor() {
     super();
     this.addComments = this.addComments.bind(this);
     this.addValueComment = this.addValueComment.bind(this);
+    this.addLocalStorage = this.addLocalStorage.bind(this);
     this.state = {
-        valueComment: '',
-        comments: [],
-    }
+      valueComment: '',
+      comments: [],
+    };
   }
+
   componentDidMount() {
-    let key = JSON.parse(localStorage.getItem("comments"))
+    this.addLocalStorage();
+  }
+
+  addLocalStorage() {
+    const key = JSON.parse(localStorage.getItem('comments'));
     if (key) {
-      this.setState({comments: key});
+      this.setState({ comments: key });
     }
   }
 
-  addValueComment(event){
-    if(event.target.name === "commit") {
+  addValueComment(event) {
+    if (event.target.name === 'commit') {
       this.setState({
-        valueComment: event.target.value
-      })
+        valueComment: event.target.value,
+      });
     }
   }
 
-  addComments(){
+  addComments() {
     this.setState(({ comments, valueComment }) => ({
       comments: [...comments, valueComment], valueComment: '',
-    }))
+    }));
     const { comments } = this.state;
-    localStorage.setItem("comments", JSON.stringify(comments))
+    localStorage.setItem('comments', JSON.stringify(comments));
   }
 
   render() {
     const { comments, valueComment } = this.state;
     return (
-      <di>
+      <div>
         <div>
-            <h2>Coméntarios</h2>
+          <h2>Coméntarios</h2>
           {comments.map((comment, index) => (<p key={ index }>{comment}</p>))}
         </div>
         <form>
@@ -59,10 +64,9 @@ class EvaluetProduct extends React.Component {
             placeholder="Mensagem(opcional)"
             type="text"
           />
-
-          <button onClick={ this.addComments } type="button" >Enviar</button>
-      </form>
-      </di>
+          <button onClick={ this.addComments } type="button">Enviar</button>
+        </form>
+      </div>
 
     );
   }
