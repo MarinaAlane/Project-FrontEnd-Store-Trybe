@@ -7,16 +7,32 @@ import RatingForm from './RatingForm';
 class ProductDetails extends React.Component {
   constructor() {
     super();
-    this.fetchCategory = this.fetchCategory.bind(this);
-    this.addToCart = this.addToCart.bind(this);
     this.state = {
       product: [],
       shoppingCart: [],
     };
+    this.fetchCategory = this.fetchCategory.bind(this);
+    this.addToCart = this.addToCart.bind(this);
+    this.setShoppingCart = this.setShoppingCart.bind(this);
   }
 
   componentDidMount() {
     this.fetchCategory();
+    this.setShoppingCart();
+  }
+
+  setShoppingCart() {
+    const { location } = this.props;
+    const { state } = location;
+    if (state) {
+      this.setState({ shoppingCart: [...state] });
+    }
+  }
+
+  addToCart() {
+    const { product, shoppingCart } = this.state;
+    product.quantity = 1;
+    this.setState({ shoppingCart: [...shoppingCart, product] });
   }
 
   async fetchCategory() {
@@ -26,15 +42,6 @@ class ProductDetails extends React.Component {
       .find((product) => product.id === id);
     this.setState({
       product: productDetails,
-    });
-  }
-
-  addToCart() {
-    const { product } = this.state;
-    product.quantity = 1;
-
-    this.setState({
-      shoppingCart: [product],
     });
   }
 
