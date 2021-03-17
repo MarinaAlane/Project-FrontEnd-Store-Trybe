@@ -6,6 +6,19 @@ import CartQuantity from './CartQuantity';
 import carticon from './cartIcon.svg';
 
 class ProductDetail extends React.Component {
+  constructor() {
+    super();
+    this.freeShippingfct = this.freeShippingfct.bind(this);
+  }
+
+  freeShippingfct() {
+    const { location: { state: { product: { shipping } } } } = this.props;
+    const freeShipping = shipping.free_shipping;
+    if (freeShipping) {
+      return ('Frete Grátis');
+    }
+  }
+
   render() {
     const { totalProducts, handleProduct, location: { state: { product } } } = this.props;
     return (
@@ -18,6 +31,7 @@ class ProductDetail extends React.Component {
         <h4 data-testid="product-detail-name">
           { product.title }
         </h4>
+        { this.freeShippingfct() }
         <img src={ product.thumbnail } alt="imagemDoProduto" />
         <h5>
           { product.price }
@@ -56,6 +70,9 @@ ProductDetail.propTypes = {
         thumbnail: PropTypes.string,
         price: PropTypes.number,
         title: PropTypes.string,
+        shipping: PropTypes.shape({
+          free_shipping: PropTypes.bool.isRequired,
+        }).isRequired,
       }).isRequired,
     }).isRequired,
   }).isRequired,
