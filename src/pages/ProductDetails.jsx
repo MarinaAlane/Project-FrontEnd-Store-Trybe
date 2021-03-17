@@ -5,7 +5,6 @@ class ProductDetails extends React.Component {
   render() {
     const { location: { state: { data } } } = this.props;
     const { title, thumbnail, price, attributes, sold_quantity , address, available_quantity } = data;
-    console.log(this.props);
     return (
       <div>
         <h1 data-testid="product-detail-name">{ title }</h1>
