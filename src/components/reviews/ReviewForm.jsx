@@ -36,7 +36,6 @@ class ReviewForm extends Component {
       localStorage.setItem(productID, JSON.stringify(updatedReviews));
       return { reviews: updatedReviews };
     });
-
   }
 
   render() {
