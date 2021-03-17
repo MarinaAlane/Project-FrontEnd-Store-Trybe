@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import ButtonCart from './shopping_cart/ButtonCart';
 import ArrowBack from './shopping_cart/logo_arrow_back.svg';
+import ReviewForm from './reviews/ReviewForm';
 
 class ProductDetailed extends Component {
   constructor(props) {
@@ -49,6 +50,7 @@ class ProductDetailed extends Component {
         >
           Adicionar ao Carrinho
         </button>
+        <ReviewForm productID={ product.id } />
       </section>
     );
   }
