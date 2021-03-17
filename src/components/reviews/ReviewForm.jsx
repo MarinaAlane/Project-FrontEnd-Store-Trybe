@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import ReviewList from './ReviewList';
 
 class ReviewForm extends Component {
   constructor(props) {
@@ -23,6 +25,7 @@ class ReviewForm extends Component {
   handleSubmit(event) {
     event.preventDefault();
     const { email, stars, textReview } = this.state;
+    const { productID } = this.props;
     const newReview = {
       email,
       stars,
@@ -30,11 +33,14 @@ class ReviewForm extends Component {
     };
     this.setState(({ reviews }) => {
       const updatedReviews = [...reviews, newReview];
+      localStorage.setItem(productID, JSON.stringify(updatedReviews));
       return { reviews: updatedReviews };
     });
+
   }
 
   render() {
+    const { productID } = this.props;
     return (
       <div>
         <h2>Avaliação</h2>
@@ -62,9 +68,14 @@ class ReviewForm extends Component {
           <br />
           <input type="submit" value="Avaliar" onClick={ this.handleSubmit } />
         </form>
+        <ReviewList productID={ productID } />
       </div>
     );
   }
 }
+
+ReviewForm.propTypes = {
+  productID: PropTypes.string.isRequired,
+};
 
 export default ReviewForm;

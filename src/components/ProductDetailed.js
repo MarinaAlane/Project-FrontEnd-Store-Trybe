@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import ButtonCart from './shopping_cart/ButtonCart';
 import ArrowBack from './shopping_cart/logo_arrow_back.svg';
+import ReviewForm from './reviews/ReviewForm';
 
 class ProductDetailed extends Component {
   render() {
@@ -21,6 +22,7 @@ class ProductDetailed extends Component {
           <h3 data-testid="product-detail-name">{ product.title }</h3>
           <p>{ product.price }</p>
         </section>
+        <ReviewForm productID={ product.id } />
       </section>
     );
   }
