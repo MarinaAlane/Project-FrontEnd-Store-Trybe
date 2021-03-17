@@ -7,9 +7,7 @@ class ShoppingCartItem extends React.Component {
     super();
     this.subtractQuantity = this.subtractQuantity.bind(this);
     this.sumQuantity = this.sumQuantity.bind(this);
-    this.state = {
-      counter: 1,
-    };
+    this.state = { counter: 1 };
   }
 
   subtractQuantity(product) {
