@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Button from '../Button';
 import InputContext from '../InputContext';
+import FreeShipping from '../FreeShipping';
 
 class Product extends Component {
   render() {
@@ -13,9 +14,11 @@ class Product extends Component {
       thumbnail,
       id,
       attributes,
+      shipping,
       available_quantity: availableQuantity,
     } = product;
-    const info = { title, price, thumbnail, attributes, id, availableQuantity };
+    const { free_shipping: freeShipping } = shipping;
+    const info = { title, price, thumbnail, attributes, id, availableQuantity, freeShipping };
     return (
       <InputContext.Consumer>
         {
@@ -26,11 +29,15 @@ class Product extends Component {
                 to={ {
                   pathname: `/details/${id}`,
                   state: { ...info },
+
                 } }
               >
                 <p>{ title }</p>
                 <img src={ thumbnail } alt={ title } />
                 <p>{ price }</p>
+                {
+                  freeShipping ? <FreeShipping /> : null
+                }
               </Link>
               <Button
                 dataTestId
@@ -48,7 +55,7 @@ class Product extends Component {
   }
 }
 
-const { shape, string, number } = PropTypes;
+const { shape, string, number, bool } = PropTypes;
 
 Product.propTypes = {
   product: shape({
@@ -56,6 +63,9 @@ Product.propTypes = {
     price: number,
     thumbnail: string,
     id: string,
+    shipping: shape({
+      free_shipping: bool.isRequired,
+    }).isRequired,
   }),
 }.isRequired;
 

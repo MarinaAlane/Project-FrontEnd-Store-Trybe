@@ -5,6 +5,7 @@ import InputContext from '../../components/InputContext';
 import IncrementDecrementButton from '../../components/IncrementDecrementButton';
 import ProductDescription from '../../components/ProductDescription';
 import ReviewsSection from '../../components/ReviewsSection/ReviewsSection';
+import FreeShipping from '../../components/FreeShipping';
 
 export default class ProductDetails extends Component {
   constructor(props) {
@@ -29,7 +30,7 @@ export default class ProductDetails extends Component {
   render() {
     const {
       title, thumbnail, price, attributes, id,
-      availableQuantity, quantityItems } = this.state;
+      availableQuantity, quantityItems, freeShipping } = this.state;
     const info = { title, price, thumbnail, attributes, id, availableQuantity };
 
     return (
@@ -58,6 +59,9 @@ export default class ProductDetails extends Component {
               >
                 Adicionar ao carrinho
               </Button>
+              {
+                freeShipping ? <FreeShipping /> : null
+              }
               <ProductDescription attributes={ attributes } />
               <ReviewsSection id={ id } />
             </>
