@@ -11,14 +11,14 @@
 }
 
 .container-finish-cart {
-  margin: 20px;
   font-size: 25px;
+  margin: 20px;
 }
 
 .btn-delete {
-  color: red;
   background-color: white;
   border: none;
+  color: red;
   font-size: 25px;
 }
 
@@ -33,8 +33,8 @@
 
 .btn-sinal {
   background-color: white;
-  color:blue;
   border: none;
+  color: blue;
   font-size: 30px;
 }
 
