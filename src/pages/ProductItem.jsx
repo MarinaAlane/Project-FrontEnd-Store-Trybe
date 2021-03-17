@@ -11,10 +11,6 @@ export default class ProductItem extends Component {
       price,
     };
   }
-<<<<<<< HEAD
-=======
-
->>>>>>> 3d8bbf87168620b72eb96fea69cada45c545e8a9
   render() {
     const { title, image, price } = this.state;
     return (
@@ -31,8 +27,4 @@ ProductItem.propTypes = {
   title: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
-<<<<<<< HEAD
 };
-=======
-};
->>>>>>> 3d8bbf87168620b72eb96fea69cada45c545e8a9
