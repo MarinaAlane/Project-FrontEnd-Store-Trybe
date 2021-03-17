@@ -1,13 +1,11 @@
 body {
-  font-family: -apple-system , BlinkMacSystemFont , Cantarell , Droid Sans , Fira Sans , Helvetica Neue ,
-    Oxygen , Roboto , Segoe UI , Ubuntu ,
-    sans-serif;
-  margin: 0;
-  -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-family: (-apple-system , BlinkMacSystemFont , Cantarell , Droid Sans , Fira Sans ,
+    Helvetica Neue , Oxygen , Roboto , Segoe UI , Ubuntu , sans-serif);
+  margin: 0;
 }
 
 code {
-  font-family: source-code-pro , Menlo , Monaco , Consolas , 'Courier New' ,
-    monospace;
+  font-family: source-code-pro , Menlo , Monaco , Consolas , Courier New , monospace;
 }
