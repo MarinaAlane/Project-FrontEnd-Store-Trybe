@@ -7,7 +7,15 @@
 }
 
 .category button {
-  padding: 5px 20px;
+  padding: 5px;
+  width: fit-content;
+}
+
+.feedback-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin: 0 30%;
 }
 
 .home {
