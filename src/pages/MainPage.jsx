@@ -74,6 +74,7 @@ class MainPage extends React.Component {
             productsFromQuery={ productsFromQuery }
             isFetchingFromQuery={ isFetchingFromQuery }
             addProductToCart={ this.addProductToCart }
+            itensAddToCart={ itensAddToCart }
           />
         </div>
       </>
