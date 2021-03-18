@@ -8,7 +8,7 @@ class ProductCard extends Component {
     const { product, addProductToCart } = this.props;
     const { title, thumbnail, price, id } = product;
     return (
-      <div className="product-card" data-testid="product" id={ id }>
+      <div className="product-card" data-testid="product">
         <img src={ thumbnail } alt={ `${title}` } />
         <Link
           to={ `/productDetails/${id}` }
@@ -17,12 +17,12 @@ class ProductCard extends Component {
           addProductToCart={ addProductToCart }
         >
           <p>{ title }</p>
-          <p>{ `R$ ${price}` }</p>
+          <p>{ `R$ ${price.toFixed(2)}` }</p>
         </Link>
         <button
           type="button"
           data-testid="product-add-to-cart"
-          onClick={ addProductToCart }
+          onClick={ () => addProductToCart(id) }
         >
           Adicionar ao carrinho
         </button>

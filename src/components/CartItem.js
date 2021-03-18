@@ -4,29 +4,45 @@ import '../styles/components/CartItem.css';
 
 class CartItem extends Component {
   render() {
-    const { product } = this.props;
-    const { item, quant } = product;
-    const { thumbnail, title, price } = item;
+    const { item, increaseQuantity, decreaseQuantity, removeItemFromCart } = this.props;
+    const { thumbnail, title, price, id, amount } = item;
     return (
       <div className="cart-item">
         <img src={ thumbnail } alt={ `${title}` } />
         <p data-testid="shopping-cart-product-name">{ title }</p>
-        <p data-testid="shopping-cart-product-quantity">{ quant }</p>
-        <p>{ `R$ ${(price * quant).toFixed(2)}` }</p>
+        <button
+          type="button"
+          data-testid="product-increase-quantity"
+          onClick={ () => increaseQuantity(id) }
+        >
+          +
+        </button>
+        <p data-testid="shopping-cart-product-quantity">{ amount }</p>
+        <button
+          type="button"
+          data-testid="product-decrease-quantity"
+          onClick={ () => decreaseQuantity(id) }
+        >
+          -
+        </button>
+        <p>{ `R$ ${(price * amount).toFixed(2)}` }</p>
+        <button type="button" onClick={ () => removeItemFromCart(id) }>Remover</button>
       </div>
     );
   }
 }
 
 CartItem.propTypes = {
-  product: PropTypes.shape({
-    item: PropTypes.shape({
-      title: PropTypes.string,
-      thumbnail: PropTypes.string,
-      price: PropTypes.number,
-    }),
-    quant: PropTypes.number,
+  item: PropTypes.shape({
+    id: PropTypes.string,
+    title: PropTypes.string,
+    thumbnail: PropTypes.string,
+    price: PropTypes.number,
+    amount: PropTypes.number,
   }).isRequired,
+  increaseQuantity: PropTypes.func.isRequired,
+  decreaseQuantity: PropTypes.func.isRequired,
+  removeItemFromCart: PropTypes.func.isRequired,
 };
 
 export default CartItem;
