@@ -20,7 +20,6 @@ class ProductsInCart extends React.Component {
     this.setState({
       products: productsInStorage,
     });
-    // this.calculatesTotalToPay();
   }
 
   handleClickAddItem(product) {
@@ -28,27 +27,33 @@ class ProductsInCart extends React.Component {
     
     productsCopy.forEach((currentProduct) => {
       if (currentProduct.product.id === product.product.id ) {
-        // console.log('Product: ', product.product.id);
         currentProduct.quantity += 1;
       }
     });
-    // console.log('quantity: ', currentProduct.quantity);
-    console.log('productsCopy:', productsCopy[0].quantity);
     this.setState({ products: productsCopy });
     this.calculatesTotalToPay();
     console.log('Adiciona item!');
   }
 
-  handleClickSubtractsItem(product) {
-    // const { products } = this.state;
-    /* if (products.quantity > 0) {
-      this.setState({
-        products: {
-          quantity: quantity - 1,
-        },
-      });
-    }
-    calculatesTotalToPay(); */
+  handleClickSubtractsItem(productParam) {
+    let productsCopy = this.state.products;
+    
+    productsCopy.forEach((currentProduct) => {
+      // let { product, quantity } = currentProduct;
+      /* console.log('product: ', product.id);
+      console.log('quantity: ', quantity); */
+      if (currentProduct.product.id === productParam.product.id) {
+        if (currentProduct.quantity > 0) {
+          currentProduct.quantity -= 1;
+          // console.log('Quantity: ', quantity);
+        }
+        // console.log('Product: ', product.product.id);
+      }
+    });
+    // console.log('quantity: ', currentProduct.quantity);
+    // console.log('quantity:', productsCopy[0].quantity);
+    this.setState({ products: productsCopy });
+    this.calculatesTotalToPay();
     console.log('Remove item!');
   }
 
