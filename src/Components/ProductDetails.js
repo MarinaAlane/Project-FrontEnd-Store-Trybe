@@ -21,10 +21,8 @@ class ProductDetails extends React.Component {
   requireToAPI(productID) {
     const localCategorie = localStorage.getItem('categorId');
     const categori = JSON.parse(localCategorie);
-
     const localTerm = localStorage.getItem('term');
     const term = JSON.parse(localTerm);
-
     const require = api.getProductsFromCategoryAndQuery(categori, term);
     require.then(({ results }) => {
       const objCorrect = results.find((currentValue) => (currentValue.id === productID));
