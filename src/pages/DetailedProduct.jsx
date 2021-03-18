@@ -1,15 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import saveProduct from '../services/functions';
 
 class DetailedProduct extends React.Component {
-  // constructor() {
-  //   super();
-  // }
-
   render() {
     const { location } = this.props;
     const { state: { array } } = location;
+    console.log(this.props, location);
     const { title, thumbnail, price } = array;
     return (
       <div>
@@ -25,6 +23,13 @@ class DetailedProduct extends React.Component {
           <img src={ thumbnail } alt={ title } />
           <p>{ price }</p>
         </main>
+        <button
+          type="button"
+          data-testid="product-detail-add-to-cart"
+          onClick={ () => saveProduct(array) }
+        >
+          Adicionar ao carrinho
+        </button>
       </div>
     );
   }

@@ -6,6 +6,7 @@ class Product extends React.Component {
   render() {
     const { array, saveProduct } = this.props;
     const { title, price, thumbnail, id } = array;
+    console.log(saveProduct);
     return (
       <div data-testid="product">
         <Link

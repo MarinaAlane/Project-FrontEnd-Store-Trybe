@@ -23,7 +23,6 @@ function App() {
             path="/detailed-product/:id"
             render={ (props) => <DetailedProduct { ...props } /> }
           />
-          {/* <Route path="/" component={Home} /> */}
           <Route exact path="/" component={ Home } />
         </Switch>
       </BrowserRouter>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import * as api from '../services/api';
+import saveProduct from '../services/functions';
 import './home.css';
 import Product from '../components/Product';
 import Category from '../components/Category';
@@ -18,7 +19,6 @@ class Home extends React.Component {
     this.fetchQuery = this.fetchQuery.bind(this);
     this.HandleChange = this.HandleChange.bind(this);
     this.handleCategory = this.handleCategory.bind(this);
-    this.saveProduct = this.saveProduct.bind(this);
   }
 
   componentDidMount() {
@@ -46,11 +46,6 @@ class Home extends React.Component {
   HandleClick() {
     const { value } = this.state;
     this.fetchQuery(null, value);
-  }
-
-  saveProduct(array) {
-    const keyIndex = localStorage.length + 1;
-    localStorage.setItem(`itemProduct${keyIndex}`, JSON.stringify(array));
   }
 
   render() {
@@ -86,7 +81,7 @@ class Home extends React.Component {
             products.map((product) => (<Product
               key={ product.id }
               array={ product }
-              saveProduct={ this.saveProduct }
+              saveProduct={ saveProduct }
             />))
           )}
         </div>
