@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 // import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-class Card extends Component {
+class CardReview extends Component {
   constructor(props) {
     super(props);
 
@@ -35,7 +35,7 @@ class Card extends Component {
   }
 }
 
-Card.propTypes = {
+CardReview.propTypes = {
   product: PropTypes.shape({
     title: PropTypes.string,
     thumbnail: PropTypes.string,
@@ -45,4 +45,4 @@ Card.propTypes = {
   testid: PropTypes.string,
 }.isRequired;
 
-export default Card;
+export default CardReview;
