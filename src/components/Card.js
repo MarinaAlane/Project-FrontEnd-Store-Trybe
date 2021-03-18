@@ -81,7 +81,7 @@ class Card extends Component {
 
   render() {
     const { product, testid, inCart } = this.props;
-    const { title, thumbnail, price, id } = product;
+    const { title, thumbnail, price, id, shipping: { free_shipping: free } } = product;
     return (
       <div data-testid="product">
         <h4 data-testid={ testid }>{ title }</h4>
@@ -90,6 +90,7 @@ class Card extends Component {
           R$:
           { price }
         </p>
+        {free && <p data-testid="free-shipping">Frete grátis</p> }
         {inCart && this.cartActionButtons(id) }
         {!inCart && this.cardButtons() }
       </div>

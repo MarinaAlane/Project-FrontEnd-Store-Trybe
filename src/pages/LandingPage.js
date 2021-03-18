@@ -12,7 +12,7 @@ class LandingPage extends React.Component {
     this.state = {
       products: [],
       search: '',
-
+      numberOfProducts: 0,
     };
 
     this.fetchProductsByQuery = this.fetchProductsByQuery.bind(this);
@@ -20,6 +20,11 @@ class LandingPage extends React.Component {
     this.hendleChange = this.hendleChange.bind(this);
     this.inputButton = this.inputButton.bind(this);
     this.handleAddClick = this.handleAddClick.bind(this);
+    this.quantityOfProducts = this.quantityOfProducts.bind(this);
+  }
+
+  componentDidMount() {
+    this.quantityOfProducts();
   }
 
   handleAddClick(product) {
@@ -37,6 +42,15 @@ class LandingPage extends React.Component {
         const itemsToAdd = [...itemsInCart, product];
         localStorage.setItem('NoMasterCart', JSON.stringify(itemsToAdd));
       }
+    }
+    this.quantityOfProducts();
+  }
+
+  quantityOfProducts() {
+    const itemsInCart = JSON.parse(localStorage.getItem('NoMasterCart'));
+    if (itemsInCart) {
+      const quantity = itemsInCart.reduce((acc, curr) => acc + curr.quantityToOrder, 0);
+      this.setState({ numberOfProducts: quantity });
     }
   }
 
@@ -63,6 +77,7 @@ class LandingPage extends React.Component {
   }
 
   inputButton() {
+    const { numberOfProducts } = this.state;
     return (
       <>
         <input type="text" data-testid="query-input" onChange={ this.hendleChange } />
@@ -74,11 +89,14 @@ class LandingPage extends React.Component {
           Pesquisar
         </button>
         <Link to="/cart" data-testid="shopping-cart-button">
-          <img
-            src="https://www.pinclipart.com/picdir/big/10-108329_cart-clip-art-at-clker-com-vector-shopping.png"
-            alt="cart"
-            className="button"
-          />
+          <div>
+            <img
+              src="https://www.pinclipart.com/picdir/big/10-108329_cart-clip-art-at-clker-com-vector-shopping.png"
+              alt="cart"
+              className="button"
+            />
+            <p data-testid="shopping-cart-size">{ numberOfProducts }</p>
+          </div>
         </Link>
       </>
     );

@@ -12,20 +12,18 @@ class ProductDetais extends Component {
     this.state = {
       evaluations: [],
       disableButton: false,
+      numberOfProducts: 0,
     };
 
     this.handleClick = this.handleClick.bind(this);
     this.newEvaluaion = this.newEvaluaion.bind(this);
+    this.link = this.link.bind(this);
   }
 
-  // handleClick(product) {
-  //   const itemsInCart = JSON.parse(localStorage.getItem('NoMasterCart'));
-  //   if (!itemsInCart) localStorage.setItem('NoMasterCart', JSON.stringify([product]));
-  //   else {
-  //     const itemsToAdd = [...itemsInCart, product];
-  //     localStorage.setItem('NoMasterCart', JSON.stringify(itemsToAdd));
-  //   }
-  // }
+  componentDidMount() {
+    this.quantityOfProducts();
+  }
+
   handleClick(product) {
     const itemsInCart = JSON.parse(localStorage.getItem('NoMasterCart'));
     if (!itemsInCart) {
@@ -45,6 +43,15 @@ class ProductDetais extends Component {
     }
     const { quantityToOrder, available_quantity: availableQuantity } = product;
     if (quantityToOrder >= availableQuantity) this.setState({ disableButton: true });
+    this.quantityOfProducts();
+  }
+
+  quantityOfProducts() {
+    const itemsInCart = JSON.parse(localStorage.getItem('NoMasterCart'));
+    if (itemsInCart) {
+      const quantity = itemsInCart.reduce((acc, curr) => acc + curr.quantityToOrder, 0);
+      this.setState({ numberOfProducts: quantity });
+    }
   }
 
   newEvaluaion(evaluation) {
@@ -54,26 +61,37 @@ class ProductDetais extends Component {
     });
   }
 
+  link() {
+    const { numberOfProducts } = this.state;
+    return (
+      <Link to="/cart" data-testid="shopping-cart-button">
+        <div>
+          <img
+            src="https://www.pinclipart.com/picdir/big/10-108329_cart-clip-art-at-clker-com-vector-shopping.png"
+            alt="cart"
+            className="button"
+          />
+          <p data-testid="shopping-cart-size">{ numberOfProducts }</p>
+        </div>
+      </Link>
+    );
+  }
+
   render() {
     const { evaluations, disableButton } = this.state;
     const { location: { state } } = this.props;
     if (!state) return <Redirect to="/" />;
     const { product } = state;
-    const { title, price, thumbnail, attributes } = product;
-    const arrow = ('https://cdn.iconscout.com/icon/free/png-512/reply-all-1578267-1341736.png');
+    const {
+      title, price, thumbnail, attributes, shipping: { free_shipping: free } } = product;
     return (
       <>
-        <Link to="/cart" data-testid="shopping-cart-button">
-          <img
-            src={ arrow }
-            alt="cart"
-            className="button"
-          />
-        </Link>
+        { this.link() }
         <h3 data-testid="product-detail-name">
           { title }
           - R$:
           { price }
+          { free && <p data-testid="free-shipping">Frete grátis</p> }
         </h3>
         <div>
           <img className="imgProduct" src={ thumbnail } alt="Product" />
@@ -112,6 +130,9 @@ ProductDetais.propTypes = {
         thumbnail: PropTypes.string,
         price: PropTypes.number,
         attributes: PropTypes.arrayOf(PropTypes.object),
+        shipping: PropTypes.shape({
+          free_shipping: PropTypes.bool,
+        }),
       }),
     }),
   }).isRequired,
