@@ -10,20 +10,31 @@ class App extends Component {
     super(props);
     this.state = {
       cartItems: [],
+      cartItemsQuantity: Number(localStorage.cartItemsQuantity) || 0,
     };
 
     this.addToCart = this.addToCart.bind(this);
     this.removeItem = this.removeItem.bind(this);
+    this.updateTotalItems = this.updateTotalItems.bind(this);
   }
 
-  addToCart(product, event) {
+  addToCart(product) {
     const { cartItems } = this.state;
-    event.target.disabled = true;
+    // event.target.disabled = true;
     if (cartItems.length > 0) {
       return cartItems.every(({ id }) => id !== product.id)
         && this.setState({ cartItems: [...cartItems, product] });
     }
     this.setState({ cartItems: [...cartItems, product] });
+  }
+
+  updateTotalItems(num) {
+    this.setState(({ cartItemsQuantity }) => ({
+      cartItemsQuantity: cartItemsQuantity + Number(num),
+    }), () => {
+      const { cartItemsQuantity } = this.state;
+      localStorage.setItem('cartItemsQuantity', Number(cartItemsQuantity));
+    });
   }
 
   removeItem(itemTitle) {
@@ -34,7 +45,7 @@ class App extends Component {
   }
 
   render() {
-    const { cartItems } = this.state;
+    const { cartItems, cartItemsQuantity } = this.state;
     return (
       <main>
         <BrowserRouter>
@@ -45,6 +56,7 @@ class App extends Component {
                 <Carrinho
                   products={ cartItems }
                   removeProduct={ this.removeItem }
+                  handleCartItemsQuantity={ this.updateTotalItems }
                 />) }
             />
             <Route
@@ -53,12 +65,23 @@ class App extends Component {
             />
             <Route
               path="/:id/detalhes"
-              render={ (props) => <Detalhes { ...props } addToCart={ this.addToCart } /> }
+              render={ (props) => (
+                <Detalhes
+                  { ...props }
+                  addToCart={ this.addToCart }
+                  handleCartItemsQuantity={ this.updateTotalItems }
+                  cartItemsQuantity={ cartItemsQuantity }
+                />) }
             />
             <Route
               exact
               path="/"
-              render={ () => <Home addToCart={ this.addToCart } /> }
+              render={ () => (
+                <Home
+                  cartItemsQuantity={ cartItemsQuantity }
+                  addToCart={ this.addToCart }
+                  handleCartItemsQuantity={ this.updateTotalItems }
+                />) }
             />
           </Switch>
         </BrowserRouter>

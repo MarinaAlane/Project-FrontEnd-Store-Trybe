@@ -33,7 +33,9 @@ class ItemsCart extends Component {
   }
 
   render() {
-    const { productInfo: { title, thumbnail, price }, removeProduct } = this.props;
+    const {
+      productInfo: {
+        title, thumbnail, price }, removeProduct, handleCartItemsQuantity } = this.props;
     const { quantity } = this.state;
     return (
       <div data-testid="product">
@@ -51,7 +53,10 @@ class ItemsCart extends Component {
         <button
           data-testid="product-increase-quantity"
           type="button"
-          onClick={ () => this.increaseQuantity(price) }
+          onClick={ () => {
+            this.increaseQuantity(price);
+            handleCartItemsQuantity(1);
+          } }
         >
           +
         </button>
@@ -59,7 +64,11 @@ class ItemsCart extends Component {
         <button
           data-testid="product-decrease-quantity"
           type="button"
-          onClick={ () => this.decreaseQuantity(price) }
+          onClick={ () => {
+            const magicNumber = -1;
+            this.decreaseQuantity(price);
+            handleCartItemsQuantity(magicNumber);
+          } }
         >
           -
         </button>
@@ -75,6 +84,7 @@ ItemsCart.propTypes = {
     price: PropTypes.number,
   }),
   removeProduct: PropTypes.func.isRequired,
+  handleCartItemsQuantity: PropTypes.func.isRequired,
 };
 
 ItemsCart.defaultProps = {

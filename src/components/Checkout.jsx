@@ -33,10 +33,10 @@ class Checkout extends React.Component {
             <span>{`R$ ${price}`}</span>
           </div>
         ))}
-        <div>
+        {/* <div>
           Preço Total:
           {` R$ ${products.reduce((total, item) => total + (item.price), 0)}`}
-        </div>
+        </div> */}
       </fieldset>
     );
   }
@@ -55,6 +55,8 @@ class Checkout extends React.Component {
   }
 
   render() {
+    const { fullname, email, cpf, phone, cep, address } = this.state;
+    console.log(fullname, email, cpf, phone, cep, address);
     return (
       <section>
         <form>
@@ -67,6 +69,7 @@ class Checkout extends React.Component {
             { this.userInfo('phone', 'Telefone') }
             { this.userInfo('cep', 'CEP') }
             { this.userInfo('address', 'Endereço') }
+            <button type="button">Comprar</button>
           </fieldset>
         </form>
       </section>
