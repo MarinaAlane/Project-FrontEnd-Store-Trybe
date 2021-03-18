@@ -10,7 +10,7 @@ class ShoppingCartItem extends React.Component {
     const { product } = this.props;
     this.state = { counter: handleQuantity('=', product.productId) };
   }
-
+  
   subtractQuantity() {
     const { product } = this.props;
     handleQuantity('-', product.productId);
@@ -21,9 +21,9 @@ class ShoppingCartItem extends React.Component {
 
   sumQuantity() {
     const { product } = this.props;
-    handleQuantity('+', product.productId);
+    handleQuantity('+', product.productId, availableQnt);
     this.setState({
-      counter: handleQuantity('=', product.productId),
+      counter: handleQuantity('=', product.productId, availableQnt),
     });
   }
 
