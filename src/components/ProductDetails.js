@@ -34,7 +34,7 @@ class ProductDetails extends React.Component {
     if (product === undefined) {
       return <Redirect to="/" />;
     }
-    const { title, thumbnail, price } = product;
+    const { title, thumbnail, price, id } = product;
     const { addProductToCart } = this.props;
 
     return (
@@ -55,7 +55,7 @@ class ProductDetails extends React.Component {
             <p>{title}</p>
             <p>{price}</p>
           </div>
-          <div>
+          <div id={ id }>
             <button
               type="button"
               data-testid="product-detail-add-to-cart"

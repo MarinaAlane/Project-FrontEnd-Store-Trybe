@@ -72,7 +72,6 @@ class App extends Component {
 
   addProductToCart({ target }) {
     const { products } = this.state;
-    console.log(products);
     const product = products.find((item) => item.id === target.parentNode.id);
     this.setState((prevState) => ({
       cartItems: [...prevState.cartItems, product],
@@ -115,7 +114,7 @@ class App extends Component {
             />
             <Route
               path="/productDetails/:ship"
-              render={ (props) => <ProductDetails { ...props } products={ products } /> }
+              render={ (props) => <ProductDetails { ...props } products={ products } addProductToCart={ addProductToCart } /> }
             />
           </Switch>
         </BrowserRouter>
