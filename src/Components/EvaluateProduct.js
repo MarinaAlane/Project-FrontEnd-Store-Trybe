@@ -67,7 +67,6 @@ class EvaluetProduct extends React.Component {
           <button onClick={ this.addComments } type="button">Enviar</button>
         </form>
       </div>
-
     );
   }
 }
