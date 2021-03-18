@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Proptypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import AddToCart from './AddToCart';
 
 class ItemCard extends Component {
   render() {
@@ -23,6 +24,7 @@ class ItemCard extends Component {
         >
           Ver detalhes
         </Link>
+        <AddToCart product={ product } />
       </div>
     );
   }
