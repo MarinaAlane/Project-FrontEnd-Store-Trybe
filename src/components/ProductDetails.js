@@ -34,8 +34,10 @@ class ProductDetails extends React.Component {
     if (product === undefined) {
       return <Redirect to="/" />;
     }
+
     const { title, thumbnail, price, id, condition } = product;
     const { addProductToCart } = this.props;
+
     return (
       <>
         <div className="links-back-cart">

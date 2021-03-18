@@ -8,32 +8,61 @@ class ShoppingCart extends Component {
   constructor() {
     super();
     this.state = {
-      cartItemsList: [],
+      totalPayable: 0,
     };
-    this.updateCartItems = this.updateCartItems.bind(this);
+    this.sumPrices = this.sumPrices.bind(this);
+    this.increaseQuantity = this.increaseQuantity.bind(this);
+    this.decreaseQuantity = this.decreaseQuantity.bind(this);
   }
 
   componentDidMount() {
-    this.updateCartItems();
+    this.sumPrices();
   }
 
-  updateCartItems() {
+  componentDidUpdate(_, prevState) {
+    const { totalPayable } = this.state;
+    if ((totalPayable === prevState.totalPayable)) {
+      this.sumPrices();
+    }
+  }
+
+  sumPrices() {
     const { cartItems } = this.props;
-    const cartItemsList = cartItems.reduce((arr, item) => {
-      const quant = cartItems.filter((currItem) => currItem === item).length;
-      if (!(arr.some((currItem) => currItem.item.id === item.id))) {
-        arr.push({ item, quant });
+    if (cartItems.length !== 0) {
+      const totalPayable = cartItems
+        .reduce(((result, item) => {
+          result += (item.price * item.amount);
+          return result;
+        }), 0);
+      this.setState({
+        totalPayable,
+      });
+    }
+  }
+
+  increaseQuantity(productId) {
+    const { cartItems } = this.props;
+    cartItems.forEach((item) => {
+      if (item.id === productId) {
+        item.amount += 1;
       }
-      return arr;
-    }, []);
-    this.setState({
-      cartItemsList,
+    });
+    this.sumPrices();
+  }
+
+  decreaseQuantity(productId) {
+    const { cartItems } = this.props;
+    cartItems.forEach((item) => {
+      if ((item.id === productId) && (item.amount > 1)) {
+        item.amount -= 1;
+        this.sumPrices();
+      }
     });
   }
 
   render() {
-    const { emptyCart } = this.props;
-    const { cartItemsList } = this.state;
+    const { emptyCart, cartItems, removeItemFromCart } = this.props;
+    const { totalPayable } = this.state;
     return (
       <>
         <div className="cart-header-container">
@@ -44,8 +73,18 @@ class ShoppingCart extends Component {
         { !(emptyCart) ? (
           <div className="shopping-cart-list">
             <h2>Carrinho de Compras</h2>
-            { cartItemsList
-              .map((item) => <CartItem key={ item.item.id } product={ item } />) }
+            { cartItems
+              .map((item) => (<CartItem
+                key={ item.id }
+                item={ item }
+                increaseQuantity={ this.increaseQuantity }
+                decreaseQuantity={ this.decreaseQuantity }
+                removeItemFromCart={ removeItemFromCart }
+              />)) }
+            <h4>
+              Valor Total da Compra: R$
+              { totalPayable.toFixed(2) }
+            </h4>
           </div>
         ) : (
           <div
@@ -64,6 +103,7 @@ class ShoppingCart extends Component {
 ShoppingCart.propTypes = {
   emptyCart: PropTypes.bool.isRequired,
   cartItems: PropTypes.arrayOf(PropTypes.object).isRequired,
+  removeItemFromCart: PropTypes.func.isRequired,
 };
 
 export default ShoppingCart;
