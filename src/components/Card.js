@@ -24,46 +24,7 @@ class Card extends Component {
     }
   }
 
-
-  // handleAddClick(product) {
-  //   // const { onClick } = this.props;
-  //   const itemsInCart = JSON.parse(localStorage.getItem('NoMasterCart'));
-  //   if (!itemsInCart) {
-  //     product = { ...product, quantityToOrder: 1 };
-  //     localStorage.setItem('NoMasterCart', JSON.stringify([product]));
-  //   } else {
-  //     const indexOfProduct = itemsInCart.findIndex((item) => item.id === product.id);
-  //     if (indexOfProduct >= 0) {
-  //       itemsInCart[indexOfProduct].quantityToOrder += 1;
-  //       localStorage.setItem('NoMasterCart', JSON.stringify(itemsInCart));
-  //     } else {
-  //       product = { ...product, quantityToOrder: 1 };
-  //       const itemsToAdd = [...itemsInCart, product];
-  //       localStorage.setItem('NoMasterCart', JSON.stringify(itemsToAdd));
-  //     }
-  //   }
-  //   // onClick();
-  // }
-
-  // handleSubClick(product) {
-  //   // const { onClick } = this.props;
-  //   const itemsInCart = JSON.parse(localStorage.getItem('NoMasterCart'));
-  //   const indexOfProduct = itemsInCart.findIndex((item) => item.id === product.id);
-  //   itemsInCart[indexOfProduct].quantityToOrder -= 1;
-  //   localStorage.setItem('NoMasterCart', JSON.stringify(itemsInCart));
-  //   // onClick();
-  // }
-
-  // handleDeleteClick(id) {
-  //   // const { onClick } = this.props;
-  //   const itemsInCart = JSON.parse(localStorage.getItem('NoMasterCart'));
-  //   const indexOfProduct = itemsInCart.findIndex((item) => item.id === id);
-  //   itemsInCart.splice(indexOfProduct, 1);
-  //   localStorage.setItem('NoMasterCart', JSON.stringify(itemsInCart));
-  //   // onClick();
-  // }
-
-  cartActionButtons(id) {
+  cartActionButtons() {
     const { product } = this.props;
     const { available_quantity: availableQuantity, quantityToOrder } = product;
     const smallerValue = 1;
