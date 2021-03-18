@@ -64,18 +64,26 @@ class ProductList extends React.Component {
           getProducts={ () => this.getProductsAndOrCategory() }
         />
 
-        <CategoryList getCategoryId={ this.getCategoryId } />
+        <div className="contentContainer">
+          <CategoryList className="categoryList" getCategoryId={ this.getCategoryId } />
 
-        <div className="product-container">
-          { (products.length > 0)
-            ? products.map((product) => (
-              <ProductCard
-                key={ product.id }
-                product={ product }
-                getProductFromCard={ getProductFromCard }
-              />
-            ))
-            : <p data-testid="home-initial-message">{ mensagem }</p> }
+          <div className="product-container">
+            { (products.length > 0)
+              ? products.map((product) => (
+                <ProductCard
+                  key={ product.id }
+                  product={ product }
+                  getProductFromCard={ getProductFromCard }
+                />
+              ))
+              : (
+                <p
+                  className="infoMessage"
+                  data-testid="home-initial-message"
+                >
+                  { mensagem }
+                </p>) }
+          </div>
         </div>
       </div>
     );

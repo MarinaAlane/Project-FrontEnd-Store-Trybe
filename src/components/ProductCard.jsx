@@ -8,7 +8,7 @@ class ProductCard extends React.Component {
     const { product, getProductFromCard } = this.props;
     const { title, thumbnail, price } = product;
     return (
-      <div className="product" data-testid="product">
+      <section className="product" data-testid="product">
         <button
           type="button"
           className="shopping-card"
@@ -32,7 +32,7 @@ class ProductCard extends React.Component {
         <img src={ thumbnail } alt="imagem do produto" />
         <p>{ price }</p>
 
-      </div>
+      </section>
     );
   }
 }

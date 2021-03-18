@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import '../styles/pages/ShoppingCart.css';
 
 class ShoppingCart extends React.Component {
   constructor(props) {
@@ -13,30 +14,16 @@ class ShoppingCart extends React.Component {
     };
   }
 
-  catchIndexOfObjectToRemove(shoppingCart, obj) {
-    let indexOfObjectToRemove = 0;
-    if (shoppingCart.indexOf(obj) - 1 < 0) {
-      return indexOfObjectToRemove;
-    }
-    indexOfObjectToRemove = shoppingCart.indexOf(obj) - 1;
-    return indexOfObjectToRemove;
-  }
-
   functionToRemoveObject(shoppingCart, obj) {
-    const indexOfObjectToRemove = this.catchIndexOfObjectToRemove(shoppingCart, obj);
-    return indexOfObjectToRemove === 0
-      ? shoppingCart.unshift()
-      : shoppingCart.splice(indexOfObjectToRemove, 1);
+    const indexOfObjectToRemove = shoppingCart.filter((cartObj) => cartObj.id !== obj.id);
+    return indexOfObjectToRemove;
   }
 
   productIncrease(product) {
     const { shoppingCart } = this.state;
     const newCart = shoppingCart.map((obj) => {
-      if (obj.id === product.id) {
-        if (obj.available_quantity > obj.quantity) {
-          obj.quantity += 1;
-        }
-        return obj;
+      if (obj.id === product.id && obj.available_quantity > obj.quantity) {
+        obj.quantity += 1;
       }
       return obj;
     });
@@ -45,16 +32,15 @@ class ShoppingCart extends React.Component {
 
   productDecrease(product) {
     const { shoppingCart } = this.state;
-    const newCart = shoppingCart.map((obj) => {
-      if (obj.id === product.id) {
-        if (obj.quantity > 0) {
-          obj.quantity -= 1;
-        }
-        // return this.functionToRemoveObject(shoppingCart, obj);
-        return obj;
+    let newCart = shoppingCart.map((obj) => {
+      if (obj.id === product.id && obj.quantity > 0) {
+        obj.quantity -= 1;
       }
       return obj;
     });
+    if (product.quantity <= 0) {
+      newCart = this.functionToRemoveObject(shoppingCart, product);
+    }
     this.setState({ shoppingCart: newCart });
   }
 
@@ -62,14 +48,14 @@ class ShoppingCart extends React.Component {
     const { shoppingCart } = this.state;
     if (shoppingCart.length === 0) {
       return (
-        <span data-testid="shopping-cart-empty-message">
+        <span className="textOfEmptyCart" data-testid="shopping-cart-empty-message">
           Seu carrinho está vazio
         </span>
       );
     }
 
     return shoppingCart.map((product) => (
-      <div key={ Math.random() }>
+      <div className="cartProduct" key={ Math.random() }>
         <img src={ product.thumbnail } alt={ product.title } />
         <button
           type="button"
@@ -102,7 +88,9 @@ class ShoppingCart extends React.Component {
     const { getCheckout } = this.props;
     return (
       <div>
-        { this.renderShoppingCart() }
+        <div className="selectedItems">
+          { this.renderShoppingCart() }
+        </div>
         <Link
           to="/checkout"
           data-testid="checkout-products"
