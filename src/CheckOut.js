@@ -1,7 +1,6 @@
 import React from 'react';
 import Proptypes from 'prop-types';
 import './CheckOut.css';
-import ItemCart from './ItemCart';
 
 class CheckOut extends React.Component {
   constructor(props) {
@@ -15,7 +14,7 @@ class CheckOut extends React.Component {
       [{ name }]: value,
     });
   }
-
+  /*
   listOfProducts() {
     const { itemsCart } = this.props;
     console.log(itemsCart);
@@ -24,7 +23,7 @@ class CheckOut extends React.Component {
         {itemsCart.map((item) => <ItemCart key={ item.id } item={ item } />)}
       </li>
     );
-  }
+  } */
 
   createFullname(fullname) {
     return (
@@ -163,9 +162,9 @@ class CheckOut extends React.Component {
     return (
       <div>
         <h4>Finalize sua Compra</h4>
-        <session className="checkOut-product-list">
+        {/* <session className="checkOut-product-list">
           {this.listOfProducts()}
-        </session>
+        </session> */}
         <form>
           <session className="form-personal-info">
             {this.createFullname()}

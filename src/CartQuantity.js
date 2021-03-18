@@ -16,6 +16,6 @@ class CartQuantity extends React.Component {
   }
 }
 CartQuantity.propTypes = {
-  totalProducts: PropTypes.string.isRequired,
+  totalProducts: PropTypes.number.isRequired,
 };
 export default CartQuantity;

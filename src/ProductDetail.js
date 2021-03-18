@@ -66,7 +66,7 @@ ProductDetail.propTypes = {
     state: PropTypes.shape({
       product: PropTypes.shape({
         id: PropTypes.string,
-        attributes: PropTypes.arrayOf(),
+        attributes: PropTypes.arrayOf(PropTypes.object),
         thumbnail: PropTypes.string,
         price: PropTypes.number,
         title: PropTypes.string,
@@ -77,6 +77,6 @@ ProductDetail.propTypes = {
     }).isRequired,
   }).isRequired,
   handleProduct: PropTypes.func.isRequired,
-  totalProducts: PropTypes.string.isRequired,
+  totalProducts: PropTypes.number.isRequired,
 };
 export default ProductDetail;
