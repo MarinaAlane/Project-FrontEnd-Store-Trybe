@@ -31,7 +31,7 @@ class ProductDetails extends React.Component {
       </form>
     );
   }
-  
+
   render() {
     const { location } = this.props;
     const params = new URLSearchParams(location.search);
@@ -46,8 +46,8 @@ class ProductDetails extends React.Component {
           Preço: $
           {' '}
           {price}
-          {this.formStructure()}
         </h4>
+        {this.formStructure()}
       </div>
 
     );
