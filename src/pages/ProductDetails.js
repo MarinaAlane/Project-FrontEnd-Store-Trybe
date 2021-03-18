@@ -31,6 +31,7 @@ class ProductDetails extends React.Component {
       </form>
     );
   }
+  
   render() {
     const { location } = this.props;
     const params = new URLSearchParams(location.search);

@@ -4,7 +4,6 @@ import './App.css';
 import InitialPage from './pages/InitialPage';
 import ProductDetails from './pages/ProductDetails';
 import ShoppingCart from './pages/ShoppingCart';
-import Checkout from './components/checkout';
 
 function App() {
   return (
