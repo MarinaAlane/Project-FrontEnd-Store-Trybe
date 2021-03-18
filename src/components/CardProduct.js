@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import AddProductToCartButton from './AddProductToCartButton';
 
 class CardProduct extends React.Component {
@@ -12,7 +13,14 @@ class CardProduct extends React.Component {
         <span>
           {`R$ ${product.price}` }
         </span>
-        <AddProductToCartButton product={ product } />
+        <Link
+          data-testid="product-detail-link"
+          to={ `/details-page/${product.id}` }
+        >
+          Ver Detalhes
+
+        </Link>
+        <AddProductToCartButton data-testid="product-add-to-cart" product={ product } />
       </section>
     );
   }
@@ -20,7 +28,7 @@ class CardProduct extends React.Component {
 
 CardProduct.propTypes = {
   product: PropTypes.shape({
-    id: PropTypes.number,
+    id: PropTypes.string,
     title: PropTypes.string,
     thumbnail: PropTypes.string,
     price: PropTypes.number,

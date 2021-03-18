@@ -9,7 +9,6 @@ import cart from '../services/cart';
 class ShoppingCart extends React.Component {
   isCartEmpty() {
     const products = cart.getProdutsInStorage();
-    console.log(products);
     if (products.length === 0) {
       return true;
     }
