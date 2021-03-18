@@ -33,7 +33,7 @@ class CartProduct extends React.Component {
         >
           +
         </button>
-        <p>`R$ ${product.product.price}`</p>
+        <p>{ `R$ ${product.product.price}` }</p>
       </div>
     );
   }
