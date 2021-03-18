@@ -18,6 +18,7 @@ class Home extends React.Component {
     this.fetchQuery = this.fetchQuery.bind(this);
     this.HandleChange = this.HandleChange.bind(this);
     this.handleCategory = this.handleCategory.bind(this);
+    this.saveProduct = this.saveProduct.bind(this);
   }
 
   componentDidMount() {
@@ -47,9 +48,13 @@ class Home extends React.Component {
     this.fetchQuery(null, value);
   }
 
+  saveProduct(array) {
+    const keyIndex = localStorage.length + 1;
+    localStorage.setItem(`itemProduct${keyIndex}`, JSON.stringify(array));
+  }
+
   render() {
     const { products, categories } = this.state;
-    console.log(categories);
     return (
       <div>
         <header className="home-header">
@@ -78,7 +83,11 @@ class Home extends React.Component {
         <Category categories={ categories } handleCategory={ this.handleCategory } />
         <div>
           {(products.length === 0) ? (<p>Nenhum produto encontrado</p>) : (
-            products.map((product) => <Product key={ product.id } array={ product } />)
+            products.map((product) => (<Product
+              key={ product.id }
+              array={ product }
+              saveProduct={ this.saveProduct }
+            />))
           )}
         </div>
       </div>
