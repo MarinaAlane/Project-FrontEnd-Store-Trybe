@@ -32,7 +32,6 @@ class ProductDetails extends React.Component {
     if (product === undefined) {
       return <Redirect to="/" />;
     }
-    console.log(product);
     const { title, thumbnail, price } = product;
 
     return (
