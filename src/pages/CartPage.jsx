@@ -51,6 +51,7 @@ class CartPage extends React.Component {
               <img src={ item.thumbnail } alt={ item.title } />
               <p>{`R$ ${item.price}`}</p>
               <button
+                className="add-product-button"
                 data-testid="product-increase-quantity"
                 type="button"
                 onClick={ () => this.addProduct(item) }
@@ -63,6 +64,7 @@ class CartPage extends React.Component {
                 {totalProducts.filter((product) => product.id === item.id).length}
               </span>
               <button
+                className="remove-product-button"
                 data-testid="product-decrease-quantity"
                 type="button"
                 onClick={ () => this.removeProduct(item.id) }
