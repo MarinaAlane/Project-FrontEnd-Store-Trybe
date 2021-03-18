@@ -31,7 +31,7 @@ class RatingEvaluation extends Component {
 }
 
 RatingEvaluation.propTypes = {
-  rating: PropTypes.number.isRequired,
+  // rating: PropTypes.number.isRequired,
   handleStorageRating: PropTypes.func.isRequired,
 };
 
