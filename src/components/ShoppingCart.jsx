@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import SendToShoppingFinish from './SendToShoppingFinish';
 
 class ShoppingCart extends Component {
   constructor() {
@@ -87,8 +88,8 @@ class ShoppingCart extends Component {
   configState(object, id) {
     const { compare } = this.state;
     const compareIncludes = compare.includes(id);
-    const { title, price, count } = object;
-    const nObj = { title, price, count, id };
+    const { title, price, count, thumbnail } = object;
+    const nObj = { title, price, count, id, thumbnail };
 
     if (compareIncludes === false) {
       this.setState((previousState) => ({
@@ -119,10 +120,11 @@ class ShoppingCart extends Component {
       return <p>Carregando...</p>;
     }
     const map = storageFetchJson.map((currentValue) => {
-      const { id, title, price } = currentValue;
+      const { id, title, price, thumbnail } = currentValue;
       return (
         <div key={ id }>
           <p data-testid="shopping-cart-product-name">{title}</p>
+          <img src={ thumbnail } alt="product-sample" />
           <p>{ price }</p>
           <p data-testid="shopping-cart-product-quantity">
             {currentValue.count}
@@ -148,7 +150,7 @@ class ShoppingCart extends Component {
     return (
       <div>
         {map}
-        <button type="button">Finalizar Compra</button>
+        <SendToShoppingFinish storageFetchJson={ storageFetchJson } />
       </div>
     );
   }

@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import PayForm from './Payform';
 
 class ShopFinish extends Component {
   constructor() {
     super();
+
+    this.handleChange = this.handleChange.bind(this);
 
     this.state = {
       nome: '',
@@ -24,8 +25,10 @@ class ShopFinish extends Component {
   }
 
   handleChange({ target }) {
-    const { name, value } = target;
-    this.setState({ [name]: value });
+    const { name } = target;
+    this.setState({
+      [name]: target.value,
+    });
   }
 
   btnFinishShop() {
@@ -40,7 +43,7 @@ class ShopFinish extends Component {
   renderInfoBuyerAux() {
     const { numero, cidade, estado, telefone } = this.state;
     return (
-      <>
+      <div>
         <label htmlFor="numero">
           <input
             onChange={ this.handleChange }
@@ -83,14 +86,14 @@ class ShopFinish extends Component {
           />
         </label>
         {this.renderInfoBuyerAuxAdress()}
-      </>
+      </div>
     );
   }
 
   renderInfoBuyerAuxAdress() {
     const { cep, endereco, complemento } = this.state;
     return (
-      <>
+      <div>
         <label htmlFor="cep">
           <input
             data-testid="checkout-cep"
@@ -104,7 +107,7 @@ class ShopFinish extends Component {
         </label>
         <label htmlFor="endereco">
           <input
-            data-testid="checkout-adress"
+            data-testid="checkout-address"
             onChange={ this.handleChange }
             value={ endereco }
             type="text"
@@ -123,7 +126,7 @@ class ShopFinish extends Component {
             placeholder="Complemento"
           />
         </label>
-      </>
+      </div>
     );
   }
 
@@ -165,24 +168,24 @@ class ShopFinish extends Component {
             placeholder="E-mail"
           />
         </label>
-        {this.renderInfoBuyerAuxAdress()}
         {this.renderInfoBuyerAux()}
       </section>
     );
   }
 
-  renderCartTotal({ cart, count }) {
-    const total = cart.reduce((acc, curr, index) => {
-      const value = curr.price * count[index];
-      return acc + value;
-    }, 0);
+  renderCartTotal() {
+    const carrinho = JSON.parse(localStorage.getItem('storageItems'));
+    const allPrices = carrinho.map(
+      (currentValue) => currentValue.price * currentValue.count,
+    );
+    const total = allPrices.reduce((prev, currentValue) => prev + currentValue, 0);
     return total;
   }
 
   render() {
-    const { cart } = this.props;
+    const cart = JSON.parse(localStorage.getItem('storageItems'));
     const { redirect } = this.state;
-    const products = cart.cart;
+    const products = cart;
     if (redirect) return (<Redirect to="/" />);
     return (
       <div>
@@ -190,13 +193,16 @@ class ShopFinish extends Component {
           Revise seus produtos:
           {products && products.map((product, index) => (
             <div key={ index }>
+              <p>
+                {product.title}
+              </p>
               <img src={ product.thumbnail } alt="produto" />
-              Produto:
+              R$
               {product.price}
             </div>
           ))}
           <span>
-            Total
+            Total:
             {products && this.renderCartTotal(cart)}
           </span>
           {this.renderInfoBuyer()}
@@ -212,9 +218,5 @@ class ShopFinish extends Component {
     );
   }
 }
-
-ShopFinish.propTypes = {
-  cart: PropTypes.objectOf(PropTypes.array).isRequired,
-};
 
 export default ShopFinish;
