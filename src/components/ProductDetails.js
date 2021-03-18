@@ -34,9 +34,8 @@ class ProductDetails extends React.Component {
     if (product === undefined) {
       return <Redirect to="/" />;
     }
-    const { title, thumbnail, price, id } = product;
+    const { title, thumbnail, price, id, condition } = product;
     const { addProductToCart } = this.props;
-
     return (
       <>
         <div className="links-back-cart">
@@ -44,7 +43,7 @@ class ProductDetails extends React.Component {
             <button className="shopping-cart-button" type="button" alt="return-button" />
           </Link>
           <Link data-testid="shopping-cart-button" to="/shopping-cart">
-            <button className="cart-header-container" type="button" alt="cart-button" />
+            <button className="cart-header" type="button" alt="cart-button" />
           </Link>
         </div>
         <div data-testid="product-detail-name" className="card">
@@ -53,18 +52,19 @@ class ProductDetails extends React.Component {
           </div>
           <div className="content-card">
             <p>{title}</p>
-            <p>{price}</p>
+            <p>{`Condição ${condition ? 'NOVO' : 'default'}`}</p>
+            <p>{`R$${price}`}</p>
+            <div id={ id }>
+              <button
+                type="button"
+                data-testid="product-detail-add-to-cart"
+                onClick={ addProductToCart }
+              >
+                Adicionar ao carrinho
+              </button>
+            </div>
+            <ProductEvaluation />
           </div>
-          <div id={ id }>
-            <button
-              type="button"
-              data-testid="product-detail-add-to-cart"
-              onClick={ addProductToCart }
-            >
-              Adicionar ao carrinho
-            </button>
-          </div>
-          <ProductEvaluation />
         </div>
       </>
     );

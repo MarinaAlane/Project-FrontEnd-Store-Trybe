@@ -1,3 +1,8 @@
+.img-card img {
+  width: 250px;
+  height: 230px;
+}
+
 .card {
   align-items: center;
   display: flex;
@@ -18,7 +23,7 @@
   margin: 0 5px;
 }
 
-.cart-header-container {
+.cart-header {
   background: url('https://image.flaticon.com/icons/png/512/126/126083.png') no-repeat;
   background-size: contain;
   border: none;
