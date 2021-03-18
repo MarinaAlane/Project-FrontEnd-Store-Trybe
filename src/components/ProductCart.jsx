@@ -9,11 +9,7 @@ class ProductCart extends React.Component {
       <div>
         <h1 data-testid="shopping-cart-product-name">{ title }</h1>
         <p>{ price }</p>
-        <input
-          type="number"
-          data-testid="shopping-cart-product-quantity"
-          value={ quantity }
-        />
+        <p data-testid="shopping-cart-product-quantity">{ quantity }</p>
         <img src={ thumbnail } alt={ title } />
         <hr />
       </div>
