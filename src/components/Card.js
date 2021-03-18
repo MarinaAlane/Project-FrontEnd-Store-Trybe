@@ -7,83 +7,83 @@ class Card extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { disableButton: false };
-
-    this.handleAddClick = this.handleAddClick.bind(this);
-    this.cartActionButtons = this.cartActionButtons.bind(this);
-    this.cardButtons = this.cardButtons.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
-  // componentDidMount() {
-  //   this.disableButtons();
+  handleClick({ target: { value } }) {
+    const { product, handleAddClick, handleSubClick, handleDeleteClick } = this.props;
+    switch (value) {
+    case '+':
+      handleAddClick(product);
+      break;
+    case '-':
+      handleSubClick(product);
+      break;
+    default:
+      handleDeleteClick(product.id);
+    }
+  }
+
+
+  // handleAddClick(product) {
+  //   // const { onClick } = this.props;
+  //   const itemsInCart = JSON.parse(localStorage.getItem('NoMasterCart'));
+  //   if (!itemsInCart) {
+  //     product = { ...product, quantityToOrder: 1 };
+  //     localStorage.setItem('NoMasterCart', JSON.stringify([product]));
+  //   } else {
+  //     const indexOfProduct = itemsInCart.findIndex((item) => item.id === product.id);
+  //     if (indexOfProduct >= 0) {
+  //       itemsInCart[indexOfProduct].quantityToOrder += 1;
+  //       localStorage.setItem('NoMasterCart', JSON.stringify(itemsInCart));
+  //     } else {
+  //       product = { ...product, quantityToOrder: 1 };
+  //       const itemsToAdd = [...itemsInCart, product];
+  //       localStorage.setItem('NoMasterCart', JSON.stringify(itemsToAdd));
+  //     }
+  //   }
+  //   // onClick();
   // }
 
-  handleAddClick(product) {
-    const itemsInCart = JSON.parse(localStorage.getItem('NoMasterCart'));
-    if (!itemsInCart) {
-      product = { ...product, quantityToOrder: 1 };
-      localStorage.setItem('NoMasterCart', JSON.stringify([product]));
-    } else {
-      const indexOfProduct = itemsInCart.findIndex((item) => item.id === product.id);
-      if (indexOfProduct >= 0) {
-        itemsInCart[indexOfProduct].quantityToOrder += 1;
-        localStorage.setItem('NoMasterCart', JSON.stringify(itemsInCart));
-      } else {
-        product = { ...product, quantityToOrder: 1 };
-        const itemsToAdd = [...itemsInCart, product];
-        localStorage.setItem('NoMasterCart', JSON.stringify(itemsToAdd));
-      }
-    }
-    const { quantityToOrder, available_quantity: availableQuantity } = product;
-    if (quantityToOrder >= availableQuantity) this.setState({ disableButton: true });
-  }
+  // handleSubClick(product) {
+  //   // const { onClick } = this.props;
+  //   const itemsInCart = JSON.parse(localStorage.getItem('NoMasterCart'));
+  //   const indexOfProduct = itemsInCart.findIndex((item) => item.id === product.id);
+  //   itemsInCart[indexOfProduct].quantityToOrder -= 1;
+  //   localStorage.setItem('NoMasterCart', JSON.stringify(itemsInCart));
+  //   // onClick();
+  // }
 
-  handleSubClick(product) {
-    const itemsInCart = JSON.parse(localStorage.getItem('NoMasterCart'));
-    if (!itemsInCart) {
-      product = { ...product, quantityToOrder: 1 };
-      localStorage.setItem('NoMasterCart', JSON.stringify([product]));
-    } else {
-      const indexOfProduct = itemsInCart.findIndex((item) => item.id === product.id);
-      if (indexOfProduct >= 0) {
-        itemsInCart[indexOfProduct].quantityToOrder -= 1;
-        localStorage.setItem('NoMasterCart', JSON.stringify(itemsInCart));
-      } else {
-        product = { ...product, quantityToOrder: 1 };
-        const itemsToAdd = [...itemsInCart, product];
-        localStorage.setItem('NoMasterCart', JSON.stringify(itemsToAdd));
-      }
-    }
-    const { quantityToOrder, available_quantity: availableQuantity } = product;
-    if (quantityToOrder >= availableQuantity) this.setState({ disableButton: true });
-  }
-
-  handleDeleteClick(id) {
-    const { onClick } = this.props;
-    const itemsInCart = JSON.parse(localStorage.getItem('NoMasterCart'));
-    const indexOfProduct = itemsInCart.findIndex((item) => item.id === id);
-    itemsInCart.splice(indexOfProduct, 1);
-    localStorage.setItem('NoMasterCart', JSON.stringify(itemsInCart));
-    onClick();
-  }
+  // handleDeleteClick(id) {
+  //   // const { onClick } = this.props;
+  //   const itemsInCart = JSON.parse(localStorage.getItem('NoMasterCart'));
+  //   const indexOfProduct = itemsInCart.findIndex((item) => item.id === id);
+  //   itemsInCart.splice(indexOfProduct, 1);
+  //   localStorage.setItem('NoMasterCart', JSON.stringify(itemsInCart));
+  //   // onClick();
+  // }
 
   cartActionButtons(id) {
     const { product } = this.props;
     const { available_quantity: availableQuantity, quantityToOrder } = product;
+    const smallerValue = 1;
     return (
       <div>
-        <button type="button" onClick={ () => this.handleDeleteClick(id) }>X</button>
+        <h4 data-testid="shopping-cart-product-quantity">{ quantityToOrder }</h4>
+        <button type="button" onClick={ this.handleClick }>X</button>
         <button
           type="button"
-          onClick={ this.handleSubClick(product) }
-          disabled={ quantityToOrder === 1 }
+          onClick={ this.handleClick }
+          value="-"
+          disabled={ smallerValue === quantityToOrder }
           data-testid="product-decrease-quantity"
         >
           -
         </button>
         <button
           type="button"
-          onClick={ () => this.handleAddClick(product) }
+          onClick={ this.handleClick }
+          value="+"
           disabled={ availableQuantity <= quantityToOrder }
           data-testid="product-increase-quantity"
         >
@@ -93,24 +93,17 @@ class Card extends Component {
     );
   }
 
-  // disableButtons() {
-  //   const { product } = this.props;
-  //   if (product.quantityToOrder >= product.availableQuantity) {
-  //     this.setState({ disableButton: true });
-  //   }
-  // }
-
   cardButtons() {
     const { product } = this.props;
-    const { id } = product;
-    const { disableButton } = this.state;
+    const { id, quantityToOrder, available_quantity: availableQuantity } = product;
     return (
       <div>
         <button
           type="button"
           data-testid="product-add-to-cart"
-          onClick={ () => this.handleAddClick(product) }
-          disabled={ disableButton }
+          onClick={ this.handleClick }
+          value="+"
+          disabled={ quantityToOrder >= availableQuantity }
         >
           Adicionar
         </button>

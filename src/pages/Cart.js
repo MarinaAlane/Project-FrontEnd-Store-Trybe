@@ -13,9 +13,47 @@ class Cart extends Component {
 
     this.getProdutsInLocalStorage = this.getProdutsInLocalStorage.bind(this);
     this.hasProducts = this.hasProducts.bind(this);
+    this.handleAddClick = this.handleAddClick.bind(this);
+    this.handleDeleteClick = this.handleDeleteClick.bind(this);
+    this.handleSubClick = this.handleSubClick.bind(this);
   }
 
   componentDidMount() {
+    this.getProdutsInLocalStorage();
+  }
+
+  handleAddClick(product) {
+    const itemsInCart = JSON.parse(localStorage.getItem('NoMasterCart'));
+    if (!itemsInCart) {
+      product = { ...product, quantityToOrder: 1 };
+      localStorage.setItem('NoMasterCart', JSON.stringify([product]));
+    } else {
+      const indexOfProduct = itemsInCart.findIndex((item) => item.id === product.id);
+      if (indexOfProduct >= 0) {
+        itemsInCart[indexOfProduct].quantityToOrder += 1;
+        localStorage.setItem('NoMasterCart', JSON.stringify(itemsInCart));
+      } else {
+        product = { ...product, quantityToOrder: 1 };
+        const itemsToAdd = [...itemsInCart, product];
+        localStorage.setItem('NoMasterCart', JSON.stringify(itemsToAdd));
+      }
+    }
+    this.getProdutsInLocalStorage();
+  }
+
+  handleSubClick(product) {
+    const itemsInCart = JSON.parse(localStorage.getItem('NoMasterCart'));
+    const indexOfProduct = itemsInCart.findIndex((item) => item.id === product.id);
+    itemsInCart[indexOfProduct].quantityToOrder -= 1;
+    localStorage.setItem('NoMasterCart', JSON.stringify(itemsInCart));
+    this.getProdutsInLocalStorage();
+  }
+
+  handleDeleteClick(id) {
+    const itemsInCart = JSON.parse(localStorage.getItem('NoMasterCart'));
+    const indexOfProduct = itemsInCart.findIndex((item) => item.id === id);
+    itemsInCart.splice(indexOfProduct, 1);
+    localStorage.setItem('NoMasterCart', JSON.stringify(itemsInCart));
     this.getProdutsInLocalStorage();
   }
 
@@ -39,11 +77,11 @@ class Cart extends Component {
           <img src={ cart } alt="cart" className="button" />
           <span><strong> Carrinho de Compras</strong></span>
         </div>
-        <h3 data-testid="shopping-cart-product-quantity">
+        {/* <h3>
           Você possui
           { ` ${cartProducts.length} ` }
           itens no carrinho
-        </h3>
+        </h3> */}
         <Link to="/checkout">
           <button type="button" data-testid="checkout-products">
             Finalizar Compra
@@ -55,7 +93,9 @@ class Cart extends Component {
             product={ product }
             testid="shopping-cart-product-name"
             inCart
-            onClick={ this.getProdutsInLocalStorage }
+            handleDeleteClick={ this.handleDeleteClick }
+            handleSubClick={ this.handleSubClick }
+            handleAddClick={ this.handleAddClick }
           />
         ))}
       </div>
