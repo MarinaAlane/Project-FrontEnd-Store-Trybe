@@ -45,7 +45,7 @@ class ReviewProducts extends Component {
         </h3>
         {cartProducts.map((product) => (
           <CardReview
-            key={ product }
+            key={ product.id }
             product={ product }
             testid="shopping-cart-product-name"
           />
