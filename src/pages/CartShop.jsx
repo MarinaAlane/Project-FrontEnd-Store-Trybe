@@ -1,73 +1,17 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { FiShoppingCart } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import CartItem from '../components/CartItem';
-import CartStorage from '../services/cart';
 
 require('./CartShop.css');
 
 export default class CartShop extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      items: CartStorage.items,
-      total: this.getTotalValue(CartStorage.items),
-    };
-
-    this.changeItemQuantity = this.changeItemQuantity.bind(this);
-    this.removeItem = this.removeItem.bind(this);
-    this.updateCart = this.updateCart.bind(this);
-    this.updateCartStorage = this.updateCartStorage.bind(this);
-    this.updateTotalAmount = this.updateTotalAmount.bind(this);
-  }
-
-  getTotalValue(items) {
-    const total = items.reduce(
-      (amount, { price, quantity }) => (amount + price * quantity),
-      0,
-    );
-    return parseFloat(total.toFixed(2));
-  }
-
-  updateCartStorage() {
-    const { items: updatedItems } = this.state;
-    CartStorage.items = updatedItems;
-    CartStorage.save();
-  }
-
-  updateTotalAmount() {
-    const { items } = this.state;
-    this.setState({ total: this.getTotalValue(items) });
-  }
-
-  updateCart() {
-    this.updateTotalAmount();
-    this.updateCartStorage();
-  }
-
-  removeItem({ index: itemIndex }) {
-    const { items } = this.state;
-    items.splice(itemIndex, 1);
-    this.setState({ items }, this.updateCart);
-  }
-
-  changeItemQuantity({ index: itemIndex }, operation) {
-    const { items } = this.state;
-    let { quantity } = items[itemIndex];
-    const { availableQuantity } = items[itemIndex];
-    quantity = operation === '+' ? quantity += 1 : quantity -= 1;
-    quantity = quantity < 0 ? 0 : quantity;
-    quantity = quantity > availableQuantity ? availableQuantity : quantity;
-    this.setState((currentState) => {
-      currentState.items[itemIndex].quantity = quantity;
-      return currentState;
-    }, this.updateCart);
-  }
-
   render() {
-    const { items, total } = this.state;
+    // const { items, total } = this.state;
+    const { cartHandler: { items, total, remove, changeQuantityOf } } = this.props;
     const cartIsEmpty = items.length === 0;
-    const formattedTotal = total.toFixed(2).replace('.', ',');
+    const formattedTotal = total().toFixed(2).replace('.', ',');
 
     return (
       <main>
@@ -85,8 +29,8 @@ export default class CartShop extends React.Component {
                     key={ item.id }
                     index={ index }
                     item={ item }
-                    changeQuantity={ this.changeItemQuantity }
-                    removeItem={ this.removeItem }
+                    changeQuantity={ changeQuantityOf }
+                    removeItem={ remove }
                   />))}
                 <strong>Valor Total da Compra:</strong>
                 { ` R$ ${formattedTotal}` }
@@ -98,3 +42,14 @@ export default class CartShop extends React.Component {
     );
   }
 }
+
+CartShop.propTypes = {
+  cartHandler: PropTypes.shape({
+    items: PropTypes.arrayOf(
+      PropTypes.object,
+    ).isRequired,
+    total: PropTypes.func.isRequired,
+    remove: PropTypes.func.isRequired,
+    changeQuantityOf: PropTypes.func.isRequired,
+  }).isRequired,
+};
