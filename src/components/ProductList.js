@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import * as Api from '../services/api';
 import ProductItem from './ProductItem';
 import Categories from './Categories';
+import CartButton from './CartButton';
 
 class ProductList extends Component {
   constructor(props) {
@@ -41,26 +42,22 @@ class ProductList extends Component {
     );
   }
 
-  async filterCategory({ target: { id } }) {
-    const { query } = this.state;
-    const productsFromCategory = await Api.getProductsFromCategoryAndQuery(id, query);
+  async filterCategory(event) {
+    const { value } = event.target;
+    const productsFromCategory = await Api.getProductsFromCategoryAndQuery(value);
     console.log(productsFromCategory.results);
     this.setState({
       products: productsFromCategory.results,
-      category: id,
+      category: value,
     });
   }
 
   render() {
     const { query, products } = this.state;
-    console.log(products);
     return (
-      <div>
-        <aside>
-          <Categories onChange={ this.filterCategory } />
-        </aside>
-        <main>
-          <header>
+      <main>
+        <header className="header-container">
+          <div className="search-container">
             <input
               value={ query }
               onChange={ this.userInput }
@@ -74,25 +71,30 @@ class ProductList extends Component {
             >
               Buscar
             </button>
-          </header>
-          {
-            products.length !== 0 ? products.map((product) => (
-
-              <ProductItem
-                key={ product.id }
-                title={ product.title }
-                price={ product.price }
-                image={ product.thumbnail }
-                id={ product.id }
-              />
-            )) : (
-              <p data-testid="home-initial-message">
-                Digite algum termo de pesquisa ou escolha uma categoria.
-              </p>
-            )
-          }
-        </main>
-      </div>
+            <CartButton />
+          </div>
+        </header>
+        <section className="body-container">
+          <Categories onChange={ this.filterCategory } />
+          <div className="card-container">
+            {
+              products.length !== 0 ? products.map((product) => (
+                <ProductItem
+                  key={ product.id }
+                  title={ product.title }
+                  price={ product.price }
+                  image={ product.thumbnail }
+                  id={ product.id }
+                />
+              )) : (
+                <p data-testid="home-initial-message">
+                  Digite algum termo de pesquisa ou escolha uma categoria.
+                </p>
+              )
+            }
+          </div>
+        </section>
+      </main>
     );
   }
 }
