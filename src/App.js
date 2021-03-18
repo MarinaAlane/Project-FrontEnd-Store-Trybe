@@ -14,7 +14,7 @@ class App extends React.Component {
             path="/"
             render={ () => (<ProductList />) }
           />
-          <Route path="/cart" render={ () => (<CartButton />) } />
+          <Route path="/cart" render={ (props) => (<CartButton { ...props } />) } />
           <Route
             path="/product/:id"
             render={ (props) => (<ProductDetails { ...props } />) }
