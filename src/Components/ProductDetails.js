@@ -54,7 +54,6 @@ class ProductDetails extends React.Component {
         <AddToCartDetail product={ product } />
       </div>
     );
-    
   }
 }
 
