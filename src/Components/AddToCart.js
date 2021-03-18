@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class AddToCart extends Component {
   constructor() {
@@ -28,5 +29,9 @@ class AddToCart extends Component {
     );
   }
 }
+
+AddToCart.propTypes = {
+  product: PropTypes.objectOf(PropTypes.object).isRequired,
+};
 
 export default AddToCart;
