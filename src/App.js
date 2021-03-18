@@ -71,13 +71,6 @@ class App extends Component {
     }
   }
 
-  // addProductToCart({ target }) {
-  //   const { products } = this.state;
-  //   const product = products.find((item) => item.id === target.parentNode.id);
-  //   this.setState((prevState) => ({
-  //     cartItems: [...prevState.cartItems, product],
-  //     emptyCart: false,
-  //   }));
   addProductToCart(productId) {
     const { products, cartItems } = this.state;
     const product = products.find((item) => item.id === productId);
