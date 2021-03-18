@@ -39,6 +39,7 @@ Main.propTypes = {
   productsFromQuery: PropTypes.arrayOf(PropTypes.object).isRequired,
   isFetchingFromQuery: PropTypes.bool.isRequired,
   addProductToCart: PropTypes.func.isRequired,
+  itensAddToCart: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default Main;
