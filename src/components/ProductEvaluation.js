@@ -35,7 +35,6 @@ class ProductEvaluation extends Component {
             />
             <textArea
               placeholder="Comentário(opcional)"
-              type="text"
               data-testid="product-detail-evaluation"
               name="message"
             />
