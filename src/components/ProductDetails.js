@@ -2,7 +2,6 @@ import React from 'react';
 import { Redirect } from 'react-router';
 import PropTypes from 'prop-types';
 import '../styles/components/ProductDetails.css';
-import '../styles/pages/ShoppingCart.css';
 import { Link } from 'react-router-dom';
 import ProductEvaluation from './ProductEvaluation';
 
@@ -35,14 +34,17 @@ class ProductDetails extends React.Component {
     if (product === undefined) {
       return <Redirect to="/" />;
     }
-    console.log(product);
     const { title, thumbnail, price } = product;
+    const { addProductToCart } = this.props;
 
     return (
       <>
-        <div className="cart-header-container">
+        <div className="links-back-cart">
           <Link to="/">
-            <button type="button" alt="return-button" />
+            <button className="shopping-cart-button" type="button" alt="return-button" />
+          </Link>
+          <Link data-testid="shopping-cart-button" to="/shopping-cart">
+            <button className="cart-header-container" type="button" alt="cart-button" />
           </Link>
         </div>
         <div data-testid="product-detail-name" className="card">
@@ -53,10 +55,18 @@ class ProductDetails extends React.Component {
             <p>{title}</p>
             <p>{price}</p>
           </div>
-        <ProductEvaluation />
-      </div>
-    </>
-
+          <div>
+            <button
+              type="button"
+              data-testid="product-detail-add-to-cart"
+              onClick={ addProductToCart }
+            >
+              Adicionar ao carrinho
+            </button>
+          </div>
+          <ProductEvaluation />
+        </div>
+      </>
     );
   }
 }
@@ -64,6 +74,7 @@ class ProductDetails extends React.Component {
 ProductDetails.propTypes = {
   match: PropTypes.objectOf(PropTypes.string).isRequired,
   products: PropTypes.objectOf(PropTypes.array).isRequired,
+  addProductToCart: PropTypes.func.isRequired,
 };
 
 export default ProductDetails;
