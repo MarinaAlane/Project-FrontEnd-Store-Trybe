@@ -6,6 +6,7 @@ export default function reshapeObjects(products) {
     id,
     attributes,
     available_quantity: availableQuantity,
+    shipping: { free_shipping: freeShipping },
   }) => {
     attributes = attributes.map(({ name, value_name: value }) => ({ name, value }));
     return {
@@ -15,6 +16,7 @@ export default function reshapeObjects(products) {
       price,
       attributes,
       availableQuantity,
+      freeShipping,
     };
   });
 }

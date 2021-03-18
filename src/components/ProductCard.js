@@ -28,7 +28,13 @@ export default class ProductCard extends Component {
 
   render() {
     const { product, children } = this.props;
-    const { title, thumbnail, price, id } = product;
+    const {
+      title,
+      thumbnail,
+      price,
+      id,
+      freeShipping,
+    } = product;
     const { redirectTo } = this.state;
 
     if (redirectTo) {
@@ -54,14 +60,13 @@ export default class ProductCard extends Component {
           role="button"
         >
           <div data-testid="product">
-            <section className="title-card">
-              <p>{ title }</p>
-            </section>
+            { freeShipping
+              ? <span data-testid="free-shipping">Frete grátis</span>
+              : null }
+            <section className="title-card"><p>{ title }</p></section>
             <section className="body-card">
               <img src={ thumbnail } alt={ title } />
-              <p>
-                { `R$ ${price}` }
-              </p>
+              <p>{ `R$ ${price}` }</p>
             </section>
           </div>
         </div>
@@ -79,6 +84,7 @@ ProductCard.propTypes = {
     thumbnail: PropTypes.string,
     title: PropTypes.string,
     availableQuantity: PropTypes.number,
+    freeShipping: PropTypes.bool,
   }).isRequired,
   children: PropTypes.node.isRequired,
 };
