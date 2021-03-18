@@ -5,7 +5,7 @@ import '../componentStyles/ProductList.css';
 
 class ProductsList extends React.Component {
   render() {
-    const { productsFromQuery, addProductToCart } = this.props;
+    const { productsFromQuery, addProductToCart, itensAddToCart } = this.props;
     return (
       <div className="products-list">
         { productsFromQuery
@@ -13,6 +13,7 @@ class ProductsList extends React.Component {
             data={ product }
             key={ product.id }
             addProductToCart={ addProductToCart }
+            itensAddToCart={ itensAddToCart }
           />)) }
       </div>
     );
@@ -22,6 +23,7 @@ class ProductsList extends React.Component {
 ProductsList.propTypes = {
   productsFromQuery: PropTypes.arrayOf(PropTypes.object).isRequired,
   addProductToCart: PropTypes.func.isRequired,
+  itensAddToCart: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default ProductsList;

@@ -5,13 +5,13 @@ import '../componentStyles/ProductCard.css';
 
 class ProductCard extends React.Component {
   render() {
-    const { data, addProductToCart } = this.props;
+    const { data, addProductToCart, itensAddToCart } = this.props;
     const { title, thumbnail, price, id } = data;
     if (Object.keys(data).length) {
       return (
         <div data-testid="product" className="product-card">
           <Link
-            to={ { pathname: `/productDetails/${id}`, state: { data } } }
+            to={ { pathname: `/productDetails/${id}`, state: { data, itensAddToCart } } }
             data-testid="product-detail-link"
           >
             <h2>{title}</h2>
@@ -46,6 +46,7 @@ ProductCard.propTypes = {
     id: PropTypes.string,
   }).isRequired,
   addProductToCart: PropTypes.func.isRequired,
+  itensAddToCart: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default ProductCard;
