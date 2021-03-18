@@ -10,26 +10,21 @@ class ProductCard extends React.Component {
       <section className="products-container">
         { products.length !== 0
           ? products.map((product) => (
-            <div key={ product.id } className="product-card" data-testid="product">
+            <div key={product.id} className="product-card" data-testid="product">
               <Link
-                to={ { pathname: `/product/${product.id}`, state: { product } } }
+                to={{ pathname: `/product/${product.id}`, state: { product } }}
                 data-testid="product-detail-link"
               >
                 <p>{product.title}</p>
-                <img src={ product.thumbnail } alt={ product.title } />
+                <img src={product.thumbnail} alt={product.title} />
                 <p>{`R$ ${product.price}`}</p>
               </Link>
-              <Link
-                to={ { pathname: '/cart', state: { product } } }
+              <input
+                type="button"
+                value="Adicionar ao Carrinho"
+                onClick={ () => addItemToCart(product) }
                 data-testid="product-add-to-cart"
-              >
-                <input
-                  type="button"
-                  value="Adicionar ao Carrinho"
-                  data-testid="shopping-cart-button"
-                  onClick={ () => addItemToCart(product) }
-                />
-              </Link>
+              />
             </div>))
           : (
             <h1>

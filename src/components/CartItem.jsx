@@ -23,6 +23,7 @@ class CartItem extends React.Component {
     const { item: { title, price } } = this.props;
     const { multiply } = this.state;
     const quantity = 0;
+    const amount = 1;
 
     return (
       <li>
@@ -33,7 +34,7 @@ class CartItem extends React.Component {
           data-testid="product-decrease-quantity"
           onClick={ () => this.updatePrice(quantity - 1) }
         />
-        <span data-testid="shopping-cart-product-quantity">{}</span>
+        <span data-testid="shopping-cart-product-quantity">{amount * multiply}</span>
         <input
           type="button"
           value="+"
