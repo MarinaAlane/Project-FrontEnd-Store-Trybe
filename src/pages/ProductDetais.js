@@ -59,7 +59,7 @@ class ProductDetais extends Component {
     const { location: { state } } = this.props;
     if (!state) return <Redirect to="/" />;
     const { product } = state;
-    const { title, price, thumbnail, attributes } = product;
+    const { title, price, thumbnail, attributes, shipping: { free_shipping: free } } = product;
     const arrow = ('https://cdn.iconscout.com/icon/free/png-512/reply-all-1578267-1341736.png');
     return (
       <>
@@ -74,6 +74,7 @@ class ProductDetais extends Component {
           { title }
           - R$:
           { price }
+          { free && <p data-testid="free-shipping">Frete grátis</p> }
         </h3>
         <div>
           <img className="imgProduct" src={ thumbnail } alt="Product" />
