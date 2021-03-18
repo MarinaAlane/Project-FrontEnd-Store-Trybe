@@ -11,19 +11,40 @@ class ProductDetais extends Component {
 
     this.state = {
       evaluations: [],
+      disableButton: false,
     };
 
     this.handleClick = this.handleClick.bind(this);
     this.newEvaluaion = this.newEvaluaion.bind(this);
   }
 
+  // handleClick(product) {
+  //   const itemsInCart = JSON.parse(localStorage.getItem('NoMasterCart'));
+  //   if (!itemsInCart) localStorage.setItem('NoMasterCart', JSON.stringify([product]));
+  //   else {
+  //     const itemsToAdd = [...itemsInCart, product];
+  //     localStorage.setItem('NoMasterCart', JSON.stringify(itemsToAdd));
+  //   }
+  // }
   handleClick(product) {
     const itemsInCart = JSON.parse(localStorage.getItem('NoMasterCart'));
-    if (!itemsInCart) localStorage.setItem('NoMasterCart', JSON.stringify([product]));
-    else {
-      const itemsToAdd = [...itemsInCart, product];
-      localStorage.setItem('NoMasterCart', JSON.stringify(itemsToAdd));
+    if (!itemsInCart) {
+      product = { ...product, quantityToOrder: 1 };
+      localStorage.setItem('NoMasterCart', JSON.stringify([product]));
+    } else {
+      const indexOfProduct = itemsInCart.findIndex((item) => item.id === product.id);
+      // console.log(indexOfProduct);
+      if (indexOfProduct >= 0) {
+        itemsInCart[indexOfProduct].quantityToOrder += 1;
+        localStorage.setItem('NoMasterCart', JSON.stringify(itemsInCart));
+      } else {
+        product = { ...product, quantityToOrder: 1 };
+        const itemsToAdd = [...itemsInCart, product];
+        localStorage.setItem('NoMasterCart', JSON.stringify(itemsToAdd));
+      }
     }
+    const { quantityToOrder, available_quantity: availableQuantity } = product;
+    if (quantityToOrder >= availableQuantity) this.setState({ disableButton: true });
   }
 
   newEvaluaion(evaluation) {
@@ -34,7 +55,7 @@ class ProductDetais extends Component {
   }
 
   render() {
-    const { evaluations } = this.state;
+    const { evaluations, disableButton } = this.state;
     const { location: { state } } = this.props;
     if (!state) return <Redirect to="/" />;
     const { product } = state;
@@ -71,6 +92,7 @@ class ProductDetais extends Component {
             type="button"
             data-testid="product-detail-add-to-cart"
             onClick={ () => this.handleClick(product) }
+            disabled={ disableButton }
           >
             Adicionar
           </button>

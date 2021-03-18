@@ -19,6 +19,25 @@ class LandingPage extends React.Component {
     this.fetchProductsByCategoryId = this.fetchProductsByCategoryId.bind(this);
     this.hendleChange = this.hendleChange.bind(this);
     this.inputButton = this.inputButton.bind(this);
+    this.handleAddClick = this.handleAddClick.bind(this);
+  }
+
+  handleAddClick(product) {
+    const itemsInCart = JSON.parse(localStorage.getItem('NoMasterCart'));
+    if (!itemsInCart) {
+      product = { ...product, quantityToOrder: 1 };
+      localStorage.setItem('NoMasterCart', JSON.stringify([product]));
+    } else {
+      const indexOfProduct = itemsInCart.findIndex((item) => item.id === product.id);
+      if (indexOfProduct >= 0) {
+        itemsInCart[indexOfProduct].quantityToOrder += 1;
+        localStorage.setItem('NoMasterCart', JSON.stringify(itemsInCart));
+      } else {
+        product = { ...product, quantityToOrder: 1 };
+        const itemsToAdd = [...itemsInCart, product];
+        localStorage.setItem('NoMasterCart', JSON.stringify(itemsToAdd));
+      }
+    }
   }
 
   async fetchProductsByQuery() {
@@ -85,7 +104,11 @@ class LandingPage extends React.Component {
         { this.inputButton() }
         {products
           .map((product) => (
-            <Card product={ product } key={ product.id } />
+            <Card
+              product={ product }
+              key={ product.id }
+              handleAddClick={ this.handleAddClick }
+            />
           ))}
         <ListCategories onChange={ this.fetchProductsByCategoryId } />
       </div>

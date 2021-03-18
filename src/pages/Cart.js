@@ -10,9 +10,50 @@ class Cart extends Component {
     this.state = {
       cartProducts: [],
     };
+
+    this.getProdutsInLocalStorage = this.getProdutsInLocalStorage.bind(this);
+    this.hasProducts = this.hasProducts.bind(this);
+    this.handleAddClick = this.handleAddClick.bind(this);
+    this.handleDeleteClick = this.handleDeleteClick.bind(this);
+    this.handleSubClick = this.handleSubClick.bind(this);
   }
 
   componentDidMount() {
+    this.getProdutsInLocalStorage();
+  }
+
+  handleAddClick(product) {
+    const itemsInCart = JSON.parse(localStorage.getItem('NoMasterCart'));
+    if (!itemsInCart) {
+      product = { ...product, quantityToOrder: 1 };
+      localStorage.setItem('NoMasterCart', JSON.stringify([product]));
+    } else {
+      const indexOfProduct = itemsInCart.findIndex((item) => item.id === product.id);
+      if (indexOfProduct >= 0) {
+        itemsInCart[indexOfProduct].quantityToOrder += 1;
+        localStorage.setItem('NoMasterCart', JSON.stringify(itemsInCart));
+      } else {
+        product = { ...product, quantityToOrder: 1 };
+        const itemsToAdd = [...itemsInCart, product];
+        localStorage.setItem('NoMasterCart', JSON.stringify(itemsToAdd));
+      }
+    }
+    this.getProdutsInLocalStorage();
+  }
+
+  handleSubClick(product) {
+    const itemsInCart = JSON.parse(localStorage.getItem('NoMasterCart'));
+    const indexOfProduct = itemsInCart.findIndex((item) => item.id === product.id);
+    itemsInCart[indexOfProduct].quantityToOrder -= 1;
+    localStorage.setItem('NoMasterCart', JSON.stringify(itemsInCart));
+    this.getProdutsInLocalStorage();
+  }
+
+  handleDeleteClick(id) {
+    const itemsInCart = JSON.parse(localStorage.getItem('NoMasterCart'));
+    const indexOfProduct = itemsInCart.findIndex((item) => item.id === id);
+    itemsInCart.splice(indexOfProduct, 1);
+    localStorage.setItem('NoMasterCart', JSON.stringify(itemsInCart));
     this.getProdutsInLocalStorage();
   }
 
@@ -25,38 +66,45 @@ class Cart extends Component {
     }
   }
 
-  render() {
+  hasProducts() {
     const { cartProducts } = this.state;
     const arrow = ('https://cdn.iconscout.com/icon/free/png-512/reply-all-1578267-1341736.png');
     const cart = ('https://www.pinclipart.com/picdir/big/10-108329_cart-clip-art-at-clker-com-vector-shopping.png');
-    if (cartProducts.length > 0) {
-      return (
+    return (
+      <div>
+        <Link to="/"><img src={ arrow } alt="arrow" className="button" /></Link>
         <div>
-          <Link to="/"><img src={ arrow } alt="arrow" className="button" /></Link>
-          <div>
-            <img src={ cart } alt="cart" className="button" />
-            <span><strong> Carrinho de Compras</strong></span>
-          </div>
-          <h3 data-testid="shopping-cart-product-quantity">
-            Você possui
-            { ` ${cartProducts.length} ` }
-            itens no carrinho
-          </h3>
-          <Link to="/checkout">
-            <button type="button" data-testid="checkout-products">
-              Finalizar Compra
-            </button>
-          </Link>
-          {cartProducts.map((product) => (
-            <Card
-              key={ product }
-              product={ product }
-              testid="shopping-cart-product-name"
-            />
-          ))}
+          <img src={ cart } alt="cart" className="button" />
+          <span><strong> Carrinho de Compras</strong></span>
         </div>
-      );
-    }
+        {/* <h3>
+          Você possui
+          { ` ${cartProducts.length} ` }
+          itens no carrinho
+        </h3> */}
+        <Link to="/checkout">
+          <button type="button" data-testid="checkout-products">
+            Finalizar Compra
+          </button>
+        </Link>
+        {cartProducts.map((product) => (
+          <Card
+            key={ product.id }
+            product={ product }
+            testid="shopping-cart-product-name"
+            inCart
+            handleDeleteClick={ this.handleDeleteClick }
+            handleSubClick={ this.handleSubClick }
+            handleAddClick={ this.handleAddClick }
+          />
+        ))}
+      </div>
+    );
+  }
+
+  emputCart() {
+    const arrow = ('https://cdn.iconscout.com/icon/free/png-512/reply-all-1578267-1341736.png');
+    const cart = ('https://www.pinclipart.com/picdir/big/10-108329_cart-clip-art-at-clker-com-vector-shopping.png');
     return (
       <div>
         <Link to="/">
@@ -72,6 +120,16 @@ class Cart extends Component {
         </div>
         <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
         <img src="https://www.downloadclipart.net/medium/box-transparent-background.png" alt="box" />
+      </div>
+    );
+  }
+
+  render() {
+    const { cartProducts } = this.state;
+    return (
+      <div>
+        {cartProducts.length > 0 && this.hasProducts()}
+        {cartProducts.length <= 0 && this.emputCart()}
       </div>
     );
   }
