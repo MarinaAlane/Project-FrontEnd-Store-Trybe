@@ -9,12 +9,24 @@ class CartProduct extends React.Component {
     return(
       <div className="cart-product-container">
         <button className="cart-button"><RiCloseCircleLine /></button>
-        <img className="cart-img" src={ product.thumbnail } alt=""/>
-        <p>{ product.name }</p>
-        <button onClick={ () => subtractItem(product) } className="cart-button">-</button>
+        <img className="cart-img" src={ product.product.thumbnail } alt=""/>
+        <p>{ product.product.title }</p>
+        <button
+          onClick={ () => subtractItem(product) }
+          className="cart-button"
+          data-testid="product-decrease-quantity"
+        >
+          -
+        </button>
         <span>{ product.quantity }</span>
-        <button onClick={ () => addItem(product) } className="cart-button">+</button>
-        <p>`R$ ${product.price}`</p>
+        <button
+          onClick={ () => addItem(product) }
+          className="cart-button"
+          data-testid="product-increase-quantity"
+        >
+          +
+        </button>
+        <p>`R$ ${product.product.price}`</p>
       </div>
     );
   }

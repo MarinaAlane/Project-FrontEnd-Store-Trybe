@@ -1,52 +1,39 @@
 import React from 'react';
 import CartProduct from './CartProduct';
 
-const productObject = [
-  {
-    id: '1',
-    title: 'xablau',
-    thumbnail: 'https://via.placeholder.com/80',
-    quantity: 0,
-    price: 3.75,
-  },
-  {
-    id: '2',
-    title: 'roteador',
-    thumbnail: 'https://via.placeholder.com/80',
-    quantity: 0,
-    price: 83.25,
-  }
-];
+import cart from '../services/cart';
 
 class ProductsInCart extends React.Component {
   constructor(props) {
     super();
     this.state = {
-      products: productObject,
+      products: [],
+      total: 0,
     };
 
     this.handleClickAddItem = this.handleClickAddItem.bind(this);
     this.handleClickSubtractsItem = this.handleClickSubtractsItem.bind(this);
   }
 
-/*  componentDidMount() {
-    this.getProducts();
-    console.log('componentDidMount');
+  componentDidMount() {
+    const productsInStorage = cart.getProdutsInStorage();
+    this.setState({
+      products: productsInStorage,
+    });
+    // this.calculatesTotalToPay();
   }
 
-  getProducts() {
-    this.setState(() => ({ products: productObject }));
-    // console.log(productObject);
-    console.log(this.state);
-  } */ 
-
   handleClickAddItem(product) {
-    const productsCopy = this.state.products.forEach((currentProduct) => {
-      if (currentProduct.id === product.id ) {
+    let productsCopy = this.state.products;
+    
+    productsCopy.forEach((currentProduct) => {
+      if (currentProduct.product.id === product.product.id ) {
+        // console.log('Product: ', product.product.id);
         currentProduct.quantity += 1;
       }
     });
-    
+    // console.log('quantity: ', currentProduct.quantity);
+    console.log('productsCopy:', productsCopy[0].quantity);
     this.setState({ products: productsCopy });
     this.calculatesTotalToPay();
     console.log('Adiciona item!');
@@ -67,15 +54,21 @@ class ProductsInCart extends React.Component {
 
   calculatesTotalToPay() {
     const { products } = this.state;
-    const calculateTotal = products.reduce((accumulator, currentProduct) => currentProduct.price * currentProduct.quantity, 0);
-    console.log(calculateTotal);
+    console.log('calculatesTotalToPay', products);
+    const calculateTotal = products.reduce((accumulator, currentProduct) => {
+      return accumulator += currentProduct.product.price * currentProduct.quantity;
+    }, 0);
+    console.log('Total: ', calculateTotal);
+    this.setState({ total: calculateTotal });
   }
 
   render() {
-    const { products, total} = this.state;
+    const { products } = this.state;
+    let { total } = this.state;
     const productsList = products.map((product) => {
       return (
         <CartProduct
+          key={ product.id }
           product= { product }
           addItem={ this.handleClickAddItem }
           subtractItem={ this.handleClickSubtractsItem }

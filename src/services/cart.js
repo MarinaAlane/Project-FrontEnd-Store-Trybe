@@ -10,4 +10,11 @@ function addToCart(product) {
   localStorage.setItem(productsCartKey, JSON.stringify(products));
 }
 
-export default { addToCart };
+function getProdutsInStorage() {
+  if (localStorage.length !== 0) {
+    const getProducts = JSON.parse(localStorage.getItem('cart-products'));
+    return getProducts;
+  }
+}
+
+export default { addToCart, getProdutsInStorage };
