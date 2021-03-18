@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import * as fetchAPI from '../services/api';
 import CategoriesList from '../components/CategoriesList';
 import SearchBar from '../components/SearchBar';
@@ -51,7 +52,6 @@ export default class ProductList extends Component {
   }
 
   async fetchCategories() {
-    // Requisita categorias da API e atualiza state do componente
     const categories = await fetchAPI.getCategories();
     this.setState({ categories });
   }
@@ -63,20 +63,19 @@ export default class ProductList extends Component {
 
   render() {
     const { results, loading, categories, statusMessage } = this.state;
+    const { cartHandler } = this.props;
     const noSearchResults = results.length === 0 && !loading;
 
     return (
       <div className="ProductList">
         {
           categories
-          // Se a requisição foi completada, renderiza CategoriesList
             ? (
               <CategoriesList
                 categories={ categories }
                 selectionCallback={ this.selectCategory }
               />
             )
-          // Caso contrário, exibe a mensagem
             : <LoadingMsg />
         }
         <div className="SearchArea">
@@ -85,14 +84,33 @@ export default class ProductList extends Component {
               textInputCallback={ this.updateSearchValue }
               submitCallback={ this.submitSearch }
             >
-              <CartIcon />
+              <CartIcon cartHandler={ cartHandler } />
             </SearchBar>
             { noSearchResults
               ? <SearchStatusMsg text={ statusMessage } />
-              : <SearchResults loading={ loading } results={ results } />}
+              : (
+                <SearchResults
+                  loading={ loading }
+                  results={ results }
+                  cartHandler={ cartHandler }
+                />
+              )}
           </div>
         </div>
       </div>
     );
   }
 }
+
+ProductList.propTypes = {
+  cartHandler: PropTypes.shape({
+    items: PropTypes.arrayOf(
+      PropTypes.object,
+    ).isRequired,
+    add: PropTypes.func.isRequired,
+    size: PropTypes.func.isRequired,
+    total: PropTypes.func.isRequired,
+    remove: PropTypes.func.isRequired,
+    changeQuantityOf: PropTypes.func.isRequired,
+  }).isRequired,
+};

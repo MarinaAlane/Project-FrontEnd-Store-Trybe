@@ -9,14 +9,14 @@ require('./ProductDetails.css');
 
 export default class ProductDetails extends Component {
   render() {
-    const { location: { state } } = this.props;
+    const { location: { state }, cartHandler } = this.props;
     const { id, title, price, thumbnail, attributes } = state;
     const titleToHtml = `${title} - R$ ${price}`;
     return (
       <div className="content-product">
         <header className="header-product">
           <Link to="/">Voltar</Link>
-          <CartIcon />
+          <CartIcon cartHandler={ cartHandler } />
         </header>
         <div className="details-product">
           <section className="head-product">
@@ -48,11 +48,13 @@ export default class ProductDetails extends Component {
                 : <span />}
             </ul>
           </section>
-          <AddToCartButton product={ state } testid="product-detail-add-to-cart" />
+          <AddToCartButton
+            product={ state }
+            cartHandler={ cartHandler }
+            testid="product-detail-add-to-cart"
+          />
         </div>
-        <div>
-          <EvaluationForms />
-        </div>
+        <div><EvaluationForms /></div>
       </div>
     );
   }
@@ -70,5 +72,15 @@ ProductDetails.propTypes = {
         PropTypes.objectOf(PropTypes.string.isRequired),
       ),
     }),
+  }).isRequired,
+  cartHandler: PropTypes.shape({
+    items: PropTypes.arrayOf(
+      PropTypes.object,
+    ).isRequired,
+    add: PropTypes.func.isRequired,
+    size: PropTypes.func.isRequired,
+    total: PropTypes.func.isRequired,
+    remove: PropTypes.func.isRequired,
+    changeQuantityOf: PropTypes.func.isRequired,
   }).isRequired,
 };

@@ -1,17 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import CartStorage from '../services/cart';
 
 export default class AddToCartButton extends Component {
   render() {
-    const { product, testid } = this.props;
+    const { product, testid, cartHandler: { add } } = this.props;
     delete product.attributes;
 
     return (
       <button
         type="submit"
         data-testid={ testid }
-        onClick={ () => { CartStorage.add(product); } }
+        onClick={ () => { add(product); } }
       >
         Adicionar ao Carrinho
       </button>
@@ -29,4 +28,7 @@ AddToCartButton.propTypes = {
     availableQuantity: PropTypes.number,
   }).isRequired,
   testid: PropTypes.string.isRequired,
+  cartHandler: PropTypes.shape({
+    add: PropTypes.func.isRequired,
+  }).isRequired,
 };
