@@ -16,11 +16,10 @@ class ProductsInCart extends React.Component {
   }
 
   componentDidMount() {
-    const productsInStorage = cart.getProdutsInStorage();
-    this.setState({
-      products: productsInStorage,
-    });
+    this.getProducts();
   }
+
+  // xablau
 
   handleClickAddItem(product) {
     const { products } = this.state;
@@ -46,6 +45,13 @@ class ProductsInCart extends React.Component {
     });
     this.setState({ products: productsCopy });
     this.calculatesTotalToPay();
+  }
+
+  getProducts() {
+    const productsInStorage = cart.getProdutsInStorage();
+    this.setState({
+      products: productsInStorage,
+    });
   }
 
   calculatesTotalToPay() {

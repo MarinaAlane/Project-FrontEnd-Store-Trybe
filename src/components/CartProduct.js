@@ -6,6 +6,7 @@ import './CartProduct.css';
 class CartProduct extends React.Component {
   render() {
     const { product, addItem, subtractItem } = this.props;
+    console.log(product);
     return (
       <div className="cart-product-container">
         <button
@@ -40,7 +41,10 @@ class CartProduct extends React.Component {
 }
 
 CartProduct.propTypes = {
-  product: PropTypes.arrayOf(PropTypes.object).isRequired,
+  product: PropTypes.shape({
+    product: PropTypes.shape(),
+    quantity: PropTypes.number,
+  }).isRequired,
   addItem: PropTypes.func.isRequired,
   subtractItem: PropTypes.func.isRequired,
 };
