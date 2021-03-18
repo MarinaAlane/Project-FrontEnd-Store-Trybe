@@ -54,6 +54,7 @@ class ProductDetails extends React.Component {
         <ButtonCart />
       </div>
     );
+    
   }
 }
 
