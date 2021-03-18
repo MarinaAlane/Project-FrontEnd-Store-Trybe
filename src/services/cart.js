@@ -1,22 +1,11 @@
 class CartStorage {
   constructor() {
     this.exists = Object.keys(sessionStorage).includes('cart');
-    this.items = [];
-    this.load();
-  }
-
-  load() {
-    if (this.exists) {
-      this.items = JSON.parse(sessionStorage.getItem('cart'));
-    }
+    this.items = this.exists ? JSON.parse(sessionStorage.getItem('cart')) : [];
   }
 
   save() {
     sessionStorage.setItem('cart', JSON.stringify(this.items));
-  }
-
-  clear() {
-    sessionStorage.removeItem('cart');
   }
 
   getIndexOf(item) {
