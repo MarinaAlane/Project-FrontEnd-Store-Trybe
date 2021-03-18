@@ -15,6 +15,7 @@ function getProdutsInStorage() {
     const getProducts = JSON.parse(localStorage.getItem('cart-products'));
     return getProducts;
   }
+  return [];
 }
 
 export default { addToCart, getProdutsInStorage };

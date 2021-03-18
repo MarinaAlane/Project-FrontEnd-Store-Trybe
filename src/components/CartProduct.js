@@ -6,7 +6,6 @@ import './CartProduct.css';
 class CartProduct extends React.Component {
   render() {
     const { product, addItem, subtractItem } = this.props;
-    console.log(product);
     return (
       <div className="cart-product-container">
         <button
@@ -16,7 +15,7 @@ class CartProduct extends React.Component {
           <RiCloseCircleLine />
         </button>
         <img className="cart-img" src={ product.product.thumbnail } alt="" />
-        <p>{ product.product.title }</p>
+        <p data-testid="shopping-cart-product-name">{ product.product.title }</p>
         <button
           type="button"
           onClick={ () => subtractItem(product) }
@@ -25,7 +24,7 @@ class CartProduct extends React.Component {
         >
           -
         </button>
-        <span>{ product.quantity }</span>
+        <span data-testid="shopping-cart-product-quantity">{ product.quantity }</span>
         <button
           type="button"
           onClick={ () => addItem(product) }
