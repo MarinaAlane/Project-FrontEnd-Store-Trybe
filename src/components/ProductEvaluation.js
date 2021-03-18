@@ -33,9 +33,8 @@ class ProductEvaluation extends Component {
               rating={ rating }
               handleStorageRating={ this.handleStorageRating }
             />
-            <input
+            <textarea
               placeholder="Comentário(opcional)"
-              type="text"
               data-testid="product-detail-evaluation"
               name="message"
             />

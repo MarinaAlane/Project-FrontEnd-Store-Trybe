@@ -15,7 +15,8 @@ api.getProductsFromCategoryAndQuery.mockImplementation(
 
 describe(`11 - Avalie e comente acerca de um produto em sua tela de exibição detalhada`, () => {
   it('Avalia um produto na sua tela de detalhes', async () => {
-    const evaluationContent = `Esta é uma avaliação sobre o produto realizada na tela de detalhe.`;
+    const evaluationContent = `Esta é uma avaliação sobre o produto realizada na
+                               tela de detalhe`;
     render(<App />);
     await waitFor(() => expect(api.getCategories).toHaveBeenCalled());
     fireEvent.click(screen.getAllByTestId('category')[0]);
