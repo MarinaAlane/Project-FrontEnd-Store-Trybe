@@ -1,26 +1,72 @@
 import React from 'react';
-import * as Api from '../services/api';
+import PropTypes from 'prop-types';
 
 class DetailedDisplay extends React.Component {
   constructor(props) {
     super(props);
+    const { match: { params: { id } } } = this.props;
     this.state = {
-      id: this.props.match.params.id,
-      product: {},
+      id,
+      product: false,
     };
+
+    this.getProductDetail = this.getProductDetail.bind(this);
+    this.productDetails = this.productDetails.bind(this);
   }
 
   componentDidMount() {
+    this.getProductDetail();
+  }
+
+  getProductDetail() {
     const { id } = this.state;
-    Api.getProductsFromCategoryAndQuery();
+    this.getProductDetails(id)
+      .then((response) => this.setState({
+        product: response,
+      }));
+  }
+
+  async getProductDetails(id) {
+    const url = `https://api.mercadolibre.com/items/${id}`;
+    const fetchResponse = await fetch(url);
+    const response = await fetchResponse.json();
+    return response;
+  }
+
+  productDetails() {
+    const { product } = this.state;
+    const { title, price, thumbnail, attributes } = product;
+    return (
+      <div>
+        <h3 data-testid="product-detail-name">{`${title} - R$${price}`}</h3>
+        <img src={ thumbnail } alt="product" />
+        <div>
+          {attributes.map(
+            ({ id, name, value_name: value }) => (
+              <li key={ id }>{`${name}: ${value}`}</li>),
+          )}
+        </div>
+
+      </div>
+    );
   }
 
   render() {
-    console.log(this.state.product);
+    const { product } = this.state;
     return (
-      <p>{ this.state.id }</p>
+      <div>
+        {product && this.productDetails()}
+      </div>
     );
   }
 }
+
+DetailedDisplay.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      id: PropTypes.string.isRequired,
+    }),
+  }).isRequired,
+};
 
 export default DetailedDisplay;

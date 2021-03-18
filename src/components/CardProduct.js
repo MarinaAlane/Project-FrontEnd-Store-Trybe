@@ -13,7 +13,13 @@ class CardProduct extends React.Component {
         <span>
           {`R$ ${product.price}` }
         </span>
-        <Link to={ `/details-page/${product.id}` }>Ver Detalhes</Link>
+        <Link
+          data-testid="product-detail-link"
+          to={ `/details-page/${product.id}` }
+        >
+          Ver Detalhes
+
+        </Link>
         <AddProductToCartButton product={ product } />
       </section>
     );

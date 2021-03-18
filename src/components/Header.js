@@ -58,7 +58,7 @@ Header.propTypes = {
   showInput: PropTypes.bool.isRequired,
   showSearchButton: PropTypes.bool.isRequired,
   searchValue: PropTypes.string.isRequired,
-  upDateSearchValue: PropTypes.string.isRequired,
+  upDateSearchValue: PropTypes.func.isRequired,
   categoryValue: PropTypes.string.isRequired,
 };
 

@@ -23,7 +23,7 @@ export default class AddProductToCartButton extends React.Component {
 
 AddProductToCartButton.propTypes = {
   product: PropTypes.shape({
-    id: PropTypes.number,
+    id: PropTypes.string,
     title: PropTypes.string,
     thumbnail: PropTypes.string,
     price: PropTypes.number,
