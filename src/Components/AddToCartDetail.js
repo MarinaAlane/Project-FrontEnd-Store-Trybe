@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-class AddToCart extends Component {
+class AddToCartDetail extends Component {
   constructor() {
     super();
     this.addItem = this.addItem.bind(this);
@@ -21,7 +21,7 @@ class AddToCart extends Component {
     return (
       <button
         type="button"
-        data-testid="product-add-to-cart"
+        data-testid="product-detail-add-to-cart"
         onClick={ this.addItem }
       >
         Adicionar ao Carrinho
@@ -30,8 +30,8 @@ class AddToCart extends Component {
   }
 }
 
-AddToCart.propTypes = {
+AddToCartDetail.propTypes = {
   product: PropTypes.objectOf(PropTypes.object).isRequired,
 };
 
-export default AddToCart;
+export default AddToCartDetail;

@@ -1,6 +1,7 @@
 import React from 'react';
 import Proptypes from 'prop-types';
 import ButtonCart from './ButtonCart';
+import AddToCartDetail from './AddToCartDetail';
 import * as api from '../services/api';
 
 class ProductDetails extends React.Component {
@@ -48,6 +49,7 @@ class ProductDetails extends React.Component {
             </p>
           ))}
         <ButtonCart />
+        <AddToCartDetail product={ product } />
       </div>
     );
   }
@@ -56,4 +58,5 @@ class ProductDetails extends React.Component {
 ProductDetails.propTypes = {
   match: Proptypes.arrayOf(Object).isRequired,
 };
+
 export default ProductDetails;
