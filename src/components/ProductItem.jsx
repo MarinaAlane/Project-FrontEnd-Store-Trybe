@@ -13,6 +13,7 @@ export default class ProductItem extends Component {
       id,
     };
   }
+
   render() {
     const { title, image, price, id } = this.state;
     return (
