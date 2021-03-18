@@ -19,7 +19,7 @@
 }
 
 .cart-header-container {
-  background: url(https://image.flaticon.com/icons/png/512/126/126083.png) no-repeat;
+  background: url('https://image.flaticon.com/icons/png/512/126/126083.png') no-repeat;
   background-size: contain;
   border: none;
   height: 40px;
@@ -28,7 +28,7 @@
 }
 
 .shopping-cart-button {
-  background: url(/images/icons8-undo-52.png) no-repeat;
+  background: url('/images/icons8-undo-52.png') no-repeat;
   background-size: contain;
   border: none;
   height: 30px;
