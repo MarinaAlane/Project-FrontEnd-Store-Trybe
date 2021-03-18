@@ -18,7 +18,11 @@ export default class ProductItem extends Component {
         <p>{ title }</p>
         <img src={ image } alt="product" />
         <p>{ price }</p>
-      </div>
+        <button
+         type="button"
+         data-testid="product-add-to-cart">
+        </button>
+      </div> 
     );
   }
 }
