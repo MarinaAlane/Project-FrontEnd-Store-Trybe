@@ -35,15 +35,13 @@ class ProductsInCart extends React.Component {
     this.calculatesTotalToPay();
   }
 
-  handleClickSubtractsItem(productParam) {
+  handleClickSubtractsItem({ product: { id } }) {
     const { products } = this.state;
     const productsCopy = products;
 
     productsCopy.forEach((currentProduct) => {
-      if (currentProduct.product.id === productParam.product.id) {
-        if (currentProduct.quantity > 0) {
-          currentProduct.quantity -= 1;
-        }
+      if ((currentProduct.product.id === id) && (currentProduct.quantity > 0)) {
+        currentProduct.quantity -= 1;
       }
     });
     this.setState({ products: productsCopy });
@@ -64,16 +62,14 @@ class ProductsInCart extends React.Component {
   render() {
     const { products } = this.state;
     const { total } = this.state;
-    const productsList = products.map((product) => {
-      return (
-        <CartProduct
-          key={ product.id }
-          product={ product }
-          addItem={ this.handleClickAddItem }
-          subtractItem={ this.handleClickSubtractsItem }
-        />
-      );
-    });
+    const productsList = products.map((product) => (
+      <CartProduct
+        key={ product.product.id }
+        product={ product }
+        addItem={ this.handleClickAddItem }
+        subtractItem={ this.handleClickSubtractsItem }
+      />
+    ));
     return (
       <div>
         <div>
