@@ -12,7 +12,7 @@ export default class AddProductToCartButton extends React.Component {
     return (
       <button
         type="button"
-        data-testid="product-add-to-cart"
+        { ...this.props }
         onClick={ () => this.addToCart() }
       >
         Adicionar ao carrinho

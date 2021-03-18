@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import AddProductToCartButton from '../components/AddProductToCartButton';
+import ButtonShoppingCart from '../components/ButtonShoppingCart';
 
 class DetailedDisplay extends React.Component {
   constructor(props) {
@@ -38,6 +40,7 @@ class DetailedDisplay extends React.Component {
     const { title, price, thumbnail, attributes } = product;
     return (
       <div>
+        <ButtonShoppingCart />
         <h3 data-testid="product-detail-name">{`${title} - R$${price}`}</h3>
         <img src={ thumbnail } alt="product" />
         <div>
@@ -45,6 +48,10 @@ class DetailedDisplay extends React.Component {
             ({ id, name, value_name: value }) => (
               <li key={ id }>{`${name}: ${value}`}</li>),
           )}
+          <AddProductToCartButton
+            product={ product }
+            data-testid="product-detail-add-to-cart"
+          />
         </div>
 
       </div>

@@ -54,12 +54,19 @@ class Header extends React.Component {
 }
 
 Header.propTypes = {
-  onChangeProducts: PropTypes.func.isRequired,
+  onChangeProducts: PropTypes.func,
   showInput: PropTypes.bool.isRequired,
   showSearchButton: PropTypes.bool.isRequired,
-  searchValue: PropTypes.string.isRequired,
-  upDateSearchValue: PropTypes.func.isRequired,
-  categoryValue: PropTypes.string.isRequired,
+  searchValue: PropTypes.string,
+  upDateSearchValue: PropTypes.func,
+  categoryValue: PropTypes.string,
+};
+
+Header.defaultProps = {
+  onChangeProducts: () => {},
+  searchValue: '',
+  upDateSearchValue: () => {},
+  categoryValue: '',
 };
 
 export default Header;

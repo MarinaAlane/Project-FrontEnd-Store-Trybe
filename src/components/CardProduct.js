@@ -20,7 +20,7 @@ class CardProduct extends React.Component {
           Ver Detalhes
 
         </Link>
-        <AddProductToCartButton product={ product } />
+        <AddProductToCartButton data-testid="product-add-to-cart" product={ product } />
       </section>
     );
   }
