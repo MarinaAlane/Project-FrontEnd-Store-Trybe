@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import AddProductToCartButton from './AddProductToCartButton';
 
 class CardProduct extends React.Component {
   render() {
@@ -11,6 +12,7 @@ class CardProduct extends React.Component {
         <span>
           {`R$ ${product.price}` }
         </span>
+        <AddProductToCartButton product={ product } />
       </section>
     );
   }
@@ -18,6 +20,7 @@ class CardProduct extends React.Component {
 
 CardProduct.propTypes = {
   product: PropTypes.shape({
+    id: PropTypes.number,
     title: PropTypes.string,
     thumbnail: PropTypes.string,
     price: PropTypes.number,
