@@ -4,6 +4,28 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 class ProductItem extends Component {
+  constructor(props) {
+    super(props);
+    this.handleClick = this.handleClick.bind(this);
+    this.loadCartList = this.loadCartList.bind(this);
+  }
+
+  handleClick() {
+    const { product } = this.props;
+    const previousList = this.loadCartList();
+    previousList.push(product);
+    localStorage.setItem('cartList', JSON.stringify(previousList));
+  }
+
+  loadCartList() {
+    let previousList = localStorage.getItem('cartList');
+    if (previousList === null) {
+      previousList = [];
+      return previousList;
+    }
+    return JSON.parse(previousList);
+  }
+
   render() {
     const { product } = this.props;
     return (
@@ -24,6 +46,14 @@ class ProductItem extends Component {
           >
             Detalhes
           </Link>
+        </button>
+        <button
+          type="button"
+          data-testid="product-add-to-cart"
+          className="cart-button"
+          onClick={ this.handleClick }
+        >
+          Adicionar ao carrinho
         </button>
       </div>
     );
