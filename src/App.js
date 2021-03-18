@@ -67,12 +67,12 @@ export default class App extends Component {
     const existingIndex = this.getIndexOf(item);
     const { cartItems } = this.state;
     if (existingIndex >= 0) {
-      cartItems[existingIndex].quantity += 1;
+      this.changeItemQuantity({ index: existingIndex }, '+');
     } else {
       item.quantity = 1;
       cartItems.push(item);
+      this.setState({ cartItems }, () => this.updateStorage());
     }
-    this.setState({ cartItems }, () => this.updateStorage());
   }
 
   changeItemQuantity({ index: itemIndex }, operation) {
