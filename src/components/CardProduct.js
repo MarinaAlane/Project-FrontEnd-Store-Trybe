@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 class CardProduct extends React.Component {
   render() {
@@ -11,6 +12,7 @@ class CardProduct extends React.Component {
         <span>
           {`R$ ${product.price}` }
         </span>
+        <Link to='/details-page'>Ver Detalhes</Link>
       </section>
     );
   }
