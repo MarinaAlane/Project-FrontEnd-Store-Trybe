@@ -57,6 +57,7 @@ class ProductDetails extends React.Component {
         />
         {this.formStructure()}
       </div>
+
     );
   }
 }
