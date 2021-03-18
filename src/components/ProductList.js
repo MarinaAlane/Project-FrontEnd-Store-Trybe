@@ -53,6 +53,7 @@ class ProductList extends Component {
 
   render() {
     const { query, products } = this.state;
+    console.log(products);
     return (
       <div>
         <aside>
@@ -76,11 +77,13 @@ class ProductList extends Component {
           </header>
           {
             products.length !== 0 ? products.map((product) => (
+
               <ProductItem
                 key={ product.id }
                 title={ product.title }
                 price={ product.price }
                 image={ product.thumbnail }
+                id={ product.id }
               />
             )) : (
               <p data-testid="home-initial-message">
