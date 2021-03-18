@@ -21,7 +21,7 @@ class RatingEvaluation extends Component {
               <FaStar
                 size={ 20 }
                 color={ starRating <= rating ? '#ffc107' : '#b1b8cf' }
-              /> */}
+              /> 
             </label>
           );
         })}
