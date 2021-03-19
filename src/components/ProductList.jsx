@@ -4,6 +4,7 @@ import Categories from './Categories';
 import ProductCard from './ProductCard';
 import * as api from '../services/api';
 import './styles/ProductList.css';
+import ProductsAtCart from '../services/data';
 
 class ProductList extends Component {
   constructor() {
@@ -13,9 +14,11 @@ class ProductList extends Component {
     this.buttonClick = this.buttonClick.bind(this);
     this.emptySearch = this.emptySearch.bind(this);
     this.productMap = this.productMap.bind(this);
+    this.counter = this.counter.bind(this);
     this.state = {
       productId: '',
       productQuery: '',
+      counter: this.counter(),
     };
   }
 
@@ -54,24 +57,40 @@ class ProductList extends Component {
     const { results } = this.state;
     return (
       <div>
-        {
-          results
-            .map(({ title, thumbnail, price, id, available_quantity: availableQnt }) => (
-              <ProductCard
-                title={ title }
-                image={ thumbnail }
-                key={ id }
-                productId={ id }
-                price={ price }
-                availableQnt={ availableQnt }
-              />))
-        }
+        { results
+          .map(({ title, thumbnail, price, id, available_quantity: availableQnt }) => (
+            <ProductCard
+              title={ title }
+              image={ thumbnail }
+              key={ id }
+              productId={ id }
+              price={ price }
+              counter={ this.counter }
+              availableQnt={ availableQnt }
+            />)) }
       </div>
     );
   }
 
+  counter(click) {
+    let counter = 0;
+
+    if (ProductsAtCart.length > 0) {
+      ProductsAtCart.map((product) => {
+        counter += product.quantity;
+        return counter;
+      });
+    }
+    if (click === 'click') {
+      this.setState({
+        counter,
+      });
+    }
+    return counter;
+  }
+
   render() {
-    const { results } = this.state;
+    const { results, counter } = this.state;
     return (
       <div>
         <header className="header">
@@ -94,7 +113,13 @@ class ProductList extends Component {
             </button>
           </div>
           <div className="link">
-            <Link to="/shopping-cart" data-testid="shopping-cart-button">Carrinho</Link>
+            <Link
+              to="/shopping-cart"
+              data-testid="shopping-cart-button"
+            >
+              Carrinho
+            </Link>
+            <span data-testid="shopping-cart-size">{ counter }</span>
           </div>
         </header>
         <div className="main-container">

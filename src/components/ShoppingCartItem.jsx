@@ -1,62 +1,38 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ProductsAtCart from '../services/data';
+import { handleQuantity } from '../services/dataservices';
 
 class ShoppingCartItem extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.subtractQuantity = this.subtractQuantity.bind(this);
     this.sumQuantity = this.sumQuantity.bind(this);
-    this.state = { counter: 1 };
+    const { product } = this.props;
+    this.state = { counter: handleQuantity('=', product.productId) };
   }
 
-  subtractQuantity(product) {
-    const { counter } = this.state;
-    if (counter <= 0) {
-      this.setState({ counter: 0 });
-      if (ProductsAtCart.some((element) => element.productId === product.productId)) {
-        ProductsAtCart.forEach((element) => {
-          if (element.productId === product.productId) {
-            element.quantity = 0;
-          }
-        });
-      }
-    } else {
-      this.setState({ counter: counter - 1 });
-      if (ProductsAtCart.some((element) => element.productId === product.productId)) {
-        ProductsAtCart.forEach((element) => {
-          if (element.productId === product.productId) {
-            element.quantity -= 1;
-          }
-        });
-      }
-    }
+  subtractQuantity() {
+    const { product } = this.props;
+    handleQuantity('-', product.productId);
+    this.setState({
+      counter: handleQuantity('=', product.productId),
+    });
   }
 
-  sumQuantity(product) {
-    const { product: { availableQnt } } = this.props;
-    const { counter } = this.state;
-    if (counter < availableQnt) {
-      this.setState({
-        counter: counter + 1,
-      });
-    }
-    if (ProductsAtCart.some((element) => element.productId === product.productId)) {
-      ProductsAtCart.forEach((element) => {
-        if (element.productId === product.productId
-          && counter < availableQnt) {
-          element.quantity += 1;
-        }
-      });
-    }
+  sumQuantity() {
+    const { product } = this.props;
+    handleQuantity('+', product.productId);
+    this.setState({
+      counter: handleQuantity('=', product.productId),
+    });
   }
 
   render() {
     const { product } = this.props;
-    const { image, title, price, id } = product;
+    const { image, title, price, productId } = product;
     const { counter } = this.state;
     return (
-      <div data-testid="shopping-cart-product-name" key={ id }>
+      <div data-testid="shopping-cart-product-name" key={ productId }>
         <h1>{ title }</h1>
         <img src={ image } alt={ title } />
         <p>{ price }</p>
@@ -69,7 +45,7 @@ class ShoppingCartItem extends React.Component {
           <button
             type="button"
             data-testid="product-decrease-quantity"
-            onClick={ () => this.subtractQuantity(product) }
+            onClick={ this.subtractQuantity }
           >
             -
           </button>
@@ -77,7 +53,7 @@ class ShoppingCartItem extends React.Component {
           <button
             type="button"
             data-testid="product-increase-quantity"
-            onClick={ () => this.sumQuantity(product) }
+            onClick={ this.sumQuantity }
           >
             +
           </button>
@@ -92,7 +68,7 @@ ShoppingCartItem.propTypes = {
     title: PropTypes.string,
     image: PropTypes.string,
     price: PropTypes.number,
-    id: PropTypes.string,
+    ProductId: PropTypes.string,
   }).isRequired,
 };
 
