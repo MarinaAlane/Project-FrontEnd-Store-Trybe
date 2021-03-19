@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { FiShoppingCart } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import CartItem from '../components/CartItem';
+import CheckoutButton from '../components/CheckoutButton';
 
 require('./CartShop.css');
 
@@ -38,6 +39,7 @@ export default class CartShop extends React.Component {
             )}
         </div>
         <Link to="/">Continuar comprando</Link>
+        <CheckoutButton/>
       </main>
     );
   }
