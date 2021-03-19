@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '../App.css';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 class ProductDetails extends Component {
   constructor(props) {
@@ -17,6 +18,7 @@ class ProductDetails extends Component {
     this.renderFeedbackSection = this.renderFeedbackSection.bind(this);
     this.checkStorage = this.checkStorage.bind(this);
     this.renderFeedbacks = this.renderFeedbacks.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
@@ -34,6 +36,14 @@ class ProductDetails extends Component {
     localStorage.setItem('feedbackList', JSON.stringify(feedbacks));
   }
 
+  handleClick() {
+    const { location } = this.props;
+    const { details } = location.state;
+    const previousList = this.loadCartList();
+    previousList.push(details);
+    localStorage.setItem('cartList', JSON.stringify(previousList));
+  }
+
   handleChange({ target }) {
     this.setState({ [target.name]: target.value });
   }
@@ -44,6 +54,15 @@ class ProductDetails extends Component {
     const { feedbacks } = this.state;
     console.log(feedbacks);
     this.setState({ feedbacks: [...feedbacks, unsavedFeedback] });
+  }
+
+  loadCartList() {
+    let previousList = localStorage.getItem('cartList');
+    if (previousList === null) {
+      previousList = [];
+      return previousList;
+    }
+    return JSON.parse(previousList);
   }
 
   checkStorage() {
@@ -114,6 +133,7 @@ class ProductDetails extends Component {
     const { location } = this.props;
     const { details } = location.state;
     const { title, price, thumbnail, sold_quantity: soldQuantity } = details;
+
     return (
       <div className="product-detail">
         <h2 data-testid="product-detail-name">{ `${title} - R$${price}` }</h2>
@@ -124,6 +144,16 @@ class ProductDetails extends Component {
             <li>{ `Unidades vendidas: ${soldQuantity}` }</li>
           </ul>
         </section>
+        <div>
+          <button
+            data-testid="product-detail-add-to-cart"
+            type="button"
+            onClick={ this.handleClick }
+          >
+            Adicionar ao Carrinho
+          </button>
+        </div>
+        <Link to="/cart" data-testid="shopping-cart-button">CARRINHO</Link>
         {this.renderFeedbackSection()}
       </div>
     );
