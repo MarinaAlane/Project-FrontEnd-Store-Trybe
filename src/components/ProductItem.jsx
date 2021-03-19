@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import ButtonAdd from './ButtonAdd';
 
 export default class ProductItem extends Component {
   constructor(props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this);
     const { title, image, price, id } = this.props;
     this.state = {
       title,
@@ -13,12 +13,6 @@ export default class ProductItem extends Component {
       price,
       id,
     };
-  }
-
-  handleClick() {
-    const states = this.state;
-    Object.entries(states).map((state) => localStorage.setItem(state[0], state[1]));
-    localStorage.setItem('quantity', 1);
   }
 
   render() {
@@ -40,19 +34,7 @@ export default class ProductItem extends Component {
           </Link>
         </div>
         <div>
-          <button
-            type="button"
-            className="card-button"
-            data-testid="product-add-to-cart"
-            onClick={ this.handleClick }
-          >
-            <Link
-              to="/ShoppingCart"
-              type="submit"
-            >
-              Add to card
-            </Link>
-          </button>
+          <ButtonAdd product={ this.state } id="product-add-to-cart" />
         </div>
       </div>
     );
