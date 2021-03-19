@@ -43,3 +43,22 @@ export default function saveProductLocalStorage(array) {
     localStorage.setItem(`itemProduct${length + 1}`, JSON.stringify(newObj));
   }
 }
+
+export function quantityAllProductsCart() {
+  const { length } = localStorage;
+
+  if (length > 0) {
+    let sum = 0;
+
+    for (let index = 1; index <= length; index += 1) {
+      const gottenItemObj = JSON.parse(
+        localStorage.getItem(`itemProduct${index}`),
+      );
+      sum += gottenItemObj.quantity;
+    }
+
+    return sum;
+  }
+
+  return length;
+}

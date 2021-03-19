@@ -62,6 +62,7 @@ class Home extends React.Component {
           />
           <Link to="/cart" data-testid="shopping-cart-button">
             <i className="fas fa-shopping-cart" />
+            <span>{functions.quantityAllProductsCart()}</span>
           </Link>
         </header>
         <button
