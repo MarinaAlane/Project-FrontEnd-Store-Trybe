@@ -13,11 +13,17 @@ class ItemsCart extends Component {
     this.decreaseQuantity = this.decreaseQuantity.bind(this);
   }
 
-  increaseQuantity(price) {
-    this.setState(({ quantity, itemTotalPrice }) => ({
-      quantity: quantity + 1,
-      itemTotalPrice: itemTotalPrice + price,
-    }));
+  increaseQuantity(price, event) {
+    const { productInfo: { availableQuantity } } = this.props;
+    const { quantity } = this.state;
+    if (quantity === availableQuantity) {
+      event.target.disabled = true;
+    } else {
+      this.setState(({ itemTotalPrice }) => ({
+        quantity: quantity + 1,
+        itemTotalPrice: itemTotalPrice + price,
+      }));
+    }
   }
 
   decreaseQuantity(price) {
@@ -35,7 +41,9 @@ class ItemsCart extends Component {
   render() {
     const {
       productInfo: {
-        title, thumbnail, price }, removeProduct, handleCartItemsQuantity } = this.props;
+        title, thumbnail, price, availableQuantity,
+      }, removeProduct, handleCartItemsQuantity,
+    } = this.props;
     const { quantity } = this.state;
     return (
       <div data-testid="product">
@@ -50,11 +58,15 @@ class ItemsCart extends Component {
           <img src={ thumbnail } alt={ title } />
         </div>
         <p>{`R$ ${price * quantity}`}</p>
+        <p>
+          Quantidade em estoque:
+          { availableQuantity }
+        </p>
         <button
           data-testid="product-increase-quantity"
           type="button"
-          onClick={ () => {
-            this.increaseQuantity(price);
+          onClick={ (event) => {
+            this.increaseQuantity(price, event);
             handleCartItemsQuantity(1);
           } }
         >
@@ -82,6 +94,7 @@ ItemsCart.propTypes = {
     title: PropTypes.string,
     thumbnail: PropTypes.string,
     price: PropTypes.number,
+    availableQuantity: PropTypes.number,
   }),
   removeProduct: PropTypes.func.isRequired,
   handleCartItemsQuantity: PropTypes.func.isRequired,
