@@ -6,9 +6,22 @@ import ProductRating from './ProductRating';
 class Detalhes extends React.Component {
   render() {
     const {
-      addToCart, handleCartItemsQuantity, cartItemsQuantity,
-      location: { state: { detalhes: { id, price, thumbnail, title, availableQuantity,
-      } } } } = this.props;
+      addToCart,
+      handleCartItemsQuantity,
+      cartItemsQuantity,
+      location: {
+        state: {
+          detalhes: {
+            id,
+            price,
+            thumbnail,
+            title,
+            availableQuantity,
+            freeShipping,
+          },
+        },
+      },
+    } = this.props;
     return (
       <div data-testid="product" key={ id }>
         <Link data-testid="shopping-cart-button" to="/carrinho">
@@ -22,6 +35,7 @@ class Detalhes extends React.Component {
           Quantidade em estoque:
           { availableQuantity }
         </p>
+        { freeShipping && <h4 data-testid="free-shipping">Frete grátis</h4>}
         <button
           data-testid="product-detail-add-to-cart"
           type="button"

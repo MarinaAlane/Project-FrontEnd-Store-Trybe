@@ -14,7 +14,11 @@ class ItemsCart extends Component {
   }
 
   increaseQuantity(price, event) {
-    const { productInfo: { availableQuantity } } = this.props;
+    const {
+      productInfo: {
+        availableQuantity,
+      },
+    } = this.props;
     const { quantity } = this.state;
     if (quantity === availableQuantity) {
       event.target.disabled = true;
@@ -39,11 +43,9 @@ class ItemsCart extends Component {
   }
 
   render() {
-    const {
-      productInfo: {
-        title, thumbnail, price, availableQuantity,
-      }, removeProduct, handleCartItemsQuantity,
-    } = this.props;
+    const { productInfo: {
+      title, thumbnail, price, availableQuantity, freeShipping,
+    }, removeProduct, handleCartItemsQuantity } = this.props;
     const { quantity } = this.state;
     return (
       <div data-testid="product">
@@ -62,6 +64,7 @@ class ItemsCart extends Component {
           Quantidade em estoque:
           { availableQuantity }
         </p>
+        { freeShipping && <h4 data-testid="free-shipping">Frete grátis</h4>}
         <button
           data-testid="product-increase-quantity"
           type="button"
@@ -72,7 +75,7 @@ class ItemsCart extends Component {
         >
           +
         </button>
-        <span data-testid="shopping-cart-product-quantity">{ quantity }</span>
+        <span data-testid="shopping-cart-product-quantity">{quantity}</span>
         <button
           data-testid="product-decrease-quantity"
           type="button"
@@ -95,6 +98,7 @@ ItemsCart.propTypes = {
     thumbnail: PropTypes.string,
     price: PropTypes.number,
     availableQuantity: PropTypes.number,
+    freeShipping: PropTypes.bool,
   }),
   removeProduct: PropTypes.func.isRequired,
   handleCartItemsQuantity: PropTypes.func.isRequired,
