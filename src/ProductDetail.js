@@ -53,7 +53,7 @@ class ProductDetail extends React.Component {
         <button
           type="button"
           data-testid="product-detail-add-to-cart"
-          onClick={ () => handleProduct(product) }
+          onClick={ () => handleProduct(product, 'products') }
         >
           Adicionar ao Carrinho
         </button>
@@ -77,6 +77,6 @@ ProductDetail.propTypes = {
     }).isRequired,
   }).isRequired,
   handleProduct: PropTypes.func.isRequired,
-  totalProducts: PropTypes.number.isRequired,
+  totalProducts: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
 };
 export default ProductDetail;

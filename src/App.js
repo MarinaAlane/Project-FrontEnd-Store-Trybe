@@ -38,6 +38,7 @@ class App extends Component {
       customProduct = this.createCustomProduct(item);
       purchaseItems.push(customProduct);
     }
+    itemsCart += parseInt(customProduct.increaseTotal, 10);
     if (origin === 'products') {
       customProduct.purchaseQuantity += 1;
     }
@@ -47,7 +48,6 @@ class App extends Component {
     } else {
       purchaseItems[customProductIndex] = customProduct;
     }
-    itemsCart += parseInt(customProduct.increaseTotal, 10);
     this.setState({
       itemsCart,
       purchaseItems,
@@ -55,7 +55,7 @@ class App extends Component {
   }
 
   getLocalStorageData() {
-    const itemsCartStorage = localStorage.getItem('itemsCart');
+    const itemsCartStorage = parseInt(localStorage.getItem('itemsCart'), 10);
     const purchaseItemsStorage = JSON.parse(localStorage.getItem('purchaseItems' || []));
     if (itemsCartStorage !== null && purchaseItemsStorage !== null) {
       this.setState({
