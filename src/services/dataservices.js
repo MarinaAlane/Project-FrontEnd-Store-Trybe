@@ -2,7 +2,7 @@ import ProductsAtCart from './data';
 
 export function handleQuantity(operator, productId) {
   const findedProduct = ProductsAtCart.find((product) => productId === product.productId);
-  if (operator === '+' && findedProduct.quantity < findedProduct.availableQnt ) {
+  if (operator === '+' && findedProduct.quantity < findedProduct.availableQnt) {
     findedProduct.quantity += 1;
   } else if (operator === '-') {
     findedProduct.quantity -= 1;

@@ -15,7 +15,13 @@ class ProductCard extends React.Component {
           type="button"
           data-testid="product-add-to-cart"
           onClick={ () => {
-            incrementProduct({ title, image, price, productId, quantity: 1, availableQnt });
+            incrementProduct({
+              title,
+              image,
+              price,
+              productId,
+              quantity: 1,
+              availableQnt });
             counter('click');
           } }
         >
