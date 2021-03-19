@@ -1,26 +1,30 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import ProductList from './components/ProductList';
-import Cart from './components/Cart';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-class App extends React.Component {
-  render() {
-    return (
-      <Router>
+import './App.css';
+import Cart from './pages/Cart';
+import Home from './pages/Home';
+import ProductDetails from './pages/ProductDetails';
+
+function App() {
+  return (
+    <div className="App">
+      <BrowserRouter>
         <Switch>
           <Route
             exact
             path="/"
-            render={ () => (<ProductList />) }
+            component={ Home }
           />
           <Route
-            path="/Cart"
+            path="/pages/cart"
             component={ Cart }
           />
+          <Route path="/pages/details/:id" component={ ProductDetails } />
         </Switch>
-      </Router>
-    );
-  }
+      </BrowserRouter>
+    </div>
+  );
 }
 
 export default App;
