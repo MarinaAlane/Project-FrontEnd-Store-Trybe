@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 export default class ProductItem extends Component {
   constructor(props) {
     super(props);
+    this.handleClick = this.handleClick.bind(this);
     const { title, image, price, id } = this.props;
     this.state = {
       title,
@@ -13,19 +14,47 @@ export default class ProductItem extends Component {
       id,
     };
   }
+
+  handleClick() {
+    const states = this.state;
+    Object.entries(states).map((state) => localStorage.setItem(state[0], state[1]));
+    localStorage.setItem('quantity', 1);
+  }
+
   render() {
     const { title, image, price, id } = this.state;
     return (
-      <Link
-        to={ `/product-details/${id}?title=${title}&image=${image}&price=${price}` }
-        data-testid="product-detail-link"
-      >
-        <div data-testid="product">
-          <p>{ title }</p>
-          <img src={ image } alt="product" />
-          <p>{ price }</p>
+      <div data-testid="product" className="card">
+        <div>
+          <Link
+            to={ `/product-details/${id}?title=${title}&image=${image}&price=${price}` }
+            data-testid="product-detail-link"
+          >
+            <header>
+              <p>{ title }</p>
+            </header>
+            <figure className="card-image">
+              <img src={ image } alt="product" />
+            </figure>
+            <h3>{ price }</h3>
+          </Link>
         </div>
-      </Link>
+        <div>
+          <button
+            type="button"
+            className="card-button"
+            data-testid="product-add-to-cart"
+            onClick={ this.handleClick }
+          >
+            <Link
+              to="/ShoppingCart"
+              type="submit"
+            >
+              Add to card
+            </Link>
+          </button>
+        </div>
+      </div>
     );
   }
 }
