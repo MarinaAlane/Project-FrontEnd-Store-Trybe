@@ -30,7 +30,6 @@ class CartPage extends React.Component {
   removeProduct({ id }) {
     const { totalProducts } = this.state;
     const product = totalProducts.find((item) => item.id === id);
-    // if (product.quantity < 1)
     product.quantity -= 1;
     console.log(product.quantity);
     this.setState((last) => ({
