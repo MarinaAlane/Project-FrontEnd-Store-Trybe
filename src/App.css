@@ -24,13 +24,13 @@ body {
   cursor: pointer;
   font-size: 18px;
   margin-top: auto;
-  padding: 9px 20px;
-  text-align: center;
-  transition: 0.3s;
   outline: none;
+  padding: 9px 20px;
+  transition: 0.3s;
+  text-align: center;
 }
 
-input[type='text'] {
+input[ type='text' ] {
   background: #fff;
   border: 1px solid #c6c6c6;
   border-radius: 10px 0px 0px 10px;
@@ -99,28 +99,28 @@ aside .category-box {
   margin: 4px 0px 0px 0px;
 }
 
-input[type='radio'] {
+input[ type='radio' ] {
   appearance: none;
   border-radius: 10px;
   cursor: pointer;
   height: 40px;
   left: 0;
+  outline: none;
   position: absolute;
   top: 0;
-  outline: none;
   width: 250px;
 }
 
-input[type="radio"]:checked { 
+input[ type="radio" ]:checked { 
   background-color: #e74c3c;
   z-index: -1;
  }
 
- input[type="radio"]:checked+label  {
+ input[ type="radio" ]:checked + label  {
   color: white;
 }
 
-input[type='radio']:hover {
+input[ type='radio' ]:hover {
   border: solid 1px #e74c3c;
 }
 
@@ -139,13 +139,13 @@ input[type='radio']:hover {
 
 .card {
   background-color: #fff;
-  box-shadow: 0 0.4px 3.6px rgba(0, 0, 0, 0.004),
-    0 1px 8.5px rgba(0, 0, 0, 0.01), 0 1.9px 15.7px rgba(0, 0, 0, 0.019),
-    0 3.4px 28.2px rgba(0, 0, 0, 0.03), 0 6.3px 54.4px rgba(0, 0, 0, 0.047),
-    0 15px 137px rgba(0, 0, 0, 0.07);
+  box-shadow: 0 0.4px 3.6px rgba( 0, 0, 0, 0.004 ),
+    0 1px 8.5px rgba( 0, 0, 0, 0.01 ), 0 1.9px 15.7px rgba( 0, 0, 0, 0.019 ),
+    0 3.4px 28.2px rgba( 0, 0, 0, 0.03 ), 0 6.3px 54.4px rgba( 0, 0, 0, 0.047 ),
+    0 15px 137px rgba( 0, 0, 0, 0.07 );
   border-radius: 20px;
-  cursor: pointer;
   color: #1e272e;
+  cursor: pointer;
   display: flex;
   flex-direction: column;
   height: 250px;
@@ -155,21 +155,22 @@ input[type='radio']:hover {
   overflow: hidden;
   padding: 16px 24px;
   position: relative;
-  transition: 0.4s;
   text-align: center;
+  transition: 0.4s;
   width: 255px;
 }
 
 .card button {
-  padding: 10px 20px;
   background-color: white;
-  color: #1e272e;
   border: 1px solid #d0d0d1;
   border-radius: 10px;
-  font-size: 16px;
+  color: #1e272e;
   cursor: pointer;
+  font-size: 16px;
+  padding: 10px 20px;
   transition: 0.2s;
 }
+
 .card button:hover {
   background-color: #e74c3c;
   border: 1px solid #e74c3c;
@@ -177,34 +178,17 @@ input[type='radio']:hover {
 }
 
 .card a {
-  text-decoration: none;
   color: #171817;
+  text-decoration: none;
 }
 
 .price {
   color: #171817;
-  font-weight: 500;
   display: block;
+  font-weight: 500;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@media only screen and (max-width: 600px) {
+@media only screen and ( max-width: 600px ) {
 
   .header-app h2 {
     display: none;
@@ -214,8 +198,7 @@ input[type='radio']:hover {
     flex-direction: column;
   }
 
-  .input-container input[type='text']{
+  .input-container input[ type='text' ]{
     width: 100px;
   }
 }
-
