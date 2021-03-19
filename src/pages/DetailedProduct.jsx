@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import saveProduct from '../services/functions';
+import saveProductLocalStorage from '../services/functions';
+import * as functions from '../services/functions';
 
 class DetailedProduct extends React.Component {
   constructor(props) {
@@ -26,7 +27,6 @@ class DetailedProduct extends React.Component {
     const {
       state: { array },
     } = location;
-    console.log(this.props, location);
     const { title, thumbnail, price } = array;
 
     return (
@@ -44,7 +44,7 @@ class DetailedProduct extends React.Component {
             <button
               type="button"
               data-testid="product-detail-add-to-cart"
-              onClick={ () => saveProduct(array) }
+              onClick={ () => saveProductLocalStorage(array) }
             >
               Adicionar ao carrinho
             </button>

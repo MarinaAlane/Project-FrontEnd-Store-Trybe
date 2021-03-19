@@ -6,7 +6,7 @@ class Product extends React.Component {
   render() {
     const { array, saveProduct } = this.props;
     const { title, price, thumbnail, id } = array;
-    console.log(saveProduct);
+
     return (
       <div data-testid="product">
         <Link
@@ -17,7 +17,7 @@ class Product extends React.Component {
           data-testid="product-detail-link"
         >
           <img src={ thumbnail } alt={ title } />
-          <h2>{title}</h2>
+          <h2 data-testid="shopping-cart-product-name">{title}</h2>
           <p>{price}</p>
         </Link>
         <button

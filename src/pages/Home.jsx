@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import * as api from '../services/api';
-import saveProduct from '../services/functions';
+import saveProductLocalStorage from '../services/functions';
+import * as functions from '../services/functions';
 import './home.css';
 import Product from '../components/Product';
 import Category from '../components/Category';
@@ -26,7 +27,6 @@ class Home extends React.Component {
   }
 
   handleCategory(NewCategory) {
-    // this.setState({ categoryId: NewCategory });
     this.fetchQuery(NewCategory, '');
   }
 
@@ -50,6 +50,7 @@ class Home extends React.Component {
 
   render() {
     const { products, categories } = this.state;
+
     return (
       <div>
         <header className="home-header">
@@ -81,7 +82,7 @@ class Home extends React.Component {
             products.map((product) => (<Product
               key={ product.id }
               array={ product }
-              saveProduct={ saveProduct }
+              saveProduct={ saveProductLocalStorage }
             />))
           )}
         </div>
