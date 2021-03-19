@@ -75,6 +75,7 @@ Details.propTypes = {
   location: PropTypes.shape({
     state: PropTypes.shape({
       products: PropTypes.string,
+      cartCounter: PropTypes.number,
     }),
   }).isRequired,
 };

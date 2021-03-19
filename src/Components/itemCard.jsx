@@ -65,12 +65,13 @@ class ItemCard extends Component {
 }
 
 ItemCard.propTypes = {
+  globalCounter: PropTypes.func,
   products: PropTypes.shape({
     title: PropTypes.string,
     price: PropTypes.number,
     thumbnail: PropTypes.string,
     id: PropTypes.string,
-  }).isRequired,
-};
+  }),
+}.isRequired;
 
 export default ItemCard;
