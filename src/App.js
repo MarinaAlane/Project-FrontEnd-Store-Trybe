@@ -5,6 +5,7 @@ import Home from './pages/Home';
 import ShoppingCart from './pages/ShoppingCart';
 import * as api from './services/api';
 import ProductDetails from './components/ProductDetails';
+import Checkout from './pages/Checkout';
 
 class App extends Component {
   constructor(props) {
@@ -22,6 +23,7 @@ class App extends Component {
     this.handleSearchClick = this.handleSearchClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.removeItemFromCart = this.removeItemFromCart.bind(this);
+    this.emptyShoppingCart = this.emptyShoppingCart.bind(this);
   }
 
   componentDidMount() {
@@ -103,16 +105,15 @@ class App extends Component {
     });
   }
 
+  emptyShoppingCart() {
+    this.setState({
+      cartItems: [],
+      emptyCart: true,
+    });
+  }
+
   render() {
-    const {
-      handleChange,
-      handleSearchClick,
-      handleCategoryClick,
-      addProductToCart,
-      removeItemFromCart,
-      state,
-    } = this;
-    const { emptyCart, cartItems, inputValue, products, categories } = state;
+    const { emptyCart, cartItems, inputValue, products, categories } = this.state;
     return (
       <div className="App">
         <BrowserRouter>
@@ -122,17 +123,17 @@ class App extends Component {
               render={ () => (<ShoppingCart
                 emptyCart={ emptyCart }
                 cartItems={ cartItems }
-                removeItemFromCart={ removeItemFromCart }
+                removeItemFromCart={ this.removeItemFromCart }
               />) }
             />
             <Route
               exact
               path="/"
               render={ () => (<Home
-                addProductToCart={ addProductToCart }
-                handleChange={ handleChange }
-                handleSearchClick={ handleSearchClick }
-                handleCategoryClick={ handleCategoryClick }
+                addProductToCart={ this.addProductToCart }
+                handleChange={ this.handleChange }
+                handleSearchClick={ this.handleSearchClick }
+                handleCategoryClick={ this.handleCategoryClick }
                 categories={ categories }
                 inputValue={ inputValue }
                 products={ products }
@@ -141,6 +142,14 @@ class App extends Component {
             <Route
               path="/productDetails/:ship"
               render={ (props) => <ProductDetails { ...props } products={ products } /> }
+            />
+            <Route
+              path="/checkout"
+              render={ (props) => (<Checkout
+                { ...props }
+                cartItems={ cartItems }
+                emptyShoppingCart={ this.emptyShoppingCart }
+              />) }
             />
           </Switch>
         </BrowserRouter>
