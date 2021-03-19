@@ -17,31 +17,32 @@ class ItemCard extends Component {
   addCart(products) {
     const { globalCounter } = this.props;
     const { array } = this.state;
-    const { title, price, thumbnail, id } = products;
+    const { title, price, thumbnail, id, available_quantity: available } = products;
 
     if (array.some((productItem) => products.id === productItem.id)) {
       array.forEach((productItem) => {
-        if (productItem.id === products.id) {
+        if (productItem.id === products.id
+          && products.available_quantity > productItem.quantity) {
           productItem.quantity += 1;
           globalCounter();
         }
       });
     } else {
-      dataCart.array.push({ title, price, thumbnail, id, quantity: 1 });
+      dataCart.array.push({ title, price, thumbnail, id, quantity: 1, available });
       globalCounter();
     }
   }
 
   render() {
     const { products, cartCounter } = this.props;
-
-    const { title, price, thumbnail, id } = products;
+    const { title, price, thumbnail, id, available_quantity: available } = products;
     return (
 
       <div data-testid="product">
         <h2>{ title }</h2>
         <img src={ thumbnail } alt={ title } />
         <p>{ `R$ ${price.toFixed(2)}` }</p>
+        <p>{ `Disponivel em Estoque: ${available} unidade(s)`}</p>
         <Link
           to={ {
             pathname: `/details/${id}`,

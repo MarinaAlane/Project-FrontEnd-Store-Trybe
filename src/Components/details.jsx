@@ -19,7 +19,8 @@ class Details extends Component {
     const { title, price, thumbnail, id } = products;
     if (array.some((productItem) => products.id === productItem.id)) {
       array.forEach((productItem) => {
-        if (productItem.id === products.id) {
+        if (productItem.id === products.id
+          && products.available_quantity > productItem.quantity) {
           productItem.quantity += 1;
           this.setState({ cartCounter: cartCounter + 1 });
         }
@@ -33,6 +34,7 @@ class Details extends Component {
 
   render() {
     const { location: { state: { products } } } = this.props;
+    const { title, price, thumbnail, available_quantity: available } = products;
     const { cartCounter } = this.state;
     return (
       <div>
@@ -50,9 +52,10 @@ class Details extends Component {
             <p
               data-testid="product-detail-name"
             >
-              {`${products.title} - R$ ${products.price}`}
+              {`${title} - R$ ${price}`}
             </p>
-            <img src={ products.thumbnail } alt="img" />
+            <img src={ thumbnail } alt="img" />
+            <p>{ `Disponivel em Estoque: ${available} unidade(s)`}</p>
           </aside>
           <ul className="rightAside">
             <li> Especificações Técnicas</li>

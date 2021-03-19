@@ -10,12 +10,14 @@ class CartItem extends Component {
   }
 
   increase(addProduct) {
-    addProduct.quantity += 1;
-    this.setState({ products: addProduct });
+    if (addProduct.available > addProduct.quantity) {
+      addProduct.quantity += 1;
+      this.setState({ products: addProduct });
+    }
   }
 
   decrease(subProduct) {
-    if (subProduct.quantity > 1) {
+    if (subProduct.quantity > 1 && subProduct.available > subProduct.quantity) {
       subProduct.quantity -= 1;
       this.setState({ products: subProduct });
     }
@@ -23,13 +25,17 @@ class CartItem extends Component {
 
   render() {
     const { products } = this.state;
-    const { title, price, thumbnail, quantity } = products;
+    const { title, price, thumbnail, quantity, available } = products;
+    console.log(available);
     return (
       <div>
         <p data-testid="shopping-cart-product-name">{ title }</p>
         <img src={ thumbnail } alt={ title } />
         <p>{`R$ ${(quantity * price).toFixed(2)}`}</p>
-        <p data-testid="shopping-cart-product-quantity">{`Qt.: ${quantity}`}</p>
+        <p>{ `Disponivel em Estoque: ${available} unidade(s)`}</p>
+        <p data-testid="shopping-cart-product-quantity">
+          {`Qt.: ${quantity}`}
+        </p>
         <button
           type="button"
           onClick={ () => this.decrease(products) }
