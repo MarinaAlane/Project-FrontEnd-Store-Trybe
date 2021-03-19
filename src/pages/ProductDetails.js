@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ButtonAdd from '../components/ButtonAdd';
 
 class ProductDetails extends React.Component {
   formStructure() {
@@ -35,18 +36,25 @@ class ProductDetails extends React.Component {
   render() {
     const { location } = this.props;
     const params = new URLSearchParams(location.search);
-    const title = params.get('title');
-    const image = params.get('image');
-    const price = params.get('price');
+    const product = {
+      title: params.get('title'),
+      image: params.get('image'),
+      price: params.get('price'),
+    };
     return (
       <div>
-        <h2 data-testid="product-detail-name">{title}</h2>
-        <img src={ image } alt={ title } />
+        <h2 data-testid="product-detail-name">{product.title}</h2>
+        <img src={ product.image } alt={ product.title } />
         <h4>
           Preço: $
           {' '}
-          {price}
+          {product.price}
         </h4>
+        <ButtonAdd
+          product={ product }
+          id="product-detail-add-to-cart"
+          idLink="shopping-cart-button"
+        />
         {this.formStructure()}
       </div>
 

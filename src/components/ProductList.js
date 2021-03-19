@@ -45,7 +45,6 @@ class ProductList extends Component {
   async filterCategory(event) {
     const { value } = event.target;
     const productsFromCategory = await Api.getProductsFromCategoryAndQuery(value);
-    console.log(productsFromCategory.results);
     this.setState({
       products: productsFromCategory.results,
       category: value,
