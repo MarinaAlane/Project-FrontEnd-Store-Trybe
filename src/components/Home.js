@@ -42,7 +42,7 @@ class Home extends React.Component {
 
   render() {
     const { response, emptyResponse } = this.state;
-    const { addToCart } = this.props;
+    const { addToCart, handleCartItemsQuantity, cartItemsQuantity } = this.props;
     return (
       <>
         <section>
@@ -61,6 +61,7 @@ class Home extends React.Component {
           </button>
           <Link data-testid="shopping-cart-button" to="/carrinho">
             <i className="fas fa-shopping-cart" />
+            <span data-testid="shopping-cart-size">{cartItemsQuantity}</span>
           </Link>
         </section>
         <section>
@@ -69,13 +70,17 @@ class Home extends React.Component {
           </p>
         </section>
         <section>
-          <Categories filterId={ this.filterById } />
+          <Categories
+            filterId={ this.filterById }
+            handleCartItemsQuantity={ handleCartItemsQuantity }
+          />
         </section>
         <section>
           <SearchCard
             result={ response }
             response={ emptyResponse }
             addToCart={ addToCart }
+            handleCartItemsQuantity={ handleCartItemsQuantity }
           />
         </section>
       </>

@@ -1,15 +1,19 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import ProductRating from './ProductRating';
 
 class Detalhes extends React.Component {
   render() {
-    const { addToCart, location: { state: { detalhes: { id, price, thumbnail, title,
-    } } } } = this.props;
+    const {
+      addToCart, handleCartItemsQuantity, cartItemsQuantity,
+      location: { state: { detalhes: { id, price, thumbnail, title,
+      } } } } = this.props;
     return (
       <div data-testid="product" key={ id }>
         <Link data-testid="shopping-cart-button" to="/carrinho">
           <i className="fas fa-shopping-cart" />
+          <span data-testid="shopping-cart-size">{cartItemsQuantity}</span>
         </Link>
         <h4 data-testid="product-detail-name">{ title }</h4>
         <img src={ thumbnail } alt={ title } />
@@ -17,10 +21,14 @@ class Detalhes extends React.Component {
         <button
           data-testid="product-detail-add-to-cart"
           type="button"
-          onClick={ () => addToCart({ title, thumbnail, price, id }) }
+          onClick={ (event) => {
+            addToCart({ title, thumbnail, price, id }, event);
+            handleCartItemsQuantity(1);
+          } }
         >
           Adicionar ao carrinho
         </button>
+        <ProductRating />
       </div>
     );
   }

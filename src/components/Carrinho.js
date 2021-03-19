@@ -1,11 +1,12 @@
 import React from 'react';
 
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import ItemsCart from './ItemsCart';
 
 class Carrinho extends React.Component {
   render() {
-    const { products, removeProduct } = this.props;
+    const { products, removeProduct, handleCartItemsQuantity } = this.props;
     if (products.length > 0) {
       return (
         <section>
@@ -14,8 +15,13 @@ class Carrinho extends React.Component {
               key={ item.id }
               productInfo={ item }
               removeProduct={ removeProduct }
+              handleCartItemsQuantity={ handleCartItemsQuantity }
             />
           ))}
+          {/* <h3>
+            {`Total: R$ ${products.reduce((total, item) => total + (item.price), 0)}`}
+          </h3> */}
+          <Link to="/checkout" data-testid="checkout-products"> Finalizar Compra </Link>
         </section>
       );
     }
@@ -30,6 +36,7 @@ class Carrinho extends React.Component {
 Carrinho.propTypes = {
   products: PropTypes.arrayOf(PropTypes.object),
   removeProduct: PropTypes.func.isRequired,
+  handleCartItemsQuantity: PropTypes.func.isRequired,
 };
 
 Carrinho.defaultProps = {

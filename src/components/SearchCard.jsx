@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 class SearchCard extends Component {
   render() {
-    const { result, response, addToCart } = this.props;
+    const { result, response, addToCart, handleCartItemsQuantity } = this.props;
     if (response) return <div>Nenhum produto foi encontrado</div>;
     return (
       result.map(({ title, thumbnail, price, id }) => (
@@ -24,7 +24,10 @@ class SearchCard extends Component {
           <button
             data-testid="product-add-to-cart"
             type="button"
-            onClick={ () => addToCart({ title, thumbnail, price, id }) }
+            onClick={ (event) => {
+              addToCart({ title, thumbnail, price, id }, event);
+              handleCartItemsQuantity(1);
+            } }
           >
             Adicionar ao carrinho
           </button>
@@ -38,6 +41,7 @@ SearchCard.propTypes = {
   result: PropTypes.arrayOf(PropTypes.object),
   response: PropTypes.bool.isRequired,
   addToCart: PropTypes.func.isRequired,
+  handleCartItemsQuantity: PropTypes.func.isRequired,
 };
 
 SearchCard.defaultProps = {
