@@ -48,7 +48,7 @@ class ShoppingCart extends React.Component {
   usingState() {
     const { quantity } = this.state;
     const quantityVar = quantity;
-    // console.log(quantityVar);
+    console.log(quantityVar);
   }
 
   componentUpdate() {
