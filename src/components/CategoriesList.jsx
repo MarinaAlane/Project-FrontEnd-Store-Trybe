@@ -33,7 +33,9 @@ class CategoriesList extends Component {
               name={ currentValue }
               id={ currentValue }
             />
-            <label for={currentValue.id}>
+            <label
+              htmlFor={ currentValue.id }
+            >
               {currentValue.name}
             </label>
           </div>
