@@ -12,8 +12,9 @@ class DetailedProduct extends React.Component {
 
   renderStars() {
     const result = [];
+    const length = 5;
 
-    for (let i = 1; i <= 5; i += 1) {
+    for (let i = 1; i <= length; i += 1) {
       result.push(<button key={ `star${i}` } type="button">{i}</button>);
     }
 
