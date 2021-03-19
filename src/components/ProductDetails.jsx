@@ -34,7 +34,7 @@ class ProductDetails extends React.Component {
   productRender() {
     const { location } = this.props;
     const { state } = location;
-    const { title, image, price, productId } = state;
+    const { title, image, price, productId, freeShipping } = state;
     const { counter } = this.state;
     return (
       <div>
@@ -49,6 +49,7 @@ class ProductDetails extends React.Component {
           <h1>{ title }</h1>
           <img src={ image } alt={ title } />
           <p>{ price }</p>
+          { freeShipping ? <div data-testid="free-shipping"> Frete Grátis</div> : ''}
           <button
             type="button"
             data-testid="product-detail-add-to-cart"
@@ -104,6 +105,7 @@ ProductDetails.propTypes = {
       image: PropTypes.string,
       price: PropTypes.string,
       productId: PropTypes.string,
+      freeShipping: PropTypes.bool,
     }),
   }).isRequired,
 };

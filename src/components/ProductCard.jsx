@@ -5,9 +5,18 @@ import { incrementProduct } from '../services/dataservices';
 
 class ProductCard extends React.Component {
   render() {
-    const { title, image, price, productId, counter, availableQnt } = this.props;
+    const {
+      title,
+      image,
+      price,
+      productId,
+      counter,
+      availableQnt,
+      freeShipping } = this.props;
+    console.log(freeShipping);
     return (
       <div data-testid="product">
+        { freeShipping ? <div data-testid="free-shipping"> Frete Grátis</div> : ''}
         <h1>{ title }</h1>
         <img src={ image } alt={ title } />
         <p>{ price }</p>
@@ -30,7 +39,7 @@ class ProductCard extends React.Component {
         <Link
           to={ {
             pathname: `/product/${productId}`,
-            state: { title, image, price, productId } } }
+            state: { title, image, price, productId, freeShipping } } }
           data-testid="product-detail-link"
         >
           Ver Detalhes
@@ -47,6 +56,7 @@ ProductCard.propTypes = {
   productId: PropTypes.string.isRequired,
   counter: PropTypes.func.isRequired,
   availableQnt: PropTypes.number.isRequired,
+  freeShipping: PropTypes.bool.isRequired,
 };
 
 export default ProductCard;
