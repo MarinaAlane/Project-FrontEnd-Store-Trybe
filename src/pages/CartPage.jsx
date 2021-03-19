@@ -10,32 +10,37 @@ class CartPage extends React.Component {
     const { location: { state: { itensAddToCart } } } = props;
     this.state = {
       productsOnCart: itensAddToCart,
-      totalProducts: itensAddToCart,
+      totalProducts: itensAddToCart.map((item) => ({ ...item, quantity: 1 })),
     };
     this.addProduct = this.addProduct.bind(this);
     this.removeProduct = this.removeProduct.bind(this);
   }
 
-  addProduct(objectItem) {
+  addProduct({ id }) {
     const { totalProducts } = this.state;
-    const product = totalProducts.find((item) => item.id === objectItem.id);
-    this.setState((lastState) => ({
-      ...lastState,
-      totalProducts: [...totalProducts, product],
+    const product = totalProducts.find((item) => item.id === id);
+    product.quantity += 1;
+    console.log(product.quantity);
+    this.setState((last) => ({
+      ...last,
+      totalProducts: last.totalProducts,
     }));
   }
 
-  removeProduct(objectItem) {
+  removeProduct({ id }) {
     const { totalProducts } = this.state;
-    const product = totalProducts.find((item) => item.id === objectItem.id);
-    const indexOfProduct = totalProducts.indexOf(product);
-    totalProducts.splice(indexOfProduct, 1);
-    this.setState((lastState) => ({ totalProducts: lastState.totalProducts }));
+    const product = totalProducts.find((item) => item.id === id);
+    // if (product.quantity < 1)
+    product.quantity -= 1;
+    console.log(product.quantity);
+    this.setState((last) => ({
+      ...last,
+      totalProducts: last.totalProducts,
+    }));
   }
 
   render() {
     const { productsOnCart, totalProducts } = this.state;
-    console.log(totalProducts);
     return (
       <>
         <header>
@@ -43,40 +48,40 @@ class CartPage extends React.Component {
           <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
         </header>
         <main className="cart-main-page">
-          {productsOnCart.map((item) => (
+          {productsOnCart.map((item, index) => (
             <div key={ item.id } className="cart-product">
               <h1 data-testid="shopping-cart-product-name" className="cart-product-title">
                 { item.title }
               </h1>
               <img src={ item.thumbnail } alt={ item.title } />
-              <p>{`R$ ${item.price}`}</p>
+              <p>{`R$ ${item.price * totalProducts[index].quantity}`}</p>
               <button
                 className="add-product-button"
                 data-testid="product-increase-quantity"
                 type="button"
                 onClick={ () => this.addProduct(item) }
               >
-                Add Product
+                +
               </button>
               <span
                 data-testid="shopping-cart-product-quantity"
               >
-                {totalProducts.filter((product) => product.id === item.id).length}
+                {totalProducts[index].quantity}
               </span>
               <button
                 className="remove-product-button"
                 data-testid="product-decrease-quantity"
                 type="button"
-                onClick={ () => this.removeProduct(item.id) }
+                onClick={ () => this.removeProduct(item) }
               >
-                Remove Product
+                -
               </button>
             </div>
           ))}
           <p>{`Total de produtos no carrinho: ${totalProducts.length}`}</p>
           <p>
             {`Valor total: ${totalProducts
-              .reduce((total, item) => total + item.price, 0)}`}
+              .reduce((total, item) => total + (item.price * item.quantity), 0)}`}
           </p>
         </main>
       </>
