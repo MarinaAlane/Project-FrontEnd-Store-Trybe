@@ -3,6 +3,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
 import Home from './pages/Home';
 import Cart from './pages/Cart';
+import DetailedProduct from './pages/DetailedProduct';
 
 import './App.css';
 
@@ -11,8 +12,17 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Switch>
-          <Route path="/cart" component={ Cart } />
-          {/* <Route path="/" component={Home} /> */}
+          <Route
+            path="/cart"
+            render={ (props) => (<Cart
+              {
+                ...props }
+            />) }
+          />
+          <Route
+            path="/detailed-product/:id"
+            render={ (props) => <DetailedProduct { ...props } /> }
+          />
           <Route exact path="/" component={ Home } />
         </Switch>
       </BrowserRouter>

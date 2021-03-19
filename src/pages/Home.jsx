@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import * as api from '../services/api';
+import saveProduct from '../services/functions';
 import './home.css';
 import Product from '../components/Product';
 import Category from '../components/Category';
@@ -49,7 +50,6 @@ class Home extends React.Component {
 
   render() {
     const { products, categories } = this.state;
-    console.log(categories);
     return (
       <div>
         <header className="home-header">
@@ -78,7 +78,11 @@ class Home extends React.Component {
         <Category categories={ categories } handleCategory={ this.handleCategory } />
         <div>
           {(products.length === 0) ? (<p>Nenhum produto encontrado</p>) : (
-            products.map((product) => <Product key={ product.id } array={ product } />)
+            products.map((product) => (<Product
+              key={ product.id }
+              array={ product }
+              saveProduct={ saveProduct }
+            />))
           )}
         </div>
       </div>
