@@ -144,7 +144,7 @@ class App extends Component {
               render={ (props) => (<ProductDetails
                 { ...props }
                 products={ products }
-                addProductToCart={ addProductToCart }
+                addProductToCart={ this.addProductToCart }
               />) }
             />
             <Route
