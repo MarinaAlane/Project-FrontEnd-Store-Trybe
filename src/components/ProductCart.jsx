@@ -11,13 +11,13 @@ class ProductCart extends React.Component {
     };
     this.productDecrease = this.productDecrease.bind(this);
     this.productIncrease = this.productIncrease.bind(this);
-  };
+  }
 
   productIncrease() {
     this.setState((previousQuantity) => ({
       quantity: previousQuantity.quantity + 1,
     }));
-  };
+  }
 
   productDecrease() {
     this.setState(({ quantity }) => ({
