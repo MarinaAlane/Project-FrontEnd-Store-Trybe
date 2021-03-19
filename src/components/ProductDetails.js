@@ -2,6 +2,8 @@ import React from 'react';
 import { Redirect } from 'react-router';
 import PropTypes from 'prop-types';
 import '../styles/components/ProductDetails.css';
+import { Link } from 'react-router-dom';
+import ProductEvaluation from './ProductEvaluation';
 
 class ProductDetails extends React.Component {
   constructor(props) {
@@ -32,18 +34,41 @@ class ProductDetails extends React.Component {
     if (product === undefined) {
       return <Redirect to="/" />;
     }
-    const { title, thumbnail, price } = product;
+
+    const { title, thumbnail, price, id, condition } = product;
+    const { addProductToCart } = this.props;
 
     return (
-      <div data-testid="product-detail-name" className="card">
-        <div className="img-card">
-          <img src={ thumbnail } alt={ title } />
+      <>
+        <div className="links-back-cart">
+          <Link to="/">
+            <button className="shopping-cart-button" type="button" alt="return-button" />
+          </Link>
+          <Link data-testid="shopping-cart-button" to="/shopping-cart">
+            <button className="cart-header" type="button" alt="cart-button" />
+          </Link>
         </div>
-        <div className="content-card">
-          <p>{title}</p>
-          <p>{price}</p>
+        <div data-testid="product-detail-name" className="card">
+          <div className="img-card">
+            <img src={ thumbnail } alt={ title } />
+          </div>
+          <div className="content-card">
+            <p>{title}</p>
+            <p>{`Condição ${condition ? 'NOVO' : 'default'}`}</p>
+            <p>{`R$${price}`}</p>
+            <div id={ id }>
+              <button
+                type="button"
+                data-testid="product-detail-add-to-cart"
+                onClick={ () => addProductToCart(id) }
+              >
+                Adicionar ao carrinho
+              </button>
+            </div>
+            <ProductEvaluation />
+          </div>
         </div>
-      </div>
+      </>
     );
   }
 }
@@ -51,6 +76,7 @@ class ProductDetails extends React.Component {
 ProductDetails.propTypes = {
   match: PropTypes.objectOf(PropTypes.string).isRequired,
   products: PropTypes.objectOf(PropTypes.array).isRequired,
+  addProductToCart: PropTypes.func.isRequired,
 };
 
 export default ProductDetails;

@@ -141,7 +141,11 @@ class App extends Component {
             />
             <Route
               path="/productDetails/:ship"
-              render={ (props) => <ProductDetails { ...props } products={ products } /> }
+              render={ (props) => (<ProductDetails
+                { ...props }
+                products={ products }
+                addProductToCart={ addProductToCart }
+              />) }
             />
             <Route
               path="/checkout"
