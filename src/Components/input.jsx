@@ -87,8 +87,3 @@ class Input extends Component {
 }
 
 export default Input;
-
-// removido item list do component input
-// item list deve ser renderizado após receber input e não junto do input
-// adicionado type no button
-// estrutura component input ok, necessita function para submit do input

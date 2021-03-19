@@ -15,7 +15,7 @@ class ItemCard extends Component {
   }
 
   addCart(products) {
-    console.log(products.shipping.free_shipping)
+    console.log(products.shipping.free_shipping);
     const { globalCounter } = this.props;
     const { array } = this.state;
     const {
