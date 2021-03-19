@@ -8,7 +8,7 @@ class CategoriesCheckBox extends Component {
       <li>
         <label htmlFor={ name }>
           <input
-            type="checkbox"
+            type="radio"
             data-testid="category"
             name="category"
             id={ name }

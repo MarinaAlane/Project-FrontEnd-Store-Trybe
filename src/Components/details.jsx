@@ -7,21 +7,40 @@ import dataCart from '../services/dataCart';
 class Details extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      array: dataCart.array,
+      cartCounter: props.location.state.cartCounter,
+    };
     this.handlerState = this.handlerState.bind(this);
   }
 
   handlerState(products) {
-    dataCart.push(products);
+    const { array, cartCounter } = this.state;
+    const { title, price, thumbnail, id } = products;
+    if (array.some((productItem) => products.id === productItem.id)) {
+      array.forEach((productItem) => {
+        if (productItem.id === products.id) {
+          productItem.quantity += 1;
+          this.setState({ cartCounter: cartCounter + 1 });
+        }
+      });
+    } else {
+      dataCart.array.push({ title, price, thumbnail, id, quantity: 1 });
+
+      this.setState({ cartCounter: cartCounter + 1 });
+    }
   }
 
   render() {
     const { location: { state: { products } } } = this.props;
+    const { cartCounter } = this.state;
     return (
       <div>
         <header>
           <Link to="/cart" data-testid="shopping-cart-button">
             <FaShoppingCart />
           </Link>
+          <p data-testid="shopping-cart-size">{ cartCounter }</p>
           <Link to="/">
             <FaReply />
           </Link>
