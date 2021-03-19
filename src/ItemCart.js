@@ -4,47 +4,32 @@ import PropTypes from 'prop-types';
 class ItemCart extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      quantity: 1,
-    };
-
-    this.quantitySum = this.quantitySum.bind(this);
-    this.quantitySub = this.quantitySub.bind(this);
+    this.ChangeQuantity = this.ChangeQuantity.bind(this);
   }
 
-  quantitySum() {
-    this.setState((state) => ({
-      quantity: state.quantity + 1,
-    }));
-  }
-
-  quantitySub() {
-    this.setState((state) => ({
-      quantity: state.quantity - 1,
-    }));
+  ChangeQuantity(onClick, operation, item) {
+    onClick(item, operation);
   }
 
   render() {
-    const { item: { title, thumbnail, price } } = this.props;
-    const { quantity } = this.state;
+    const { item, onClick } = this.props;
     return (
       <div data-testid="product">
-        <h1 data-testid="shopping-cart-product-name">{title}</h1>
-        <img src={ thumbnail } alt={ title } />
-        <p>{price}</p>
+        <h1 data-testid="shopping-cart-product-name">{item.title}</h1>
+        <p>{item.price}</p>
         <button
           type="button"
-          onClick={ () => this.quantitySum() }
+          onClick={ () => this.ChangeQuantity(onClick, 'add', item) }
           data-testid="product-increase-quantity"
         >
           +
         </button>
         <p data-testid="shopping-cart-product-quantity">
-          {quantity}
+          {item.purchaseQuantity}
         </p>
         <button
           type="button"
-          onClick={ () => this.quantitySub() }
+          onClick={ () => this.ChangeQuantity(onClick, 'sub', item) }
           data-testid="product-decrease-quantity"
         >
           -

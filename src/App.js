@@ -9,10 +9,12 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      itemsCart: [],
+      itemsCart: 0,
+      purchaseItems: [],
     };
     this.handleProduct = this.handleProduct.bind(this);
     this.getLocalStorageData = this.getLocalStorageData.bind(this);
+    this.createCustomProduct = this.createCustomProduct.bind(this);
   }
 
   componentDidMount() {
@@ -20,29 +22,63 @@ class App extends Component {
   }
 
   componentDidUpdate() {
-    const { itemsCart } = this.state;
-    if (itemsCart !== null) {
-      localStorage.setItem('itemsCart', JSON.stringify(itemsCart));
-    }
+    const { itemsCart, purchaseItems } = this.state;
+    localStorage.setItem('itemsCart', itemsCart);
+    localStorage.setItem('purchaseItems', JSON.stringify(purchaseItems));
   }
 
-  handleProduct(item) {
-    const { itemsCart } = this.state;
+  handleProduct(item, origin) {
+    const { purchaseItems } = this.state;
+    let { itemsCart } = this.state;
+    let customProduct = purchaseItems.find(
+      (PurchaseItem) => (item.id === PurchaseItem.id),
+    );
+
+    if (!customProduct) {
+      customProduct = this.createCustomProduct(item);
+      purchaseItems.push(customProduct);
+    }
+    itemsCart += parseInt(customProduct.increaseTotal, 10);
+    if (origin === 'products') {
+      customProduct.purchaseQuantity += 1;
+    }
+    const customProductIndex = purchaseItems.indexOf(customProduct);
+    if (customProduct.purchaseQuantity <= 0) {
+      purchaseItems.splice(customProductIndex, 1);
+    } else {
+      purchaseItems[customProductIndex] = customProduct;
+    }
     this.setState({
-      itemsCart: [...itemsCart, item],
+      itemsCart,
+      purchaseItems,
     });
   }
 
   getLocalStorageData() {
-    const itemsCartStorage = JSON.parse(localStorage.getItem('itemsCart' || []));
-    if (itemsCartStorage !== null) {
-      this.setState({ itemsCart: itemsCartStorage });
+    const itemsCartStorage = parseInt(localStorage.getItem('itemsCart'), 10);
+    const purchaseItemsStorage = JSON.parse(localStorage.getItem('purchaseItems' || []));
+    if (itemsCartStorage !== null && purchaseItemsStorage !== null) {
+      this.setState({
+        itemsCart: itemsCartStorage,
+        purchaseItems: purchaseItemsStorage,
+      });
     }
   }
 
+  createCustomProduct(product) {
+    const customProductObject = {
+      id: product.id,
+      title: product.title,
+      price: product.price,
+      available: product.available_quantity,
+      purchaseQuantity: 0,
+      increaseTotal: 1,
+    };
+    return customProductObject;
+  }
+
   render() {
-    const { itemsCart } = this.state;
-    const itemsQuantity = itemsCart === null ? 0 : itemsCart.length;
+    const { itemsCart, purchaseItems } = this.state;
     return (
       <div>
         <BrowserRouter>
@@ -53,7 +89,8 @@ class App extends Component {
               render={
                 () => (<Home
                   handleProduct={ this.handleProduct }
-                  totalProducts={ itemsQuantity }
+                  totalProducts={ itemsCart }
+                  purchaseItems={ purchaseItems }
                 />)
               }
             />
@@ -61,17 +98,21 @@ class App extends Component {
               path="/product-detail/:id"
               render={ (props) => (<ProductDetail
                 handleProduct={ this.handleProduct }
-                totalProducts={ itemsQuantity }
+                totalProducts={ itemsCart }
                 location={ props.location }
               />) }
             />
             <Route
               path="/shopping-cart"
-              render={ () => <Cart itemsCart={ itemsCart } /> }
+              render={ () => (
+                <Cart
+                  purchaseItems={ purchaseItems }
+                  handleProduct={ this.handleProduct }
+                />) }
             />
             <Route
               path="/checkout"
-              render={ () => <CheckOut itemsCart={ itemsCart } /> }
+              render={ () => <CheckOut itemsCart={ purchaseItems } /> }
             />
           </Switch>
         </BrowserRouter>
