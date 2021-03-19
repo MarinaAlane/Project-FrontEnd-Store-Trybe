@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-// import dataCart from '../services/dataCart';
 
 class CartItem extends Component {
   constructor(props) {
@@ -8,23 +7,18 @@ class CartItem extends Component {
     this.state = { products: props.product };
     this.increase = this.increase.bind(this);
     this.decrease = this.decrease.bind(this);
-    // this.localStorageCounter = this.localStorageCounter.bind(this);
   }
 
   increase(addProduct) {
     addProduct.quantity += 1;
     this.setState({ products: addProduct });
-    // dataCart.qnt += 1;
-    // // this.localStorageCounter();
   }
 
   decrease(subProduct) {
     if (subProduct.quantity > 1) {
       subProduct.quantity -= 1;
       this.setState({ products: subProduct });
-      // dataCart.qnt -= 1;
     }
-    // this.localStorageCounter();
   }
 
   render() {
