@@ -57,8 +57,14 @@ class ProductList extends Component {
     const { results } = this.state;
     return (
       <div>
-        { results
-          .map(({ title, thumbnail, price, id, available_quantity: availableQnt }) => (
+        { results.map((product) => {
+          const { title,
+            thumbnail,
+            price,
+            id,
+            available_quantity: availableQnt,
+            shipping } = product;
+          return (
             <ProductCard
               title={ title }
               image={ thumbnail }
@@ -67,7 +73,11 @@ class ProductList extends Component {
               price={ price }
               counter={ this.counter }
               availableQnt={ availableQnt }
-            />)) }
+              freeShipping={ shipping.free_shipping }
+            />
+          );
+        })}
+        ;
       </div>
     );
   }
