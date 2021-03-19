@@ -93,6 +93,11 @@ class ShoppingCart extends React.Component {
               Voltar
             </Link>
           </button>
+          <button type="button">
+            <Link to="/Checkout" data-testid="checkout-products">
+              Chekout
+            </Link>
+          </button>
         </div>
       </div>
     );

@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Home from './components/Home';
 import ShoppingCart from './components/ShoppingCart';
 import ProductDetails from './components/ProductDetails';
+import Checkout from './components/Checkout';
 
 function App() {
   return (
@@ -17,6 +18,10 @@ function App() {
         <Route
           path="/details/:id"
           component={ ProductDetails }
+        />
+        <Route
+          path="/checkout"
+          component={ Checkout }
         />
       </Switch>
     </Router>
