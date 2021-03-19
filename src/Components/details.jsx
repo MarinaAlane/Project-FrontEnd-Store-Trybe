@@ -7,11 +7,29 @@ import dataCart from '../services/dataCart';
 class Details extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      array: dataCart.array,
+      cartCounter: props.location.state.cartCounter,
+    };
     this.handlerState = this.handlerState.bind(this);
   }
 
   handlerState(products) {
-    dataCart.push(products);
+    const { array, cartCounter } = this.state;
+    const { title, price, thumbnail, id } = products;
+    if (array.some((productItem) => products.id === productItem.id)) {
+      array.forEach((productItem) => {
+        if (productItem.id === products.id
+          && products.available_quantity > productItem.quantity) {
+          productItem.quantity += 1;
+          this.setState({ cartCounter: cartCounter + 1 });
+        }
+      });
+    } else {
+      dataCart.array.push({ title, price, thumbnail, id, quantity: 1 });
+
+      this.setState({ cartCounter: cartCounter + 1 });
+    }
   }
 
   formStructure() {
@@ -46,12 +64,15 @@ class Details extends Component {
 
   render() {
     const { location: { state: { products } } } = this.props;
+    const { title, price, thumbnail, available_quantity: available } = products;
+    const { cartCounter } = this.state;
     return (
       <div>
         <header>
           <Link to="/cart" data-testid="shopping-cart-button">
             <FaShoppingCart />
           </Link>
+          <p data-testid="shopping-cart-size">{ cartCounter }</p>
           <Link to="/">
             <FaReply />
           </Link>
@@ -61,9 +82,13 @@ class Details extends Component {
             <p
               data-testid="product-detail-name"
             >
-              {`${products.title} - R$ ${products.price}`}
+              {`${title} - R$ ${price}`}
             </p>
-            <img src={ products.thumbnail } alt="img" />
+            <img src={ thumbnail } alt="img" />
+            <p>{ `Disponivel em Estoque: ${available} unidade(s)`}</p>
+            {products.shipping.free_shipping
+              ? <p data-testid="free-shipping">Frete Grátis</p>
+              : null }
           </aside>
           <ul className="rightAside">
             <li> Especificações Técnicas</li>
@@ -87,6 +112,7 @@ Details.propTypes = {
   location: PropTypes.shape({
     state: PropTypes.shape({
       products: PropTypes.string,
+      cartCounter: PropTypes.number,
     }),
   }).isRequired,
 };

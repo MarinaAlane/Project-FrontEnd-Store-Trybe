@@ -7,16 +7,16 @@ class Cart extends Component {
   render() {
     return (
       <div>
-        {dataCart.length < 1
-          ? <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
-          : dataCart.map((card, index) => (
-            <CartItem card={ card } key={ index } index={ index } />
-          ))}
         <button type="button">
           <Link to="/checkout" data-testid="checkout-products">
             checkout
           </Link>
         </button>
+        {dataCart.array.length < 1
+          ? <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
+          : dataCart.array.map((product) => (
+            <CartItem product={ product } key={ product } />
+          ))}
       </div>
     );
   }
