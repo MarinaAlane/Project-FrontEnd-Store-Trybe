@@ -4,6 +4,7 @@ import AbstractCartHandler from './components/AbstractCartHandler';
 import CartShop from './pages/CartShop';
 import ProductList from './pages/ProductList';
 import ProductDetails from './pages/ProductDetails';
+import Checkout from './pages/Checkout';
 
 export default class App extends AbstractCartHandler {
   render() {
@@ -14,6 +15,14 @@ export default class App extends AbstractCartHandler {
             exact
             path="/"
             render={ (props) => (<ProductList
+              { ...props }
+              cartHandler={ this.cartHandler }
+            />) }
+          />
+          <Route
+            exact
+            path="/checkout"
+            render={ (props) => (<Checkout
               { ...props }
               cartHandler={ this.cartHandler }
             />) }
