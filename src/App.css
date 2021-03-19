@@ -30,7 +30,7 @@ body {
   transition: 0.3s;
 }
 
-input[ type = "text" ] {
+.search-input {
   background: white;
   border: 1px solid #c6c6c6;
   border-radius: 10px 0 0 10px;
@@ -99,7 +99,7 @@ aside .category-box {
   margin: 4px 0 0 0;
 }
 
-input[ type = "radio" ] {
+.input-radio {
   appearance: none;
   border-radius: 10px;
   cursor: pointer;
@@ -111,17 +111,16 @@ input[ type = "radio" ] {
   width: 250px;
 }
 
-input[ type = "radio" ]:checked { 
+.input-radio:checked {
   background-color: #e74c3c;
   z-index: -1;
-
  }
 
- input[ type = "radio" ]:checked + label {
+.input-radio:checked + label {
   color: white;
 }
 
-input[ type = "radio" ]:hover {
+.input-radio:hover {
   border: solid 1px #e74c3c;
 }
 
@@ -131,7 +130,7 @@ input[ type = "radio" ]:hover {
   justify-content: center;
   margin: auto;
   width: 90%;
-  
+
 }
 
 .nothing {
@@ -141,10 +140,10 @@ input[ type = "radio" ]:hover {
 .card {
   background-color: white;
   border-radius: 20px;
-  box-shadow: 0 0.4px 3.6px rgba( 0, 0, 0, 0.004 ),
-    0 1px 8.5px rgba( 0, 0, 0, 0.01 ), 0 1.9px 15.7px rgba( 0, 0, 0, 0.019 ),
-    0 3.4px 28.2px rgba( 0, 0, 0, 0.03 ), 0 6.3px 54.4px rgba( 0, 0, 0, 0.047 ),
-    0 15px 137px rgba( 0, 0, 0, 0.07 );
+  box-shadow: 0 0.4px 3.6px rgba(0, 0, 0, 0.004),
+    0 1px 8.5px rgba(0, 0, 0, 0.01), 0 1.9px 15.7px rgba(0, 0, 0, 0.019),
+    0 3.4px 28.2px rgba(0, 0, 0, 0.03), 0 6.3px 54.4px rgba(0, 0, 0, 0.047),
+    0 15px 137px rgba(0, 0, 0, 0.07);
   color: #1e272e;
   cursor: pointer;
   display: flex;
@@ -199,7 +198,7 @@ input[ type = "radio" ]:hover {
     flex-direction: column;
   }
 
-  .input-container input[ type='text' ] {
+  .input-container input[ type = 'text' ] {
     width: 100px;
   }
 }

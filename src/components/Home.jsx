@@ -52,6 +52,7 @@ class Home extends Component {
                 type="text"
                 data-testid="query-input"
                 placeholder="Digite algum termo de pesquisa ou escolha uma categoria."
+                className="search-input"
                 onChange={ (event) => {
                   this.setState({
                     inputValue: event.target.value,

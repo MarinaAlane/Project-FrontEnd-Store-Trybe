@@ -29,7 +29,7 @@ class CategoriesList extends Component {
               type="radio"
               data-testid="category"
               onClick={ activateButton }
-              className={ currentValue.id }
+              className="input-radio"
               name={ currentValue }
               id={ currentValue }
             />
