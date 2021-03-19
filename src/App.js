@@ -4,6 +4,7 @@ import './App.css';
 import InitialPage from './pages/InitialPage';
 import ProductDetails from './pages/ProductDetails';
 import ShoppingCart from './pages/ShoppingCart';
+import Checkout from './components/checkout';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <Switch>
         <Route exact path="/" component={ InitialPage } />
         <Route path="/ShoppingCart" component={ ShoppingCart } />
+        <Route path="/checkout" component={ Checkout } />
         <Route
           path="/product-details/:id"
           render={ (props) => <ProductDetails { ...props } /> }
