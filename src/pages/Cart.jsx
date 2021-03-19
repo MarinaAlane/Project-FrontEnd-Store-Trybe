@@ -74,7 +74,7 @@ class Cart extends React.Component {
           <div data-testid="shopping-cart-empty-message">
             <p>Seu carrinho está vazio</p>
           </div>) : this.renderCart(products) }
-          <button>Finalizar Compra</button>
+        <button type="button">Finalizar Compra</button>
       </div>
     );
   }
