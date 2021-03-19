@@ -39,7 +39,7 @@ export default class CartShop extends React.Component {
             )}
         </div>
         <Link to="/">Continuar comprando</Link>
-        <CheckoutButton/>
+        <CheckoutButton />
       </main>
     );
   }
