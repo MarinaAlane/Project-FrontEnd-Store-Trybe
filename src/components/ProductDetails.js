@@ -102,7 +102,7 @@ class ProductDetails extends Component {
         <input
           type="email"
           name="email"
-          placeholder="ribeiro.brito@google.com"
+          placeholder="Email"
           value={ email }
           onChange={ this.handleChange }
         />
