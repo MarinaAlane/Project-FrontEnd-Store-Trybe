@@ -16,8 +16,14 @@
 }
 
 .search-bar-wrapper > div > input {
+  font-weight: 700;
   margin-top: 20px;
   width: 400px;
+}
+
+.search-bar-wrapper > div > button {
+  background-color: rgb(88, 88, 88);
+  color: white;
 }
 
 .search-bar-container > :nth-child( 2 ) {

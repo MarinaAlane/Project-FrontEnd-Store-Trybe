@@ -85,6 +85,15 @@ class ShoppingCart extends Component {
               Valor Total da Compra: R$
               { totalPayable.toFixed(2) }
             </h4>
+            <Link to={ { pathname: '/checkout', state: { totalPayable } } }>
+              <button
+                data-testid="checkout-products"
+                className="checkout-button"
+                type="button"
+              >
+                Finalizar Compra
+              </button>
+            </Link>
           </div>
         ) : (
           <div

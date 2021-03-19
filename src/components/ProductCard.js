@@ -14,7 +14,6 @@ class ProductCard extends Component {
           to={ `/productDetails/${id}` }
           data-testid="product-detail-link"
           product={ product }
-          addProductToCart={ addProductToCart }
         >
           <p>{ title }</p>
           <p>{ `R$ ${price.toFixed(2)}` }</p>
