@@ -4,9 +4,27 @@ import { Link } from 'react-router-dom';
 import saveProduct from '../services/functions';
 
 class DetailedProduct extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.renderStars = this.renderStars.bind(this);
+  }
+
+  renderStars() {
+    const result = [];
+
+    for (let i = 1; i <= 5; i += 1) {
+      result.push(<button key={ `star${i}` } type="button">{i}</button>);
+    }
+
+    return result;
+  }
+
   render() {
     const { location } = this.props;
-    const { state: { array } } = location;
+    const {
+      state: { array },
+    } = location;
     console.log(this.props, location);
     const { title, thumbnail, price } = array;
 
@@ -18,12 +36,10 @@ class DetailedProduct extends React.Component {
           </Link>
         </header>
         <main>
-          <h2 data-testid="product-detail-name">
-            { title }
-          </h2>
+          <h2 data-testid="product-detail-name">{title}</h2>
           <div className="product-detail-content">
             <img src={ thumbnail } alt={ title } />
-            <p>{ price }</p>
+            <p>{price}</p>
             <button
               type="button"
               data-testid="product-detail-add-to-cart"
@@ -32,22 +48,16 @@ class DetailedProduct extends React.Component {
               Adicionar ao carrinho
             </button>
           </div>
-          <div className="product-detail-rating">
-            <h2>Avaliações</h2>
-            <div className="product-detail-form">
-              <p>
+          <h2>Avaliações</h2>
+          <div className="product-detail-form">
+            <p>
               <input type="email" placeholder="Email" />
-              <input type="radio" name="star" id=""/>1
-              <input type="radio" name="star" id=""/>2
-              <input type="radio" name="star" id=""/>3
-              <input type="radio" name="star" id=""/>4
-              <input type="radio" name="star" id=""/>5
-              </p>
-              <p>
-                <textarea data-testid="product-detail-evaluation" cols="30" rows="10"></textarea>
-              </p>
-              <button type="button">Avaliar</button>
-            </div>
+              {this.renderStars().map((star) => star)}
+            </p>
+            <p>
+              <textarea data-testid="product-detail-evaluation" />
+            </p>
+            <button type="button">Avaliar</button>
           </div>
         </main>
       </div>
