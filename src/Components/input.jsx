@@ -66,7 +66,7 @@ class Input extends Component {
         <Link to="/cart" data-testid="shopping-cart-button">
           <FaShoppingCart />
         </Link>
-        <p data-testid="shopping-cart-size">{ cartCounter}</p>
+        <p data-testid="shopping-cart-size">{ cartCounter }</p>
         <p data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>

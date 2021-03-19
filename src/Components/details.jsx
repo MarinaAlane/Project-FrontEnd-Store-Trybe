@@ -56,6 +56,9 @@ class Details extends Component {
             </p>
             <img src={ thumbnail } alt="img" />
             <p>{ `Disponivel em Estoque: ${available} unidade(s)`}</p>
+            {products.shipping.free_shipping
+              ? <p data-testid="free-shipping">Frete Grátis</p>
+              : null }
           </aside>
           <ul className="rightAside">
             <li> Especificações Técnicas</li>

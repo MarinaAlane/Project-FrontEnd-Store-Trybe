@@ -15,9 +15,12 @@ class ItemCard extends Component {
   }
 
   addCart(products) {
+    console.log(products.shipping.free_shipping)
     const { globalCounter } = this.props;
     const { array } = this.state;
-    const { title, price, thumbnail, id, available_quantity: available } = products;
+    const {
+      title, price, thumbnail, id, available_quantity: available, shipping,
+    } = products;
 
     if (array.some((productItem) => products.id === productItem.id)) {
       array.forEach((productItem) => {
@@ -28,7 +31,9 @@ class ItemCard extends Component {
         }
       });
     } else {
-      dataCart.array.push({ title, price, thumbnail, id, quantity: 1, available });
+      dataCart.array.push(
+        { title, price, thumbnail, id, quantity: 1, available, shipping },
+      );
       globalCounter();
     }
   }
@@ -37,12 +42,14 @@ class ItemCard extends Component {
     const { products, cartCounter } = this.props;
     const { title, price, thumbnail, id, available_quantity: available } = products;
     return (
-
       <div data-testid="product">
         <h2>{ title }</h2>
         <img src={ thumbnail } alt={ title } />
         <p>{ `R$ ${price.toFixed(2)}` }</p>
         <p>{ `Disponivel em Estoque: ${available} unidade(s)`}</p>
+        {products.shipping.free_shipping
+          ? <p data-testid="free-shipping">Frete Grátis</p>
+          : null }
         <Link
           to={ {
             pathname: `/details/${id}`,
