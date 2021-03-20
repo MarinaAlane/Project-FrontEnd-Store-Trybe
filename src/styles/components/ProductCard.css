@@ -33,12 +33,12 @@ a {
   text-decoration: none;
 }
 
-.product-card > :nth-child( 2 ) > :nth-child( 1 ) {
+.product-card > * > :nth-child( 2 ) {
   margin: 10px;
   min-height: 80px;
 }
 
-.product-card > :nth-child( 2 ) > :nth-child( 2 ) {
+.product-card > * > :nth-child( 3 ) {
   margin: 10px;
 }
 

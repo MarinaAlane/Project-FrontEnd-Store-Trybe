@@ -26,10 +26,30 @@ class App extends Component {
     this.removeItemFromCart = this.removeItemFromCart.bind(this);
     this.emptyShoppingCart = this.emptyShoppingCart.bind(this);
     this.updateCartItemsLength = this.updateCartItemsLength.bind(this);
+    this.getCartItem = this.getCartItem.bind(this);
   }
 
-  componentDidMount() {
-    this.apiRequest();
+  async componentDidMount() {
+    await this.apiRequest();
+    const storage = sessionStorage.getItem('cart');
+    if (storage !== null) {
+      const arr = storage.split(',');
+      arr.forEach((item, index) => {
+        if (item.includes('MLB')) {
+          this.getCartItem(item, arr[index + 1]);
+        }
+      });
+    }
+  }
+
+  componentWillUnmount() {
+    const { cartItems } = this.state;
+    const arr = [];
+    cartItems.forEach((item) => {
+      arr.push(item.id);
+      arr.push(item.amount);
+    });
+    sessionStorage.setItem('cart', arr);
   }
 
   async handleSearchClick() {
@@ -57,6 +77,17 @@ class App extends Component {
     this.setState({
       products: selectedProducts.results,
     });
+  }
+
+  getCartItem(id, quant) {
+    const { products, cartItems } = this.state;
+    const product = products.find((item) => item.id === id);
+    product.amount = parseInt(quant, 10);
+    this.setState((prevState) => ({
+      cartItems: [...prevState.cartItems, product],
+      emptyCart: false,
+    }));
+    this.updateCartItemsLength([...cartItems, product]);
   }
 
   async apiRequest() {
