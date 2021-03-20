@@ -13,9 +13,10 @@ class App extends Component {
     this.state = {
       categories: [],
       products: [],
-      inputValue: '',
+      input: '',
       emptyCart: true,
       cartItems: [],
+      cartLength: 0,
     };
     this.addProductToCart = this.addProductToCart.bind(this);
     this.apiRequest = this.apiRequest.bind(this);
@@ -24,6 +25,7 @@ class App extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.removeItemFromCart = this.removeItemFromCart.bind(this);
     this.emptyShoppingCart = this.emptyShoppingCart.bind(this);
+    this.updateCartItemsLength = this.updateCartItemsLength.bind(this);
   }
 
   componentDidMount() {
@@ -31,10 +33,10 @@ class App extends Component {
   }
 
   async handleSearchClick() {
-    const { inputValue } = this.state;
+    const { input } = this.state;
     let products = [];
-    if (inputValue.length !== 0) {
-      products = await api.getProductsFromCategoryAndQuery('', inputValue);
+    if (input.length !== 0) {
+      products = await api.getProductsFromCategoryAndQuery('', input);
     } else {
       products = await api.getProductsFromCategoryAndQuery();
     }
@@ -45,7 +47,7 @@ class App extends Component {
 
   handleChange({ target }) {
     this.setState({
-      inputValue: target.value,
+      input: target.value,
     });
   }
 
@@ -82,12 +84,14 @@ class App extends Component {
           item.amount += 1;
         }
       });
+      this.updateCartItemsLength(cartItems);
     } else {
       product.amount = 1;
       this.setState((prevState) => ({
         cartItems: [...prevState.cartItems, product],
         emptyCart: false,
       }));
+      this.updateCartItemsLength([...cartItems, product]);
     }
   }
 
@@ -95,6 +99,7 @@ class App extends Component {
     const { cartItems } = this.state;
     const newCartItems = cartItems
       .filter((item) => (item.id !== productId) && item);
+    this.updateCartItemsLength(newCartItems);
     if (newCartItems.length === 0) {
       this.setState({
         emptyCart: true,
@@ -110,10 +115,23 @@ class App extends Component {
       cartItems: [],
       emptyCart: true,
     });
+    this.updateCartItemsLength([]);
+  }
+
+  updateCartItemsLength(newCartItems) {
+    if (newCartItems !== undefined) {
+      const cartLength = newCartItems.reduce((total, item) => {
+        total += item.amount;
+        return total;
+      }, 0);
+      this.setState({
+        cartLength,
+      });
+    }
   }
 
   render() {
-    const { emptyCart, cartItems, inputValue, products, categories } = this.state;
+    const { emptyCart, cartItems, input, products, categories, cartLength } = this.state;
     return (
       <div className="App">
         <BrowserRouter>
@@ -124,19 +142,7 @@ class App extends Component {
                 emptyCart={ emptyCart }
                 cartItems={ cartItems }
                 removeItemFromCart={ this.removeItemFromCart }
-              />) }
-            />
-            <Route
-              exact
-              path="/"
-              render={ () => (<Home
-                addProductToCart={ this.addProductToCart }
-                handleChange={ this.handleChange }
-                handleSearchClick={ this.handleSearchClick }
-                handleCategoryClick={ this.handleCategoryClick }
-                categories={ categories }
-                inputValue={ inputValue }
-                products={ products }
+                updateCartItemsLength={ this.updateCartItemsLength }
               />) }
             />
             <Route
@@ -145,6 +151,7 @@ class App extends Component {
                 { ...props }
                 products={ products }
                 addProductToCart={ this.addProductToCart }
+                cartLength={ cartLength }
               />) }
             />
             <Route
@@ -153,6 +160,19 @@ class App extends Component {
                 { ...props }
                 cartItems={ cartItems }
                 emptyShoppingCart={ this.emptyShoppingCart }
+              />) }
+            />
+            <Route
+              path="/"
+              render={ () => (<Home
+                addProductToCart={ this.addProductToCart }
+                handleChange={ this.handleChange }
+                handleSearchClick={ this.handleSearchClick }
+                handleCategoryClick={ this.handleCategoryClick }
+                categories={ categories }
+                inputValue={ input }
+                products={ products }
+                cartLength={ cartLength }
               />) }
             />
           </Switch>
