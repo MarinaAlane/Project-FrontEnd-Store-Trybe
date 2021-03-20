@@ -80,7 +80,7 @@ class App extends Component {
     const product = products.find((item) => item.id === productId);
     if ((cartItems.some((item) => item.id === productId))) {
       cartItems.forEach((item) => {
-        if (item.id === productId) {
+        if ((item.id === productId) && (item.available_quantity > item.amount)) {
           item.amount += 1;
         }
       });
