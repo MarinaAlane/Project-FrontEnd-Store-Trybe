@@ -9,13 +9,13 @@
 
 .cart-icon > span {
   align-items: center;
-  display: flex;
-  justify-content: center;
   background-color: #ff671c;
   border-radius: 100%;
   color: white;
+  display: flex;
   font-weight: 700;
   height: 20px;
+  justify-content: center;
   position: absolute;
   text-align: center;
   width: 20px;
