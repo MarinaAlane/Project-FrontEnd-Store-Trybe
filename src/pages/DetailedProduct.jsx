@@ -95,9 +95,9 @@ class DetailedProduct extends React.Component {
     return quantity;
   }
 
-  btnProductIncrease(id) {
+  btnProductIncrease(id, max) {
     this.setState((prevValue) => ({
-      quantity: prevValue.quantity + 1,
+      quantity: prevValue.quantity < max ? prevValue.quantity + 1 : max,
       totalProducts: prevValue.totalProducts + 1,
     }));
 

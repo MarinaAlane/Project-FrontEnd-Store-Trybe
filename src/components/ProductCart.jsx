@@ -22,9 +22,9 @@ class ProductCart extends React.Component {
     this.quantityProductCart();
   }
 
-  btnProductIncrease(id) {
+  btnProductIncrease(id, max) {
     this.setState((prevValue) => ({
-      quantity: prevValue.quantity + 1,
+      quantity: prevValue.quantity < max ? prevValue.quantity + 1 : max,
       totalProducts: prevValue.totalProducts + 1,
     }));
 
@@ -50,7 +50,7 @@ class ProductCart extends React.Component {
 
   render() {
     const { eachProduct } = this.props;
-    const { id, title, price, thumbnail } = eachProduct;
+    const { id, title, price, thumbnail, availableQuantity } = eachProduct;
     const { quantity } = this.state;
 
     return (
@@ -74,7 +74,7 @@ class ProductCart extends React.Component {
           <button
             type="button"
             data-testid="product-increase-quantity"
-            onClick={ () => this.btnProductIncrease(id) }
+            onClick={ () => this.btnProductIncrease(id, availableQuantity) }
           >
             +
           </button>

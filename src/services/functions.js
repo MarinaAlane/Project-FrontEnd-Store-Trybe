@@ -60,7 +60,7 @@ export function quantityAllProductsCart() {
     return sum;
   }
 
-  return length;
+  return 'length';
 }
 
 export function quantityAllProductItem(id) {
@@ -79,7 +79,7 @@ export function productIncrease(id) {
   const findProduct = findProductLocalStorage(id);
   const [productObj, index] = findProduct;
 
-  if (findProduct.length) {
+  if (findProduct.length && productObj.quantity < productObj.available_quantity) {
     productObj.quantity += 1;
     localStorage.setItem(`itemProduct${index}`, JSON.stringify(productObj));
   }
@@ -102,6 +102,7 @@ export function captureProduct() {
   for (let index = 1; index <= localStorage.length; index += 1) {
     const gottenItemObj = JSON.parse(localStorage.getItem(`itemProduct${index}`));
     const { id, title, price, quantity, thumbnail } = gottenItemObj;
+    const availableQuantity = gottenItemObj.available_quantity;
 
     products.push({
       id,
@@ -109,6 +110,7 @@ export function captureProduct() {
       price,
       thumbnail,
       quantity,
+      availableQuantity,
     });
 
     totalPriceProducts += (price * quantity);

@@ -5,6 +5,7 @@ class ProductDetail extends React.Component {
   render() {
     const { objectProduct, quantity, increase, decrease, callback } = this.props;
     const { id, title, thumbnail, price } = objectProduct;
+    const availableQuantity = objectProduct.available_quantity;
 
     return (
       <div className="product-detail-content">
@@ -15,7 +16,7 @@ class ProductDetail extends React.Component {
           <p>
             <button type="button" onClick={ () => decrease(id) }>-</button>
             {quantity}
-            <button type="button" onClick={ () => increase(id) }>+</button>
+            <button type="button" onClick={ () => increase(id, availableQuantity) }>+</button>
           </p>
           <button
             type="button"
