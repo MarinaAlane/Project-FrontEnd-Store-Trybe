@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import saveProductLocalStorage, {
   findProductLocalStorage,
+  quantityAllProductsCart,
   quantityAllProductItem,
   productIncrease,
   productDecrease,
@@ -137,6 +138,9 @@ class DetailedProduct extends React.Component {
           </Link>
           <Link to="/cart" data-testid="shopping-cart-button">
             <i className="fas fa-shopping-cart" />
+            <span data-testid="shopping-cart-size">
+              {quantityAllProductsCart()}
+            </span>
           </Link>
         </header>
         <main>

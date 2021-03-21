@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import * as api from '../services/api';
-import saveProductLocalStorage from '../services/functions';
+import saveProductLocalStorage, {
+  quantityAllProductsCart,
+} from '../services/functions';
+import './Home.css';
 import Product from '../components/Product';
 import Category from '../components/Category';
-import './Home.css';
 
 class Home extends React.Component {
   constructor(props) {
@@ -32,12 +34,15 @@ class Home extends React.Component {
   }
 
   fetchQuery(categoryId, value) {
-    api.getProductsFromCategoryAndQuery(categoryId, value)
+    api
+      .getProductsFromCategoryAndQuery(categoryId, value)
       .then(({ results }) => this.setState({ products: results }));
   }
 
   async fetchCategories() {
-    await api.getCategories().then((category) => this.setState({ categories: category }));
+    await api
+      .getCategories()
+      .then((category) => this.setState({ categories: category }));
   }
 
   HandleChange(event) {
@@ -57,45 +62,62 @@ class Home extends React.Component {
     saveProductLocalStorage(objectProduct);
   }
 
+  renderHeader() {
+    return (
+      <header className="home-header">
+        <input
+          type="text"
+          placeholder="Digite algum termo de pesquisa"
+          data-testid="query-input"
+          onChange={ this.HandleChange }
+        />
+        <button
+          type="button"
+          data-testid="query-button"
+          onClick={ this.HandleClick }
+        >
+          pesquisar
+        </button>
+        <Link
+          to="/cart"
+          className="home-cart-button"
+          data-testid="shopping-cart-button"
+        >
+          <i className="fas fa-shopping-cart" />
+          <span data-testid="shopping-cart-size">{quantityAllProductsCart()}</span>
+        </Link>
+      </header>
+    );
+  }
+
   render() {
     const { products, categories } = this.state;
 
     return (
       <div>
-        <header className="home-header">
-          <input
-            type="text"
-            placeholder="Digite algum termo de pesquisa"
-            data-testid="query-input"
-            onChange={ this.HandleChange }
-          />
-          <button
-            type="button"
-            data-testid="query-button"
-            onClick={ this.HandleClick }
-          >
-            pesquisar
-          </button>
-          <Link
-            to="/cart"
-            className="home-cart-button"
-            data-testid="shopping-cart-button"
-          >
-            <i className="fas fa-shopping-cart" />
-          </Link>
-        </header>
+        {this.renderHeader()}
         <main className="home-container">
-          <p className="home-initial-message" data-testid="home-initial-message">
+          <p
+            className="home-initial-message"
+            data-testid="home-initial-message"
+          >
             Digite algum termo de pesquisa ou escolha uma categoria.
           </p>
-          <Category categories={ categories } handleCategory={ this.handleCategory } />
+          <Category
+            categories={ categories }
+            handleCategory={ this.handleCategory }
+          />
           <div className="products-container">
-            {(products.length === 0) ? (<p>Nenhum produto encontrado</p>) : (
-              products.map((product) => (<Product
-                key={ product.id }
-                array={ product }
-                saveProduct={ () => this.btnAddProductCart(product) }
-              />))
+            {products.length === 0 ? (
+              <p>Nenhum produto encontrado</p>
+            ) : (
+              products.map((product) => (
+                <Product
+                  key={ product.id }
+                  array={ product }
+                  saveProduct={ () => this.btnAddProductCart(product) }
+                />
+              ))
             )}
           </div>
         </main>

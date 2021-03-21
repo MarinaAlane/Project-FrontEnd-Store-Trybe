@@ -28,7 +28,6 @@ export default function saveProductLocalStorage(array) {
     const [gottenItemObj, index] = findProduct;
 
     if (gottenItemObj.id === array.id) {
-      console.log(gottenItemObj.id, array.id);
       gottenItemObj.quantity += 1;
       findObj += 1;
       localStorage.setItem(
