@@ -36,7 +36,8 @@ class Checkout extends React.Component {
     const { fullname, email, cpf, phone, cep, address, payment } = this.state;
 
     if (fullname && email && cpf && phone && cep && address && payment) {
-      alert('Todos os campos preenchidos'); // eslint-disable-line no-alert
+      // eslint-disable-line no-alert
+      console.log('Todos os campos preenchidos');
     }
   }
 
