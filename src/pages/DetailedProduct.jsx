@@ -106,8 +106,7 @@ class DetailedProduct extends React.Component {
   btnProductDecrease(id) {
     this.setState((prevValue) => ({
       quantity: prevValue.quantity > 0 ? prevValue.quantity - 1 : 0,
-      totalProducts:
-				prevValue.totalProducts > 0 ? prevValue.totalProducts - 1 : 0,
+      totalProducts: prevValue.totalProducts > 0 ? prevValue.totalProducts - 1 : 0,
     }));
 
     productDecrease(id);

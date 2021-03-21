@@ -2,9 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import * as api from '../services/api';
 import saveProductLocalStorage from '../services/functions';
-import './Home.css';
 import Product from '../components/Product';
 import Category from '../components/Category';
+import './Home.css';
 
 class Home extends React.Component {
   constructor(props) {
@@ -76,7 +76,11 @@ class Home extends React.Component {
           >
             pesquisar
           </button>
-          <Link to="/cart" className="home-cart-button" data-testid="shopping-cart-button">
+          <Link
+            to="/cart"
+            className="home-cart-button"
+            data-testid="shopping-cart-button"
+          >
             <i className="fas fa-shopping-cart" />
           </Link>
         </header>
