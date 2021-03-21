@@ -1,25 +1,125 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import saveProductLocalStorage from '../services/functions';
-import * as functions from '../services/functions';
+import saveProductLocalStorage, {
+  findProductLocalStorage,
+  quantityAllProductItem,
+  productIncrease,
+  productDecrease,
+} from '../services/functions';
+import ProductDetail from '../components/ProductDetail';
+import ProductEvaluation from '../components/ProductEvaluation';
+import './DetailedProduct.css';
 
 class DetailedProduct extends React.Component {
   constructor(props) {
     super(props);
 
-    this.renderStars = this.renderStars.bind(this);
+    this.state = {
+      quantity: 1,
+      email: '',
+      rating: 0,
+      message: '',
+    };
+
+    this.quantityProductCart = this.quantityProductCart.bind(this);
+    this.btnProductIncrease = this.btnProductIncrease.bind(this);
+    this.btnProductDecrease = this.btnProductDecrease.bind(this);
+    this.saveReview = this.saveReview.bind(this);
+    this.handleEvaluation = this.handleEvaluation.bind(this);
+    this.showReviews = this.showReviews.bind(this);
+    this.addProductState = this.addProductState.bind(this);
   }
 
-  renderStars() {
-    const result = [];
-    const length = 5;
+  componentDidMount() {
+    this.quantityProductCart();
+  }
 
-    for (let i = 1; i <= length; i += 1) {
-      result.push(<button key={ `star${i}` } type="button">{i}</button>);
+  handleEvaluation(event) {
+    const { name, value } = event.target;
+    this.setState({ [name]: value });
+  }
+
+  saveReview(id) {
+    const { email, rating, message } = this.state;
+    const [gottenItemObj, index] = findProductLocalStorage(id);
+
+    if (email && rating > 0) {
+      if (gottenItemObj.reviews) {
+        gottenItemObj.reviews.push({
+          email,
+          rating,
+          message,
+        });
+      } else {
+        gottenItemObj.reviews = [
+          {
+            email,
+            rating,
+            message,
+          },
+        ];
+      }
     }
 
-    return result;
+    localStorage.setItem(`itemProduct${index}`, JSON.stringify(gottenItemObj));
+
+    this.setState({
+      email: '',
+      rating: 0,
+      message: '',
+    });
+  }
+
+  showReviews(id) {
+    const gottenItemObj = findProductLocalStorage(id)[0];
+
+    if (gottenItemObj) return gottenItemObj.reviews;
+
+    return [];
+  }
+
+  quantityProductCart() {
+    const {
+      location: {
+        state: {
+          array: { id },
+        },
+      },
+    } = this.props;
+
+    const quantity = quantityAllProductItem(id);
+
+    this.setState({ quantity });
+    return quantity;
+  }
+
+  btnProductIncrease(id) {
+    this.setState((prevValue) => ({
+      quantity: prevValue.quantity + 1,
+      totalProducts: prevValue.totalProducts + 1,
+    }));
+
+    productIncrease(id);
+  }
+
+  btnProductDecrease(id) {
+    this.setState((prevValue) => ({
+      quantity: prevValue.quantity > 0 ? prevValue.quantity - 1 : 0,
+      totalProducts:
+				prevValue.totalProducts > 0 ? prevValue.totalProducts - 1 : 0,
+    }));
+
+    productDecrease(id);
+  }
+
+  addProductState(id) {
+    this.setState((prevValue) => ({
+      quantity: prevValue.quantity + 1,
+      totalProducts: prevValue.totalProducts + 1,
+    }));
+
+    saveProductLocalStorage(id);
   }
 
   render() {
@@ -27,40 +127,33 @@ class DetailedProduct extends React.Component {
     const {
       state: { array },
     } = location;
-    const { title, thumbnail, price } = array;
+    const { id } = array;
+    const { quantity } = this.state;
 
     return (
       <div>
-        <header>
+        <header className="product-detail-header">
+          <Link to="/" data-testid="back-home-button">
+            <i className="far fa-arrow-alt-circle-left" />
+          </Link>
           <Link to="/cart" data-testid="shopping-cart-button">
             <i className="fas fa-shopping-cart" />
-            <span>{functions.quantityAllProductsCart()}</span>
           </Link>
         </header>
         <main>
-          <h2 data-testid="product-detail-name">{title}</h2>
-          <div className="product-detail-content">
-            <img src={ thumbnail } alt={ title } />
-            <p>{price}</p>
-            <button
-              type="button"
-              data-testid="product-detail-add-to-cart"
-              onClick={ () => saveProductLocalStorage(array) }
-            >
-              Adicionar ao carrinho
-            </button>
-          </div>
-          <h2>Avaliações</h2>
-          <div className="product-detail-form">
-            <p>
-              <input type="email" placeholder="Email" />
-              {this.renderStars().map((star) => star)}
-            </p>
-            <p>
-              <textarea data-testid="product-detail-evaluation" />
-            </p>
-            <button type="button">Avaliar</button>
-          </div>
+          <ProductDetail
+            objectProduct={ array }
+            quantity={ quantity }
+            increase={ this.btnProductIncrease }
+            decrease={ this.btnProductDecrease }
+            callback={ this.addProductState }
+          />
+          <ProductEvaluation
+            objectProduct={ array }
+            handle={ this.handleEvaluation }
+            callback={ this.saveReview }
+            reviews={ () => this.showReviews(id) }
+          />
         </main>
       </div>
     );

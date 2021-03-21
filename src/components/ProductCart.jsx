@@ -1,68 +1,100 @@
 import React from 'react';
-import propTypes from 'prop-types';
+import PropTypes from 'prop-types';
+import {
+  quantityAllProductItem,
+  productIncrease,
+  productDecrease,
+} from '../services/functions';
 
 class ProductCart extends React.Component {
   constructor(props) {
     super(props);
-    const { eachProduct } = this.props;
-    const { quantity } = eachProduct;
+
     this.state = {
-      quantity,
+      quantity: 1,
     };
-    this.productDecrease = this.productDecrease.bind(this);
-    this.productIncrease = this.productIncrease.bind(this);
+
+    this.btnProductIncrease = this.btnProductIncrease.bind(this);
+    this.btnProductDecrease = this.btnProductDecrease.bind(this);
   }
 
-  productIncrease() {
-    this.setState((previousQuantity) => ({
-      quantity: previousQuantity.quantity + 1,
-    }));
+  componentDidMount() {
+    this.quantityProductCart();
   }
 
-  productDecrease() {
-    this.setState(({ quantity }) => ({
-      quantity: (quantity > 0) ? quantity - 1 : 0,
+  btnProductIncrease(id) {
+    this.setState((prevValue) => ({
+      quantity: prevValue.quantity + 1,
+      totalProducts: prevValue.totalProducts + 1,
     }));
+
+    productIncrease(id);
+  }
+
+  btnProductDecrease(id) {
+    this.setState((prevValue) => ({
+      quantity: prevValue.quantity > 0 ? prevValue.quantity - 1 : 0,
+      totalProducts:
+				prevValue.totalProducts > 0 ? prevValue.totalProducts - 1 : 0,
+    }));
+
+    productDecrease(id);
+  }
+
+  quantityProductCart() {
+    const { eachProduct: { id } } = this.props;
+    const quantity = quantityAllProductItem(id);
+
+    this.setState({ quantity });
+    return quantity;
   }
 
   render() {
     const { eachProduct } = this.props;
-    const { title, price, thumbnail } = eachProduct;
+    const { id, title, price, thumbnail } = eachProduct;
     const { quantity } = this.state;
+
     return (
-      <div>
+      <div className="shopping-cart-item">
+        <button type="button">X</button>
+        <img src={ thumbnail } alt={ title } />
         <h1 data-testid="shopping-cart-product-name">{ title }</h1>
         <p>
-          <button
-            type="button"
-            data-testid="product-increase-quantity"
-            onClick={ this.productIncrease }
-          >
-            +
-          </button>
+          Unitário:
+          { price }
+        </p>
+        <p data-testid="shopping-cart-product-quantity">
           <button
             type="button"
             data-testid="product-decrease-quantity"
-            onClick={ this.productDecrease }
+            onClick={ () => this.btnProductDecrease(id) }
           >
             -
           </button>
-          <button type="button">X</button>
-          { price }
+          { quantity }
+          <button
+            type="button"
+            data-testid="product-increase-quantity"
+            onClick={ () => this.btnProductIncrease(id) }
+          >
+            +
+          </button>
         </p>
-        <p data-testid="shopping-cart-product-quantity">{ quantity }</p>
-        <img src={ thumbnail } alt={ title } />
-        <hr />
+        <p>
+          Total:
+          { price * quantity }
+        </p>
       </div>
     );
   }
 }
+
 ProductCart.propTypes = {
-  eachProduct: propTypes.shape({
-    title: propTypes.string,
-    price: propTypes.number,
-    quantity: propTypes.number,
-    thumbnail: propTypes.string,
+  eachProduct: PropTypes.shape({
+    title: PropTypes.string,
+    price: PropTypes.number,
+    quantity: PropTypes.number,
+    thumbnail: PropTypes.string,
   }),
 }.isRequired;
 

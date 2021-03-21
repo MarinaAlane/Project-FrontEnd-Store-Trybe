@@ -8,7 +8,7 @@ class Product extends React.Component {
     const { title, price, thumbnail, id } = array;
 
     return (
-      <div data-testid="product">
+      <div className="product-item" data-testid="product">
         <Link
           to={ {
             pathname: `detailed-product/${id}`,

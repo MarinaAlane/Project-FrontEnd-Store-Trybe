@@ -4,6 +4,8 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Cart from './pages/Cart';
 import DetailedProduct from './pages/DetailedProduct';
+import Checkout from './pages/Checkout';
+import NotFound from './pages/NotFound';
 
 import './App.css';
 
@@ -23,7 +25,9 @@ function App() {
             path="/detailed-product/:id"
             render={ (props) => <DetailedProduct { ...props } /> }
           />
+          <Route path="/checkout" component={ Checkout } />
           <Route exact path="/" component={ Home } />
+          <Route component={ NotFound } />
         </Switch>
       </BrowserRouter>
     </div>

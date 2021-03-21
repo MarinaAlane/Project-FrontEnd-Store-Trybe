@@ -5,7 +5,7 @@ class Category extends React.Component {
   render() {
     const { categories, handleCategory } = this.props;
     return (
-      <div>
+      <aside className="categories-container">
         <ul>
           {(categories.length > 0) && (
             categories
@@ -22,7 +22,7 @@ class Category extends React.Component {
               ))
           )}
         </ul>
-      </div>
+      </aside>
     );
   }
 }
