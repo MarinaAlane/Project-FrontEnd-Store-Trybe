@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 class ProductEvaluation extends React.Component {
-  render() {
-    const { objectProduct: { id }, handle, callback, reviews } = this.props;
+  renderStars(callbackHandle) {
     const result = [];
+    const length = 5;
 
-    for (let index = 1; index <= 5; index += 1) {
+    for (let index = 1; index <= length; index += 1) {
       result.push(
         <label key={ `star${index}` } htmlFor={ `star${index}` }>
           <input
@@ -14,12 +14,18 @@ class ProductEvaluation extends React.Component {
             id={ `star${index}` }
             name="rating"
             value={ index }
-            onClick={ handle }
+            onClick={ callbackHandle }
           />
           {index}
         </label>,
       );
     }
+
+    return result;
+  }
+
+  render() {
+    const { objectProduct: { id }, handle, callback, reviews } = this.props;
 
     return (
       <>
@@ -27,17 +33,21 @@ class ProductEvaluation extends React.Component {
         <div className="product-detail-form">
           <p>
             <input type="email" name="email" placeholder="Email" onChange={ handle } />
-            {result}
+            {this.renderStars(handle).map((star) => star)}
           </p>
           <p>
-            <textarea name="message" data-testid="product-detail-evaluation" onChange={ handle } />
+            <textarea
+              name="message"
+              data-testid="product-detail-evaluation"
+              onChange={ handle }
+            />
           </p>
           <button type="button" onClick={ () => callback(id) }>Avaliar</button>
         </div>
 
         <div className="product-detail-form">
           { reviews().map(({ email, rating, message }, index) => (
-            <div key={`review${index}`} className="product-evaluation-review">
+            <div key={ `review${index}` } className="product-evaluation-review">
               <p>
                 <span>{email}</span>
                 <span>{rating}</span>
