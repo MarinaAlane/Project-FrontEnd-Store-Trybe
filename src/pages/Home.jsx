@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import * as api from '../services/api';
-import saveProduct from '../services/functions';
-import './home.css';
+import saveProductLocalStorage, {
+  quantityAllProductsCart,
+} from '../services/functions';
+import './Home.css';
 import Product from '../components/Product';
 import Category from '../components/Category';
 
@@ -14,11 +16,13 @@ class Home extends React.Component {
       value: '',
       products: [],
     };
+
     this.fetchCategories = this.fetchCategories.bind(this);
     this.HandleClick = this.HandleClick.bind(this);
     this.fetchQuery = this.fetchQuery.bind(this);
     this.HandleChange = this.HandleChange.bind(this);
     this.handleCategory = this.handleCategory.bind(this);
+    this.btnAddProductCart = this.btnAddProductCart.bind(this);
   }
 
   componentDidMount() {
@@ -26,17 +30,19 @@ class Home extends React.Component {
   }
 
   handleCategory(NewCategory) {
-    // this.setState({ categoryId: NewCategory });
     this.fetchQuery(NewCategory, '');
   }
 
   fetchQuery(categoryId, value) {
-    api.getProductsFromCategoryAndQuery(categoryId, value)
+    api
+      .getProductsFromCategoryAndQuery(categoryId, value)
       .then(({ results }) => this.setState({ products: results }));
   }
 
   async fetchCategories() {
-    await api.getCategories().then((category) => this.setState({ categories: category }));
+    await api
+      .getCategories()
+      .then((category) => this.setState({ categories: category }));
   }
 
   HandleChange(event) {
@@ -48,21 +54,23 @@ class Home extends React.Component {
     this.fetchQuery(null, value);
   }
 
-  render() {
-    const { products, categories } = this.state;
+  btnAddProductCart(objectProduct) {
+    this.setState((prevValue) => ({
+      totalProducts: prevValue.totalProducts + 1,
+    }));
+
+    saveProductLocalStorage(objectProduct);
+  }
+
+  renderHeader() {
     return (
-      <div>
-        <header className="home-header">
-          <input
-            type="text"
-            placeholder="Digite algum termo de pesquisa"
-            data-testid="query-input"
-            onChange={ this.HandleChange }
-          />
-          <Link to="/cart" data-testid="shopping-cart-button">
-            <i className="fas fa-shopping-cart" />
-          </Link>
-        </header>
+      <header className="home-header">
+        <input
+          type="text"
+          placeholder="Digite algum termo de pesquisa"
+          data-testid="query-input"
+          onChange={ this.HandleChange }
+        />
         <button
           type="button"
           data-testid="query-button"
@@ -70,21 +78,49 @@ class Home extends React.Component {
         >
           pesquisar
         </button>
-        <main>
-          <p data-testid="home-initial-message">
+        <Link
+          to="/cart"
+          className="home-cart-button"
+          data-testid="shopping-cart-button"
+        >
+          <i className="fas fa-shopping-cart" />
+          <span data-testid="shopping-cart-size">{quantityAllProductsCart()}</span>
+        </Link>
+      </header>
+    );
+  }
+
+  render() {
+    const { products, categories } = this.state;
+
+    return (
+      <div>
+        {this.renderHeader()}
+        <main className="home-container">
+          <p
+            className="home-initial-message"
+            data-testid="home-initial-message"
+          >
             Digite algum termo de pesquisa ou escolha uma categoria.
           </p>
+          <Category
+            categories={ categories }
+            handleCategory={ this.handleCategory }
+          />
+          <div className="products-container">
+            {products.length === 0 ? (
+              <p>Nenhum produto encontrado</p>
+            ) : (
+              products.map((product) => (
+                <Product
+                  key={ product.id }
+                  array={ product }
+                  saveProduct={ () => this.btnAddProductCart(product) }
+                />
+              ))
+            )}
+          </div>
         </main>
-        <Category categories={ categories } handleCategory={ this.handleCategory } />
-        <div>
-          {(products.length === 0) ? (<p>Nenhum produto encontrado</p>) : (
-            products.map((product) => (<Product
-              key={ product.id }
-              array={ product }
-              saveProduct={ saveProduct }
-            />))
-          )}
-        </div>
       </div>
     );
   }
