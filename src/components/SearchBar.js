@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import '../styles/components/SearchBar.css';
 import PropTypes from 'prop-types';
+import CartIcon from './CartIcon';
 
 class SearchBar extends Component {
   render() {
-    const { handleSearchClick, handleChange, value } = this.props;
+    const { handleSearchClick, handleChange, value, cartLength } = this.props;
     return (
       <div className="search-bar-container">
         <div className="search-bar-wrapper">
@@ -29,9 +29,7 @@ class SearchBar extends Component {
             Digite algum termo de pesquisa ou escolha uma categoria.
           </p>
         </div>
-        <Link data-testid="shopping-cart-button" to="/shopping-cart">
-          <button type="button" alt="cart-button" />
-        </Link>
+        <CartIcon cartLength={ cartLength } />
       </div>
     );
   }
@@ -41,6 +39,7 @@ SearchBar.propTypes = {
   handleSearchClick: PropTypes.func.isRequired,
   handleChange: PropTypes.func.isRequired,
   value: PropTypes.string.isRequired,
+  cartLength: PropTypes.number.isRequired,
 };
 
 export default SearchBar;

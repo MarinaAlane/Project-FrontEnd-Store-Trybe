@@ -1,8 +1,12 @@
 .cart-item {
   align-items: center;
+  background-color: rgb(252, 252, 252);
+  box-shadow: 0 0 2px rgb(99, 99, 99);
   display: flex;
+  height: 120px;
   justify-content: flex-start;
-  margin-left: 50px;
+  margin: 20px 50px;
+  width: 1200px;
 }
 
 .cart-item > img {
@@ -64,4 +68,3 @@
 .cart-item > button:hover {
   opacity: 1;
 }
-

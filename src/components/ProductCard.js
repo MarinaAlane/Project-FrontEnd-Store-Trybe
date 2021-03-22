@@ -6,19 +6,20 @@ import { Link } from 'react-router-dom';
 class ProductCard extends Component {
   render() {
     const { product, addProductToCart } = this.props;
-    const { title, thumbnail, price, id } = product;
+    const { title, thumbnail, price, id, shipping } = product;
+    const { free_shipping: freeShipping } = shipping;
     return (
       <div className="product-card" data-testid="product">
-        <img src={ thumbnail } alt={ `${title}` } />
         <Link
           to={ `/productDetails/${id}` }
           data-testid="product-detail-link"
           product={ product }
-          addProductToCart={ addProductToCart }
         >
+          <img src={ thumbnail } alt={ `${title}` } />
           <p>{ title }</p>
           <p>{ `R$ ${price.toFixed(2)}` }</p>
         </Link>
+        { (freeShipping) && <span data-testid="free-shipping">Frete Grátis</span> }
         <button
           type="button"
           data-testid="product-add-to-cart"
@@ -37,6 +38,9 @@ ProductCard.propTypes = {
     thumbnail: PropTypes.string,
     price: PropTypes.number,
     id: PropTypes.string,
+    shipping: PropTypes.shape({
+      free_shipping: PropTypes.bool,
+    }),
   }).isRequired,
   addProductToCart: PropTypes.func.isRequired,
 };
