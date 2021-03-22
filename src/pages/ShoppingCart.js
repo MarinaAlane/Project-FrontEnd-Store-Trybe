@@ -41,20 +41,22 @@ class ShoppingCart extends Component {
   }
 
   increaseQuantity(productId) {
-    const { cartItems } = this.props;
+    const { cartItems, updateCartItemsLength } = this.props;
     cartItems.forEach((item) => {
       if (item.id === productId) {
         item.amount += 1;
       }
     });
+    updateCartItemsLength(cartItems);
     this.sumPrices();
   }
 
   decreaseQuantity(productId) {
-    const { cartItems } = this.props;
+    const { cartItems, updateCartItemsLength } = this.props;
     cartItems.forEach((item) => {
       if ((item.id === productId) && (item.amount > 1)) {
         item.amount -= 1;
+        updateCartItemsLength(cartItems);
         this.sumPrices();
       }
     });
@@ -85,6 +87,15 @@ class ShoppingCart extends Component {
               Valor Total da Compra: R$
               { totalPayable.toFixed(2) }
             </h4>
+            <Link to={ { pathname: '/checkout', state: { totalPayable } } }>
+              <button
+                data-testid="checkout-products"
+                className="checkout-button"
+                type="button"
+              >
+                Finalizar Compra
+              </button>
+            </Link>
           </div>
         ) : (
           <div
@@ -104,6 +115,7 @@ ShoppingCart.propTypes = {
   emptyCart: PropTypes.bool.isRequired,
   cartItems: PropTypes.arrayOf(PropTypes.object).isRequired,
   removeItemFromCart: PropTypes.func.isRequired,
+  updateCartItemsLength: PropTypes.func.isRequired,
 };
 
 export default ShoppingCart;

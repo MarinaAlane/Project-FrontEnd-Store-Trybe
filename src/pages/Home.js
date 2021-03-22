@@ -15,6 +15,7 @@ class Home extends React.Component {
       inputValue,
       products,
       categories,
+      cartLength,
     } = this.props;
     return (
       <div className="home-container">
@@ -27,6 +28,7 @@ class Home extends React.Component {
             handleSearchClick={ handleSearchClick }
             handleChange={ handleChange }
             value={ inputValue }
+            cartLength={ cartLength }
           />
           <ProductList products={ products } addProductToCart={ addProductToCart } />
         </div>
@@ -43,6 +45,7 @@ Home.propTypes = {
   categories: PropTypes.arrayOf(PropTypes.object).isRequired,
   products: PropTypes.arrayOf(PropTypes.object).isRequired,
   inputValue: PropTypes.string.isRequired,
+  cartLength: PropTypes.number.isRequired,
 };
 
 export default Home;

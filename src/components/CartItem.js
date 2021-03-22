@@ -5,7 +5,7 @@ import '../styles/components/CartItem.css';
 class CartItem extends Component {
   render() {
     const { item, increaseQuantity, decreaseQuantity, removeItemFromCart } = this.props;
-    const { thumbnail, title, price, id, amount } = item;
+    const { thumbnail, title, price, id, amount, available_quantity: inStock } = item;
     return (
       <div className="cart-item">
         <img src={ thumbnail } alt={ `${title}` } />
@@ -14,6 +14,7 @@ class CartItem extends Component {
           type="button"
           data-testid="product-increase-quantity"
           onClick={ () => increaseQuantity(id) }
+          disabled={ (inStock <= amount) }
         >
           +
         </button>
@@ -39,6 +40,7 @@ CartItem.propTypes = {
     thumbnail: PropTypes.string,
     price: PropTypes.number,
     amount: PropTypes.number,
+    available_quantity: PropTypes.number,
   }).isRequired,
   increaseQuantity: PropTypes.func.isRequired,
   decreaseQuantity: PropTypes.func.isRequired,

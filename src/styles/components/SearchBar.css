@@ -16,20 +16,17 @@
 }
 
 .search-bar-wrapper > div > input {
+  font-weight: 700;
   margin-top: 20px;
   width: 400px;
 }
 
-.search-bar-container > :nth-child( 2 ) {
-  width: 40px;
+.search-bar-wrapper > div > button {
+  background-color: rgb(88, 88, 88);
+  color: white;
 }
 
-.search-bar-container > :nth-child( 2 ) > button {
-  background: url('https://image.flaticon.com/icons/png/512/126/126083.png') no-repeat;
-  background-size: contain;
-  border: none;
-  height: 40px;
-  margin-left: 20px;
+.search-bar-container > :nth-child( 2 ) {
   width: 40px;
 }
 

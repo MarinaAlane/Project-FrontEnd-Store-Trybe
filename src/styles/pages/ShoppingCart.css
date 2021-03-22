@@ -38,3 +38,19 @@
 .shopping-cart-list h4 {
   margin: 50px 0 50px 50px;
 }
+
+.checkout-button {
+  background-color: green;
+  border: none;
+  border-radius: 3px;
+  color: white;
+  font-weight: 700;
+  height: 30px;
+  margin: 0 0 50px 50px;
+  opacity: 0.7;
+  width: 150px;
+}
+
+.checkout-button:hover {
+  opacity: 1;
+}

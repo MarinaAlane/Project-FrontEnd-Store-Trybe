@@ -5,6 +5,7 @@ import '../styles/components/ProductDetails.css';
 import { Link } from 'react-router-dom';
 import { FaStar } from 'react-icons/fa';
 import ProductEvaluation from './ProductEvaluation';
+import CartIcon from './CartIcon';
 
 class ProductDetails extends React.Component {
   constructor(props) {
@@ -97,7 +98,9 @@ class ProductDetails extends React.Component {
     if (product === undefined) {
       return <Redirect to="/" />;
     }
+
     if (product.length === 0) return (<div></div>);
+
     const { title, thumbnail } = product;
     return (
       <>
@@ -120,9 +123,14 @@ class ProductDetails extends React.Component {
 }
 
 ProductDetails.propTypes = {
-  match: PropTypes.objectOf(PropTypes.string).isRequired,
-  products: PropTypes.objectOf(PropTypes.array).isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      ship: PropTypes.string,
+    }),
+  }).isRequired,
+  products: PropTypes.arrayOf(PropTypes.object).isRequired,
   addProductToCart: PropTypes.func.isRequired,
+  cartLength: PropTypes.number.isRequired,
 };
 
 export default ProductDetails;
