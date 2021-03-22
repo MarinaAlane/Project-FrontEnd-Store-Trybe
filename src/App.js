@@ -13,9 +13,10 @@ class App extends Component {
     this.state = {
       categories: [],
       products: [],
-      inputValue: '',
+      input: '',
       emptyCart: true,
       cartItems: [],
+      cartLength: 0,
     };
     this.addProductToCart = this.addProductToCart.bind(this);
     this.apiRequest = this.apiRequest.bind(this);
@@ -24,17 +25,38 @@ class App extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.removeItemFromCart = this.removeItemFromCart.bind(this);
     this.emptyShoppingCart = this.emptyShoppingCart.bind(this);
+    this.updateCartItemsLength = this.updateCartItemsLength.bind(this);
+    this.getCartItem = this.getCartItem.bind(this);
   }
 
-  componentDidMount() {
-    this.apiRequest();
+  async componentDidMount() {
+    await this.apiRequest();
+    const storage = sessionStorage.getItem('cart');
+    if (storage !== null) {
+      const arr = storage.split(',');
+      arr.forEach((item, index) => {
+        if (item.includes('MLB')) {
+          this.getCartItem(item, arr[index + 1]);
+        }
+      });
+    }
+  }
+
+  componentWillUnmount() {
+    const { cartItems } = this.state;
+    const arr = [];
+    cartItems.forEach((item) => {
+      arr.push(item.id);
+      arr.push(item.amount);
+    });
+    sessionStorage.setItem('cart', arr);
   }
 
   async handleSearchClick() {
-    const { inputValue } = this.state;
+    const { input } = this.state;
     let products = [];
-    if (inputValue.length !== 0) {
-      products = await api.getProductsFromCategoryAndQuery('', inputValue);
+    if (input.length !== 0) {
+      products = await api.getProductsFromCategoryAndQuery('', input);
     } else {
       products = await api.getProductsFromCategoryAndQuery();
     }
@@ -45,7 +67,7 @@ class App extends Component {
 
   handleChange({ target }) {
     this.setState({
-      inputValue: target.value,
+      input: target.value,
     });
   }
 
@@ -55,6 +77,17 @@ class App extends Component {
     this.setState({
       products: selectedProducts.results,
     });
+  }
+
+  getCartItem(id, quant) {
+    const { products, cartItems } = this.state;
+    const product = products.find((item) => item.id === id);
+    product.amount = parseInt(quant, 10);
+    this.setState((prevState) => ({
+      cartItems: [...prevState.cartItems, product],
+      emptyCart: false,
+    }));
+    this.updateCartItemsLength([...cartItems, product]);
   }
 
   async apiRequest() {
@@ -78,16 +111,18 @@ class App extends Component {
     const product = products.find((item) => item.id === productId);
     if ((cartItems.some((item) => item.id === productId))) {
       cartItems.forEach((item) => {
-        if (item.id === productId) {
+        if ((item.id === productId) && (item.available_quantity > item.amount)) {
           item.amount += 1;
         }
       });
+      this.updateCartItemsLength(cartItems);
     } else {
       product.amount = 1;
       this.setState((prevState) => ({
         cartItems: [...prevState.cartItems, product],
         emptyCart: false,
       }));
+      this.updateCartItemsLength([...cartItems, product]);
     }
   }
 
@@ -95,6 +130,7 @@ class App extends Component {
     const { cartItems } = this.state;
     const newCartItems = cartItems
       .filter((item) => (item.id !== productId) && item);
+    this.updateCartItemsLength(newCartItems);
     if (newCartItems.length === 0) {
       this.setState({
         emptyCart: true,
@@ -110,10 +146,23 @@ class App extends Component {
       cartItems: [],
       emptyCart: true,
     });
+    this.updateCartItemsLength([]);
+  }
+
+  updateCartItemsLength(newCartItems) {
+    if (newCartItems !== undefined) {
+      const cartLength = newCartItems.reduce((total, item) => {
+        total += item.amount;
+        return total;
+      }, 0);
+      this.setState({
+        cartLength,
+      });
+    }
   }
 
   render() {
-    const { emptyCart, cartItems, inputValue, products, categories } = this.state;
+    const { emptyCart, cartItems, input, products, categories, cartLength } = this.state;
     return (
       <div className="App">
         <BrowserRouter>
@@ -124,19 +173,7 @@ class App extends Component {
                 emptyCart={ emptyCart }
                 cartItems={ cartItems }
                 removeItemFromCart={ this.removeItemFromCart }
-              />) }
-            />
-            <Route
-              exact
-              path="/"
-              render={ () => (<Home
-                addProductToCart={ this.addProductToCart }
-                handleChange={ this.handleChange }
-                handleSearchClick={ this.handleSearchClick }
-                handleCategoryClick={ this.handleCategoryClick }
-                categories={ categories }
-                inputValue={ inputValue }
-                products={ products }
+                updateCartItemsLength={ this.updateCartItemsLength }
               />) }
             />
             <Route
@@ -145,6 +182,7 @@ class App extends Component {
                 { ...props }
                 products={ products }
                 addProductToCart={ this.addProductToCart }
+                cartLength={ cartLength }
               />) }
             />
             <Route
@@ -153,6 +191,19 @@ class App extends Component {
                 { ...props }
                 cartItems={ cartItems }
                 emptyShoppingCart={ this.emptyShoppingCart }
+              />) }
+            />
+            <Route
+              path="/"
+              render={ () => (<Home
+                addProductToCart={ this.addProductToCart }
+                handleChange={ this.handleChange }
+                handleSearchClick={ this.handleSearchClick }
+                handleCategoryClick={ this.handleCategoryClick }
+                categories={ categories }
+                inputValue={ input }
+                products={ products }
+                cartLength={ cartLength }
               />) }
             />
           </Switch>

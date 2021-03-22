@@ -30,15 +30,6 @@
   width: 40px;
 }
 
-.search-bar-container > :nth-child( 2 ) > button {
-  background: url('https://image.flaticon.com/icons/png/512/126/126083.png') no-repeat;
-  background-size: contain;
-  border: none;
-  height: 40px;
-  margin-left: 20px;
-  width: 40px;
-}
-
 .search-bar-container > :nth-child( 2 ) > button:hover {
   cursor: pointer;
 }

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import '../styles/components/ProductDetails.css';
 import { Link } from 'react-router-dom';
 import ProductEvaluation from './ProductEvaluation';
+import CartIcon from './CartIcon';
 
 class ProductDetails extends React.Component {
   constructor(props) {
@@ -36,7 +37,7 @@ class ProductDetails extends React.Component {
     }
 
     const { title, thumbnail, price, id, condition } = product;
-    const { addProductToCart } = this.props;
+    const { addProductToCart, cartLength } = this.props;
 
     return (
       <>
@@ -44,9 +45,7 @@ class ProductDetails extends React.Component {
           <Link to="/">
             <button className="shopping-cart-button" type="button" alt="return-button" />
           </Link>
-          <Link data-testid="shopping-cart-button" to="/shopping-cart">
-            <button className="cart-header" type="button" alt="cart-button" />
-          </Link>
+          <CartIcon cartLength={ cartLength } />
         </div>
         <div data-testid="product-detail-name" className="card">
           <div className="img-card">
@@ -74,9 +73,14 @@ class ProductDetails extends React.Component {
 }
 
 ProductDetails.propTypes = {
-  match: PropTypes.objectOf(PropTypes.string).isRequired,
-  products: PropTypes.objectOf(PropTypes.array).isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      ship: PropTypes.string,
+    }),
+  }).isRequired,
+  products: PropTypes.arrayOf(PropTypes.object).isRequired,
   addProductToCart: PropTypes.func.isRequired,
+  cartLength: PropTypes.number.isRequired,
 };
 
 export default ProductDetails;
