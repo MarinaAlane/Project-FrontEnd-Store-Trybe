@@ -3,5 +3,7 @@
   border-radius: 8px;
   margin: 5px;
   text-align: left;
-  width: 240px;
+  max-width: 240px;
+  display: flex;
+  flex-direction: column;
 }

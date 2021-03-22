@@ -1,5 +1,11 @@
+a {
+  color: rgb(167, 227, 255);
+  text-decoration: none;
+}
+
 .App {
   text-align: center;
+  background-color: rgb(235, 235, 235);
 }
 
 .App-logo {
@@ -20,7 +26,6 @@
   background-color: #282c34;
   color: white;
   display: flex;
-  flex-direction: column;
   font-size: calc(10px + 2vmin);
   justify-content: center;
   min-height: 100vh;
