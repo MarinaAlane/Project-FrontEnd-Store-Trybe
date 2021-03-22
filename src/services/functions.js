@@ -60,7 +60,7 @@ export function quantityAllProductsCart() {
     return sum;
   }
 
-  return 'length';
+  return '0';
 }
 
 export function quantityAllProductItem(id) {
@@ -118,3 +118,9 @@ export function captureProduct() {
 
   return [products, totalPriceProducts];
 }
+
+// function saveRating() {
+//   const { ratingSpace } = component onde tem o form rating;
+//   const { input: { value } } = ratingSpace;
+//   localstorage.setItem('itemProductID{id}', value);
+// }

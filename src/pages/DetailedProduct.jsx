@@ -10,6 +10,7 @@ import saveProductLocalStorage, {
 } from '../services/functions';
 import ProductDetail from '../components/ProductDetail';
 import ProductEvaluation from '../components/ProductEvaluation';
+import Shipping from '../components/Shipping';
 import './DetailedProduct.css';
 
 class DetailedProduct extends React.Component {
@@ -52,6 +53,8 @@ class DetailedProduct extends React.Component {
           rating,
           message,
         });
+        // localStorage
+        //   .setItem(`review/rating${index}`, JSON.stringify(gottenItemObj.reviews));
       } else {
         gottenItemObj.reviews = [
           {
@@ -127,7 +130,7 @@ class DetailedProduct extends React.Component {
     const {
       state: { array },
     } = location;
-    const { id } = array;
+    const { id, shipping } = array;
     const { quantity } = this.state;
 
     return (
@@ -151,6 +154,9 @@ class DetailedProduct extends React.Component {
             decrease={ this.btnProductDecrease }
             callback={ this.addProductState }
           />
+          <span>
+            <Shipping shipping={ shipping } />
+          </span>
           <ProductEvaluation
             objectProduct={ array }
             handle={ this.handleEvaluation }
