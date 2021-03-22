@@ -100,6 +100,7 @@ class ProductDetails extends React.Component {
     }
 
     if (product.length === 0) return (<div> Page not Found! </div>);
+
     const { title, thumbnail } = product;
     return (
       <>
