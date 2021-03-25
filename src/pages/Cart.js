@@ -120,7 +120,15 @@ class Cart extends Component {
         { this.renderCartItems() }
         <div className="container-finish-cart">
           <p><strong>{`Valor Total da Compra: R$ ${this.sumTotalItems()}`}</strong></p>
-          <button className="btn-finish" type="button">Finalizar Compra</button>
+          <Link to="/finishBuy">
+            <button
+              data-testid="checkout-products"
+              className="btn-finish"
+              type="button"
+            >
+              Finalizar Compra
+            </button>
+          </Link>
         </div>
       </div>
     );
