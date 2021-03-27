@@ -1,0 +1,9 @@
+.cart-review {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.cart-review p, img {
+  margin: 1%;
+}

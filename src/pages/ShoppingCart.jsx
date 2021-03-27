@@ -1,5 +1,6 @@
 import React from 'react';
 import { arrayOf, object } from 'prop-types';
+import { Link } from 'react-router-dom';
 import CartProduct from '../components/CartProduct';
 
 class ShoppingCart extends React.Component {
@@ -71,6 +72,12 @@ class ShoppingCart extends React.Component {
           <p>
             {`Valor total: R$ ${this.sumPrices()}`}
           </p>
+          <Link
+            to={ { pathname: '/payment-details', state: { cartProducts } } }
+            data-testid="checkout-products"
+          >
+            Finalizar Compra
+          </Link>
         </div>
       );
     }
