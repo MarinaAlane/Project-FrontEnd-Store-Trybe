@@ -6,12 +6,12 @@ import ClientsData from '../components/ClientsData';
 class Checkout extends Component {
   render() {
     return (
-      <div>
+      <div className="checkout">
         <Link to="/cart">
           <img
-            src="https://cdn.iconscout.com/icon/free/png-512/reply-all-1578267-1341736.png"
+            src="https://img.icons8.com/fluent/48/000000/circled-left.png"
             alt="arrow back"
-            className="button"
+            className="button start"
           />
         </Link>
         <ReviewProducts />

@@ -68,13 +68,15 @@ class Card extends Component {
         >
           Adicionar
         </button>
-        <Link
-          data-testid="product-detail-link"
-          key={ id }
-          to={ { pathname: `/product/${id}`, state: { product } } }
-        >
-          Ver detalhes
-        </Link>
+        <p>
+          <Link
+            data-testid="product-detail-link"
+            key={ id }
+            to={ { pathname: `/product/${id}`, state: { product } } }
+          >
+            Ver detalhes
+          </Link>
+        </p>
       </div>
     );
   }
@@ -83,12 +85,11 @@ class Card extends Component {
     const { product, testid, inCart } = this.props;
     const { title, thumbnail, price, id, shipping: { free_shipping: free } } = product;
     return (
-      <div data-testid="product">
+      <div className="product" data-testid="product">
         <h4 data-testid={ testid }>{ title }</h4>
         <img className="imgProduct" src={ thumbnail } alt="pictyre" />
         <p>
-          R$:
-          { price }
+          { `R$ ${parseFloat(price).toFixed(2)}` }
         </p>
         {free && <p data-testid="free-shipping">Frete grátis</p> }
         {inCart && this.cartActionButtons(id) }

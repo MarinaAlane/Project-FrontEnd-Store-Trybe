@@ -24,6 +24,7 @@ class Cart extends Component {
 
   handleAddClick(product) {
     const itemsInCart = JSON.parse(localStorage.getItem('NoMasterCart'));
+    console.log(itemsInCart);
     if (!itemsInCart) {
       product = { ...product, quantityToOrder: 1 };
       localStorage.setItem('NoMasterCart', JSON.stringify([product]));
@@ -63,52 +64,55 @@ class Cart extends Component {
       this.setState({
         cartProducts: [...itemsInCart],
       });
+      console.log(this.state.cartProducts);
     }
   }
 
   hasProducts() {
     const { cartProducts } = this.state;
-    const arrow = ('https://cdn.iconscout.com/icon/free/png-512/reply-all-1578267-1341736.png');
-    const cart = ('https://www.pinclipart.com/picdir/big/10-108329_cart-clip-art-at-clker-com-vector-shopping.png');
+    const arrow = 'https://img.icons8.com/fluent/48/000000/circled-left.png';
+    const cart = ('https://img.icons8.com/fluent/48/000000/shopping-cart-loaded.png');
     return (
-      <div>
-        <Link to="/"><img src={ arrow } alt="arrow" className="button" /></Link>
+      <div className="fullCart">
+        <Link to="/"><img src={ arrow } alt="arrow" className="button start" /></Link>
         <div>
           <img src={ cart } alt="cart" className="button" />
           <span><strong> Carrinho de Compras</strong></span>
         </div>
-        {/* <h3>
+        <h3>
           Você possui
           { ` ${cartProducts.length} ` }
           itens no carrinho
-        </h3> */}
+        </h3>
         <Link to="/checkout">
           <button type="button" data-testid="checkout-products">
             Finalizar Compra
           </button>
         </Link>
-        {cartProducts.map((product) => (
-          <Card
-            key={ product.id }
-            product={ product }
-            testid="shopping-cart-product-name"
-            inCart
-            handleDeleteClick={ this.handleDeleteClick }
-            handleSubClick={ this.handleSubClick }
-            handleAddClick={ this.handleAddClick }
-          />
-        ))}
+        <div className="products">
+          {cartProducts.map((product) => (
+            <Card
+              key={ product.id }
+              product={ product }
+              testid="shopping-cart-product-name"
+              inCart
+              handleDeleteClick={ this.handleDeleteClick }
+              handleSubClick={ this.handleSubClick }
+              handleAddClick={ this.handleAddClick }
+            />
+          ))}
+        </div>
       </div>
     );
   }
 
   emputCart() {
-    const arrow = ('https://cdn.iconscout.com/icon/free/png-512/reply-all-1578267-1341736.png');
-    const cart = ('https://www.pinclipart.com/picdir/big/10-108329_cart-clip-art-at-clker-com-vector-shopping.png');
+    const arrow = 'https://img.icons8.com/fluent/48/000000/circled-left.png';
+    const cart = ('https://img.icons8.com/fluent/48/000000/shopping-cart-loaded.png');
     return (
-      <div>
+      <div className="emptyCart">
         <Link to="/">
-          <img src={ arrow } alt="arrow" className="button" />
+          <img src={ arrow } alt="arrow" className="button start" />
         </Link>
         <div>
           <img

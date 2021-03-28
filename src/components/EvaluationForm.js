@@ -25,9 +25,9 @@ class EvaluationFrom extends Component {
 
   render() {
     return (
-      <div>
+      <div className="evaluation">
         <h3>Avaliações</h3>
-        <form>
+        <form className="formEvaluation">
           <label htmlFor="email">
             <input
               id="email"

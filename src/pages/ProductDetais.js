@@ -67,9 +67,9 @@ class ProductDetais extends Component {
       <Link to="/cart" data-testid="shopping-cart-button">
         <div>
           <img
-            src="https://www.pinclipart.com/picdir/big/10-108329_cart-clip-art-at-clker-com-vector-shopping.png"
+            src="https://img.icons8.com/fluent/48/000000/circled-left.png"
             alt="cart"
-            className="button"
+            className="button start"
           />
           <p data-testid="shopping-cart-size">{ numberOfProducts }</p>
         </div>
@@ -85,29 +85,32 @@ class ProductDetais extends Component {
     const {
       title, price, thumbnail, attributes, shipping: { free_shipping: free } } = product;
     return (
-      <>
+      <div className="productDetails">
         { this.link() }
         <h3 data-testid="product-detail-name">
           { title }
-          - R$:
-          { price }
+          &nbsp; - R$&nbsp;
+          { parseFloat(price).toFixed(2) }
           { free && <p data-testid="free-shipping">Frete grátis</p> }
         </h3>
-        <div>
-          <img className="imgProduct" src={ thumbnail } alt="Product" />
-          <div>
-            <p>Especificações Técnicas:</p>
-            {attributes
-              .map((atribut) => (
-                <p
-                  key={ atribut.name }
-                >
-                  {`${atribut.name}: ${atribut.value_name}`}
-                </p>
-              ))}
+        <div className="containerDetails">
+          <div className="contentDetails">
+            <img className="imgProduct" src={ thumbnail } alt="Product" />
+            <div>
+              <p>Especificações Técnicas:</p>
+              {attributes
+                .map((atribut) => (
+                  <p
+                    key={ atribut.name }
+                  >
+                    {`${atribut.name}: ${atribut.value_name}`}
+                  </p>
+                ))}
+            </div>
           </div>
           <button
             type="button"
+            className="add"
             data-testid="product-detail-add-to-cart"
             onClick={ () => this.handleClick(product) }
             disabled={ disableButton }
@@ -117,7 +120,7 @@ class ProductDetais extends Component {
           <EvaluationForm onSubmit={ this.newEvaluaion } />
           <Evaluations evaluations={ evaluations } />
         </div>
-      </>
+      </div>
     );
   }
 }
