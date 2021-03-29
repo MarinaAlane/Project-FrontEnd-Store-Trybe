@@ -1,4 +1,4 @@
-a:link, :visited, :hover, :active{
+a:link, :visited, :hover, :active {
   color: rgb(78, 128, 130);
   text-decoration: none;
 }
@@ -34,8 +34,8 @@ button {
 }
 
 .cidade {
+  margin-left: 0 5px;
   width: 200px;
-  margin: 0 5px;
 }
 
 .container {
@@ -61,11 +61,10 @@ button {
 }
 
 .inputContent {
-  align-items: center;  
+  align-items: center;
   display: flex;
-  flex-direction: row;
+  flex-flow: row nowrap;
   flex-grow: 2 1;
-  flex-wrap: nowrap;
   justify-content: space-between;
   margin: auto;
   position: fixed;
@@ -104,7 +103,7 @@ button {
   flex-basis: 33vh;
   flex-direction: column;
   margin: 10px;
-  padding: 10px 10px 10px;
+  padding: 10px 10px 0;
 }
 
 .product:hover {
@@ -113,11 +112,11 @@ button {
 }
 
 .products {
-  text-align: center;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
   margin: 50px auto 10px;
+  text-align: center;
   width: 100%;
 }
 
@@ -130,9 +129,9 @@ button {
   width: 100%;
 }
 
-img.start {
-  display: flex;
+img .start {
   align-self: initial;
+  display: flex;
   left: 20px;
   position: absolute;
 }
@@ -167,13 +166,7 @@ img.start {
 }
 
 .title {
-  background: rgb(2,0,36);
-  background: linear-gradient(
-    90deg,
-    rgba(2,0,36,1) 0%,
-    rgba(9,9,121,1) 35%,
-    rgba(0,212,255,1) 100%
-  );
+  background: linear-gradient(rgba(2, 0, 36, 0.8), rgb(9, 9, 90), rgba(0, 90, 255, 0.8));
   border-bottom: 3px solid rgba(0, 255, 255, 0.3);
   box-shadow: 0 0 15px 5px gray;
   color: rgba(255, 255, 255, 0.8);
@@ -239,9 +232,9 @@ img.start {
 
 .formEvaluation {
   align-items: center;
-  justify-content: space-between;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
 }
 
 .checkout {
@@ -261,9 +254,9 @@ img.start {
 }
 
 .client {
+  align-items: flex-start;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   margin-bottom: 20px;
 }
 
@@ -281,8 +274,8 @@ img.start {
 }
 
 .label {
-  display: flex;
   align-items: center;
+  display: flex;
 }
 
 .div1, .div2, .div3 {
@@ -335,7 +328,7 @@ img.start {
   padding: 5px;
   position: absolute;
   right: -10px;
-  top: -5px;
   text-align: center;
+  top: -5px;
   width: 10px;
 }

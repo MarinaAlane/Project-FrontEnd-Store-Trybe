@@ -64,7 +64,6 @@ class Cart extends Component {
       this.setState({
         cartProducts: [...itemsInCart],
       });
-      console.log(this.state.cartProducts);
     }
   }
 
