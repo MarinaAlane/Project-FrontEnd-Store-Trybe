@@ -39,7 +39,7 @@ button {
 }
 
 .container {
-  margin: 60px auto 10px;
+  margin: 80px auto 10px;
   text-align: center;
   width: 75%;
 }
@@ -174,8 +174,9 @@ img.start {
     rgba(9,9,121,1) 35%,
     rgba(0,212,255,1) 100%
   );
+  border-bottom: 3px solid rgba(0, 255, 255, 0.3);
   box-shadow: 0 0 15px 5px gray;
-  color: white;
+  color: rgba(255, 255, 255, 0.8);
   line-height: 50px;
   margin-top: 0;
   position: fixed;
