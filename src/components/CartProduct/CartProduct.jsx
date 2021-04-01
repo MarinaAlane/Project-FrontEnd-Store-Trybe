@@ -50,8 +50,6 @@ class CartProduct extends Component {
 
 CartProduct.contextType = InputContext;
 
-CartProduct.contextType = InputContext;
-
 CartProduct.propTypes = {
   info: shape({
     price: number,
