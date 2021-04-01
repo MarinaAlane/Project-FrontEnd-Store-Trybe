@@ -1,39 +1,58 @@
 import React, { Component } from 'react';
+import InputContext from '../../components/InputContext';
+import CartProduct from '../../components/CartProduct';
+import CheckoutForm from '../../components/CheckoutForm';
+import BuyButton from '../../components/BuyButton';
 
 class CheckoutPage extends Component {
-  checkoutForm() {
-    return (
-      <form>
-        <label htmlFor="name">
-          <input data-testid="checkout-fullname" id="name" type="text" />
-          Nome:
-        </label>
-        <label htmlFor="email">
-          <input data-testid="checkout-email" id="email" type="text" />
-          Email:
-        </label>
-        <label htmlFor="cpf">
-          <input data-testid="checkout-cpf" id="cpf" type="text" />
-          CPF:
-        </label>
-        <label htmlFor="phone">
-          <input data-testid="checkout-phone" id="phone" type="text" />
-          Telefone:
-        </label>
-        <label htmlFor="cep">
-          <input data-testid="checkout-cep" id="cep" type="text" />
-          Telefone:
-        </label>
-        <label htmlFor="address">
-          <input data-testid="checkout-address" id="address" type="text" />
-          Endereço:
-        </label>
-      </form>
-    );
+  removeDuplicates(array) {
+    return array.filter(({ id: id1 }, index) => (
+      index === array.findIndex(({ id: id2 }) => (
+        id1 === id2
+      ))
+    ));
   }
 
   render() {
-    return (this.checkoutForm());
+    return (
+      <div>
+        <InputContext.Consumer>
+          {
+            ({ cartProducts }) => {
+              const totalPrice = cartProducts.reduce((acc, { price }) => acc + price, 0);
+              const products = this.removeDuplicates(cartProducts);
+              return !cartProducts.length
+                ? (
+                  <div data-testid="shopping-cart-empty-message">
+                    Sem produtos para revisar
+                  </div>
+                )
+                : (
+                  <div>
+                    <h3>Revise seus produtos</h3>
+                    {products.map((product) => {
+                      const { id: prodId } = product;
+                      const quantity = cartProducts.reduce((acc, { id }) => (
+                        id === prodId ? acc + 1 : acc
+                      ), 0);
+                      return (<CartProduct
+                        key={ product.id }
+                        info={ { ...product, quantity } }
+                      />);
+                    })}
+                    <p>
+                      Total: R$
+                      {totalPrice}
+                    </p>
+                    <CheckoutForm />
+                    <BuyButton />
+                  </div>
+                );
+            }
+          }
+        </InputContext.Consumer>
+      </div>
+    );
   }
 }
 

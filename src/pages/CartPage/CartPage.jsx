@@ -19,6 +19,7 @@ export default class CartPage extends Component {
         <InputContext.Consumer>
           {
             ({ cartProducts }) => {
+              const totalPrice = cartProducts.reduce((acc, { price }) => acc + price, 0);
               const products = this.removeDuplicates(cartProducts);
               return !cartProducts.length
                 ? (
@@ -27,16 +28,20 @@ export default class CartPage extends Component {
                   </div>
                 )
                 : (
-                  products.map((product) => {
-                    const { id: prodId } = product;
-                    const quantity = cartProducts.reduce((acc, { id }) => (
-                      id === prodId ? acc + 1 : acc
-                    ), 0);
-                    return (<CartProduct
-                      key={ product.id }
-                      info={ { ...product, quantity } }
-                    />);
-                  })
+                  <div>
+
+                    {products.map((product) => {
+                      const { id: prodId } = product;
+                      const quantity = cartProducts.reduce((acc, { id }) => (
+                        id === prodId ? acc + 1 : acc
+                      ), 0);
+                      return (<CartProduct
+                        key={ product.id }
+                        info={ { ...product, quantity } }
+                      />);
+                    })}
+                    <p>{totalPrice}</p>
+                  </div>
                 );
             }
           }
