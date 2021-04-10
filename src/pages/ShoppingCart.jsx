@@ -33,7 +33,8 @@ class ShoppingCart extends React.Component {
   addItem(product) {
     const { cartProducts } = this.state;
     const newCart = cartProducts.map((cartProduct) => {
-      if (cartProduct.id === product.id) {
+      const { available_quantity: availableQuantity } = product;
+      if (cartProduct.id === product.id && cartProduct.quantity < availableQuantity) {
         return { ...cartProduct, quantity: cartProduct.quantity + 1 };
       }
       return cartProduct;

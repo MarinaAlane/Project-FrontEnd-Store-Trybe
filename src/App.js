@@ -4,7 +4,7 @@ import ProductDetails from './pages/ProductDetails';
 import ProductList from './pages/ProductList';
 import ShoppingCart from './pages/ShoppingCart';
 import PaymentDetails from './pages/PaymentDetails';
-import './App.css';
+// import './App.css';
 
 function App() {
   return (

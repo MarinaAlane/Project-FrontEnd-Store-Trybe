@@ -4,17 +4,20 @@ import { Link } from 'react-router-dom';
 
 class ProductCard extends React.Component {
   render() {
-    const { product, onClick, cartProducts } = this.props;
-    const { title, thumbnail, price } = product;
+    const { product, onClick, cartProducts, cartSize } = this.props;
+    const { title, thumbnail, price, shipping } = product;
     return (
       <div data-testid="product">
         <Link
-          to={ { pathname: '/product-details', state: { product, cartProducts } } }
+          to={ {
+            pathname: '/product-details',
+            state: { product, cartProducts, cartSize } } }
           data-testid="product-detail-link"
         >
           <img src={ thumbnail } alt={ title } />
           <h3>{ title }</h3>
           <p>{ `R$ ${price.toFixed(2)}` }</p>
+          { shipping.free_shipping && <p data-testid="free-shipping">Frete Gratis</p>}
         </Link>
         <button
           type="button"
