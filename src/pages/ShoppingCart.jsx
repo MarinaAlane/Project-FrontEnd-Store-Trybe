@@ -1,5 +1,6 @@
 import React from 'react';
 import { arrayOf, object } from 'prop-types';
+import { Link } from 'react-router-dom';
 import CartProduct from '../components/CartProduct';
 
 class ShoppingCart extends React.Component {
@@ -32,7 +33,8 @@ class ShoppingCart extends React.Component {
   addItem(product) {
     const { cartProducts } = this.state;
     const newCart = cartProducts.map((cartProduct) => {
-      if (cartProduct.id === product.id) {
+      const { available_quantity: availableQuantity } = product;
+      if (cartProduct.id === product.id && cartProduct.quantity < availableQuantity) {
         return { ...cartProduct, quantity: cartProduct.quantity + 1 };
       }
       return cartProduct;
@@ -71,6 +73,12 @@ class ShoppingCart extends React.Component {
           <p>
             {`Valor total: R$ ${this.sumPrices()}`}
           </p>
+          <Link
+            to={ { pathname: '/payment-details', state: { cartProducts } } }
+            data-testid="checkout-products"
+          >
+            Finalizar Compra
+          </Link>
         </div>
       );
     }

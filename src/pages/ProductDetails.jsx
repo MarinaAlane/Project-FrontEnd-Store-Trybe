@@ -7,6 +7,7 @@ class ProductDetails extends Component {
     super(props);
     this.state = {
       cartProducts: props.location.state.cartProducts,
+      cartSize: props.location.state.cartSize,
       textArea: '',
       email: '',
       evaluation: [],
@@ -38,11 +39,15 @@ class ProductDetails extends Component {
         }
         return cartProduct;
       });
-      this.setState({ cartProducts: newCartProducts });
+      this.setState((state) => ({
+        cartProducts: newCartProducts,
+        cartSize: state.cartSize + 1,
+      }));
     } else {
       product.quantity = 1;
       this.setState((state) => ({
         cartProducts: [...state.cartProducts, product],
+        cartSize: state.cartSize + 1,
       }));
     }
   }
@@ -73,19 +78,10 @@ class ProductDetails extends Component {
     );
   }
 
-  // renderEvaluation() {
-  //   const { evaluation } = this.state;
-  //   return (
-  //     <p>
-  //       {evaluation.map((item) => `${item.email} ${item.textArea}`)}
-  //     </p>
-  //   );
-  // }
-
   render() {
     const { location: { state: { product } } } = this.props;
     const { title, thumbnail, price, attributes } = product;
-    const { cartProducts, evaluation } = this.state;
+    const { cartProducts, evaluation, cartSize } = this.state;
     return (
       <div>
         <img src={ thumbnail } alt={ title } />
@@ -109,6 +105,11 @@ class ProductDetails extends Component {
           } }
         >
           Carrinho de compras
+          &#40;
+          <span data-testid="shopping-cart-size">
+            { cartSize }
+          </span>
+          &#41;
         </Link>
         <div>
           {this.renderForms()}

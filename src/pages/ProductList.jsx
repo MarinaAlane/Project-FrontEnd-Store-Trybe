@@ -15,6 +15,7 @@ class ProductList extends Component {
       searchBar: '',
       selectedCategory: '',
       cartProducts: [],
+      cartSize: 0,
     };
     this.handleCategories = this.handleCategories.bind(this);
     this.searchBarHandler = this.searchBarHandler.bind(this);
@@ -22,10 +23,13 @@ class ProductList extends Component {
     this.renderCategory = this.renderCategory.bind(this);
     this.renderProducts = this.renderProducts.bind(this);
     this.addProductToCart = this.addProductToCart.bind(this);
+    this.cartListToLocalStorage = this.cartListToLocalStorage.bind(this);
+    this.loadCartListFromStorage = this.loadCartListFromStorage.bind(this);
   }
 
   componentDidMount() {
     this.fetchCategories();
+    this.loadCartListFromStorage();
   }
 
   handleCategories({ target: { value } }) {
@@ -43,21 +47,38 @@ class ProductList extends Component {
     this.fetchProductList(selectedCategory, searchBar);
   }
 
+  loadCartListFromStorage() {
+    const cartProducts = JSON.parse(localStorage.getItem('cartProducts')) || [];
+    const cartSize = parseInt(localStorage.getItem('cartSize') || 0, 10);
+    this.setState({ cartProducts, cartSize });
+  }
+
+  cartListToLocalStorage() {
+    const { cartProducts, cartSize } = this.state;
+    localStorage.setItem('cartProducts', JSON.stringify(cartProducts));
+    localStorage.setItem('cartSize', cartSize);
+  }
+
   addProductToCart(product) {
     const { cartProducts } = this.state;
     if (cartProducts.some((cartProduct) => cartProduct.id === product.id)) {
       const newCart = cartProducts.map((cartProduct) => {
-        if (cartProduct.id === product.id) {
+        const { available_quantity: productQuantity } = product;
+        if (cartProduct.id === product.id && cartProduct.quantity < productQuantity) {
           return { ...cartProduct, quantity: cartProduct.quantity + 1 };
         }
         return cartProduct;
       });
-      this.setState({ cartProducts: newCart });
+      this.setState((state) => ({
+        cartProducts: newCart,
+        cartSize: state.cartSize + 1,
+      }), () => this.cartListToLocalStorage());
     } else {
       product.quantity = 1;
       this.setState((state) => ({
         cartProducts: [...state.cartProducts, product],
-      }));
+        cartSize: state.cartSize + 1,
+      }), () => this.cartListToLocalStorage());
     }
   }
 
@@ -85,7 +106,7 @@ class ProductList extends Component {
   }
 
   renderProducts() {
-    const { renderProductList, productList, cartProducts } = this.state;
+    const { renderProductList, productList, cartProducts, cartSize } = this.state;
     if (!renderProductList) {
       return (
         <h1 data-testid="home-initial-message">
@@ -105,6 +126,7 @@ class ProductList extends Component {
             <ProductCard
               key={ product.id }
               product={ product }
+              cartSize={ cartSize }
               cartProducts={ cartProducts }
               onClick={ this.addProductToCart }
             />
@@ -115,7 +137,7 @@ class ProductList extends Component {
   }
 
   render() {
-    const { searchBar, cartProducts } = this.state;
+    const { searchBar, cartProducts, cartSize } = this.state;
     return (
       <div className="main-page">
         <aside className="categories-list">
@@ -144,6 +166,11 @@ class ProductList extends Component {
             } }
           >
             Carrinho de compras
+            &#40;
+            <span data-testid="shopping-cart-size">
+              { cartSize }
+            </span>
+            &#41;
           </Link>
           <div>
             { this.renderProducts() }
