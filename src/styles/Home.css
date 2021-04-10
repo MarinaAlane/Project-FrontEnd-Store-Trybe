@@ -35,3 +35,14 @@ main {
   height: 25px;
   width: 50%;
 }
+
+.link-quantity {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.span-quantity {
+  margin-left: 10px;
+}
