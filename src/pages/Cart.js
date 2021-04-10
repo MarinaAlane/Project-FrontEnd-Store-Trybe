@@ -32,6 +32,17 @@ class Cart extends Component {
     }
   }
 
+  quantityStatus(product) {
+    const productsCart = JSON.parse(localStorage.getItem('cartItems'));
+    let status = false;
+    productsCart.forEach((item) => {
+      if (item.id === product.id && item.available_quantity === item.qtd) {
+        status = true;
+      }
+    });
+    return status;
+  }
+
   sumTotalItems() {
     const { onCart } = this.state;
     return onCart
@@ -93,6 +104,7 @@ class Cart extends Component {
           {item.qtd}
         </span>
         <button
+          disabled={ this.quantityStatus(item) }
           value={ item.id }
           onClick={ this.incrementItem }
           type="button"

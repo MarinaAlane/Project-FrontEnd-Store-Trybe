@@ -14,12 +14,14 @@ class ProductDetails extends Component {
 
     this.state = {
       product: {},
+      quantity: 0,
     };
   }
 
   componentDidMount() {
     this.updateState();
     this.getFromLocalStorage();
+    this.updateQuantity();
   }
 
   getFromLocalStorage() {
@@ -30,20 +32,29 @@ class ProductDetails extends Component {
     return [];
   }
 
+  updateQuantity() {
+    const itens = this.getFromLocalStorage();
+    const quantity = itens
+      .reduce((total, currentyValue) => total + currentyValue.qtd, 0);
+    this.setState((state) => ({ ...state, quantity }));
+  }
+
   putOnLocalStorage(product) {
     const products = [...this.getFromLocalStorage()];
     let status = true;
     products.forEach((item) => {
-      if (item.id === product.id) {
+      if (item.id === product.id && item.available_quantity > item.qtd) {
         item.qtd += 1;
         status = false;
       }
+      if (item.id === product.id) status = false;
     });
-    if (status) {
+    if (status && product.available_quantity > 0) {
       product = { ...product, qtd: 1 };
       products.push(product);
     }
     localStorage.setItem('cartItems', JSON.stringify(products));
+    this.updateQuantity();
   }
 
   updateState() {
@@ -71,11 +82,17 @@ class ProductDetails extends Component {
   }
 
   render() {
-    const { product } = this.state;
+    const { product, quantity } = this.state;
     return (
       <div>
-        <Link to="/cart" data-testid="shopping-cart-button">
-          <img src="cart-icon.png" alt="cart-icon" />
+        <Link className="link-quantity" to="/cart" data-testid="shopping-cart-button">
+          <img src="cart-icon.png" alt="cart-icon" width="50px" />
+          <span
+            className="span-quantity"
+            data-testid="shopping-cart-size"
+          >
+            { quantity }
+          </span>
         </Link>
         <h1 data-testid="product-detail-name">{product.title}</h1>
         <button

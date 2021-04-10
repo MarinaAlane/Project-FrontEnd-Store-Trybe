@@ -21,12 +21,14 @@ class Home extends Component {
       categorieSet: '',
       products: '',
       categories: [],
+      quantity: 0,
     };
   }
 
   componentDidMount() {
     this.fetchCategories();
     this.getFromLocalStorage();
+    this.updateQuantity();
   }
 
   handleState({ target }) {
@@ -49,20 +51,29 @@ class Home extends Component {
     return [];
   }
 
+  updateQuantity() {
+    const itens = this.getFromLocalStorage();
+    const quantity = itens
+      .reduce((total, currentyValue) => total + currentyValue.qtd, 0);
+    this.setState((state) => ({ ...state, quantity }));
+  }
+
   putOnLocalStorage(product) {
     const products = [...this.getFromLocalStorage()];
     let status = true;
     products.forEach((item) => {
-      if (item.id === product.id) {
+      if (item.id === product.id && item.available_quantity > item.qtd) {
         item.qtd += 1;
         status = false;
       }
+      if (item.id === product.id) status = false;
     });
-    if (status) {
+    if (status && product.available_quantity > 0) {
       product = { ...product, qtd: 1 };
       products.push(product);
     }
     localStorage.setItem('cartItems', JSON.stringify(products));
+    this.updateQuantity();
   }
 
   async searchItemsByCategorie() {
@@ -122,7 +133,9 @@ class Home extends Component {
       <div data-testid="product" key={ product.id }>
         <p>{product.title}</p>
         <img alt="" src={ product.thumbnail } />
-        <p>{product.price}</p>
+        <p>Frete</p>
+        {(product.shipping.free_shipping)
+          && <p data-testid="free-shipping">Frete Grátis</p>}
         <Link
           to={ {
             pathname: '/productdetails',
@@ -146,7 +159,7 @@ class Home extends Component {
   }
 
   render() {
-    const { products } = this.state;
+    const { products, quantity } = this.state;
     return (
       <main>
         <section className="categories">
@@ -169,10 +182,17 @@ class Home extends Component {
               Buscar
             </button>
             <Link
+              className="link-quantity"
               to="/cart"
               data-testid="shopping-cart-button"
             >
               <img src="cart-icon.png" alt="cart-icon" />
+              <span
+                className="span-quantity"
+                data-testid="shopping-cart-size"
+              >
+                { quantity }
+              </span>
             </Link>
           </div>
           {(products) && this.renderItems()}
