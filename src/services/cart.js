@@ -29,5 +29,5 @@ export function saveToCart(id, name, amount) {
 
 export function recoverCart() {
   const currentCart = JSON.parse(localStorage.getItem('cart'));
-  return currentCart || [];
+  return currentCart;
 }

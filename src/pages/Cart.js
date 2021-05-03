@@ -14,7 +14,7 @@ class Cart extends React.Component {
     console.log(cartItems);
     return (
       <div>
-        {cartItems.length > 1
+        {cartItems
           ? (cartItems.map(({ id, name, amount }) => (
             <div className="cartItem" key={ id }>
               <p data-testid="shopping-cart-product-name">{ name }</p>
