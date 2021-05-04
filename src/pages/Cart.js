@@ -1,5 +1,5 @@
 import React from 'react';
-import { recoverCart } from '../services/cart';
+import { recoverCart, cartItemIncrease, cartItemDecrease } from '../services/cart';
 
 class Cart extends React.Component {
   constructor(props) {
@@ -19,6 +19,20 @@ class Cart extends React.Component {
             <div className="cartItem" key={ id }>
               <p data-testid="shopping-cart-product-name">{ name }</p>
               <p data-testid="shopping-cart-product-quantity">{ amount }</p>
+              <button
+                type="button"
+                data-testid="product-increase-quantity"
+                onClick={ () => cartItemIncrease(id) }
+              >
+                +
+              </button>
+              <button
+                type="button"
+                data-testid="product-decrease-quantity"
+                onClick={ () => cartItemDecrease(id, amount) }
+              >
+                -
+              </button>
             </div>
           )))
           : (

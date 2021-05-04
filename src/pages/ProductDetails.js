@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import AddToCart from '../components/AddToCart';
+import CartButton from '../components/CartButton';
 
 class ProductDetails extends React.Component {
   // constructor(props) {
@@ -20,7 +22,7 @@ class ProductDetails extends React.Component {
     // const { id,
     //   title, thumbnail, price, attributes, available_quantity, sold_quantity, stop_time, condition, accepts_mercadopago, currency_id,
     //   address, shipping } = this.props.location.state;
-    console.log(this.props);
+    // console.log(this.props);
     return (
       <section data-testid="product-detail-name">
         <img src={ thumbnail } alt={ title } />
@@ -35,6 +37,11 @@ class ProductDetails extends React.Component {
               </li>))
           }
         </p>
+        <AddToCart
+          onClickCallback={ this.handleAddToCart }
+          productInfos={ { id, title, amount: 1, testId: 'product-detail-add-to-cart' } }
+        />
+        <CartButton />
       </section>
     );
   }
