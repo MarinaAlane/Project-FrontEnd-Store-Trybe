@@ -22,7 +22,7 @@ class ProductDetails extends React.Component {
     // const { id,
     //   title, thumbnail, price, attributes, available_quantity, sold_quantity, stop_time, condition, accepts_mercadopago, currency_id,
     //   address, shipping } = this.props.location.state;
-    console.log(this.props);
+    // console.log(this.props);
     return (
       <section data-testid="product-detail-name">
         <img src={ thumbnail } alt={ title } />
