@@ -36,7 +36,16 @@ class Categories extends React.Component {
 
     const categories = allCategories
       .map((categoryMap) => (
-        <Category key={ categoryMap.id } category={ categoryMap } />
+        <label key={ categoryMap.id } htmlFor={ categoryMap.id }>
+          <input
+            data-testid="category"
+            type="radio"
+            id={ categoryMap.id }
+            name="category"
+            value={ categoryMap.name }
+          />
+          <li>{ categoryMap.name }</li>
+        </label>
       ));
     return <ul onChange={ this.handleChange }>{ categories }</ul>;
   }

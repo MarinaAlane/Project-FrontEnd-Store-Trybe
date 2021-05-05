@@ -12,44 +12,44 @@ class Home extends React.Component {
       searchText: '',
       products: [],
     };
-    this.changeHandler = this.changeHandler.bind(this);
+
     this.handleClick = this.handleClick.bind(this);
-    this.fetchProductIdAndQuery = this.fetchProductIdAndQuery.bind(this);
     this.getCategory = this.getCategory.bind(this);
+    this.changeHandler = this.changeHandler.bind(this);
+    this.seedStateProducts = this.seedStateProducts.bind(this);
+    this.fetchProductIdAndQuery = this.fetchProductIdAndQuery.bind(this);
   }
 
-  // componentDidMount() {
-  //   this.fetchProductIdAndQuery();
-  // }
-  // Se descomentar o codigo acima quebra o req4 e req6 passa; vice-versa;
-
+  // a cada click, chama a função fetchProductAndQuery com os elementos atuais do estado para povoar lista de produtos do estado;
   handleClick() {
-    this.fetchProductIdAndQuery();
+    this.seedStateProducts();
   }
 
-  async getCategory(category) {
-    const productsList = await this.fetchProductId(category);
-    this.setState({ categoryId: category, products: productsList });
+  // busca o event.target.value de categories via callback, salva o estado e chama a função para povoar produtos.
+  getCategory(category) {
+    this.setState({ categoryId: category });
+    this.fetchProductIdAndQuery(category);
   }
 
-  async fetchProductId(productId) {
-    const { results } = await api.getProductsFromCategory(productId);
-    return results;
-  }
-
-  async fetchProductIdAndQuery() {
-    const { searchText, categoryId } = this.state;
-    const { results } = await api.getProductsFromCategoryAndQuery(categoryId, searchText);
-    this.setState({ products: results });
-  }
-
+  // salva as modificações de texto do input no estado =D
   changeHandler(event) {
     this.setState({ searchText: event.target.value });
   }
 
+  // chama a função fetchProductAndQuery com os elementos atuais do estado para povoar lista de produtos;
+  seedStateProducts() {
+    const { searchText, categoryId } = this.state;
+    this.fetchProductIdAndQuery(categoryId, searchText);
+  }
+
+  // busca e salva lista de produtos por parametro 'categoryId' e 'searchText'
+  async fetchProductIdAndQuery(categoryId, searchText = '') {
+    const { results } = await api.getProductsFromCategoryAndQuery(categoryId, searchText);
+    this.setState({ products: results });
+  }
+
   render() {
     const { searchText, products } = this.state;
-
     return (
       <div>
         <Link data-testid="shopping-cart-button" to="/meucarrinho">carrinho</Link>
@@ -68,7 +68,7 @@ class Home extends React.Component {
         <h3 data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </h3>
-        <Products products={ products } />
+        <Products products={ products } seedStateProducts={ this.seedStateProducts } />
         <Categories getCategory={ this.getCategory } />
       </div>
     );
