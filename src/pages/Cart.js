@@ -37,7 +37,6 @@ class Cart extends React.Component {
 
   render() {
     const { cartItems } = this.state;
-    console.log(cartItems[0].amount);
     return (
       <div>
         {cartItems
