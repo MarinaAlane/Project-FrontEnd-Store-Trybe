@@ -6,8 +6,9 @@ import FeedbackProducts from '../components/FeedbackProducts';
 
 class ProductDetails extends React.Component {
   render() {
-    const { location: { state: { id, title, thumbnail, price, attributes,
-    } } } = this.props;
+    const {
+      location: { state: {
+        id, title, thumbnail, price, attributes, shipping } } } = this.props;
     return (
       <section data-testid="product-detail-name">
         <img src={ thumbnail } alt={ title } />
@@ -22,6 +23,11 @@ class ProductDetails extends React.Component {
               </li>))
           }
         </p>
+        { shipping.free_shipping ? (
+          <p data-testid="free-shipping">Frete grátis</p>
+        ) : (
+          <p> </p>
+        )}
         <AddToCart
           onClickCallback={ this.handleAddToCart }
           productInfos={ { id, title, amount: 1, testId: 'product-detail-add-to-cart' } }
