@@ -15,6 +15,7 @@ export function cartItemDecrease(id) {
   });
   localStorage.cart = JSON.stringify(updatedCart);
 }
+
 export function saveToCart(id, name, amount) {
   const currentCart = JSON.parse(localStorage.getItem('cart')) || [];
   const productFound = currentCart.find((product) => product.id === id);
