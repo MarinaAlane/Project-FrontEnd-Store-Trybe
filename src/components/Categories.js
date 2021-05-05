@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as api from '../services/api';
+import Category from './Category';
 
 class Categories extends React.Component {
   constructor(props) {

@@ -12,6 +12,7 @@ class Home extends React.Component {
       searchText: '',
       products: [],
     };
+
     this.handleClick = this.handleClick.bind(this);
     this.getCategory = this.getCategory.bind(this);
     this.changeHandler = this.changeHandler.bind(this);
