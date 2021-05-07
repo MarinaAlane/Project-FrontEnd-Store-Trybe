@@ -15,7 +15,10 @@ class Cart extends React.Component {
   cartItemIncrease(id) {
     const currentCart = JSON.parse(localStorage.getItem('cart'));
     const updatedCart = currentCart.map((product) => {
-      if (product.id === id) return { ...product, amount: product.amount + 1 };
+      if (product.id === id && product.quantity > product.amount) {
+        return { ...product, amount: product.amount + 1 };
+      }
+      console.log(product);
       return product;
     });
     localStorage.cart = JSON.stringify(updatedCart);
