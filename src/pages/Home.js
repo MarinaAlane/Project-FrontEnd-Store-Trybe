@@ -55,7 +55,7 @@ class Home extends React.Component {
     this.setState({
       productsList: response.results,
     });
-    console.log(response);
+    console.log(response.results);
   }
 
   async getCategoriesList() {
