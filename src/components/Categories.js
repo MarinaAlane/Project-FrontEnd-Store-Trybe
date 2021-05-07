@@ -3,39 +3,41 @@ import PropTypes from 'prop-types';
 
 class Categories extends React.Component {
   render() {
-    const { handleChange, arrayOfCategories } = this.props;
+    const { categories, handleInputRadio } = this.props;
     return (
-      <div>
-        { arrayOfCategories.map(
-          ({ id, name }) => (
-            <label key={ id } htmlFor={ name } name="category">
-              <input
-                data-testid="category"
-                type="radio"
-                id={ name }
-                name="categoryId"
-                value={ id }
-                onChange={ handleChange }
-              />
-              { name }
-              <br />
-            </label>
-          ),
-        )}
-      </div>
+      <section className="categorySideBar">
+        <h4 className="categoryTitle">Categorias</h4>
+        <ul className="categoriesList">
+          {categories.map((category) => (
+            <li key={ category.id }>
+              <label htmlFor={ category.id } key={ category.id }>
+                <input
+                  id={ category.id }
+                  type="radio"
+                  data-testid="category"
+                  key={ category.id }
+                  value={ category.id }
+                  name="categories-radio-button"
+                  onChange={ handleInputRadio }
+                />
+                {category.name}
+              </label>
+            </li>
+          ))}
+        </ul>
+      </section>
     );
   }
 }
 
-export default Categories;
-
 Categories.propTypes = {
-  arrayOfCategories:
-    PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.number,
-        name: PropTypes.string,
-      }),
-    ).isRequired,
-  handleChange: PropTypes.func,
-}.isRequired;
+  categories: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+    }),
+  ).isRequired,
+  handleInputRadio: PropTypes.func.isRequired,
+};
+
+export default Categories;

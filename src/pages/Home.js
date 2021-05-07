@@ -1,68 +1,88 @@
-import React, { Component } from 'react';
-import SearchBar from '../components/SearchBar';
-import ProductList from '../components/ProductList';
+import React from 'react';
+import CartButton from '../components/CartButton';
 import Categories from '../components/Categories';
-import * as api from '../services/api';
+import SearchForm from '../components/SearchForm';
+import SearchResult from '../components/SearchResult';
+import { getCategories, getProductsFromCategoryAndQuery } from '../services/api';
 
-class Home extends Component {
-  constructor(props) {
-    super(props);
+class Home extends React.Component {
+  constructor() {
+    super();
+    const currentCart = localStorage.getItem('cart');
     this.state = {
-      searchElement: '',
-      categoryId: '',
+      searchField: '',
+      productsList: [],
       categories: [],
-      products: [],
+      radioValue: '',
+      cartItems: currentCart || [],
     };
-    this.fetchCategories = this.fetchCategories.bind(this);
-    this.changeStateValue = this.changeStateValue.bind(this);
-    this.fetchApiByQuery = this.fetchApiByQuery.bind(this);
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleInputSubmit = this.handleInputSubmit.bind(this);
+    this.handleInputRadio = this.handleInputRadio.bind(this);
   }
 
   componentDidMount() {
-    this.fetchCategories();
+    this.getCategoriesList();
   }
 
-  async fetchCategories() {
-    const categoriesList = await api.getCategories();
+  handleInputChange(event) {
+    this.setState({
+      searchField: event.target.value,
+    });
+  }
+
+  async handleInputSubmit(event) {
+    event.preventDefault();
+    const { searchField, radioValue } = this.state;
+    if (searchField || radioValue) {
+      const response = await getProductsFromCategoryAndQuery(radioValue, searchField);
+      this.setState({
+        productsList: response.results,
+      });
+    }
+  }
+
+  async handleInputRadio(event) {
+    this.setState({
+      radioValue: await event.target.value,
+    });
+    await this.getQueryList();
+  }
+
+  async getQueryList() {
+    const { radioValue } = this.state;
+    const response = await getProductsFromCategoryAndQuery(radioValue);
+    this.setState({
+      productsList: response.results,
+    });
+    console.log(response);
+  }
+
+  async getCategoriesList() {
+    const categoriesList = await getCategories();
     this.setState({
       categories: categoriesList,
     });
   }
 
-  async fetchApiByQuery() {
-    this.setState(
-      async () => {
-        const { categoryId, searchElement } = this.state;
-        const segmentedItens = await api
-          .getProductsFromCategoryAndQuery(
-            categoryId, searchElement,
-          );
-        this.setState({
-          products: [...segmentedItens.results],
-        });
-      },
-    );
-  }
-
-  changeStateValue(event) {
-    this.setState({ [event.target.name]: event.target.value });
-    this.fetchApiByQuery();
-  }
-
   render() {
-    const { products, categories } = this.state;
+    const { categories, productsList, cartItems } = this.state;
     return (
-      <div>
-        <SearchBar
-          handleChange={ this.changeStateValue }
-          fetchApi={ this.fetchApiByQuery }
+      <>
+        <SearchForm
+          submitCallback={ this.handleInputSubmit }
+          handleInputChange={ this.handleInputChange }
         />
+        <CartButton />
         <Categories
-          handleChange={ this.changeStateValue }
-          arrayOfCategories={ categories }
+          categories={ categories }
+          handleInputRadio={ this.handleInputRadio }
         />
-        <ProductList arrayOfProducts={ products } />
-      </div>
+        <SearchResult
+          productsList={ productsList }
+          cartItems={ cartItems }
+        />
+      </>
     );
   }
 }
