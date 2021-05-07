@@ -2,27 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import AddToCart from '../components/AddToCart';
 import CartButton from '../components/CartButton';
+import FeedbackProducts from '../components/FeedbackProducts';
 
 class ProductDetails extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  //   // const { id } = this.props;
-  //   console.log(this.props);
-  //   // this.state = { load: true };
-  // }
-
   render() {
-    // const { id } = this.props;
-    // console.log(id);
-    // const { } = this.props;
-    const { location: { state: { id, title, thumbnail, price, attributes,
-      // available_quantity, sold_quantity, stop_time, condition, accepts_mercadopago,
-      // currency_id, address, shipping
-    } } } = this.props;
-    // const { id,
-    //   title, thumbnail, price, attributes, available_quantity, sold_quantity, stop_time, condition, accepts_mercadopago, currency_id,
-    //   address, shipping } = this.props.location.state;
-    // console.log(this.props);
+    const {
+      location: { state: {
+        id, title, thumbnail, price, attributes, shipping } } } = this.props;
     return (
       <section data-testid="product-detail-name">
         <img src={ thumbnail } alt={ title } />
@@ -37,11 +23,17 @@ class ProductDetails extends React.Component {
               </li>))
           }
         </p>
+        { shipping.free_shipping ? (
+          <p data-testid="free-shipping">Frete grátis</p>
+        ) : (
+          <p> </p>
+        )}
         <AddToCart
           onClickCallback={ this.handleAddToCart }
           productInfos={ { id, title, amount: 1, testId: 'product-detail-add-to-cart' } }
         />
         <CartButton />
+        <FeedbackProducts />
       </section>
     );
   }

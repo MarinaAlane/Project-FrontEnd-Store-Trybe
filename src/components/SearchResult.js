@@ -17,7 +17,16 @@ class SearchResult extends React.Component {
     return (
       <ul className="product-card" key={ productsList.id }>
         {
-          productsList.map(({ id, title, thumbnail, price, attributes, condition, address,
+          productsList.map(({
+            id,
+            title,
+            thumbnail,
+            price,
+            attributes,
+            condition,
+            address,
+            shipping,
+            available_quantity: quantity,
           }) => (
             <li key={ id } data-testid="product" className="product-by-query">
               <h3 className="product-title">{ title }</h3>
@@ -31,10 +40,21 @@ class SearchResult extends React.Component {
                 attributes={ attributes }
                 address={ address }
                 condition={ condition }
+                shipping={ shipping }
               />
+              { shipping.free_shipping ? (
+                <p data-testid="free-shipping">Frete grátis</p>
+              ) : (
+                <p> </p>
+              )}
               <AddToCart
                 onClickCallback={ this.handleAddToCart }
-                productInfos={ { id, title, amount: 1, testId: 'product-add-to-cart' } }
+                productInfos={ {
+                  id,
+                  title,
+                  amount: 1,
+                  testId: 'product-add-to-cart',
+                  quantity } }
               />
             </li>
           ))
