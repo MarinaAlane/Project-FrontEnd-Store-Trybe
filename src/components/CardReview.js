@@ -23,12 +23,11 @@ class CardReview extends Component {
     const { product, testid } = this.props;
     const { title, thumbnail, price } = product;
     return (
-      <div data-testid="product">
+      <div className="product" data-testid="product">
         <img className="imgProduct" src={ thumbnail } alt="pictyre" />
         <h4 data-testid={ testid }>{ title }</h4>
         <p>
-          R$:
-          { price }
+          { `R$ ${parseFloat(price).toFixed(2)}` }
         </p>
       </div>
     );

@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { getProductsFromCategoryAndQuery } from '../services/api';
 import ListCategories from './ListCategories';
-// import ProductDetais from './ProductDetais';
 import Card from '../components/Card';
 
 class LandingPage extends React.Component {
@@ -21,6 +20,7 @@ class LandingPage extends React.Component {
     this.inputButton = this.inputButton.bind(this);
     this.handleAddClick = this.handleAddClick.bind(this);
     this.quantityOfProducts = this.quantityOfProducts.bind(this);
+    this.productsContent = this.productsContent.bind(this);
   }
 
   componentDidMount() {
@@ -76,51 +76,18 @@ class LandingPage extends React.Component {
     });
   }
 
-  inputButton() {
-    const { numberOfProducts } = this.state;
-    return (
-      <>
-        <input type="text" data-testid="query-input" onChange={ this.hendleChange } />
-        <button
-          type="button"
-          data-testid="query-button"
-          onClick={ () => this.fetchProductsByQuery() }
-        >
-          Pesquisar
-        </button>
-        <Link to="/cart" data-testid="shopping-cart-button">
-          <div>
-            <img
-              src="https://www.pinclipart.com/picdir/big/10-108329_cart-clip-art-at-clker-com-vector-shopping.png"
-              alt="cart"
-              className="button"
-            />
-            <p data-testid="shopping-cart-size">{ numberOfProducts }</p>
-          </div>
-        </Link>
-      </>
-    );
-  }
-
-  render() {
+  productsContent() {
     const { products } = this.state;
-
     if (products.length === 0) {
       return (
-        <>
-          { this.inputButton() }
-          <h1 data-testid="home-initial-message">
-            Digite algum termo de pesquisa ou escolha uma categoria.
-          </h1>
-          <ListCategories onChange={ this.fetchProductsByCategoryId } />
-        </>
+        <h3 className="subtitle" data-testid="home-initial-message">
+          Digite algum termo de pesquisa ou escolha uma categoria.
+        </h3>
       );
     }
-
     return (
-      <div>
-        { this.inputButton() }
-        {products
+      <div className="products">
+        { products
           .map((product) => (
             <Card
               product={ product }
@@ -128,7 +95,54 @@ class LandingPage extends React.Component {
               handleAddClick={ this.handleAddClick }
             />
           ))}
+      </div>
+    );
+  }
+
+  inputButton() {
+    const { numberOfProducts } = this.state;
+    return (
+      <div className="inputContent">
+        <input
+          type="text"
+          data-testid="query-input"
+          onChange={ this.hendleChange }
+          className="queryInput"
+          placeholder=" 🔍"
+        />
+        <button
+          type="button"
+          data-testid="query-button"
+          onClick={ () => this.fetchProductsByQuery() }
+          className="queryButton"
+        >
+          Pesquisar
+        </button>
+        <Link className="cartHome" to="/cart" data-testid="shopping-cart-button">
+          <img
+            src="https://img.icons8.com/fluent/48/000000/shopping-cart-loaded.png"
+            alt="cart"
+            className="button"
+          />
+          <span
+            className="qtd"
+            data-testid="shopping-cart-size"
+          >
+            { numberOfProducts }
+          </span>
+        </Link>
+      </div>
+    );
+  }
+
+  render() {
+    return (
+      <div className="landingPage">
         <ListCategories onChange={ this.fetchProductsByCategoryId } />
+        <div className="container">
+          { this.inputButton() }
+          { this.productsContent() }
+        </div>
       </div>
     );
   }

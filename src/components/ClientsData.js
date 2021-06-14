@@ -44,6 +44,7 @@ class ClientsData extends Component {
         value={ keyName }
         onChange={ this.handleChange }
         data-testid={ testid }
+        className={ tagName }
       />
     );
   }
@@ -66,19 +67,19 @@ class ClientsData extends Component {
       complemento, numero, cidade, estado } = this.state;
     return (
       <form className="form">
-        <fieldset>
+        <fieldset className="client">
           <legend>Informações do Comprador</legend>
-          <div>
+          <div className="div1">
             { this.onTag(name, 'name', 'Nome Completo', 'checkout-fullname') }
             { this.onTag(cpf, 'cpf', 'CPF', 'checkout-cpf') }
             { this.onTag(email, 'email', 'Email', 'checkout-email') }
             { this.onTag(telefone, 'telefone', 'Telefone', 'checkout-phone') }
           </div>
-          <div>
+          <div className="div2">
             { this.onTag(cep, 'cep', 'CEP', 'checkout-cep') }
             { this.onTag(endereco, 'endereco', 'Endereço', 'checkout-address') }
           </div>
-          <div>
+          <div className="div3">
             { this.onTag(complemento, 'complemento', 'Complemento') }
             { this.onTag(numero, 'numero', 'Número') }
             { this.onTag(cidade, 'cidade', 'Cidade') }
@@ -95,6 +96,7 @@ class ClientsData extends Component {
           type="button"
           data-testid="checkout-products"
           onClick={ this.checkForm }
+          className="buy"
         >
           Comprar
         </button>

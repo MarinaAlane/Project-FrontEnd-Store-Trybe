@@ -27,7 +27,7 @@ class ListCategories extends React.Component {
   render() {
     const { categories } = this.state;
     return (
-      <div>
+      <div className="listCategories">
         <p>Categorias:</p>
         <div onChange={ this.handleClick }>
           {categories.map((category) => (
